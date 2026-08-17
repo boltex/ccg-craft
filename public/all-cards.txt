@@ -1,0 +1,7426 @@
+7425
+2294, abandon hope
+4778, abandoned outpost
+1366, abbey gargoyles
+1367, abbey matron
+2127, abduction
+2128, abeyance
+2129, abjure
+4014, abolish
+462, abomination
+2130, aboroth
+4780, aboshan's desire
+4779, aboshan, cephalid emperor
+3250, about face
+2915, absolute grace
+2916, absolute law
+4157, absorb
+299, abu ja'far
+6478, abuna's chant
+2917, abundance
+2131, abyssal gatekeeper
+2918, abyssal horror
+1625, abyssal hunter
+7464, abyssal nightstalker
+993, abyssal specter
+3393, academy rector
+2919, academy researchers
+5113, accelerate
+5879, accelerated mutation
+4781, acceptable losses
+3871, accumulated knowledge
+5399, accursed centaur
+463, acid rain
+1626, acidic dagger
+2629, acidic sliver
+2920, acidic soil
+5114, acorn harvest
+6479, acquire
+2921, acridian
+464, active volcano
+7099, adamaro, first to desire
+994, adarkar sentinel
+995, adarkar unicorn
+996, adarkar wastes
+4158, addle
+465, adun oakenshield
+2295, advance scout
+6480, advanced hoverguard
+466, adventurers' guildhouse
+4782, aegis of honor
+997, aegis of the meek
+891, aeolipile
+467, aerathi berserker
+3536, aerial caravan
+1481, aesthir glider
+3872, aether barrier
+4783, aether burst
+5400, aether charge
+2132, aether flash
+4635, aether mutation
+4159, aether rift
+7100, aether shockwave
+6313, aether snap
+6022, aether spellbomb
+3394, aether sting
+1368, aether storm
+2772, aether tide
+6314, aether vial
+4784, afflict
+1627, afiya grove
+1628, afterlife
+2296, aftershock
+6315, ageless entity
+5880, ageless sentinels
+4015, agent of shauku
+1482, agent of stromgald
+5401, aggravated assault
+998, aggression
+4160, aggressive urge
+1629, agility
+4161, agonizing demise
+2133, agonizing memories
+3873, air bladder
+7, air elemental
+5402, airborne aid
+5403, airdrop condor
+468, aisling leprechaun
+6643, akki avalanchers
+6934, akki blizzard-herder
+6644, akki coalflinger
+7101, akki drillmaster
+6645, akki lavarunner
+6935, akki raider
+6646, akki rockspeaker
+7102, akki underling
+6647, akki underminer
+5404, akroma's blessing
+5735, akroma's devoted
+5405, akroma's vengeance
+5734, akroma, angel of wrath
+469, akron legionnaire
+1960, aku djinn
+7103, akuta, born of ash
+470, al-abara's carpet
+2134, alabaster dragon
+4162, alabaster leech
+471, alabaster potion
+3538, alabaster wall
+7466, alaborn cavalier
+7467, alaborn grenadier
+7468, alaborn musketeer
+7469, alaborn trooper
+7470, alaborn veteran
+7471, alaborn zealot
+300, aladdin
+301, aladdin's lamp
+302, aladdin's ring
+1630, alarum
+2922, albino troll
+472, alchor's tomb
+1631, aleatory
+7619, alert shu infantry
+4017, alexi's cloak
+4016, alexi, zephyr mage
+303, ali baba
+304, ali from cairo
+1369, aliban's tower
+473, all hallow's eve
+6481, all suns' dawn
+2773, allay
+3539, alley grifters
+4492, allied strategies
+4163, alloy golem
+7265, alluring scent
+2135, alms
+4493, alpha kavu
+6023, alpha myr
+5881, alpha status
+999, altar of bone
+2297, altar of dementia
+6024, altar of shadows
+6025, altar's light
+5115, alter reality
+2298, aluren
+5116, ambassador laquatus
+1632, amber prison
+7620, ambition's cost
+1370, ambush
+5882, ambush commander
+1371, ambush party
+772, amnesia
+2630, amok
+4494, amphibious kavu
+474, amrou kithkin
+4785, amugaba
+377, amulet of kroog
+1000, amulet of quoz
+1633, amulet of unmaking
+1376, an-havva constable
+1377, an-havva inn
+1378, an-havva township
+1379, an-zerrin ruins
+4636, ana disciple
+4637, ana sanctuary
+1372, anaba ancestor
+1373, anaba bodyguard
+1374, anaba shaman
+1375, anaba spirit crafter
+2923, anaconda
+2774, anarchist
+1001, anarchy
+4638, anavolver
+5256, ancestor's chosen
+5406, ancestor's prophet
+2136, ancestral knowledge
+3540, ancestral mask
+1634, ancestral memories
+8, ancestral recall
+4787, ancestral tribute
+7473, ancient craving
+6026, ancient den
+3874, ancient hydra
+4164, ancient kavu
+5883, ancient ooze
+2299, ancient runes
+3395, ancient silverback
+4495, ancient spider
+4165, ancient spring
+2300, ancient tomb
+4166, andradite leech
+7474, angel of fury
+4167, angel of mercy
+5117, angel of retribution
+6316, angel's feather
+3252, angel's trumpet
+4639, angelfire crusader
+2775, angelic blessing
+2924, angelic chorus
+3251, angelic curator
+3875, angelic favor
+2925, angelic page
+2301, angelic protector
+2137, angelic renewal
+4168, angelic shield
+475, angelic voices
+4788, angelic wall
+5257, anger
+773, angry mob
+476, angus mackenzie
+4789, animal boneyard
+5407, animal magnetism
+9, animate artifact
+10, animate dead
+3876, animate land
+11, animate wall
+12, ankh of mishra
+5408, annex
+4169, annihilate
+2926, annul
+6482, anodet lurker
+2302, anoint
+2927, antagonism
+3253, anthroplasm
+477, anti-magic aura
+5258, anurid barkripper
+5259, anurid brushhopper
+5409, anurid murkdiver
+5118, anurid scavenger
+5260, anurid swarmsnapper
+1961, anvil of bogardan
+2138, apathy
+2303, apes of rath
+5410, aphetto alchemist
+5411, aphetto dredging
+5736, aphetto exterminator
+5412, aphetto grifter
+5884, aphetto runecaster
+5413, aphetto vulture
+2304, apocalypse
+1380, apocalypse chime
+3396, apprentice necromancer
+7478, apprentice sorcerer
+774, apprentice wizard
+5119, aquamoeba
+7104, araba mothrider
+6483, arachnoid
+7105, arashi, the sky asunder
+478, arboria
+2928, arc lightning
+3877, arc mage
+6028, arc-slogger
+479, arcades sabboth
+1483, arcane denial
+2929, arcane laboratory
+6317, arcane spyglass
+5261, arcane teachings
+5414, arcanis the omnipotent
+6318, arcbound bruiser
+6319, arcbound crusher
+6320, arcbound fiend
+6321, arcbound hybrid
+6322, arcbound lancer
+6323, arcbound overseer
+6324, arcbound ravager
+6325, arcbound reclaimer
+6326, arcbound slith
+6327, arcbound stinger
+6484, arcbound wanderer
+6328, arcbound worker
+4170, archaeological dig
+1962, archangel
+3397, archery training
+3254, archivist
+1002, arctic foxes
+4496, arctic merfolk
+2139, arctic wolves
+1003, arcum's sleigh
+1004, arcum's weathervane
+1005, arcum's whistle
+2140, ardent militia
+4171, ardent soldier
+1, arena
+480, arena of the ancients
+1006, arenson's aura
+378, argivian archaeologist
+379, argivian blacksmith
+2141, argivian find
+2142, argivian restoration
+2930, argothian elder
+2931, argothian enchantress
+380, argothian pixies
+2932, argothian swine
+381, argothian treefolk
+2933, argothian wurm
+5885, ark of blight
+4172, armadillo cloak
+13, armageddon
+382, armageddon clock
+6485, armed response
+3541, armistice
+1007, armor of faith
+1635, armor of thorns
+2305, armor sliver
+892, armor thrull
+7481, armored galleon
+7482, armored griffin
+4173, armored guardian
+2306, armored pegasus
+1636, armorer guildmage
+3542, arms dealer
+1963, army ants
+305, army of allah
+1008, arnjlot's ascent
+3543, arrest
+7273, arrogant vampire
+5120, arrogant wurm
+383, artifact blast
+4174, artifact mutation
+384, artifact possession
+385, artifact ward
+6486, artificer's intuition
+5415, artificial evolution
+3878, ascendant evincar
+5416, ascending aven
+4790, ashen firebeast
+1009, ashen ghoul
+6936, ashen monstrosity
+1637, ashen powder
+6648, ashen-skin zubera
+7106, ashes of the fallen
+775, ashes to ashes
+387, ashnod's altar
+386, ashnod's battle gear
+1484, ashnod's cylix
+388, ashnod's transmogrant
+1638, asmira, holy avenger
+14, aspect of wolf
+7274, assassin's blade
+4175, assault | battery
+3544, assembly hall
+6030, assert authority
+5417, astral slide
+5886, astral steel
+1485, astrolabe
+4176, atalya, samite master
+389, atog
+4791, atogatog
+3398, attrition
+2934, attunement
+6937, aura barbs
+4497, aura blast
+5418, aura extraction
+3255, aura flux
+4018, aura fracture
+4792, aura graft
+4177, aura mutation
+6649, aura of dominion
+2143, aura of silence
+4178, aura shards
+3399, aura thief
+4793, auramancer
+2307, auratog
+5419, aurification
+6032, auriok bladewarden
+6487, auriok champion
+6329, auriok glaivemaster
+6488, auriok salvagers
+6330, auriok siege sled
+6033, auriok steelshaper
+6034, auriok transfixer
+6489, auriok windwalker
+1010, aurochs
+4498, aurora griffin
+1639, auspicious ancestor
+1381, autumn willow
+1011, avalanche
+3256, avalanche riders
+5420, avarax
+6490, avarice totem
+4019, avatar of fury
+4020, avatar of hope
+4021, avatar of might
+4022, avatar of will
+4023, avatar of woe
+4794, aven archer
+5421, aven brigadier
+4795, aven cloudchaser
+5737, aven envoy
+5887, aven farseer
+5422, aven fateshaper
+4796, aven fisher
+4797, aven flock
+5262, aven fogbringer
+5888, aven liberator
+5738, aven redeemer
+4798, aven shrine
+4799, aven smokeweaver
+5423, aven soulgazer
+5121, aven trooper
+5263, aven warcraft
+5739, aven warhawk
+4800, aven windreader
+3879, avenger en-dal
+2308, avenging angel
+2776, avenging druid
+2144, avizoa
+481, avoid fate
+2631, awakening
+6035, awe strike
+1486, awesome presence
+482, axelrod gunnarson
+483, ayesha tanaka
+1382, aysen abbey
+1383, aysen bureaucrats
+1384, aysen crusader
+1385, aysen highway
+7107, ayumi, the last visitor
+6650, azami, lady of scrolls
+1640, azimaet drake
+484, azure drake
+6651, azusa, lost but seeking
+2935, back to basics
+485, backdraft
+486, backfire
+4179, backlash
+5424, backslide
+15, bad moon
+1641, bad river
+16, badlands
+1386, baki's curse
+6938, baku altar
+17, balance
+7275, balance of power
+4801, balancing act
+1012, balduvian barbarians
+1013, balduvian bears
+1014, balduvian conjurer
+1487, balduvian dead
+1488, balduvian horde
+1015, balduvian hydra
+1016, balduvian shaman
+1489, balduvian trading post
+1490, balduvian war-makers
+7276, baleful stare
+776, ball lightning
+3545, ballista squad
+3546, balloon peddler
+893, balm of restoration
+4802, balshan beguiler
+5122, balshan collaborator
+4803, balshan griffin
+5264, balthor the defiled
+5123, balthor the stout
+4804, bamboozle
+2632, bandage
+5740, bane of the living
+777, banshee
+6036, banshee's blade
+5265, barbarian bully
+7622, barbarian general
+1017, barbarian guides
+7623, barbarian horde
+4805, barbarian lunatic
+5124, barbarian outcast
+4806, barbarian ring
+487, barbary apes
+4024, barbed field
+1642, barbed foliage
+6331, barbed lightning
+1018, barbed sextant
+2309, barbed sliver
+3547, barbed wire
+1643, barbed-back wurm
+7483, barbtooth wurm
+7484, bargain
+3548, bargaining table
+2145, barishi
+5425, barkhide mauler
+488, barktooth warbeard
+778, barl's cage
+1387, baron sengir
+7108, barrel down sokenzan
+1644, barreling attack
+5426, barren moor
+2937, barrin's codex
+4180, barrin's spite
+4181, barrin's unmaking
+2936, barrin, master wizard
+2146, barrow ghoul
+489, bartel runeaxe
+6037, barter in blood
+894, basal thrull
+1645, basalt golem
+18, basalt monolith
+4807, bash to bits
+5125, basking rootwalla
+6491, baton of courage
+1019, baton of morale
+6492, battered golem
+5427, battering craghorn
+390, battering ram
+1020, battle cry
+1021, battle frenzy
+4808, battle of wits
+3549, battle rampart
+5266, battle screech
+3550, battle squadron
+4809, battle strain
+6652, battle-mad ronin
+4640, battlefield forge
+5428, battlefield medic
+3880, battlefield percher
+5267, battlefield scrounger
+6038, battlegrowth
+5268, battlewise aven
+1646, bay falcon
+19, bayou
+2310, bayou dragonfly
+306, bazaar of baghdad
+1647, bazaar of wonders
+6493, beacon of creation
+5741, beacon of destiny
+6494, beacon of destruction
+6495, beacon of immortality
+6496, beacon of tomorrows
+6497, beacon of unrest
+7485, bear cub
+4810, bearscape
+4811, beast attack
+3257, beast of burden
+1388, beast walkers
+490, beasts of bogardan
+2938, bedlam
+7277, bee sting
+2939, befoul
+3881, belbe's armor
+3882, belbe's percher
+3883, belbe's portal
+2311, bellowing fiend
+4812, beloved chaplain
+6654, ben-ben, akki hermit
+4182, benalish emissary
+4183, benalish heralds
+20, benalish hero
+2147, benalish infantry
+2148, benalish knight
+4184, benalish lancer
+2149, benalish missionary
+4185, benalish trapper
+4186, bend or break
+5269, benevolent bodyguard
+1648, benevolent unicorn
+2312, benthic behemoth
+1649, benthic djinn
+1491, benthic explorers
+2777, bequeathal
+2940, bereavement
+21, berserk
+5742, berserk murlodont
+1492, bestial fury
+1964, betrayal
+6039, betrayal of flesh
+2150, betrothed of fire
+3551, bifurcate
+6939, bile urchin
+4187, bind
+1650, binding agony
+1022, binding grasp
+5429, biorhythm
+5430, birchlore rangers
+307, bird maiden
+22, birds of paradise
+1389, black carriage
+23, black knight
+24, black lotus
+491, black mana battery
+3552, black market
+1023, black scarab
+25, black vise
+26, black ward
+5431, blackmail
+5743, blade sliver
+6940, blademane baku
+5889, bladewing the risen
+5890, bladewing's thrall
+2941, blanchwood armor
+2942, blanchwood treefolk
+1965, blanket of night
+2943, blasted landscape
+3553, blaster mage
+6498, blasting station
+3884, blastoderm
+5432, blatant thievery
+7278, blaze
+27, blaze of glory
+492, blazing effigy
+4813, blazing salvo
+6941, blazing shoal
+4188, blazing specter
+6655, blessed breath
+4814, blessed orator
+3258, blessed reversal
+4025, blessed wind
+1024, blessed wine
+28, blessing
+6942, blessing of leeches
+493, blight
+1651, blighted shaman
+6499, blind creeper
+1652, blind fury
+4189, blind seer
+6656, blind with anger
+3885, blinding angel
+6040, blinding beam
+1653, blinding light
+6943, blinding powder
+1025, blinking spirit
+6500, blinkmoth infusion
+6332, blinkmoth nexus
+6041, blinkmoth urn
+6042, blinkmoth well
+1654, blistering barrier
+5433, blistering firecat
+1026, blizzard
+3400, blizzard elemental
+3259, bloated toad
+3554, blockade runner
+5744, blood celebrant
+7109, blood clock
+2313, blood frenzy
+3555, blood hound
+494, blood lust
+779, blood moon
+3556, blood oath
+780, blood of the martyr
+2314, blood pet
+6657, blood rites
+6658, blood speaker
+2944, blood vassal
+4815, bloodcurdler
+7488, bloodcurdling scream
+4641, bloodfire colossus
+4642, bloodfire dwarf
+4643, bloodfire infusion
+4644, bloodfire kavu
+5434, bloodline shaman
+2151, bloodrock cyclops
+6043, bloodscent
+3401, bloodshot cyclops
+5435, bloodstained mire
+5745, bloodstoke howler
+4191, bloodstone cameo
+6659, bloodthirsty ogre
+2152, blossoming wreath
+29, blue elemental blast
+495, blue mana battery
+1027, blue scarab
+30, blue ward
+4192, blurred mongoose
+3557, boa constrictor
+6944, body of jukai
+3402, body snatcher
+4499, bog down
+4026, bog elemental
+4027, bog glider
+4645, bog gnarr
+781, bog imp
+4193, bog initiate
+2945, bog raiders
+782, bog rats
+3558, bog smugglers
+3559, bog witch
+31, bog wraith
+4816, bog wreckage
+2153, bogardan firefiend
+1966, bogardan phoenix
+2315, boil
+2154, boiling blood
+7284, boiling seas
+3886, bola warrior
+4817, bomb squad
+2155, bone dancer
+783, bone flute
+1655, bone harvest
+1656, bone mask
+1028, bone shaman
+3260, bone shredder
+5436, boneknitter
+5126, boneshard slasher
+6044, bonesplitter
+5891, bonethorn valesk
+2316, booby trap
+5270, book burning
+784, book of rass
+496, boomerang
+7285, border guard
+5271, border patrol
+497, boris devilboon
+7625, borrowing 100,000 arrows
+7626, borrowing the east wind
+6660, boseiju, who shelters all
+6045, bosh, iron golem
+2156, bosium strip
+2317, bottle gnomes
+308, bottle of suleiman
+2633, bottomless pit
+895, bottomless vault
+3261, bouncing beebles
+7110, bounteous kirin
+2318, bounty hunter
+1493, bounty of the hunt
+4818, braids, cabal minion
+3403, braidwood cup
+3404, braidwood sextant
+5892, brain freeze
+32, braingeyser
+1029, brainstorm
+785, brainwash
+5746, branchsnap lorian
+2946, brand
+1030, brand of ill omen
+4028, branded brawlers
+4646, brass herald
+309, brass man
+3405, brass secretary
+1967, brass-talon chimera
+896, brassclaw orcs
+2947, bravado
+3561, brawl
+5272, brawn
+2948, breach
+5893, break asunder
+5437, break open
+5273, breaking point
+4194, breaking wave
+5127, breakthrough
+4195, breath of darigaaz
+1031, breath of dreams
+7286, breath of life
+1658, breathstealer
+1968, breathstealer's crypt
+897, breeding pit
+1969, breezekeeper
+3562, briar patch
+2157, briar shield
+7111, briarknit kami
+3563, bribery
+5438, brightstone ritual
+2949, brilliant halo
+7627, brilliant plan
+7490, brimstone dragon
+498, brine hag
+3406, brine seer
+1032, brine shaman
+6501, bringer of the black dawn
+6502, bringer of the blue dawn
+6503, bringer of the green dawn
+6504, bringer of the red dawn
+6505, bringer of the white dawn
+3262, brink of madness
+7628, broken dam
+2319, broken fall
+1390, broken visage
+5747, brontotherium
+499, bronze horse
+391, bronze tablet
+1970, brood of cockroaches
+5748, brood sliver
+5439, broodhatch nantuko
+6047, broodstar
+786, brothers of fire
+6661, brothers yamazaki
+5274, browbeat
+1033, brown ouphe
+1494, browse
+2634, brush with death
+1034, brushland
+1659, brushwagg
+6662, brutal deceiver
+7491, brutal nightstalker
+4029, brutal suppression
+2158, bubble matrix
+3407, bubbling beebles
+3408, bubbling muck
+6663, budoka gardener
+6945, budoka pupil
+1660, builder's bane
+1971, bull elephant
+2950, bull hippo
+2635, bullwhip
+2951, bulwark
+3564, buoyancy
+6333, burden of greed
+2636, burgeoning
+2159, buried alive
+7288, burning cloak
+7629, burning fields
+7630, burning of xinye
+1661, burning palm efreet
+4820, burning sands
+1662, burning shield askari
+5275, burning wish
+7112, burning-eye zubera
+1495, burnout
+1035, burnt offering
+6664, burr grafter
+33, burrowing
+3263, burst of energy
+6665, bushi tenderfoot
+5440, butcher orgg
+5441, cabal archon
+5128, cabal coffers
+5894, cabal conditioning
+5442, cabal executioner
+4821, cabal inquisitor
+5895, cabal interrogator
+4822, cabal patriarch
+4823, cabal pit
+5129, cabal ritual
+4824, cabal shrine
+5443, cabal slaver
+5130, cabal surgeon
+5276, cabal therapy
+5131, cabal torturer
+5277, cabal trainee
+2952, cackling fiend
+6506, cackling imp
+3565, cackling witch
+1663, cadaverous bloom
+1664, cadaverous knight
+6666, cage of hands
+5278, cagemail
+4500, caldera kavu
+2320, caldera lake
+6946, call for blood
+4825, call of the herd
+2160, call of the wild
+1036, call to arms
+6667, call to glory
+5896, call to the grave
+5749, caller of the claw
+3566, caller of the hunt
+6668, callous deceiver
+4196, callous giant
+5444, callous oppressor
+6947, callow jushi
+2637, calming licid
+4030, calming verse
+3409, caltrops
+310, camel
+34, camouflage
+392, candelabra of tawnos
+6669, candles' glow
+2638, cannibalize
+5279, canopy claws
+5750, canopy crawler
+1665, canopy dragon
+2321, canopy spider
+4197, canopy surge
+4826, cantivore
+2322, canyon drake
+2323, canyon wildcat
+7631, cao cao, lord of wei
+7632, cao ren, wei commander
+3410, capashen knight
+3411, capashen standard
+3412, capashen templar
+4198, capashen unicorn
+7289, capricious sorcerer
+2324, capsize
+4199, captain sisay
+4647, captain's maneuver
+7113, captive flame
+7633, capture of jingzhou
+1391, carapace
+5897, carbonize
+4827, careful study
+1037, caribou range
+2639, carnassid
+3413, carnival of souls
+787, carnivorous plant
+2778, carnophage
+2953, carpet of flowers
+1496, carrier pigeons
+1666, carrion
+500, carrion ants
+2954, carrion beetles
+5898, carrion feeder
+5132, carrion rats
+3887, carrion wall
+5133, carrion wurm
+2325, carrionette
+6334, carry away
+2779, cartographer
+1497, casting of bones
+35, castle
+1392, castle sengir
+2780, cat burglar
+501, cat warriors
+2781, cataclysm
+1667, catacomb dragon
+2955, catalog
+4829, catalyst stone
+5445, catapult master
+5446, catapult squad
+2956, catastrophe
+3567, cateran brute
+3568, cateran enforcer
+3569, cateran kidnappers
+3570, cateran overlord
+3571, cateran persuader
+3572, cateran slaver
+3573, cateran summons
+502, cathedral of serra
+2957, cathodion
+4200, cauldron dance
+4830, caustic tar
+3574, caustic wasps
+788, cave people
+3575, cave sense
+2958, cave tiger
+3576, cave-in
+3577, cavern crawler
+4501, cavern harpy
+503, caverns of despair
+4648, caves of koilos
+4831, cease-fire
+4031, celestial convergence
+1668, celestial dawn
+5751, celestial gatekeeper
+7114, celestial kirin
+36, celestial prism
+1038, celestial sword
+1393, cemetery gate
+1039, centaur archer
+5134, centaur chieftain
+4832, centaur garden
+5447, centaur glade
+5280, centaur rootcaster
+5135, centaur veteran
+5136, cephalid aristocrat
+4833, cephalid broker
+4834, cephalid coliseum
+5281, cephalid constable
+5137, cephalid illusionist
+5282, cephalid inkshrouder
+4835, cephalid looter
+5752, cephalid pathmage
+4836, cephalid retainer
+5138, cephalid sage
+4837, cephalid scout
+4838, cephalid shrine
+5139, cephalid snitch
+5140, cephalid vandal
+3578, ceremonial guard
+1669, cerulean wyvern
+3264, cessation
+4649, ceta disciple
+4650, ceta sanctuary
+4651, cetavolver
+504, chain lightning
+5448, chain of acid
+5449, chain of plasma
+5450, chain of silence
+5451, chain of smog
+5452, chain of vapor
+1394, chain stasis
+5142, chainer's edict
+5141, chainer, dementia master
+4839, chainflinger
+505, chains of mephistopheles
+6050, chalice of the void
+4840, chamber of manipulation
+3579, chambered nautilus
+3580, chameleon spirit
+7634, champion's victory
+4841, chance encounter
+1395, chandler
+2640, change of heart
+37, channel
+6507, channel the suns
+1670, chaos charm
+1498, chaos harlequin
+1040, chaos lord
+1041, chaos moon
+38, chaos orb
+39, chaoslace
+1671, chaosphere
+2326, chaotic goo
+4201, chaotic strike
+1672, charcoal diamond
+7115, charge across the araba
+7290, charging bandits
+2782, charging paladin
+2327, charging rhino
+5453, charging slateback
+4202, charging troll
+1673, chariot of the sun
+3581, charisma
+3582, charm peddler
+3583, charmed griffin
+4842, charmed pendant
+5899, chartooth cougar
+5283, chastise
+4843, chatter of the squirrel
+3888, chieftain en-dal
+2959, child of gaea
+6948, child of thorns
+4844, childhood horror
+2328, chill
+5900, chill haunting
+4032, chilling apparition
+3414, chime of night
+6508, chimeric coils
+6335, chimeric egg
+4033, chimeric idol
+2161, chimeric sphere
+2960, chimeric staff
+6051, chimney imp
+6949, chisei, heart of oceans
+6336, chittering rats
+4845, chlorophant
+3584, cho-arrim alchemist
+3585, cho-arrim bruiser
+3586, cho-arrim legate
+3588, cho-manno's blessing
+3587, cho-manno, revolutionary
+7116, choice of damnations
+2329, choke
+1674, choking sands
+5454, choking tethers
+2162, choking vines
+7492, chorus of woe
+1042, chromatic armor
+4203, chromatic sphere
+6053, chrome mox
+6337, chromescale drake
+5753, chromeshell crab
+506, chromium
+1972, chronatog
+1043, chub toad
+5143, churning eddy
+1675, cinder cloud
+2783, cinder crawler
+3589, cinder elemental
+2163, cinder giant
+2330, cinder marsh
+3415, cinder seer
+4204, cinder shade
+2164, cinder wall
+1676, circle of despair
+393, circle of protection: artifacts
+40, circle of protection: black
+41, circle of protection: blue
+42, circle of protection: green
+43, circle of protection: red
+2335, circle of protection: shadow
+44, circle of protection: white
+5455, circle of solace
+2165, circling vultures
+5144, circular logic
+4034, citadel of pain
+2961, citanul centaurs
+394, citanul druid
+2962, citanul flute
+2963, citanul hierophants
+311, city in a bottle
+312, city of brass
+789, city of shadows
+1973, city of solitude
+2784, city of traitors
+1677, civic guildmage
+1049, clairvoyance
+6950, clash of realities
+2964, claws of gix
+5901, claws of wirewood
+395, clay statue
+6670, cleanfall
+507, cleanse
+790, cleansing
+5145, cleansing meditation
+2965, clear
+3590, clear the land
+6510, clearwater goblet
+2337, clergy en-vec
+508, clergy of the holy nimbus
+5754, clickslither
+1050, cloak of confusion
+7293, cloak of feathers
+1678, cloak of invisibility
+2966, cloak of mists
+6511, clock of omens
+396, clockwork avian
+45, clockwork beast
+6054, clockwork beetle
+6055, clockwork condor
+6056, clockwork dragon
+1396, clockwork gnomes
+1397, clockwork steed
+1398, clockwork swarm
+6057, clockwork vorrac
+46, clone
+3591, close quarters
+2338, clot sliver
+4502, cloud cover
+2166, cloud djinn
+7294, cloud dragon
+1974, cloud elemental
+3265, cloud of faeries
+7295, cloud pirates
+2641, cloud spirit
+3592, cloud sprite
+2339, cloudchaser eagle
+6671, cloudcrest lake
+7117, cloudhoof kirin
+6058, cloudpost
+5755, cloudreach cavalry
+3889, cloudskate
+5902, clutch of undeath
+791, coal golem
+4652, coalition flag
+4653, coalition honor guard
+4205, coalition victory
+5903, coast watcher
+4654, coastal drake
+4035, coastal hornclaw
+3593, coastal piracy
+4206, coastal tower
+7493, coastal wizard
+2785, coat of arms
+6059, cobalt golem
+47, cockatrice
+509, cocoon
+1975, coercion
+4036, coffin puppets
+4846, coffin purge
+2341, coffin queen
+4847, cognivore
+2342, coiled tinviper
+3890, coiling woodworm
+2167, coils of the medusa
+1051, cold snap
+2343, cold storage
+4207, collapsing borders
+4208, collective restraint
+3594, collective unconscious
+3416, colos yearling
+397, colossus of sardia
+898, combat medic
+7297, command of unsummoning
+5284, commander eesha
+2344, commander greven il-vec
+5457, commando raid
+3595, common cause
+6672, commune with nature
+3891, complex automaton
+5458, complicate
+6512, composite golem
+3417, compost
+5146, compulsion
+4848, concentrate
+899, conch horn
+510, concordant crossroads
+6513, condescend
+2168, cone of flame
+4849, confessor
+2967, confiscate
+4503, confound
+6060, confusion in the ranks
+2968, congregate
+6514, conjurer's bauble
+1052, conquer
+48, consecrate land
+49, conservator
+3596, conspiracy
+2642, constant mists
+6061, consume spirit
+4655, consume strength
+1679, consuming ferocity
+6673, consuming vortex
+5904, consumptive goo
+1499, contagion
+6062, contaminated bond
+2969, contamination
+2643, contemplation
+2644, contempt
+5459, contested cliffs
+50, contract from below
+51, control magic
+7636, control of the court
+2786, convalescence
+5460, convalescent care
+52, conversion
+2645, conviction
+2646, convulsing licid
+1053, cooperation
+2970, copper gnomes
+6063, copper myr
+53, copper tablet
+4037, copper-leaf angel
+6064, copperhoof vorrac
+54, copy artifact
+1976, coral atoll
+7298, coral eel
+1680, coral fighters
+398, coral helm
+2971, coral merfolk
+5147, coral net
+1399, coral reef
+6338, coretapper
+3597, cornered market
+2345, corpse dance
+5756, corpse harvester
+1977, corrosion
+2972, corrupt
+7637, corrupt court official
+7638, corrupt eunuchs
+3598, corrupt official
+2647, corrupting licid
+511, cosmic horror
+6515, cosmic larva
+7639, council of advisors
+6674, counsel of the soratami
+7640, counterintelligence
+55, counterspell
+5461, cover of darkness
+5757, covert operative
+3418, covetous dragon
+3600, cowardice
+7118, cowed by wisdom
+6951, crack the earth
+3601, crackdown
+5148, crackling club
+2973, cradle guard
+5462, crafty pathmage
+3602, crag saurian
+6675, cranial extraction
+6516, cranial plating
+3603, crash
+1681, crash of rhinos
+2787, crashing boars
+4850, crashing centaur
+2974, crater hellion
+2648, craven giant
+7300, craven knight
+512, craw giant
+56, craw wurm
+6952, crawling filth
+3266, crawlspace
+2347, crazed armodon
+5149, crazed firecat
+6339, crazed goblin
+2975, crazed skirge
+57, creature bond
+3604, credit voucher
+1978, creeping mold
+4209, cremate
+3605, crenellated wall
+5758, crested craghorn
+513, crevasse
+4210, crimson acolyte
+1682, crimson hellkite
+514, crimson kobolds
+515, crimson manticore
+1683, crimson roc
+5150, crippling fatigue
+4656, cromat
+5759, crookclaw elder
+3606, crooked scales
+516, crookshank kobolds
+3267, crop rotation
+4212, crosis's attendant
+4504, crosis's catacombs
+4505, crosis's charm
+4211, crosis, the purger
+2649, crossbow ambush
+3607, crossbow infantry
+2976, crosswinds
+2650, crovax the cursed
+5463, crowd favorites
+5464, crown of ascension
+5465, crown of awe
+2348, crown of flames
+5466, crown of fury
+5467, crown of suspicion
+1055, crown of the ages
+5468, crown of vigor
+6517, crucible of worlds
+5469, crude rampart
+7301, cruel bargain
+6676, cruel deceiver
+7495, cruel edict
+7302, cruel fate
+5470, cruel revival
+7303, cruel tutor
+399, crumble
+3608, crumbling sanctuary
+58, crusade
+4214, crusading knight
+5285, crush of wurms
+6677, crushing pain
+4215, crypt angel
+1684, crypt cobra
+4851, crypt creeper
+1979, crypt rats
+5760, crypt sliver
+5471, cryptic gateway
+2977, crystal chimes
+1685, crystal golem
+4852, crystal quarry
+59, crystal rod
+6066, crystal shard
+4216, crystal spray
+1686, crystal vein
+2651, crystalline sliver
+6067, culling scales
+2788, culling the weak
+4853, cultural exchange
+2789, cunning
+7641, cunning advisor
+6953, cunning bandit
+7496, cunning giant
+5286, cunning wish
+313, cuombajj witches
+2978, curfew
+2790, curiosity
+792, curse artifact
+1056, curse of marit lage
+2791, cursed flesh
+60, cursed land
+4854, cursed monstrosity
+400, cursed rack
+6678, cursed ronin
+2349, cursed scroll
+1687, cursed totem
+7119, curtain of light
+5472, custody battle
+3609, customs depot
+7120, cut the earthly bond
+6679, cut the tethers
+1688, cycle of life
+314, cyclone
+517, cyclopean mummy
+61, cyclopean tomb
+520, d'avenant archer
+518, dakkon blackblade
+7497, dakmor bat
+7498, dakmor plague
+7499, dakmor scorpion
+7500, dakmor sorceress
+6680, dampen thought
+3268, damping engine
+401, damping field
+6068, damping matrix
+793, dance of many
+6681, dance of shadows
+1057, dance of the dead
+315, dancing scimitar
+316, dandan
+1980, daraja griffin
+4038, darba
+4219, darigaaz's attendant
+4506, darigaaz's caldera
+4507, darigaaz's charm
+4218, darigaaz, the igniter
+1689, daring apprentice
+4508, daring leap
+1058, dark banishing
+2979, dark hatchling
+794, dark heart of the wood
+1400, dark maze
+7501, dark offering
+1981, dark privilege
+62, dark ritual
+795, dark sphere
+5761, dark supplicant
+4509, dark suspicions
+3892, dark triumph
+2981, darkest hour
+2352, darkling stalker
+519, darkness
+63, darkpact
+6340, darksteel brute
+6341, darksteel citadel
+6342, darksteel colossus
+6343, darksteel forge
+6344, darksteel gargoyle
+6345, darksteel ingot
+6346, darksteel pendant
+6347, darksteel reactor
+3269, darkwatch elves
+4855, darkwater catacombs
+4856, darkwater egg
+3611, darting merfolk
+5473, daru cavalier
+5474, daru encampment
+5475, daru healer
+5476, daru lancer
+5762, daru mender
+5763, daru sanctifier
+5905, daru spiritualist
+5764, daru stinger
+5906, daru warchief
+1401, daughter of autumn
+5477, daunting defender
+2792, dauthi cutthroat
+2353, dauthi embrace
+2354, dauthi ghoul
+2355, dauthi horror
+2793, dauthi jackal
+2356, dauthi marauder
+2357, dauthi mercenary
+2358, dauthi mindripper
+2359, dauthi slayer
+2652, dauthi trapper
+2794, dauthi warlord
+5907, dawn elemental
+5151, dawn of the dead
+6518, dawn's reflection
+5478, dawning purist
+3612, dawnstrider
+6954, day of destiny
+5908, day of the dragons
+3893, daze
+1692, dazzling beauty
+4657, dead ringers
+6069, dead-iron sledge
+4510, deadapult
+521, deadfall
+1500, deadly insect
+2360, deadshot
+4511, death bomb
+4039, death charmer
+6348, death cloud
+7121, death denied
+4658, death grasp
+5479, death match
+4659, death mutation
+7122, death of a thousand stings
+4220, death or glory
+3894, death pit offering
+2361, death pits of rath
+5480, death pulse
+1501, death spark
+1402, death speakers
+2653, death stroke
+64, death ward
+1982, death watch
+5287, death wish
+2795, death's duet
+5909, death's-head buzzard
+6349, death-mask duplicant
+7502, deathcoil wurm
+6682, deathcurse ogre
+3614, deathgazer
+65, deathgrip
+7123, deathknell kami
+66, deathlace
+5765, deathmark prelate
+7124, deathmask nezumi
+2169, debt of loyalty
+4857, decaying soil
+7642, deception
+4858, decimate
+4859, decompose
+1693, decomposition
+6070, deconstruct
+5910, decree of annihilation
+5911, decree of justice
+5912, decree of pain
+5913, decree of savagery
+5914, decree of silence
+4860, dedicated martyr
+5152, deep analysis
+4861, deep reconnaissance
+900, deep spawn
+796, deep water
+7304, deep wood
+7305, deep-sea serpent
+3615, deepwood drummer
+3616, deepwood elder
+3617, deepwood ghoul
+3618, deepwood legate
+3619, deepwood tantiv
+3620, deepwood wolverine
+3895, defender en-vec
+3270, defender of chaos
+3271, defender of law
+5766, defender of the order
+3272, defense grid
+3273, defense of the heart
+2982, defensive formation
+5481, defensive maneuvers
+5767, defiant elf
+3896, defiant falcon
+7306, defiant stand
+3897, defiant vanguard
+4221, defiling tears
+1061, deflection
+5768, deftblade elite
+5288, defy gravity
+4660, dega disciple
+4661, dega sanctuary
+4662, degavolver
+3621, dehydration
+7307, deja vu
+4862, delaying shield
+901, delif's cone
+902, delif's cube
+1694, delirium
+3622, delraich
+4863, deluge
+3274, delusions of mediocrity
+4864, dematerialize
+4865, demolish
+6350, demon's horn
+67, demonic attorney
+1062, demonic consultation
+68, demonic hordes
+522, demonic torment
+69, demonic tutor
+4866, demoralize
+5482, demystify
+7505, denizen of the deep
+7125, dense canopy
+2170, dense foliage
+4040, denying wind
+3275, deranged hermit
+903, derelor
+5769, dermoplasm
+7126, descendant of kiyomaro
+7127, descendant of masumaro
+7128, descendant of soramaro
+6519, desecration elemental
+317, desert
+7308, desert drake
+318, desert nomads
+7643, desert sandstorm
+319, desert twister
+4867, deserted temple
+1983, desertion
+1984, desolation
+4663, desolation angel
+4664, desolation giant
+7644, desperate charge
+2171, desperate gambit
+4222, desperate research
+6683, desperate ritual
+4041, despoil
+2983, despondency
+1063, despotic scepter
+4512, destructive flow
+2984, destructive urge
+402, detonate
+4042, devastate
+5153, devastating dreams
+7309, devastation
+4868, devoted caretaker
+7310, devoted hero
+6684, devoted retainer
+6520, devour in shadow
+523, devouring deep
+6685, devouring greed
+6686, devouring rage
+4223, devouring strossus
+3276, devout harpist
+3624, devout witness
+2362, diabolic edict
+4513, diabolic intent
+797, diabolic machine
+2985, diabolic servitude
+4869, diabolic tutor
+1064, diabolic vision
+1985, diamond kaleidoscope
+320, diamond valley
+7645, diaochan, artful beauty
+1403, didgeridoo
+4870, diligent farmhand
+5915, dimensional breach
+1502, diminishing returns
+70, dingus egg
+2172, dingus staff
+3625, diplomatic escort
+3626, diplomatic immunity
+1065, dire wolves
+5483, dirge of dread
+2363, dirtcowl wurm
+1695, dirtwater wraith
+4871, dirty wererat
+3419, disappear
+6072, disarm
+2986, disciple of grace
+4514, disciple of kangee
+2987, disciple of law
+5485, disciple of malice
+6073, disciple of the vault
+5486, discombobulate
+2988, discordant dirge
+1696, discordant spirit
+3420, disease carriers
+1503, diseased vermin
+1697, disempower
+71, disenchant
+524, disharmony
+72, disintegrate
+6351, dismantle
+4224, dismantling blow
+2365, dismiss
+2990, disorder
+5916, dispersal shield
+5487, dispersing orb
+2173, disrupt
+73, disrupting scepter
+6955, disrupting shoal
+6521, disruption aura
+5488, disruptive pitmage
+2991, disruptive student
+1699, dissipate
+3628, distorting lens
+4226, distorting wake
+6687, distress
+2366, disturbed burial
+5489, dive bomber
+5917, divergent growth
+4665, diversionary tactics
+4872, divert
+525, divine intervention
+4666, divine light
+526, divine offering
+4227, divine presence
+1701, divine retribution
+4873, divine sacrament
+527, divine transformation
+4043, diving griffin
+3898, divining witch
+2796, dizzying gaze
+7311, djinn of the lamp
+4228, do or die
+4667, dodecapod
+4874, dogged hunter
+4515, dominaria's judgment
+3899, dominate
+2797, dominating licid
+6074, domineer
+3421, donate
+7646, dong zhou, the tyrant
+5490, doom cannon
+5491, doomed necromancer
+2174, doomsday
+4516, doomsday specter
+6522, door to nothingness
+1986, dormant volcano
+6688, dosan the falling leaf
+7129, dosan's oldest chant
+6523, doubling cube
+5492, doubtless one
+2992, douse
+2175, downdraft
+3900, downhill charge
+4517, draco
+904, draconian cylix
+2367, dracoplasm
+403, drafna's restoration
+4668, dragon arch
+2993, dragon blood
+5918, dragon breath
+404, dragon engine
+5919, dragon fangs
+5920, dragon mage
+1987, dragon mask
+5493, dragon roost
+5921, dragon scales
+5922, dragon shadow
+5923, dragon tyrant
+74, dragon whelp
+5924, dragon wings
+6352, dragon's claw
+5925, dragonspeaker shaman
+5926, dragonstalker
+5927, dragonstorm
+75, drain life
+76, drain power
+3629, drake hatchling
+4229, drake-skull cameo
+4518, dralnu's crusade
+4519, dralnu's pet
+7312, dread charge
+2368, dread of night
+7313, dread reaper
+1703, dread specter
+1067, dread wight
+1704, dream cache
+5494, dream chisel
+528, dream coat
+1705, dream fighter
+2654, dream halls
+2655, dream prowler
+4230, dream thrush
+1988, dream tides
+6076, dream's grip
+5770, dreamborn muse
+7130, dreamcatcher
+1068, dreams of the dead
+4875, dreamwinder
+4231, dredge
+2370, dregs of sorrow
+1069, drift of the dead
+2994, drifting djinn
+2995, drifting meadow
+6353, drill-skimmer
+5771, drinker of sorrow
+5772, dripping dead
+6689, dripping-tongue zubera
+4233, dromar's attendant
+4520, dromar's cavern
+4521, dromar's charm
+4232, dromar, the banisher
+2996, dromosaur
+6354, drooling ogre
+321, drop of honey
+6524, dross crocodile
+6355, dross golem
+6077, dross harvester
+6078, dross prowler
+6079, dross scorpion
+1070, drought
+798, drowned
+77, drudge skeletons
+1404, drudge spell
+4876, druid lyrist
+4877, druid's call
+1405, dry spell
+4044, dual nature
+2656, duct crawler
+4234, dueling grounds
+2657, dungeon shade
+6080, duplicant
+2371, duplicity
+2997, duress
+529, durkwood boars
+4878, dusk imp
+2176, duskrider falcon
+4235, duskwalker
+6081, duskworker
+3630, dust bowl
+799, dust to dust
+905, dwarven armorer
+1071, dwarven armory
+2177, dwarven berserker
+5495, dwarven blastminer
+5289, dwarven bloodboiler
+906, dwarven catapult
+78, dwarven demolition team
+5290, dwarven driller
+4879, dwarven grunt
+907, dwarven hold
+4669, dwarven landslide
+908, dwarven lieutenant
+1706, dwarven miner
+1707, dwarven nomad
+4670, dwarven patrol
+1406, dwarven pony
+4880, dwarven recruiter
+909, dwarven ruins
+5291, dwarven scorcher
+1407, dwarven sea clan
+4881, dwarven shrine
+910, dwarven soldier
+530, dwarven song
+4882, dwarven strike force
+2178, dwarven thaumaturgist
+1408, dwarven trader
+1989, dwarven vigilantes
+79, dwarven warriors
+405, dwarven weaponsmith
+5154, dwell on the past
+3422, dying wail
+1504, dystopia
+6525, early frost
+1708, early harvest
+4883, earnest fellowship
+5292, earsplitting rats
+80, earth elemental
+4884, earth rift
+81, earthbind
+5773, earthblighter
+2372, earthcraft
+1072, earthlink
+1073, earthlore
+82, earthquake
+6690, earthshaker
+2998, eastern paladin
+6356, eater of days
+800, eater of the dead
+7316, ebon dragon
+6526, ebon drake
+911, ebon praetor
+912, ebon stronghold
+5496, ebonblade reaper
+1709, ebony charm
+322, ebony horse
+7131, ebony owl netsuke
+1409, ebony rhino
+4671, ebony treefolk
+2373, echo chamber
+5774, echo tracer
+6357, echoing calm
+6358, echoing courage
+6359, echoing decay
+6360, echoing ruin
+6361, echoing truth
+5928, edgewalker
+6691, eerie procession
+6692, eiganjo castle
+7132, eiganjo free-riders
+6693, eight-and-a-half-tails
+7647, eightfold maze
+1710, ekundu cyclops
+1711, ekundu griffin
+324, el-hajjaj
+4522, eladamri's call
+2375, eladamri's vineyard
+2374, eladamri, lord of leaves
+1074, elder druid
+531, elder land wurm
+7133, elder pine of jukai
+532, elder spawn
+801, electric eel
+6082, electrostatic bolt
+2999, electryte
+1075, elemental augury
+4885, elephant ambush
+1990, elephant grass
+323, elephant graveyard
+5293, elephant guide
+4045, elephant resurgence
+6083, elf replica
+4236, elfhame palace
+4237, elfhame sanctuary
+3000, elite archers
+7317, elite cat warrior
+2376, elite javelineer
+1712, elixir of vitality
+1076, elkin bottle
+1991, elkin lair
+1992, elven cache
+913, elven fortress
+914, elven lyre
+2798, elven palisade
+533, elven riders
+2658, elven rite
+2377, elven warhounds
+802, elves of deep shadow
+5929, elvish aberration
+83, elvish archers
+1505, elvish bard
+2799, elvish berserker
+4238, elvish champion
+915, elvish farmer
+2378, elvish fury
+5498, elvish guidance
+1077, elvish healer
+3001, elvish herder
+916, elvish hunter
+3423, elvish lookout
+3002, elvish lyrist
+5499, elvish pathcutter
+5500, elvish pioneer
+3424, elvish piper
+1506, elvish ranger
+917, elvish scout
+5501, elvish scrapper
+5775, elvish soultiller
+1507, elvish spirit guide
+5502, elvish vanguard
+5503, elvish warrior
+5776, embalmed brawler
+3631, embargo
+4886, ember beast
+5294, ember shot
+6694, ember-fist zubera
+5504, embermage goblin
+1713, emberwilde caliph
+1714, emberwilde djinn
+4672, emblazoned golem
+4887, embolden
+1993, emerald charm
+534, emerald dragonfly
+2379, emerald medallion
+6362, emissary of despair
+6363, emissary of hope
+2380, emmessi tome
+3425, emperor crocodile
+4239, empress galina
+7648, empty city ruse
+6956, empty-shrine kannushi
+2179, empyrial armor
+6084, empyrial plate
+535, enchanted being
+536, enchantment alteration
+5505, enchantress's presence
+3426, encroach
+2659, endangered armodon
+4046, endbringer's revel
+5506, endemic plague
+7320, endless cockroaches
+2381, endless scream
+7134, endless swarm
+6527, endless whispers
+3004, endless wurm
+3005, endoskeleton
+7135, enduring ideal
+1078, enduring renewal
+2382, energizer
+1508, energy arc
+1715, energy bolt
+6528, energy chamber
+3006, energy field
+406, energy flux
+1079, energy storm
+537, energy tap
+1716, energy vortex
+1080, enervate
+1717, enfeeblement
+6529, engineered explosives
+3277, engineered plague
+4888, engulfing flames
+1718, enlightened tutor
+4673, enlistment officer
+5777, enormous baloth
+5930, enrage
+2384, enraging licid
+6957, enshrined memories
+5155, enslaved dwarf
+3633, enslaved horror
+1509, enslaved scout
+3901, ensnare
+2660, ensnaring bridge
+6530, ensouled scimitar
+4047, entangler
+4889, entomb
+5507, entrails feaster
+2800, entropic specter
+5295, envelop
+6531, eon hub
+2801, ephemeron
+5296, epic struggle
+4890, epicenter
+5156, equal treatment
+2802, equilibrium
+538, equinox
+1994, equipoise
+3427, eradicate
+3278, erase
+7136, erayo, soratami ascendant
+325, erg raiders
+326, erhnam djinn
+3634, erithizon
+1410, eron the relentless
+803, erosion
+1510, errand of duty
+1081, errant minion
+1082, errantry
+5508, erratic explosion
+2803, erratic portal
+1719, ersatz gnomes
+2180, ertai's familiar
+2385, ertai's meddling
+4524, ertai's trickery
+4523, ertai, the corrupted
+2804, ertai, wizard adept
+4891, escape artist
+4525, escape routes
+2386, escaped shapeshifter
+2387, essence bottle
+6364, essence drain
+1083, essence filter
+1084, essence flare
+5509, essence fracture
+4240, essence leak
+5778, essence sliver
+1085, essence vortex
+6532, etched oracle
+7137, eternal dominion
+5931, eternal dragon
+804, eternal flame
+539, eternal warrior
+6533, eternal witness
+1720, ether well
+1721, ethereal champion
+6695, ethereal haze
+7649, eunuchs' intrigues
+540, eureka
+2661, evacuation
+1411, evaporate
+4674, evasive action
+1995, everglades
+5510, everglove courier
+7138, evermind
+541, evil eye of orms-by-gore
+84, evil presence
+2388, evincar's justice
+3279, eviscerator
+5511, exalted angel
+2805, exalted dragon
+4048, excavation
+2389, excavator
+4049, excise
+4241, exclude
+4892, execute
+3007, exhaustion
+3008, exhume
+1511, exile
+7139, exile into darkness
+5932, exiled doomsayer
+805, exorcist
+5298, exoskeletal armor
+4242, exotic curse
+4526, exotic disease
+3280, expendable troops
+3009, exploration
+4243, explosive growth
+5512, explosive vegetation
+3010, expunge
+2390, extinction
+7508, extinguish
+3635, extortion
+5933, extra arms
+4893, extract
+6085, extraplanar lens
+3636, extravagant spirit
+3428, extruder
+327, eye for an eye
+6696, eye of nowhere
+3637, eye of ramos
+1996, eye of singularity
+3902, eye of yawgmoth
+7509, eye spy
+6534, eyes of the watcher
+6086, fabricate
+4894, face of fear
+5157, faceless butcher
+5934, faces of the past
+4244, fact or fiction
+2806, fade away
+5513, fade from memory
+3281, faerie conclave
+1412, faerie noble
+4245, faerie squadron
+3011, faith healer
+6959, faithful squire
+542, fallen angel
+1997, fallen askari
+5514, fallen cleric
+543, falling star
+4527, falling timber
+1722, fallow earth
+2181, fallow wurm
+5515, false cure
+4675, false dawn
+7652, false defeat
+1512, false demise
+5158, false memories
+7653, false mourning
+85, false orders
+7322, false peace
+3429, false prophet
+7510, false summoning
+3012, falter
+2182, familiar ground
+7654, famine
+4895, famished ghoul
+3903, fanatical devotion
+1086, fanatical fever
+6365, fangren firstborn
+6087, fangren hunter
+6535, fangren pathcutter
+2662, fanning the flames
+5159, far wanderings
+86, farmstead
+918, farrel's mantle
+919, farrel's zealot
+920, farrelite priest
+6088, farsight mask
+87, fastbond
+806, fasting
+2183, fatal blow
+1513, fatal lore
+5935, fatal mutation
+6089, fatespinner
+3430, fatigue
+3013, fault line
+4050, fault riders
+1723, favorable destiny
+88, fear
+1413, feast of the unicorn
+6697, feast of worms
+1514, feast or famine
+3014, fecundity
+89, feedback
+6536, feedback bolt
+5516, feeding frenzy
+544, feint
+407, feldon's cane
+807, fellwar stone
+1724, femeref archers
+1998, femeref enchantress
+1725, femeref healer
+1726, femeref knight
+1727, femeref scouts
+4051, fen stalker
+3431, fend off
+6698, feral deceiver
+1999, feral instinct
+7140, feral lightning
+1728, feral shadow
+921, feral thallid
+5779, feral throwback
+6537, ferocious charge
+3639, ferocity
+1414, feroz's ban
+6538, ferropede
+3015, fertile ground
+4676, fervent charge
+4896, fervent denial
+2184, fervor
+2185, festering evil
+5517, festering goblin
+3432, festering wound
+808, festival
+7511, festival of trokin
+1729, fetid horror
+5518, fever charm
+2391, fevered convulsions
+1515, fevered strength
+4052, fickle efreet
+7141, fiddlehead kami
+545, field of dreams
+6699, field of reality
+2392, field of souls
+3433, field surgeon
+5936, fierce empath
+6090, fiery gambit
+1088, fiery justice
+3016, fiery mantle
+5160, fiery temper
+4247, fight or flight
+2807, fighting chance
+2393, fighting drake
+6539, fill with fright
+5299, filth
+4897, filthy cur
+1730, final fortune
+6960, final judgment
+5937, final punishment
+7324, final strike
+7655, fire ambush
+809, fire and brimstone
+3017, fire ants
+7656, fire bowman
+1089, fire covenant
+1731, fire diamond
+7325, fire dragon
+810, fire drake
+90, fire elemental
+7326, fire imp
+7327, fire snake
+546, fire sprites
+7328, fire tempest
+2186, fire whip
+4677, fire | ice
+91, fireball
+2000, fireblast
+4898, firebolt
+4248, firebrand ranger
+92, firebreathing
+5300, firecat blitz
+2394, firefly
+4249, fires of yavimaya
+4250, firescreamer
+6091, fireshrieker
+2395, fireslinger
+2187, firestorm
+2001, firestorm hellkite
+547, firestorm phoenix
+6961, first volley
+328, fishliver oil
+811, fissure
+6540, fist of suns
+6092, fists of the anvil
+2188, fit of rage
+2396, flailing drake
+3640, flailing manticore
+3641, flailing ogre
+3642, flailing soldier
+4899, flame burst
+1733, flame elemental
+3434, flame jet
+3904, flame rift
+1090, flame spirit
+2663, flame wave
+6367, flamebreak
+6962, flames of the blood hand
+4053, flameshot
+5519, flamestick courier
+4528, flametongue kavu
+5780, flamewave invoker
+5161, flaming gambit
+3643, flaming sword
+7657, flanking troops
+1091, flare
+5301, flaring pain
+1735, flash
+548, flash counter
+549, flash flood
+5162, flash of defiance
+5302, flash of insight
+93, flashfires
+4054, flay
+6093, flayed nim
+2189, fledgling djinn
+5303, fledgling dragon
+4900, fledgling imp
+3435, fledgling osprey
+7330, fleet-footed monk
+4529, fleetfoot panther
+5520, fleeting aven
+3282, fleeting image
+3018, flesh reaver
+6541, fleshgrafter
+3436, flicker
+2397, flickering ward
+94, flight
+2664, fling
+3905, flint golem
+5163, floating shield
+6700, floating-dream zubera
+812, flood
+1736, flood plain
+6963, floodbringer
+2002, flooded shoreline
+5521, flooded strand
+1092, flooded woodlands
+1737, floodgate
+1516, floodwater dam
+550, floral spuzzem
+1093, flow of maggots
+4055, flowering field
+3906, flowstone armor
+2665, flowstone blade
+4678, flowstone charger
+3907, flowstone crusher
+2808, flowstone flood
+2398, flowstone giant
+2666, flowstone hellion
+2667, flowstone mauler
+3908, flowstone overseer
+2399, flowstone salamander
+2400, flowstone sculpture
+2668, flowstone shambler
+3909, flowstone slide
+3910, flowstone strike
+3911, flowstone surge
+3912, flowstone thopter
+3913, flowstone wall
+2401, flowstone wyvern
+3019, fluctuator
+2190, flux
+329, flying carpet
+330, flying men
+3437, fodder cannon
+95, fog
+3020, fog bank
+2191, fog elemental
+3283, fog of gnats
+3914, fog patch
+4056, foil
+6542, fold into aether
+5304, folk medicine
+1415, folk of an-havva
+1094, folk of the pines
+3644, food chain
+2402, fool's tome
+7332, foot soldiers
+5522, foothill guide
+7142, footsteps of the goryo
+1739, foratog
+2809, forbid
+1740, forbidden crypt
+1095, forbidden lore
+6701, forbidden orchard
+2003, forbidden ritual
+3284, forbidding watchtower
+5938, force bubble
+96, force of nature
+1517, force of will
+551, force spike
+1096, force void
+3645, forced march
+7658, forced retreat
+97, forcefield
+5305, forcemage advocate
+2004, foreshadow
+1518, foresight
+98, forest
+7660, forest bear
+552, forethought amulet
+6095, forge armor
+1416, forget
+5939, forgotten ancient
+5524, forgotten cave
+4057, forgotten harvest
+1098, forgotten lore
+2192, foriysian brigade
+99, fork
+7334, forked lightning
+6964, forked-branch garami
+5940, form of the dragon
+1099, formation
+4530, forsaken city
+1742, forsaken wastes
+553, fortified area
+3022, fortitude
+3647, foster
+1100, foul familiar
+2669, foul imp
+4679, foul presence
+7513, foul spirit
+3648, fountain of cho
+813, fountain of youth
+3649, fountain watch
+1101, foxfire
+6096, fractured loyalty
+814, frankenstein's monster
+5164, frantic purification
+3285, frantic search
+7143, freed from the real
+2005, freewind falcon
+1743, frenetic efreet
+4902, frenetic ogre
+5781, frenetic raptor
+4252, frenzied tilling
+3650, fresh volunteers
+1102, freyalise supplicant
+1103, freyalise's charm
+1104, freyalise's winds
+4903, frightcrawler
+5525, frightshroud courier
+2404, frog tongue
+6097, frogmite
+5941, frontline strategist
+554, frost giant
+6965, frost ogre
+6966, frostling
+6703, frostwielder
+100, frozen shade
+5942, frozen solid
+7335, fruition
+2405, fugitive druid
+5782, fugitive wizard
+2810, fugue
+1105, fumarole
+6967, fumiko the lowblood
+2006, funeral charm
+1417, funeral march
+5306, funeral pyre
+922, fungal bloom
+4680, fungal shambler
+2193, fungus elemental
+101, fungusaur
+3651, furious assault
+2811, furnace brood
+6368, furnace dragon
+2406, furnace of rath
+2670, furnace spirit
+6543, furnace whelp
+5526, future sight
+2407, fylamarid
+1106, fylgja
+1107, fyndhorn bow
+1108, fyndhorn brownie
+1519, fyndhorn druid
+1109, fyndhorn elder
+1110, fyndhorn elves
+1111, fyndhorn pollen
+555, gabriel angelfire
+408, gaea's avenger
+4681, gaea's balance
+2194, gaea's blessing
+3023, gaea's bounty
+3024, gaea's cradle
+3025, gaea's embrace
+4531, gaea's herald
+102, gaea's liege
+4532, gaea's might
+4682, gaea's skyfolk
+815, gaea's touch
+4533, gainsay
+6704, gale force
+4253, galina's knight
+2408, gallantry
+2195, gallowbraid
+6098, galvanic key
+3026, gamble
+1112, game of chaos
+3652, game preserve
+3438, gamekeeper
+3286, gang of elk
+5527, gangrenous goliath
+1113, gangrenous zombies
+1520, gargantuan gorilla
+556, gaseous form
+409, gate to phyrexia
+6099, gate to the aether
+103, gauntlet of might
+557, gauntlets of chaos
+7144, gaze of adamaro
+1114, gaze of pain
+6369, gemini engine
+5783, gempalm avenger
+5784, gempalm incinerator
+5785, gempalm polluter
+5786, gempalm sorcerer
+5787, gempalm strider
+6544, gemstone array
+2196, gemstone mine
+1115, general jarkeld
+6705, general's kabuto
+3653, general's regalia
+5307, genesis
+6370, genesis chamber
+6968, genju of the cedars
+6969, genju of the falls
+6970, genju of the fens
+6971, genju of the fields
+6972, genju of the realm
+6973, genju of the spires
+4254, geothermal crevice
+4683, gerrard capashen
+2410, gerrard's battle cry
+4534, gerrard's command
+3654, gerrard's irregulars
+4684, gerrard's verdict
+2197, gerrard's wisdom
+6371, geth's grimoire
+4905, ghastly demise
+5788, ghastly remains
+331, ghazban ogre
+3287, ghitu encampment
+4255, ghitu fire
+3288, ghitu fire-eater
+3289, ghitu slinger
+3290, ghitu war cry
+1418, ghost hounds
+816, ghost ship
+2411, ghost town
+7145, ghost-lit nourisher
+7146, ghost-lit raider
+7147, ghost-lit redeemer
+7148, ghost-lit stalker
+7149, ghost-lit warder
+5528, ghosthelm courier
+1116, ghostly flame
+6706, ghostly prison
+7661, ghostly visit
+5165, ghostly wings
+558, ghosts of the damned
+3655, ghoul's feast
+1419, giant albatross
+2, giant badger
+2007, giant caterpillar
+3291, giant cockroach
+2412, giant crab
+104, giant growth
+1744, giant mantis
+7336, giant octopus
+1420, giant oyster
+817, giant shark
+559, giant slug
+105, giant spider
+560, giant strength
+332, giant tortoise
+1118, giant trap door spider
+561, giant turtle
+5308, giant warthog
+1745, gibbering hyenas
+6707, gibbering kami
+7338, gift of estates
+1521, gift of the woods
+6708, gifts ungiven
+5529, gigapede
+3027, gilded drake
+5943, gilded light
+6100, gilded lotus
+1119, glacial chasm
+1120, glacial crevasses
+6709, glacial ray
+1121, glacial wall
+1122, glaciers
+4685, glade gnarr
+5530, glarecaster
+106, glasses of urza
+2671, gliding licid
+4256, glimmering angel
+6101, glimmervoid
+6710, glimpse of nature
+5789, glintwing invoker
+6102, glissa sunseeker
+7150, glitterfang
+4058, glittering lion
+4059, glittering lynx
+4257, global ruin
+107, gloom
+5166, gloomdrifter
+3028, glorious anthem
+5309, glory
+5531, glory seeker
+5790, glowering rogon
+3657, glowing anemone
+5791, glowrider
+5532, gluttonous zombie
+562, glyph of delusion
+563, glyph of destruction
+564, glyph of doom
+565, glyph of life
+566, glyph of reincarnation
+6974, gnarled mass
+7151, gnat miser
+6372, goblin archaeologist
+410, goblin artisans
+5792, goblin assassin
+108, goblin balloon brigade
+3439, goblin berserker
+2198, goblin bomb
+2414, goblin bombardment
+6545, goblin brawler
+5944, goblin brigand
+7339, goblin bully
+5533, goblin burrows
+3029, goblin cadets
+6546, goblin cannon
+7514, goblin cavaliers
+818, goblin caves
+6103, goblin charbelcher
+923, goblin chirurgeon
+5793, goblin clearcutter
+6975, goblin cohort
+819, goblin digging team
+6104, goblin dirigible
+5794, goblin dynamo
+1746, goblin elite infantry
+3440, goblin festival
+5795, goblin firebug
+7515, goblin firestarter
+924, goblin flotilla
+4535, goblin game
+3441, goblin gardener
+7516, goblin general
+7517, goblin glider
+5796, goblin goon
+5797, goblin grappler
+925, goblin grenade
+2199, goblin grenadiers
+820, goblin hero
+109, goblin king
+926, goblin kites
+3030, goblin lackey
+4686, goblin legionnaire
+5798, goblin lookout
+7518, goblin lore
+1123, goblin lyre
+5534, goblin machinist
+3442, goblin marshal
+3443, goblin masons
+3031, goblin matron
+3292, goblin medics
+7520, goblin mountaineer
+1124, goblin mutant
+3032, goblin offensive
+3033, goblin patrol
+7521, goblin piker
+5535, goblin piledriver
+5945, goblin psychopath
+5536, goblin pyromancer
+3034, goblin raider
+2008, goblin recruiter
+6105, goblin replica
+4687, goblin ringleader
+821, goblin rock sled
+1125, goblin sappers
+1747, goblin scouts
+5537, goblin sharpshooter
+822, goblin shrine
+1126, goblin ski patrol
+5538, goblin sky raider
+5539, goblin sledder
+1127, goblin snowman
+1748, goblin soothsayer
+3035, goblin spelunkers
+4258, goblin spy
+6106, goblin striker
+2009, goblin swine-rider
+5540, goblin taskmaster
+1749, goblin tinkerer
+4688, goblin trenches
+5799, goblin turncoat
+2200, goblin vandal
+3036, goblin war buggy
+7523, goblin war cry
+927, goblin war drums
+5946, goblin war strike
+6107, goblin war wagon
+5947, goblin warchief
+928, goblin warrens
+3293, goblin welder
+823, goblin wizard
+824, goblins of the flarg
+7152, godo's irregulars
+6711, godo, bandit warlord
+6976, gods' eye, gate to the reikai
+4259, goham djinn
+6108, gold myr
+7525, golden bear
+5310, golden wish
+6109, golem-skin gauntlets
+411, golgothian sylex
+3444, goliath beetle
+5311, goretusk firebeast
+1522, gorilla berserkers
+1523, gorilla chieftain
+1128, gorilla pack
+1524, gorilla shaman
+4906, gorilla titan
+1525, gorilla war cry
+3037, gorilla warrior
+6977, goryo's vengeance
+2010, gossamer chains
+567, gosta dirk
+6110, grab the reins
+6712, graceful adept
+4907, graceful antelope
+3038, grafted skullcap
+6547, grafted wargear
+5541, grand coliseum
+5542, grand melee
+1421, grandmother sengir
+1750, granger guildmage
+110, granite gargoyle
+3294, granite grip
+6111, granite shard
+6548, granulate
+412, grapeshot catapult
+5543, grassland crusader
+1751, grasslands
+5544, gratuitous violence
+5312, grave consequences
+4689, grave defiler
+2672, grave pact
+825, grave robbers
+1752, grave servitude
+1753, gravebane zombie
+1129, gravebind
+5800, graveborn muse
+2415, gravedigger
+5167, gravegouger
+5545, gravel slinger
+5546, gravespawn sovereign
+4909, gravestorm
+568, gravity sphere
+5547, graxiplon
+111, gray ogre
+569, great defender
+6112, great furnace
+570, great wall
+3039, great whale
+3040, greater good
+6373, greater harvester
+571, greater realm of preservation
+1422, greater werewolf
+572, greed
+4061, greel's caress
+4060, greel, mind raker
+573, green mana battery
+1130, green scarab
+112, green ward
+3041, greener pastures
+6113, grid monitor
+2011, griffin canyon
+1754, grim feast
+5168, grim lavamancer
+3295, grim monolith
+6114, grim reminder
+6374, grimclaw bats
+6549, grinding station
+2416, grindstone
+5548, grinning demon
+1755, grinning totem
+5313, grip of amnesia
+5948, grip of chaos
+1131, grizzled wolverine
+113, grizzly bears
+5314, grizzly fate
+6115, groffskithur
+2812, grollub
+5169, grotesque hybrid
+4910, ground seal
+3658, groundskeeper
+7663, guan yu's 1,000-li march
+7662, guan yu, sainted warrior
+4536, guard dogs
+114, guardian angel
+333, guardian beast
+6550, guardian idol
+6713, guardian of solitude
+1526, guerrilla tactics
+4690, guided passage
+2201, guided strike
+2012, guiding spirit
+5316, guiltfeeder
+5949, guilty conscience
+4062, gulf squid
+3042, guma
+5170, gurzigost
+3659, gush
+5549, gustcloak harrier
+5550, gustcloak runner
+5551, gustcloak savior
+5552, gustcloak sentinel
+5553, gustcloak skirmisher
+1527, gustha's scepter
+6714, gutwrencher oni
+574, gwendlyn di corci
+7153, hail of arrows
+1528, hail storm
+6715, hair-strung koto
+1756, hakim, loreweaver
+4260, halam djinn
+4911, halberdier
+575, halfdane
+1757, hall of gemstone
+6716, hall of the bandit lord
+6375, hallow
+1132, hallowed ground
+4912, hallowed healer
+1133, halls of mist
+3660, hammer mage
+1758, hammer of bogardan
+2673, hammerhead shark
+576, hammerheim
+6717, hana kami
+6718, hanabi blast
+7154, hand of cruelty
+7343, hand of death
+7155, hand of honor
+929, hand of justice
+2417, hand to hand
+6719, hankyu
+2418, hanna's custody
+4261, hanna, ship's navigator
+5317, hapless researcher
+1759, harbinger of night
+6978, harbinger of spring
+1760, harbor guardian
+1761, harmattan efreet
+3296, harmonic convergence
+7527, harmony of nature
+2419, harrow
+6720, harsh deceiver
+4263, harsh judgment
+7344, harsh justice
+5554, harsh mercy
+7156, haru-onna
+3915, harvest mage
+2202, harvest wurm
+5318, harvester druid
+334, hasran ogress
+4264, hate weaver
+2813, hatred
+4691, haunted angel
+5555, haunted cadaver
+3661, haunted crossroads
+1762, haunting apparition
+4913, haunting echoes
+2203, haunting misery
+413, haunting wind
+930, havenwood battleground
+2420, havoc
+5801, havoc demon
+3043, hawkeater moth
+1423, hazduhr the abbot
+1763, hazerider drake
+577, hazezon tamar
+4063, hazy homunculus
+6721, he who hungers
+5556, head games
+5557, headhunter
+578, headless horseman
+3044, headlong rush
+1424, headstone
+1134, heal
+6551, healer's headdress
+115, healing salve
+2204, heart of bogardan
+6979, heart of light
+3662, heart of ramos
+1529, heart of yavimaya
+2421, heart sliver
+3445, heart warden
+1425, heart wolf
+6722, heartbeat of spring
+2013, hearth charm
+6723, hearth kami
+6980, heartless hidetsugu
+6376, heartseeker
+2674, heartstone
+2422, heartwood dryad
+2423, heartwood giant
+6116, heartwood shard
+2424, heartwood treefolk
+2675, heat of battle
+3046, heat ray
+2205, heat stroke
+2014, heat wave
+579, heaven's gate
+2206, heavy ballista
+7664, heavy fog
+1135, hecatomb
+6981, heed the mists
+5558, heedless one
+4064, heightened awareness
+4692, helionaut
+6552, heliophial
+580, hell swarm
+581, hell's caretaker
+5171, hell-bent raider
+582, hellfire
+2015, helm of awakening
+116, helm of chatzuk
+6553, helm of kaldra
+1530, helm of obedience
+2425, helm of possession
+6117, hematite golem
+1136, hematite talisman
+3663, henge guardian
+3664, henge of ramos
+3047, herald of serra
+3048, hermetic study
+2676, hermit druid
+6982, hero's demise
+2426, hero's resolve
+4265, heroes' reunion
+4537, heroic defiance
+931, heroism
+2677, hesitation
+3049, hibernation
+2678, hibernation sliver
+3665, hickory woodlot
+3050, hidden ancients
+3297, hidden gibbons
+3051, hidden guerrillas
+3052, hidden herd
+2207, hidden horror
+826, hidden path
+3053, hidden predators
+2679, hidden retreat
+3054, hidden spider
+3055, hidden stag
+6724, hideous laughter
+7157, hidetsugu's second rite
+2814, high ground
+3666, high market
+3667, high seas
+932, high tide
+7345, highland giant
+3668, highway robber
+6983, higure, the still wind
+6725, hikari, twilight guardian
+117, hill giant
+6726, hinder
+5950, hindering touch
+4914, hint of insanity
+1137, hipparion
+3669, hired giant
+6984, hired muscle
+6728, hisoka's defiance
+6729, hisoka's guard
+6727, hisoka, minamo sensei
+1765, hivis of the scale
+1138, hoar shade
+4538, hobble
+6985, hokori, dust drinker
+6730, hold the line
+4915, holistic wisdom
+3056, hollow dogs
+5802, hollow specter
+933, hollow trees
+4065, hollow warrior
+118, holy armor
+583, holy day
+827, holy light
+119, holy strength
+934, homarid
+935, homarid shaman
+936, homarid spawning bed
+937, homarid warrior
+7158, homura, human ascendant
+6731, honden of cleansing fire
+6732, honden of infinite rage
+6733, honden of life's web
+6734, honden of night's reach
+6735, honden of seeing winds
+2680, honor guard
+3670, honor the fallen
+6736, honor-worn shaku
+2016, honorable passage
+4539, honorable scout
+4267, hooded kavu
+3671, hoodwink
+3298, hope and glory
+2017, hope charm
+3057, hopping automaton
+6737, horizon seed
+584, horn of deafening
+2681, horn of greed
+3672, horn of plenty
+3673, horn of ramos
+4268, horned cheetah
+6554, horned helm
+4540, horned kavu
+2427, horned sliver
+3674, horned troll
+2428, horned turtle
+2682, hornet cannon
+585, hornet cobra
+6986, horobi's whisper
+6738, horobi, death's wail
+1766, horrible hordes
+586, horror of horrors
+3058, horseshoe crab
+1139, hot springs
+6377, hoverguard observer
+6555, hoverguard sweepers
+120, howl from beyond
+7348, howling fury
+4916, howling gale
+121, howling mine
+3675, howling wolf
+7665, hua tuo, honored physician
+7666, huang zhong, shu general
+2018, hulking cyclops
+7350, hulking goblin
+3446, hulking ogre
+4541, hull breach
+6118, hum of the radix
+3059, humble
+6739, humble budoka
+2429, humility
+587, hunding gjornersen
+6740, hundred-talon kami
+6987, hundred-talon strike
+5803, hundroog
+6378, hunger of the nim
+1426, hungry mist
+3676, hunted wumpus
+5804, hunter sliver
+7667, hunting cheetah
+4542, hunting drake
+5319, hunting grounds
+4269, hunting kavu
+3447, hunting moa
+5951, hunting pack
+414, hurkyl's recall
+122, hurloon minotaur
+2208, hurloon shaman
+335, hurr jackal
+123, hurricane
+3060, hush
+1142, hyalopterous lemure
+1143, hydroblast
+5172, hydromorph guardian
+5173, hydromorph gull
+1144, hymn of rebirth
+938, hymn to tourach
+588, hyperion blacksmith
+4270, hypnotic cloud
+124, hypnotic specter
+5174, hypnox
+5175, hypochondria
+5559, hystrodon
+939, icatian infantry
+940, icatian javelineers
+941, icatian lieutenant
+942, icatian moneychanger
+943, icatian phalanx
+944, icatian priest
+945, icatian scout
+946, icatian skirmishers
+947, icatian store
+948, icatian town
+1145, ice cauldron
+4693, ice cave
+1146, ice floe
+125, ice storm
+1147, iceberg
+1148, icequake
+589, ichneumon druid
+5176, ichorid
+126, icy manipulator
+1150, icy prison
+7159, ideas unbound
+336, ifh-biff efreet
+1767, igneous golem
+3677, ignoble soldier
+1427, ihsan's shade
+7160, iizuka the ruthless
+3061, ill-gotten gains
+1768, illicit auction
+4694, illuminate
+3448, illuminated wings
+1769, illumination
+4695, illusion | reality
+1151, illusionary forces
+127, illusionary mask
+1152, illusionary presence
+1153, illusionary terrain
+1154, illusionary wall
+1155, illusions of grandeur
+5560, imagecrafter
+3062, imaginary pet
+6741, imi statue
+4917, immobilizing ink
+590, immolation
+3449, impatience
+3299, impending disaster
+7668, imperial edict
+5805, imperial hellkite
+7669, imperial recruiter
+7670, imperial seal
+949, implements of sacrifice
+4543, implode
+1156, imposing visage
+591, imprison
+5561, improvised armor
+2430, imps' taunt
+2019, impulse
+4918, impulsive maneuvers
+592, in the eye of chaos
+6988, in the web of war
+7161, iname as one
+6742, iname, death aspect
+6743, iname, life aspect
+3450, incendiary
+1157, incinerate
+6120, incite war
+6989, indebted samurai
+3678, indentured djinn
+7671, independent troops
+593, indestructible aura
+4696, index
+6744, indomitable will
+6121, inertia bubble
+2020, infantry veteran
+4919, infected vermin
+5320, infectious rage
+5806, infernal caretaker
+1771, infernal contract
+1158, infernal darkness
+1159, infernal denizen
+4066, infernal genesis
+2021, infernal harvest
+7162, infernal kirin
+594, infernal medusa
+2209, infernal tribute
+828, inferno
+5562, infest
+6379, infested roothold
+3916, infiltrate
+595, infinite authority
+1160, infinite hourglass
+4067, inflame
+5563, information dealer
+1161, infuse
+6556, infused arrows
+7352, ingenious thief
+1531, inheritance
+6745, initiate of blood
+950, initiates of the ebon hand
+6990, ink-eyes, servant of oni
+7163, inner calm, outer strength
+7164, inner fire
+2210, inner sanctum
+7165, inner-chamber guard
+6746, innocence kami
+4920, innocent blood
+829, inquisition
+1532, insidious bookworms
+5177, insidious dreams
+2431, insight
+5178, insist
+4544, insolence
+2022, inspiration
+5564, inspirit
+3679, instigator
+128, instill energy
+3680, insubordination
+5565, insurrection
+2432, interdict
+3300, intervene
+3681, intimidation
+7166, into the fray
+6557, into thin air
+3063, intrepid hero
+2683, intruder alarm
+2433, intuition
+2684, invasion plans
+3682, invigorate
+5566, invigorating boon
+5179, invigorating falls
+3683, inviolability
+129, invisibility
+596, invoke prejudice
+2434, invulnerability
+6558, ion storm
+6991, ire of kaminari
+4921, iridescent angel
+3451, iridescent drake
+1428, irini sengir
+3684, iron lance
+3301, iron maiden
+6122, iron myr
+130, iron star
+1772, iron tusk elephant
+3302, iron will
+6559, iron-barb hellion
+2023, iron-heart chimera
+1429, ironclaw curse
+131, ironclaw orcs
+5567, ironfist crusher
+7530, ironhoof ox
+132, ironroot treefolk
+5321, ironshell beetle
+6123, irradiate
+4271, irrigation ditch
+6747, isamaru, hound of konda
+6992, isao, enlightened bushi
+6993, ishi-ishi, akki crackshot
+133, island
+337, island fish jasconius
+338, island of wak-wak
+134, island sanctuary
+6125, isochron scepter
+1774, ivory charm
+7167, ivory crane netsuke
+135, ivory cup
+1533, ivory gargoyle
+597, ivory guardians
+3686, ivory mask
+415, ivory tower
+4923, ivy elemental
+3452, ivy seer
+6994, iwamori of the open fist
+5570, ixidor's will
+5569, ixidor, reality sculptor
+2211, jabari's banner
+1775, jabari's influence
+2436, jackal pup
+2815, jackalope herd
+598, jacques le vert
+6749, jade idol
+4273, jade leech
+136, jade monolith
+137, jade statue
+4697, jaded response
+3065, jagged lightning
+416, jalum tome
+2024, jamuraan lion
+339, jandor's ring
+340, jandor's saddlebags
+2212, jangling automaton
+5571, jareth, leonine titan
+599, jasmine boreal
+3453, jasmine seer
+138, jayemdae tome
+600, jedit ojanen
+601, jerrard of the closed fist
+5322, jeska, warrior adept
+1163, jester's cap
+1164, jester's mask
+2437, jet medallion
+6995, jetting glasskite
+1165, jeweled amulet
+341, jeweled bird
+4068, jeweled spirit
+3687, jeweled torque
+3303, jhoira's toolbox
+3688, jhovall queen
+3689, jhovall rider
+342, jihad
+4698, jilt
+1430, jinx
+6126, jinxed choker
+2438, jinxed idol
+2685, jinxed ring
+7168, jiwari, the earth aflame
+602, johan
+1166, johtull wurm
+6560, joiner adept
+1167, jokulhaups
+1776, jolrael's centaur
+4070, jolrael's favor
+4069, jolrael, empress of beasts
+1777, jolt
+3917, jolting merfolk
+6127, journey of discovery
+6750, journeyer's kite
+1431, joven
+1432, joven's ferrets
+1433, joven's tools
+603, jovial evil
+6751, joyous respite
+6752, jugan, the rising star
+139, juggernaut
+2025, juju bubble
+6753, jukai messenger
+140, jump
+4699, jungle barrier
+2026, jungle basin
+7354, jungle lion
+1778, jungle patrol
+1779, jungle troll
+1780, jungle wurm
+1534, juniper order advocate
+1168, juniper order druid
+3454, junk diver
+4924, junk golem
+6754, junkyo bell
+4274, juntu stakes
+343, junun efreet
+6755, jushi apprentice
+7533, just fate
+1169, justice
+604, juxtapose
+344, juzam djinn
+5572, kaboom!
+6756, kabuto moth
+1781, kaervek's hex
+1782, kaervek's purge
+2027, kaervek's spite
+1783, kaervek's torch
+7170, kagemaro's clutch
+7169, kagemaro, first to suffer
+7171, kaho, minamo historian
+6996, kaijin of the vanishing touch
+4926, kamahl's desire
+5180, kamahl's sledge
+5574, kamahl's summons
+5573, kamahl, fist of krosa
+4925, kamahl, pit fighter
+6757, kami of ancient law
+7172, kami of empty graves
+6997, kami of false hope
+6758, kami of fire's roar
+6759, kami of lunacy
+6760, kami of old stone
+6998, kami of tattered shoji
+7173, kami of the crescent moon
+6999, kami of the honored dead
+6761, kami of the hunt
+6762, kami of the painted road
+6763, kami of the palace fields
+7174, kami of the tended garden
+6764, kami of the waning moon
+6765, kami of twisted reflection
+4275, kangee, aerie keeper
+605, karakas
+141, karma
+3304, karmic guide
+4927, karmic justice
+3690, karn's touch
+3066, karn, silver golem
+5953, karona's zealot
+5952, karona, false god
+2028, karoo
+1784, karoo meerkat
+1170, karplusan forest
+1171, karplusan giant
+1172, karplusan yeti
+6382, karstoderm
+7175, kashi-tribe elite
+6766, kashi-tribe reaver
+6767, kashi-tribe warriors
+606, kasimir the lone wolf
+2029, katabatic winds
+7176, kataki, war's wage
+4276, kavu aggressor
+4277, kavu chameleon
+4278, kavu climber
+4700, kavu glider
+4701, kavu howler
+4279, kavu lair
+4702, kavu mauler
+4280, kavu monarch
+4545, kavu recluse
+4281, kavu runner
+4282, kavu scout
+4283, kavu titan
+1535, kaysa
+7355, keen-eyed archers
+5807, keeneye aven
+5323, keep watch
+2030, keeper of kookus
+2816, keeper of the beasts
+2817, keeper of the dead
+2818, keeper of the flame
+2819, keeper of the light
+2820, keeper of the mind
+5808, keeper of the nine gales
+1536, keeper of tresserhorn
+607, keepers of the faith
+608, kei takahashi
+6768, keiga, the tide star
+4071, keldon arsonist
+4072, keldon battlewagon
+4073, keldon berserker
+3455, keldon champion
+4074, keldon firebombers
+4546, keldon mantle
+4284, keldon necropolis
+4547, keldon twilight
+3456, keldon vandals
+142, keldon warlord
+1173, kelsinko ranger
+7177, kemuri-onna
+7000, kentaro, the smiling cat
+2439, kezzerdrix
+345, khabal ghoul
+6769, kiki-jiki, mirror breaker
+7178, kiku's shadow
+6770, kiku, night's flower
+3918, kill switch
+609, killer bees
+2821, killer whale
+5809, kilnmouth dragon
+2440, kindle
+2031, king cheetah
+3305, king crab
+346, king suleiman
+7356, king's assassin
+3457, kingfisher
+7001, kira, great glass-spinner
+347, kird ape
+7179, kiri-onna
+4928, kirtar's desire
+4929, kirtar's wrath
+610, kismet
+7534, kiss of death
+2213, kithkin armor
+6771, kitsune blademaster
+7180, kitsune bonesetter
+7181, kitsune dawnblade
+6772, kitsune diviner
+6773, kitsune healer
+7182, kitsune loreweaver
+6774, kitsune mystic
+7002, kitsune palliator
+6775, kitsune riftwalker
+7183, kiyomaro, first to stand
+1174, kjeldoran dead
+1175, kjeldoran elite guard
+1537, kjeldoran escort
+1176, kjeldoran frostbeast
+1177, kjeldoran guard
+1538, kjeldoran home guard
+1178, kjeldoran knight
+1539, kjeldoran outpost
+1179, kjeldoran phalanx
+1540, kjeldoran pride
+1180, kjeldoran royal guard
+1181, kjeldoran skycaptain
+1182, kjeldoran skyknight
+1183, kjeldoran warrior
+7357, knight errant
+2441, knight of dawn
+2442, knight of dusk
+1184, knight of stromgald
+2032, knight of the mists
+2033, knight of valor
+3306, knighthood
+830, knights of thorn
+611, knowledge vault
+612, kobold drill sergeant
+613, kobold overlord
+614, kobold taskmaster
+615, kobolds of kher keep
+7003, kodama of the center tree
+6776, kodama of the north tree
+6777, kodama of the south tree
+6778, kodama's might
+6779, kodama's reach
+6780, kokusho, the evening star
+6782, konda's banner
+6783, konda's hatamoto
+6781, konda, lord of eiganjo
+7674, kongming's contraptions
+7673, kongming, sleeping dragon
+2034, kookus
+2822, kor chant
+3919, kor haven
+143, kormus bell
+1434, koskun falls
+1435, koskun keep
+6383, kraken's eye
+2443, krakilin
+6128, krark's thumb
+6561, krark-clan engineers
+6129, krark-clan grunt
+6562, krark-clan ironworks
+6563, krark-clan ogre
+6130, krark-clan shaman
+6384, krark-clan stoker
+3691, kris mage
+4930, krosan archer
+4931, krosan avenger
+4932, krosan beast
+5810, krosan cloudscraper
+5575, krosan colossus
+5181, krosan constrictor
+5954, krosan drover
+5576, krosan groundshaker
+5324, krosan reclamation
+5182, krosan restorer
+5577, krosan tusker
+5325, krosan verge
+5811, krosan vorine
+5955, krosan warchief
+5326, krosan wayfarer
+1185, krovikan elementalist
+1186, krovikan fetish
+1541, krovikan horror
+1542, krovikan plague
+1187, krovikan sorcerer
+1188, krovikan vampire
+616, kry shield
+144, kudzu
+1785, kukemssa pirates
+1786, kukemssa serpent
+7004, kumano's blessing
+6785, kumano's pupils
+6784, kumano, master yamabushi
+7184, kuon, ogre ascendant
+5956, kurgadon
+7185, kuro's taken
+6786, kuro, pitlord
+6787, kusari-gama
+7005, kyoki, sanity's eclipse
+3692, kyren archive
+3693, kyren glider
+3694, kyren legate
+3695, kyren negotiations
+3696, kyren sniper
+3697, kyren toy
+2035, kyscu drake
+2686, lab rats
+1436, labyrinth minotaur
+3920, laccolith grunt
+3921, laccolith rig
+3922, laccolith titan
+3923, laccolith warrior
+3924, laccolith whelp
+617, lady caleria
+618, lady evangela
+619, lady orca
+7675, lady sun
+7676, lady zhurong, warrior queen
+1543, lake of the dead
+145, lance
+2687, lancers en-kor
+1189, land cap
+620, land equilibrium
+3698, land grant
+831, land leeches
+621, land tax
+622, land's edge
+3458, landslide
+6788, lantern kami
+6564, lantern of insight
+6789, lantern-lit graveyard
+1190, lapis lazuli talisman
+5183, laquatus's champion
+4933, laquatus's creativity
+5327, laquatus's disdain
+3699, larceny
+3925, lashknife
+4548, lashknife barrier
+3700, last breath
+4703, last caress
+7358, last chance
+5184, last laugh
+4934, last rites
+4704, last stand
+6385, last word
+3307, last-ditch effort
+1544, lat-nam's legacy
+4076, latulla's orders
+4075, latulla, keldon overseer
+3067, launch
+3308, lava axe
+4935, lava blister
+1191, lava burst
+5328, lava dart
+7360, lava flow
+2214, lava hounds
+3701, lava runner
+6790, lava spike
+2215, lava storm
+1192, lava tubes
+4549, lava zombie
+5812, lavaborn muse
+5578, lavamancer's skill
+3926, lawbringer
+4705, lay of the land
+3068, lay waste
+5329, lead astray
+1787, lead golem
+2036, lead-belly chimera
+6131, leaden myr
+4936, leaf dancer
+2688, leap
+1437, leaping lizard
+1438, leeches
+2444, leeching licid
+1788, leering gargoyle
+5580, leery fogbeast
+4706, legacy weapon
+2445, legacy's allure
+2446, legerdemain
+1193, legions of lim-dul
+6132, leonin abunas
+6386, leonin battlemage
+6133, leonin bladetrap
+6387, leonin bola
+6134, leonin den-guard
+6135, leonin elder
+6136, leonin scimitar
+6388, leonin shikari
+6137, leonin skyhunter
+6565, leonin squire
+6138, leonin sun standard
+1194, leshrac's rite
+1195, leshrac's sigil
+4077, lesser gargadon
+623, lesser werewolf
+5957, lethal vapors
+6139, leveler
+832, leviathan
+3309, levitation
+146, ley druid
+3702, ley line
+1196, lhurgoyf
+3703, liability
+6140, liar's pendulum
+4285, liberate
+5330, liberated dwarf
+348, library of alexandria
+1545, library of lat-nam
+147, library of leng
+148, lich
+6389, lich's tomb
+2037, lichenthrope
+5813, liege of the axe
+2216, liege of the hollows
+4937, lieutenant kirtar
+4938, life burst
+624, life chisel
+625, life matrix
+4707, life | death
+626, lifeblood
+149, lifeforce
+7006, lifegift
+150, lifelace
+3069, lifeline
+6141, lifespark spellbomb
+7007, lifespinner
+151, lifetap
+6791, lifted by clouds
+2447, light of day
+3927, lightbringer
+4708, lightning angel
+2448, lightning blast
+1197, lightning blow
+152, lightning bolt
+2038, lightning cloud
+6142, lightning coils
+4286, lightning dart
+3070, lightning dragon
+2449, lightning elemental
+6143, lightning greaves
+3704, lightning hounds
+1789, lightning reflexes
+5581, lightning rift
+5331, lightning surge
+3071, lilting refrain
+1198, lim-dul's cohort
+1199, lim-dul's hex
+1546, lim-dul's high guard
+1547, lim-dul's paladin
+1548, lim-dul's vault
+4939, limestone golem
+2823, limited resources
+3928, lin sivvi, defiant hero
+5958, lingering death
+3072, lingering mirage
+1790, lion's eye diamond
+4940, liquid fire
+5185, liquify
+4941, lithatog
+3705, lithophage
+7677, liu bei, lord of shu
+4709, living airship
+833, living armor
+153, living artifact
+2450, living death
+6144, living hive
+154, living lands
+627, living plane
+4078, living terrain
+155, living wall
+5332, living wish
+628, livonya silone
+7361, lizard warrior
+2217, llanowar behemoth
+4287, llanowar cavalry
+4710, llanowar dead
+2218, llanowar druid
+4288, llanowar elite
+156, llanowar elves
+4289, llanowar knight
+2219, llanowar sentinel
+4290, llanowar vanguard
+4711, llanowar wastes
+5186, llawan, cephalid empress
+4291, loafing giant
+7008, loam dweller
+2451, lobotomy
+7186, locust miser
+1791, locust swarm
+1549, lodestone bauble
+6145, lodestone myr
+3310, lone wolf
+5582, lonely sandbar
+6792, long-forgotten gohei
+5959, long-term plans
+2039, longbow archer
+5187, longhorn firebeast
+6146, looming hoverguard
+3073, looming shade
+629, lord magnus
+157, lord of atlantis
+158, lord of the pit
+4550, lord of the undead
+1550, lord of tresserhorn
+6566, lose hope
+5333, lost in thought
+1200, lost order of jarkeld
+630, lost soul
+3074, lotus blossom
+4293, lotus guardian
+2452, lotus petal
+2220, lotus vale
+2689, lowland basilisk
+2453, lowland giant
+5814, lowland tracker
+6567, loxodon anchorite
+6147, loxodon mender
+6390, loxodon mystic
+6148, loxodon peacekeeper
+6149, loxodon punisher
+6568, loxodon stalwart
+6150, loxodon warhammer
+7679, loyal retainers
+7680, lu bu, master-at-arms
+7681, lu meng, wu general
+7682, lu su, wu advisor
+7683, lu xun, scholar general
+3075, lull
+3706, lumbering satyr
+6151, lumengrid augur
+6152, lumengrid sentinel
+6153, lumengrid warden
+6154, luminous angel
+4942, luminous guardian
+6569, lunar avenger
+3707, lunge
+159, lure
+1792, lure of prey
+834, lurker
+3076, lurking evil
+3459, lurking jackals
+7537, lurking nightstalker
+3311, lurking skirge
+7538, lynx
+7684, ma chao, western warrior
+5815, macetail hystrodon
+6391, machinate
+4943, mad dog
+2454, maddening imp
+1202, maddening wind
+7187, maga, traitor to mortals
+2824, mage il-vec
+5583, mage's guile
+4294, mages' contest
+4079, mageta the lion
+4080, mageta's boon
+4551, maggot carrier
+3709, maggot therapy
+160, magical hack
+3710, magistrate's scepter
+3711, magistrate's veto
+4552, magma burst
+6570, magma giant
+6571, magma jet
+2040, magma mine
+5816, magma sliver
+4944, magma vein
+2455, magmasaur
+6392, magnetic flux
+349, magnetic mountain
+6572, magnetic theft
+2456, magnetic web
+3460, magnify
+4553, magnigoth treefolk
+4945, magnivore
+1203, magus of the unseen
+161, mahamoti djinn
+5188, major teroh
+6155, malachite golem
+1204, malachite talisman
+4946, malevolent awakening
+4554, malicious advice
+1793, malignant growth
+1439, mammoth harness
+2041, man-o'-war
+2825, mana breach
+3929, mana cache
+2221, mana chains
+835, mana clash
+3, mana crypt
+4555, mana cylix
+631, mana drain
+5584, mana echoes
+162, mana flare
+6573, mana geyser
+2690, mana leak
+3077, mana leech
+632, mana matrix
+4295, mana maze
+1794, mana prism
+6794, mana seism
+2457, mana severance
+163, mana short
+4081, mana vapors
+164, mana vault
+836, mana vortex
+2222, mana web
+165, manabarbs
+2826, manabond
+4712, manacles of decay
+2458, manakin
+1795, mangara's blessing
+1796, mangara's equity
+1797, mangara's tome
+2827, maniacal rage
+4297, manipulate fate
+7009, mannichi, the fevered dream
+7188, manriki-gusari
+2223, manta ray
+2459, manta riders
+3461, mantis engine
+4298, marauding knight
+2224, maraxus of keld
+1798, marble diamond
+633, marble priest
+2460, marble titan
+4556, march of souls
+6156, march of the machines
+634, marhault elsdragon
+1440, marjhan
+3462, mark of fury
+7010, mark of sakiko
+7011, mark of the oni
+3463, marker beetles
+1799, maro
+6795, marrow-gnawer
+4082, marsh boa
+4557, marsh crocodile
+837, marsh gas
+838, marsh goblins
+2461, marsh lurker
+839, marsh viper
+7685, marshaling the troops
+1205, marton stromgald
+3312, martyr's cause
+840, martyr's cry
+1551, martyrdom
+417, martyrs of korlis
+4713, martyrs' tomb
+6796, masako the humorless
+4714, mask of intolerance
+3464, mask of law and grace
+6157, mask of memory
+2691, mask of the mimic
+5334, masked gorgon
+6158, mass hysteria
+3930, massacre
+4947, master apothecary
+2462, master decoy
+3465, master healer
+2225, master of arms
+635, master of the hunt
+5817, master of the veil
+3466, masticore
+7189, masumaro, first to live
+2042, matopi golem
+7190, matsu-tribe birdstalker
+6797, matsu-tribe decoy
+7012, matsu-tribe sniper
+2463, mawcor
+841, maze of ith
+2464, maze of shadows
+7191, measure of wickedness
+1800, meddle
+4558, meddling mage
+2828, medicine bag
+2465, meditate
+166, meekstone
+3712, megatherium
+6159, megatog
+2692, megrim
+7192, meishin, the mind cage
+1206, melee
+1801, melesse spirit
+6798, meloku the clouded mirror
+3078, meltdown
+1207, melting
+6393, memnarch
+2829, memory crystal
+3313, memory jar
+1441, memory lapse
+5586, menacing ogre
+7013, mending hands
+7687, meng huo's horde
+7686, meng huo, barbarian king
+3467, mental discipline
+5335, mental note
+6574, mephidross vampire
+6394, mephitic ooze
+3716, mercadia's downfall
+3713, mercadian atlas
+3714, mercadian bazaar
+3715, mercadian lift
+1208, mercenaries
+4083, mercenary informer
+7363, mercenary knight
+5818, merchant of secrets
+1442, merchant scroll
+350, merchant ship
+5960, mercurial kite
+842, merfolk assassin
+2830, merfolk looter
+167, merfolk of the pearl trident
+1803, merfolk raiders
+1804, merfolk seer
+2226, merfolk traders
+1209, merieke ri berit
+951, merseine
+1443, mesa falcon
+168, mesa pegasus
+5189, mesmeric fiend
+6160, mesmeric orb
+1210, mesmeric trance
+6395, metal fatigue
+2466, metallic sliver
+3468, metalworker
+4948, metamorphic wurm
+5961, metamorphose
+351, metamorphosis
+4299, metathran aerostat
+3469, metathran elite
+3470, metathran soldier
+4300, metathran transport
+4301, metathran zombie
+4559, meteor crater
+1211, meteor shower
+4302, meteor storm
+3079, metrognome
+7193, michiko konda, truth seeker
+6799, midnight covenant
+3717, midnight ritual
+3080, midsummer revel
+3314, might of oaks
+4303, might weaver
+418, mightstone
+352, mijae djinn
+7194, mikokoro, center of the sea
+5190, militant monk
+4949, millikin
+419, millstone
+7195, minamo scrollkeeper
+7014, minamo sightbender
+7015, minamo's meddling
+6800, minamo, school at water's edge
+1805, mind bend
+843, mind bomb
+4950, mind burst
+4715, mind extraction
+2693, mind games
+1806, mind harness
+7365, mind knives
+2831, mind maggots
+2832, mind over matter
+2694, mind peel
+1212, mind ravel
+7366, mind rot
+3931, mind slash
+5191, mind sludge
+2227, mind stone
+3932, mind swords
+169, mind twist
+1213, mind warp
+1214, mind whip
+5962, mind's desire
+6161, mind's eye
+1807, mindbender spores
+6801, mindblaze
+2833, mindless automaton
+6162, mindslaver
+4951, mindslicer
+952, mindstab thrull
+6163, mindstorm crown
+2695, mindwarper
+2467, mindwhip sliver
+4084, mine bearer
+4952, mine layer
+1215, minion of leshrac
+1216, minion of tevesh szat
+2468, minion of the wastes
+4953, minotaur explorer
+4716, minotaur illusionist
+4717, minotaur tactician
+7367, minotaur warrior
+844, miracle worker
+2043, miraculous recovery
+4954, mirari
+5336, mirari's wake
+4560, mire kavu
+1808, mire shade
+7196, miren, the moaning well
+2834, mirozel
+2469, mirri's guile
+2835, mirri, cat warrior
+6396, mirrodin's core
+7016, mirror gallery
+6164, mirror golem
+4085, mirror strike
+636, mirror universe
+5337, mirror wall
+4561, mirrorwood treefolk
+3315, miscalculation
+2228, mischievous poltergeist
+5963, mischievous quanar
+3718, misdirection
+1809, misers' cage
+5587, misery charm
+1552, misfortune
+7688, misfortune's gain
+5964, misguided rage
+420, mishra's factory
+1553, mishra's groundbreaker
+3081, mishra's helix
+421, mishra's war machine
+422, mishra's workshop
+1554, misinformation
+3719, misshapen fiend
+3720, misstep
+1810, mist dragon
+5338, mist of stagnation
+7017, mistblade shinobi
+1217, mistfolk
+5588, mistform dreamer
+5589, mistform mask
+5590, mistform mutant
+5819, mistform seaswift
+5591, mistform shrieker
+5592, mistform skyreaver
+5820, mistform sliver
+5593, mistform stalker
+5821, mistform ultimus
+5822, mistform wakecaster
+5594, mistform wall
+5965, mistform warchief
+2229, mistmoon griffin
+2470, mnemonic sliver
+7541, moaning spirit
+637, moat
+2696, mob justice
+2044, mob mentality
+3082, mobile fort
+5595, mobilization
+7368, mobilize
+3933, mogg alarm
+2836, mogg assassin
+2697, mogg bombers
+2471, mogg cannon
+2472, mogg conscripts
+2473, mogg fanatic
+2698, mogg flunkies
+2474, mogg hollows
+2699, mogg infestation
+4562, mogg jailer
+2700, mogg maniac
+2475, mogg raider
+3934, mogg salvage
+4563, mogg sentry
+2476, mogg squad
+3935, mogg toady
+3936, moggcatcher
+638, mold demon
+6165, molder slug
+1218, mole worms
+4304, molimo, maro-sorcerer
+3316, molten hydra
+4955, molten influence
+6166, molten rain
+3721, molting harpy
+7197, molting skin
+3722, moment of silence
+4956, moment's peace
+3471, momentum
+2477, mongrel pack
+3083, monk idealist
+3084, monk realist
+3723, monkey cage
+170, mons's goblin raiders
+1219, monsoon
+7369, monstrous growth
+2837, monstrous hound
+7370, moon sprite
+7198, moonbow illusionist
+7018, moonlit strider
+3724, moonlit wake
+6802, moonring mirror
+7199, moonwing moth
+1220, moor fiend
+353, moorish cavalry
+845, morale
+5339, morality shift
+4957, morbid hunger
+4958, morgue theft
+2701, morgue thrull
+4564, morgue toad
+2230, morinfen
+6575, moriok rigger
+6167, moriok scavenger
+5192, morningtide
+3085, morphling
+5193, mortal combat
+2045, mortal wound
+5194, mortiphobia
+4959, mortivore
+2702, mortuary
+1811, moss diamond
+6803, moss kami
+639, moss monster
+3937, mossdog
+4960, mossfire egg
+4961, mossfire valley
+3317, mother of runes
+6804, mothrider samurai
+171, mountain
+7690, mountain bandit
+1222, mountain goat
+640, mountain stronghold
+1223, mountain titan
+1813, mountain valley
+641, mountain yeti
+2479, mounted archers
+6169, mourner's shield
+4718, mournful zombie
+4306, mourning
+2703, mox diamond
+172, mox emerald
+173, mox jet
+174, mox pearl
+175, mox ruby
+176, mox sapphire
+1814, mtenda griffin
+1815, mtenda herder
+1816, mtenda lion
+7373, muck rats
+4963, mudhole
+1224, mudslide
+2704, mulch
+3319, multani's acolyte
+3472, multani's decree
+4565, multani's harmony
+3320, multani's presence
+3318, multani, maro-sorcerer
+2046, mundungu
+4086, mungha wurm
+3938, murderous betrayal
+6397, murderous spoils
+846, murk dwellers
+7200, murmurs from beyond
+4964, muscle burst
+2480, muscle sliver
+1225, musician
+5195, mutilate
+3726, muzzle
+2231, mwonvuli ooze
+6576, mycosynth golem
+6398, mycosynth lattice
+6806, myojin of cleansing fire
+6807, myojin of infinite rage
+6808, myojin of life's web
+6809, myojin of night's reach
+6810, myojin of seeing winds
+6170, myr adapter
+6171, myr enforcer
+6172, myr incubator
+6399, myr landshaper
+6400, myr matrix
+6173, myr mindservant
+6401, myr moonvessel
+6174, myr prototype
+6577, myr quadropod
+6175, myr retriever
+6578, myr servitor
+1555, mystic compass
+4965, mystic crusader
+1444, mystic decree
+7374, mystic denial
+4966, mystic enforcer
+5196, mystic familiar
+1226, mystic might
+4967, mystic penitent
+1227, mystic remora
+6811, mystic restraints
+4719, mystic snake
+2047, mystic veil
+4968, mystic visionary
+4969, mystic zealot
+1817, mystical tutor
+5597, mythic proportions
+1228, nacre talisman
+355, nafs asp
+6812, nagao, bound by honor
+4087, nakaya shade
+1229, naked singularity
+4, nalathni dragon
+5598, nameless one
+847, nameless race
+5197, nantuko blightcutter
+5198, nantuko calmer
+5199, nantuko cultivator
+4970, nantuko disciple
+4971, nantuko elder
+5599, nantuko husk
+4972, nantuko mentor
+5340, nantuko monastery
+5200, nantuko shade
+4973, nantuko shrine
+5341, nantuko tracer
+5823, nantuko vigilante
+5201, narcissism
+1445, narwhal
+3727, natural affinity
+1818, natural balance
+4566, natural emergence
+2048, natural order
+177, natural selection
+2481, natural spring
+5600, naturalize
+1556, nature's blessing
+1557, nature's chosen
+7377, nature's cloak
+2232, nature's kiss
+1230, nature's lore
+2233, nature's resurgence
+2482, nature's revolt
+7379, nature's ruin
+6813, nature's will
+1558, nature's wrath
+2838, nausea
+642, nebuchadnezzar
+4720, necra disciple
+4721, necra sanctuary
+2234, necratog
+4722, necravolver
+953, necrite
+6176, necrogen mists
+6177, necrogen spellbomb
+2839, necrologia
+2049, necromancy
+848, necropolis
+1231, necropotence
+2050, necrosavant
+4974, need for speed
+2483, needle storm
+6178, needlebug
+5824, needleshot gourna
+4975, nefarious lich
+5966, nefashu
+7019, neko-te
+2051, nekrataal
+4567, nemata, grove guardian
+6402, nemesis mask
+3939, nesting wurm
+178, nether shadow
+3728, nether spirit
+643, nether void
+3940, netter en-dal
+1819, nettletooth djinn
+179, nettling imp
+6179, neurok familiar
+6180, neurok hoversail
+6403, neurok prodigy
+6181, neurok spy
+6579, neurok stealthsuit
+6404, neurok transmuter
+7201, neverending torment
+180, nevinyrral's disk
+4976, new frontiers
+6814, nezumi bone-reader
+6815, nezumi cutthroat
+6816, nezumi graverobber
+6817, nezumi ronin
+7020, nezumi shadow-watcher
+6818, nezumi shortfang
+849, niall silvain
+644, nicol bolas
+6819, night dealings
+6820, night of souls' betrayal
+954, night soil
+4723, night | day
+6580, night's whisper
+181, nightmare
+6182, nightmare lash
+4307, nightscape apprentice
+4568, nightscape battlemage
+4569, nightscape familiar
+4308, nightscape master
+3473, nightshade seer
+7202, nightsoil kami
+7548, nightstalker engine
+3729, nightwind glider
+7203, nikko-onna
+6405, nim abomination
+6183, nim devourer
+6581, nim grotesque
+6184, nim lasher
+6185, nim replica
+6186, nim shambler
+6187, nim shrieker
+4977, nimble mongoose
+6821, nine-ringed bo
+7021, ninja of the deep hours
+3321, no mercy
+2484, no quarter
+3087, no rest for the wicked
+6822, no-dachi
+2235, noble benefactor
+1820, noble elephant
+4309, noble panther
+3730, noble purpose
+3941, noble stand
+1559, noble steeds
+5967, noble templar
+1821, nocturnal raid
+3088, noetic scales
+4978, nomad decoy
+5342, nomad mythmaker
+4979, nomad stadium
+4310, nomadic elf
+2705, nomads en-kor
+1232, norritt
+645, north star
+182, northern paladin
+7549, norwood archers
+7550, norwood priestess
+7551, norwood ranger
+7552, norwood riders
+7553, norwood warrior
+5202, nostalgic dreams
+5601, nosy goblin
+3731, notorious assassin
+6406, nourish
+7022, nourishing shoal
+5602, nova cleric
+646, nova pentacle
+4088, noxious field
+5825, noxious ghoul
+7381, noxious toad
+4570, noxious vapors
+6188, nuisance engine
+2840, null brooch
+1822, null chamber
+2236, null rod
+5343, nullmage advocate
+6823, numai outcast
+2485, nurturing licid
+4980, nut collector
+7208, o-naginata
+356, oasis
+2841, oath of druids
+2842, oath of ghouls
+2843, oath of lieges
+1233, oath of lim-dul
+2844, oath of mages
+2845, oath of scholars
+6824, oathkeeper, takeno's daisho
+423, obelisk of undoing
+5603, oblation
+4311, obliterate
+6189, oblivion stone
+7204, oboro breezecaller
+7205, oboro envoy
+7206, oboro, palace in the clouds
+5203, obsessive search
+183, obsianus golem
+4312, obsidian acolyte
+7554, obsidian giant
+4981, obstinate familiar
+2237, odylic wraith
+3942, off balance
+7555, ogre arsonist
+7556, ogre berserker
+2052, ogre enforcer
+6190, ogre leadfoot
+7023, ogre marauder
+7024, ogre recluse
+2846, ogre shaman
+3732, ogre taskmaster
+7558, ogre warrior
+7025, okiba-gang shinobi
+7207, okina nightwatch
+6825, okina, temple to the grandfathers
+3089, okk
+357, old man of the sea
+6191, omega myr
+7382, omen
+1560, omen of fire
+6192, one dozen eyes
+5968, one with nature
+7209, one with nothing
+7210, oni of wild places
+6826, oni possession
+2847, onslaught
+424, onulet
+1234, onyx talisman
+3090, opal acrolith
+3091, opal archangel
+3322, opal avenger
+3092, opal caryatid
+3323, opal champion
+3093, opal gargoyle
+3094, opal titan
+7026, opal-eye, konda's yojimbo
+3474, opalescence
+6582, opaline bracers
+2238, ophidian
+2486, opportunist
+3324, opportunity
+3475, opposition
+3095, oppression
+7211, oppressive will
+4313, opt
+2487, oracle en-vec
+3943, oracle's attendants
+3944, oraxid
+7027, orb of dreams
+6827, orbweaver kumo
+850, orc general
+184, orcish artillery
+1235, orcish cannoneers
+955, orcish captain
+1236, orcish conscripts
+1237, orcish farmer
+1238, orcish healer
+1239, orcish librarian
+1240, orcish lumberjack
+425, orcish mechanics
+1446, orcish mine
+185, orcish oriflamme
+2239, orcish settlers
+956, orcish spy
+1241, orcish squatters
+957, orcish veteran
+958, order of leitbur
+959, order of the ebon hand
+6828, order of the sacred bell
+1242, order of the sacred torch
+1243, order of the white shield
+3096, order of yawgmoth
+4724, order | chaos
+4314, ordered migration
+6829, ore gorger
+5204, organ grinder
+960, orgg
+4571, orim's chant
+3733, orim's cure
+2489, orim's prayer
+4725, orim's thunder
+4315, orim's touch
+2488, orim, samite healer
+7028, ornate kanzashi
+426, ornithopter
+6830, orochi eggwatcher
+6831, orochi hatchery
+6832, orochi leafcaller
+6833, orochi ranger
+6834, orochi sustainer
+647, osai vultures
+3325, ostracize
+4982, otarian juggernaut
+6835, otherworldly journey
+358, oubliette
+6583, ouphe vandals
+4089, outbreak
+3097, outmaneuver
+4316, overabundance
+7029, overblaze
+4090, overburden
+4983, overeager apprentice
+4726, overgrown estate
+2706, overgrowth
+3945, overlaid terrain
+4317, overload
+5205, overmaster
+6194, override
+2490, overrun
+5604, oversold cemetery
+3734, overtaker
+7692, overwhelming forces
+5605, overwhelming instinct
+7212, overwhelming intellect
+2053, ovinomancer
+7383, owl familiar
+6407, oxidda golem
+6408, oxidize
+7030, oyobi, who split the heavens
+1823, pacifism
+3946, pack hunt
+6836, pain kami
+4318, pain | suffering
+7213, pain's reward
+4985, painbringer
+1824, painful memories
+6837, painwracker oni
+2848, paladin en-vec
+1244, pale bears
+3947, pale moon
+3326, palinchron
+648, palladia-mors
+2492, pallimud
+3735, panacea
+2849, pandemonium
+7693, pang tong, young phoenix
+3736, pangosaur
+1245, panic
+4091, panic attack
+6409, panoptic mirror
+2054, panther warriors
+2240, paradigm shift
+6584, paradise mantle
+3948, parallax dementia
+3949, parallax inhibitor
+3950, parallax nexus
+3951, parallax tide
+3952, parallax wave
+5206, parallel evolution
+5969, parallel thoughts
+186, paralyze
+2055, parapet
+3099, parasitic bond
+3327, parch
+5207, pardic arsonist
+5208, pardic collaborator
+4986, pardic firecat
+5209, pardic lancer
+4987, pardic miner
+4988, pardic swordsmith
+3100, pariah
+2850, paroxysm
+6838, part the veil
+649, part water
+1825, patagia golem
+2493, patchwork gnomes
+7214, path of anger's flame
+3101, path of peace
+5607, patriarch's bidding
+4990, patriarch's desire
+4991, patrol hound
+7031, patron of the akki
+7032, patron of the kitsune
+7033, patron of the moon
+7034, patron of the nezumi
+7035, patron of the orochi
+5826, patron of the wild
+4992, patron wizard
+3476, pattern of rebirth
+1826, paupers' cage
+650, pavel maliki
+5210, pay no heed
+3328, peace and quiet
+2851, peace of mind
+2056, peace talks
+2241, peacekeeper
+7694, peach garden oath
+1827, pearl dragon
+2494, pearl medallion
+6195, pearl shard
+187, pearled unicorn
+5608, pearlspear courier
+3737, peat bog
+4993, pedantic learning
+4994, peek
+5609, peer pressure
+6839, peer through depths
+3102, pegasus charger
+2495, pegasus refuge
+2852, pegasus stampede
+5970, pemmin's aura
+2853, penance
+651, pendelhaven
+3103, pendrell drake
+3104, pendrell flux
+2242, pendrell mists
+6585, pentad prism
+1246, pentagram of the ages
+6196, pentavus
+4727, penumbra bobcat
+4728, penumbra kavu
+4729, penumbra wurm
+851, people of the woods
+3105, peregrine drake
+2496, perish
+4730, pernicious deed
+3106, persecute
+188, personal incarnation
+7386, personal tutor
+4995, persuasion
+189, pestilence
+1247, pestilence rats
+7036, petalmane baku
+6840, petals of insight
+652, petra sphinx
+5211, petradon
+5212, petravark
+4996, petrified field
+6197, pewter golem
+5827, phage the untouchable
+1561, phantasmal fiend
+190, phantasmal forces
+1248, phantasmal mount
+1562, phantasmal sphere
+191, phantasmal terrain
+4997, phantatog
+5344, phantom centaur
+5345, phantom flock
+192, phantom monster
+5346, phantom nantuko
+5347, phantom nishoba
+5348, phantom nomad
+5349, phantom tiger
+2243, phantom warrior
+4998, phantom whelp
+2244, phantom wings
+1563, phelddagrif
+4320, phyrexian altar
+4731, phyrexian arena
+4321, phyrexian battleflies
+4572, phyrexian bloodstock
+1564, phyrexian boon
+3329, phyrexian broodlings
+3108, phyrexian colossus
+3330, phyrexian debaser
+3331, phyrexian defiler
+4322, phyrexian delver
+3332, phyrexian denouncer
+1565, phyrexian devourer
+1828, phyrexian dreadnought
+3953, phyrexian driver
+2245, phyrexian furnace
+4732, phyrexian gargantua
+3109, phyrexian ghoul
+427, phyrexian gremlins
+2497, phyrexian grimoire
+2498, phyrexian hulk
+4323, phyrexian infiltrator
+4324, phyrexian lens
+2057, phyrexian marauder
+3477, phyrexian monitor
+3478, phyrexian negator
+3333, phyrexian plaguelord
+1566, phyrexian portal
+3110, phyrexian processor
+3954, phyrexian prowler
+1829, phyrexian purge
+4733, phyrexian rager
+4325, phyrexian reaper
+3334, phyrexian reclamation
+4573, phyrexian scuta
+4326, phyrexian slayer
+2499, phyrexian splicer
+3111, phyrexian tower
+1830, phyrexian tribute
+4574, phyrexian tyranny
+1831, phyrexian vault
+2058, phyrexian walker
+1567, phyrexian war beast
+4999, pianna, nomad captain
+359, piety
+5610, piety charm
+852, pikemen
+5000, pilgrim of justice
+5001, pilgrim of virtue
+1568, pillage
+7388, pillaging horde
+2059, pillar tombs of aku
+4327, pincer spider
+2500, pincher beetles
+2501, pine barrens
+6841, pinecrest ridge
+5611, pinpoint avalanche
+6842, pious kitsune
+3738, pious warrior
+5002, piper's melody
+7560, piracy
+193, pirate ship
+2502, pit imp
+4092, pit raptor
+653, pit scorpion
+2854, pit spawn
+1249, pit trap
+5213, pitchstone wall
+7215, pithing needle
+654, pixie queen
+5214, plagiarize
+3335, plague beetle
+3479, plague dogs
+4093, plague fiend
+194, plague rats
+4328, plague spitter
+4329, plague spores
+4094, plague wind
+3955, plague witch
+2855, plaguebearer
+195, plains
+3114, planar birth
+5350, planar chaos
+3336, planar collapse
+4734, planar despair
+655, planar gate
+5828, planar guide
+4575, planar overlay
+4331, planar portal
+3115, planar void
+4576, planeswalker's favor
+4577, planeswalker's fury
+4578, planeswalker's mirth
+4579, planeswalker's mischief
+4580, planeswalker's scorn
+7390, plant elemental
+6586, plasma elemental
+196, plateau
+2856, plated rootwalla
+6199, plated slagwurm
+5829, plated sliver
+3480, plated spider
+7562, plated wurm
+6200, platinum angel
+4332, pledge of loyalty
+7216, plow through reito
+3481, plow under
+6587, plunge into darkness
+7696, poison arrow
+1251, polar kraken
+1833, political trickery
+4581, pollen remedy
+5613, polluted delta
+3116, polluted mire
+1834, polymorph
+3740, port inspector
+2707, portcullis
+1252, portent
+5215, possessed aven
+5216, possessed barbarian
+5217, possessed centaur
+5218, possessed nomad
+6588, possessed portal
+3117, pouncing jaguar
+4333, pouncing kavu
+3482, powder keg
+4334, power armor
+428, power artifact
+6201, power conduit
+197, power leak
+3741, power matrix
+198, power sink
+199, power surge
+3119, power taint
+429, powerleech
+4735, powerstone minefield
+1254, pox
+656, pradesh gypsies
+853, preacher
+2505, precognition
+6202, predator's strike
+3956, predator, flagship
+2857, predatory hunger
+7563, predatory nightstalker
+5004, predict
+7697, preemptive strike
+1836, preferred selection
+657, presence of the master
+7217, presence of the wise
+3742, pretender's claim
+5005, price of glory
+2858, price of progress
+3121, priest of gix
+3122, priest of titania
+430, priest of yawgmoth
+5614, primal boost
+431, primal clay
+5006, primal frenzy
+4582, primal growth
+1447, primal order
+2708, primal rage
+5830, primal whisperer
+7391, primeval force
+3743, primeval shambler
+5971, primitive etchings
+1569, primitive justice
+5831, primoc escapee
+658, primordial ooze
+659, princess lucrezia
+1837, prismatic boon
+1838, prismatic circle
+1839, prismatic lace
+5351, prismatic strands
+1255, prismatic ward
+4335, prison barricade
+6410, pristine angel
+3483, private research
+4336, probe
+200, prodigal sorcerer
+5615, profane prayers
+4337, prohibit
+7218, promise of bunrei
+6203, promise of power
+7219, promised kannushi
+2506, propaganda
+1448, prophecy
+4736, prophetic bolt
+2060, prosperity
+4338, protective sphere
+5972, proteus machine
+6204, proteus staff
+2709, provoke
+7564, prowling nightstalker
+5616, prowling pangolin
+201, psionic blast
+660, psionic entity
+5007, psionic gift
+5008, psychatog
+854, psychic allergy
+4339, psychic battle
+6205, psychic membrane
+6411, psychic overload
+6844, psychic puppetry
+661, psychic purge
+7038, psychic spear
+4095, psychic theft
+5617, psychic trance
+1840, psychic transfer
+202, psychic venom
+2246, psychic vortex
+6206, psychogenic probe
+5219, psychotic haze
+6412, pteron ghost
+3744, puffer extract
+6845, pull under
+5009, pulsating illusion
+4340, pulse of llanowar
+6413, pulse of the dross
+6414, pulse of the fields
+6415, pulse of the forge
+6416, pulse of the grid
+6417, pulse of the tangle
+5352, pulsemage advocate
+3745, pulverize
+662, puppet master
+2507, puppet strings
+3746, puppet's verdict
+5010, puppeteer
+7220, pure intentions
+4341, pure reflection
+203, purelace
+1841, purgatory
+6418, purge
+3123, purging scythe
+3337, purify
+1842, purraj of urborg
+2710, pursuit of knowledge
+7039, pus kami
+3747, putrefaction
+5220, putrid imp
+5973, putrid raptor
+4737, putrid warrior
+1256, pygmy allosaurus
+2061, pygmy hippo
+4583, pygmy kavu
+3338, pygmy pyrosaur
+4096, pygmy razorback
+2859, pygmy troll
+1257, pyknite
+360, pyramids
+4342, pyre zombie
+1843, pyric salamander
+6207, pyrite spellbomb
+1258, pyroblast
+1259, pyroclasm
+1570, pyrokinesis
+3339, pyromancy
+5221, pyromania
+5974, pyrostatic pillar
+663, pyrotechnics
+2062, python
+664, quagmire
+4738, quagmire druid
+3748, quagmire lamprey
+665, quarum trench gnomes
+3484, quash
+4584, questing phelddagrif
+5832, quick sliver
+2508, quickening licid
+2063, quicksand
+3340, quicksilver amulet
+6419, quicksilver behemoth
+4739, quicksilver dagger
+5618, quicksilver dragon
+6208, quicksilver elemental
+6209, quicksilver fountain
+4097, quicksilver wall
+6846, quiet purity
+5353, quiet speculation
+7041, quillmane baku
+2064, quirion druid
+4585, quirion dryad
+1844, quirion elves
+4586, quirion explorer
+2065, quirion ranger
+4344, quirion sentinel
+4345, quirion trailblazer
+6589, qumulox
+5011, rabid elephant
+2711, rabid rats
+2860, rabid wolverines
+666, rabid wombat
+3341, rack and ruin
+3957, rackling
+1845, radiant essence
+4587, radiant kavu
+3343, radiant's dragoons
+3344, radiant's judgment
+3342, radiant, archangel
+5222, radiate
+667, radjan spirit
+6847, rag dealer
+855, rag man
+4346, rage weaver
+6848, ragged veins
+668, raging bull
+7395, raging cougar
+2861, raging goblin
+2066, raging gorilla
+4347, raging kavu
+7397, raging minotaur
+204, raging river
+1846, raging spirit
+669, ragnar
+7566, raiding nightstalker
+961, raiding party
+5975, rain of blades
+7567, rain of daggers
+3124, rain of filth
+6590, rain of rust
+3125, rain of salt
+2509, rain of tears
+4348, rainbow crow
+2067, rainbow efreet
+962, rainbow vale
+205, raise dead
+6210, raise the alarm
+4740, raka disciple
+4741, raka sanctuary
+432, rakalite
+4742, rakavolver
+6591, raksha golden cub
+1260, rally
+7221, rally the horde
+7569, rally the troops
+670, ramirez depietro
+3750, ramosian captain
+3751, ramosian commander
+3752, ramosian lieutenant
+3753, ramosian rally
+3754, ramosian sergeant
+3755, ramosian sky marshal
+4349, rampant elephant
+1847, rampant growth
+3756, rampart crawler
+671, ramses overdark
+5223, rancid earth
+3345, rancor
+2511, ranger en-vec
+3346, rank and file
+2712, ransack
+3485, rapid decay
+672, rapid fire
+3757, rappelling scouts
+1848, rashida scalebane
+1449, rashka the slayer
+673, rasputin dreamweaver
+3961, rath's edge
+3958, rathi assassin
+2512, rathi dragon
+3959, rathi fiend
+3960, rathi intimidator
+2513, rats of rath
+5354, rats' feast
+5012, ravaged highlands
+7699, ravages of war
+7700, ravaging horde
+3347, raven familiar
+5976, raven guild initiate
+5977, raven guild master
+2862, ravenous baboons
+5619, ravenous baloth
+3486, ravenous rats
+3126, ravenous skirge
+1849, ravenous vampire
+7222, raving oni-slave
+1261, ray of command
+5013, ray of distortion
+1262, ray of erasure
+5355, ray of revelation
+3487, rayne, academy chancellor
+3127, raze
+4588, razing snidd
+6211, razor barrier
+6420, razor golem
+1851, razor pendulum
+7571, razorclaw bear
+4743, razorfin hunter
+4351, razorfoot griffin
+6592, razorgrass screen
+7223, razorjaw oni
+6593, razormane masticore
+2247, razortooth rats
+6849, reach through mists
+5620, read the runes
+2514, reality anchor
+1852, reality ripple
+1263, reality twist
+2515, reanimate
+2516, reap
+6421, reap and sow
+5978, reaping the graves
+2863, reaping the rewards
+4098, rebel informer
+674, rebirth
+5224, reborn hero
+2713, rebound
+3348, rebuild
+6422, rebuking ceremony
+675, recall
+3128, recantation
+6850, reciprocate
+3488, reckless abandon
+4352, reckless assault
+5014, reckless charge
+1853, reckless embermage
+2864, reckless ogre
+5621, reckless one
+2517, reckless spite
+2865, reclaim
+1264, reclamation
+3129, reclusive wight
+4354, recoil
+2866, reconnaissance
+433, reconstruction
+5015, recoup
+4355, recover
+5979, recuperate
+2867, recurring nightmare
+2518, recycle
+7701, red cliffs armada
+206, red elemental blast
+676, red mana battery
+1265, red scarab
+207, red ward
+3130, redeem
+7042, reduce to dreams
+2248, redwood treefolk
+1450, reef pirates
+4744, reef shaman
+1854, reflect damage
+856, reflecting mirror
+2519, reflecting pool
+3131, reflexes
+5016, refresh
+3962, refreshing rain
+7402, regal unicorn
+208, regeneration
+6212, regress
+209, regrowth
+1856, reign of chaos
+1857, reign of terror
+677, reincarnation
+1571, reinforcements
+2714, reins of power
+6851, reito lantern
+6213, reiver demon
+3132, rejuvenate
+3963, rejuvenation chamber
+7224, reki, the history of kamigawa
+2249, relearn
+2068, relentless assault
+6594, relentless rats
+6214, relic bane
+678, relic barrier
+679, relic bind
+2069, relic ward
+3489, reliquary monk
+2070, remedy
+3133, remembrance
+5622, reminisce
+3758, remote farm
+3134, remote isle
+7573, remove
+680, remove enchantments
+681, remove soul
+6852, rend flesh
+6853, rend spirit
+7225, rending vines
+7703, renegade troops
+2520, renegade warlord
+1451, renewal
+5623, renewed faith
+7403, renewing dawn
+7574, renewing touch
+3759, renounce
+1858, reparations
+5017, repel
+2521, repentance
+361, repentant blacksmith
+5018, repentant vampire
+3490, repercussion
+3491, replenish
+3349, repopulate
+1572, reprisal
+3135, reprocess
+4356, repulse
+3136, rescind
+3492, rescue
+682, reset
+6423, reshape
+5019, resilient wanderer
+2071, resistance fighter
+2522, respite
+1859, restless dead
+5225, restless dreams
+4357, restock
+4358, restrain
+210, resurrection
+2868, resuscitate
+6596, retaliate
+3137, retaliation
+4099, rethink
+5226, retraced image
+6424, retract
+1452, retribution
+2072, retribution of the meek
+3138, retromancer
+7575, return of the nightstalkers
+7704, return to battle
+4100, reveille squad
+1453, reveka, wizard savant
+683, revelation
+2715, revenant
+684, reverberation
+3760, revered elder
+2250, revered unicorn
+7226, reverence
+3761, reverent mantra
+3964, reverent silence
+6597, reversal of fortune
+211, reverse damage
+434, reverse polarity
+6854, reverse the sands
+3762, revive
+4359, reviving dose
+4360, reviving vapors
+5980, reward the faithful
+4361, rewards of diversity
+6855, reweave
+3139, rewind
+4362, reya dawnbringer
+3965, rhox
+4101, rhystic cave
+4102, rhystic circle
+4103, rhystic deluge
+4104, rhystic lightning
+4105, rhystic scrying
+4106, rhystic shield
+4107, rhystic study
+4108, rhystic syphon
+4109, rhystic tutor
+4110, rib cage spider
+4111, ribbon snake
+7043, ribbons of the reikai
+4112, ridgeline rager
+5833, ridgetop raptor
+7705, riding red hare
+7706, riding the dilu horse
+5356, riftstone portal
+2073, righteous aura
+685, righteous avengers
+5624, righteous cause
+7576, righteous charge
+7577, righteous fury
+3764, righteous indignation
+2074, righteous war
+212, righteousness
+1267, rime dryad
+3350, ring of gix
+686, ring of immortals
+362, ring of ma'ruf
+963, ring of renewal
+857, riptide
+5625, riptide biologist
+5626, riptide chronologist
+4363, riptide crab
+5834, riptide director
+5627, riptide entrancer
+5628, riptide laboratory
+5835, riptide mangler
+5629, riptide replicator
+5630, riptide shapeshifter
+5981, riptide survivor
+3765, rishadan airship
+3766, rishadan brigand
+3767, rishadan cutpurse
+3768, rishadan footpad
+3769, rishadan pawnshop
+3770, rishadan port
+3966, rising waters
+5631, risky move
+6598, rite of passage
+5020, rites of initiation
+5021, rites of refusal
+5022, rites of spring
+4365, rith's attendant
+4589, rith's charm
+4590, rith's grove
+4364, rith, the awakener
+6425, ritual of restoration
+1860, ritual of steel
+1268, ritual of subdual
+1573, ritual of the machine
+3351, rivalry
+687, riven turnbull
+7578, river bear
+2075, river boa
+1269, river delta
+6856, river kaijin
+964, river merfolk
+7044, roar of jukai
+6599, roar of reclamation
+6215, roar of the kha
+5023, roar of the wurm
+6426, roaring slagwurm
+3771, robber fly
+2869, robe of mirrors
+2251, roc hatchling
+213, roc of kher ridges
+3772, rock badger
+1861, rock basilisk
+214, rock hydra
+5982, rock jockey
+2076, rock slide
+435, rocket launcher
+5836, rockshard elemental
+7707, rockslide ambush
+1862, rocky tar pit
+215, rod of ruin
+3494, rofellos's gift
+3493, rofellos, llanowar emissary
+2252, rogue elephant
+4366, rogue kavu
+1574, rogue skycaptain
+688, rohgahh of kher keep
+7708, rolling earthquake
+2716, rolling stones
+2523, rolling thunder
+7227, ronin cavekeeper
+7045, ronin cliffrider
+6857, ronin houndmaster
+7046, ronin warclub
+4113, root cage
+5983, root elemental
+4591, root greevil
+2524, root maze
+5837, root sliver
+1454, root spider
+2525, rootbreaker wurm
+4367, rooting kavu
+6858, rootrunner
+1455, roots
+1863, roots of life
+2526, rootwalla
+2870, rootwater alligator
+3967, rootwater commando
+2527, rootwater depths
+2528, rootwater diver
+2529, rootwater hunter
+2530, rootwater matriarch
+2871, rootwater mystic
+2531, rootwater shaman
+3968, rootwater thief
+5632, rorix bladewing
+1456, roterothopter
+5633, rotlung reanimator
+5024, rotting giant
+3773, rouse
+4368, rout
+7404, rowan treefolk
+2077, rowen
+216, royal assassin
+1575, royal decree
+1576, royal herbalist
+689, rubinia soulsinger
+4369, ruby leech
+2532, ruby medallion
+6600, rude awakening
+4370, ruham djinn
+2717, ruination
+965, ruins of trokair
+363, rukh egg
+6216, rule of law
+3140, rumbling crescendo
+5634, rummaging wizard
+5635, run wild
+3141, rune of protection: artifacts
+3142, rune of protection: black
+3143, rune of protection: blue
+3144, rune of protection: green
+3145, rune of protection: lands
+3146, rune of protection: red
+3147, rune of protection: white
+7228, rune-tail, kitsune ascendant
+1270, runed arch
+858, runesword
+3969, rupture
+5984, rush of knowledge
+4592, rushing river
+7229, rushing-tide zubera
+3774, rushwood dryad
+3775, rushwood elemental
+3776, rushwood grove
+3777, rushwood herbalist
+3778, rushwood legate
+690, rust
+6217, rust elemental
+3970, rusting golem
+6218, rustmouth ogre
+6219, rustspore ram
+1457, rysorian badger
+6859, ryusei, the falling star
+3779, saber ants
+1864, sabertooth cobra
+4371, sabertooth nishoba
+2872, sabertooth wyvern
+1271, sabretooth tiger
+6860, sachi, daughter of seshiro
+1272, sacred boon
+2718, sacred ground
+2533, sacred guide
+7405, sacred knight
+1865, sacred mesa
+7406, sacred nectar
+3780, sacred prey
+5025, sacred rites
+217, sacrifice
+2534, sadistic glee
+5026, sadistic hypnotist
+859, safe haven
+2535, safeguard
+5636, sage aven
+436, sage of lat-nam
+2253, sage owl
+7709, sage's knowledge
+3781, sailmonger
+7230, sakashima the impostor
+7047, sakiko, mother of summer
+6861, sakura-tribe elder
+7231, sakura-tribe scout
+7048, sakura-tribe springcaller
+2536, salt flats
+4372, salt marsh
+7579, salvage
+6601, salvaging station
+1458, samite alchemist
+4373, samite archer
+2719, samite blessing
+4593, samite elder
+218, samite healer
+4374, samite ministration
+4594, samite pilgrim
+4114, samite sanctuary
+6862, samurai enforcers
+6863, samurai of the pale curtain
+3495, sanctimony
+3148, sanctum custodian
+3149, sanctum guardian
+1866, sand golem
+966, sand silos
+3782, sand squid
+364, sandals of abdallah
+1867, sandbar crocodile
+3150, sandbar merfolk
+3151, sandbar serpent
+2078, sands of time
+5637, sandskin
+5027, sandstone deadfall
+3783, sandstone needle
+2537, sandstone warrior
+365, sandstorm
+3152, sanguine guard
+1869, sapphire charm
+4375, sapphire leech
+2538, sapphire medallion
+3784, saprazzan bailiff
+3785, saprazzan breaker
+3786, saprazzan cove
+3787, saprazzan heir
+3788, saprazzan legate
+3789, saprazzan outrigger
+3790, saprazzan raider
+3791, saprazzan skerry
+3971, saproling burst
+3972, saproling cluster
+4376, saproling infestation
+4377, saproling symbiosis
+5028, sarcatog
+2539, sarcomancy
+7232, sasaya, orochi ascendant
+860, savaen elves
+6427, savage beating
+5029, savage firecat
+4745, savage gorilla
+4378, savage offensive
+1870, savage twister
+219, savannah
+220, savannah lions
+1871, sawback manticore
+4595, sawtooth loon
+2254, sawtooth ogre
+6602, sawtooth thresher
+2540, scabland
+3153, scald
+2873, scalding salamander
+2541, scalding tongs
+6220, scale of chiss-goria
+2079, scalebane's elite
+7049, scaled hulk
+1273, scaled wurm
+5357, scalpelexis
+3792, scandalmonger
+2720, scapegoat
+1577, scarab of the unseen
+2874, scare tactics
+861, scarecrow
+4379, scarred puma
+1578, scars of the veteran
+862, scarwood bandits
+863, scarwood goblins
+864, scarwood hag
+221, scathe zombies
+5985, scattershot
+4380, scavenged weaponry
+865, scavenger folk
+222, scavenging ghoul
+6428, scavenging scarab
+3496, scent of brine
+3497, scent of cinder
+3498, scent of ivy
+3499, scent of jasmine
+3500, scent of nightshade
+2875, school of piranha
+1579, school of the unseen
+5838, scion of darkness
+2542, scorched earth
+2255, scorched ruins
+4381, scorching lava
+5030, scorching missile
+7407, scorching spear
+7408, scorching winds
+4115, scoria cat
+3154, scoria wurm
+5986, scornful egotist
+3501, scour
+7051, scourge of numai
+4382, scouting trek
+6221, scrabbling claws
+2543, scragnoth
+3155, scrap
+3352, scrapheap
+6603, screaming fury
+5638, screaming seahawk
+6429, screams from within
+5031, screams of the damned
+5639, screeching buzzard
+7580, screeching drake
+2544, screeching harpy
+2876, scrivener
+7233, scroll of origins
+2545, scroll rack
+6430, scrounge
+223, scrubland
+224, scryb sprites
+3502, scrying glass
+6222, sculpting steel
+6864, scuttling death
+6223, scythe of the wretched
+7581, sea drake
+691, sea kings' blessing
+2546, sea monster
+1872, sea scryer
+225, sea serpent
+4596, sea snidd
+1274, sea spirit
+1459, sea sprite
+1460, sea troll
+5641, sea's claim
+692, seafarer's quay
+5033, seafloor debris
+3973, seahunter
+3974, seal of cleansing
+3975, seal of doom
+3976, seal of fire
+3977, seal of removal
+3978, seal of strength
+1873, sealed fate
+4116, search for survivors
+5640, searing flesh
+4383, searing rays
+1874, searing spear askari
+2547, searing touch
+4117, searing wind
+4384, seashell cameo
+5642, seaside haven
+967, seasinger
+866, season of the witch
+3156, seasoned marshal
+1580, seasoned tactician
+6224, seat of the synod
+5643, secluded steppe
+3353, second chance
+6431, second sight
+6225, second sunrise
+5034, second thoughts
+7234, secretkeeper
+3793, security detail
+226, sedge troll
+7235, seed the land
+5839, seedborn muse
+1875, seedling charm
+1876, seeds of innocence
+5358, seedtime
+7236, seek the horizon
+693, seeker
+2548, seeker of skybreak
+4385, seer's vision
+2721, seething anger
+6226, seething song
+2549, segmented wurm
+694, segovian leviathan
+2877, seismic assault
+3794, seismic mage
+6865, seizan, perverter of truth
+5035, seize the day
+1275, seizures
+7237, sekki, seasons' guide
+2550, selenia, dark angel
+5359, selfless exorcist
+1461, sengir autocrat
+1462, sengir bats
+227, sengir vampire
+6866, sensei golden-tail
+6867, sensei's divining top
+695, sentinel
+1276, seraph
+366, serendib djinn
+367, serendib efreet
+1877, serene heart
+2551, serene offering
+5360, serene sunset
+2256, serenity
+7410, serpent assassin
+696, serpent generator
+6868, serpent skin
+2722, serpent warrior
+5644, serpentine basilisk
+4386, serpentine kavu
+3503, serra advocate
+228, serra angel
+3157, serra avatar
+1463, serra aviary
+1464, serra bestiary
+1465, serra inquisitors
+1466, serra paladin
+3158, serra zealot
+2257, serra's blessing
+3159, serra's embrace
+3160, serra's hymn
+3161, serra's liturgy
+3162, serra's sanctum
+1467, serrated arrows
+2258, serrated biskelion
+6432, serum powder
+6227, serum tank
+6604, serum visions
+2552, servant of volrath
+6869, seshiro the anointed
+5037, seton's desire
+5227, seton's scout
+5036, seton, krosan protector
+3795, sever soul
+5645, severed legion
+1878, sewer rats
+5, sewers of estark
+2878, shackles
+5646, shade's breath
+5228, shade's form
+1879, shadow guildmage
+2259, shadow rider
+2553, shadow rift
+1880, shadowbane
+5038, shadowblood egg
+5039, shadowblood ridge
+5040, shadowmage infiltrator
+2554, shadowstorm
+368, shahrazad
+5647, shaleskin bruiser
+5840, shaleskin plower
+1881, shallow grave
+2723, shaman en-kor
+5361, shaman's trance
+1277, shambling strider
+5229, shambling swarm
+229, shanodin dryads
+7238, shape stealer
+1882, shaper guildmage
+437, shapeshifter
+2724, shard phoenix
+6228, shared fate
+5648, shared triumph
+230, shatter
+2260, shattered crypt
+6605, shattered dreams
+2879, shattering pulse
+438, shatterstorm
+1884, shauku's minion
+1883, shauku, endbringer
+697, shelkin brownie
+6870, shell of the last kappa
+5041, shelter
+1581, sheltered valley
+4118, sheltering prayers
+5649, shepherd of rot
+1279, shield bearer
+4119, shield dancer
+2880, shield mate
+4746, shield of duty and reason
+6433, shield of kaldra
+1280, shield of the ages
+1582, shield sphere
+698, shield wall
+5362, shieldmage advocate
+5650, shieldmage elder
+7239, shifting borders
+4597, shifting sky
+5841, shifting sliver
+2725, shifting wall
+5042, shifty doppelganger
+6871, shimatsu the bloodcloaked
+699, shimian night stalker
+1885, shimmer
+3163, shimmering barrier
+2080, shimmering efreet
+7052, shimmering glasskite
+4747, shimmering mirage
+2556, shimmering wings
+7240, shinen of fear's chill
+7241, shinen of flight's wings
+7242, shinen of fury's fire
+7243, shinen of life's roar
+7244, shinen of stars' light
+7053, shining shoal
+7054, shinka gatekeeper
+6872, shinka, the bloodsoaked keep
+7055, shirei, shizo's caretaker
+6873, shisato, whispering hunter
+3167, shiv's embrace
+231, shivan dragon
+4389, shivan emissary
+3164, shivan gorge
+4390, shivan harvest
+3165, shivan hellkite
+4391, shivan oasis
+3354, shivan phoenix
+3166, shivan raptor
+4748, shivan reef
+4598, shivan wurm
+4392, shivan zombie
+6874, shizo, death's storehouse
+7056, shizuko, caller of autumn
+2726, shock
+3796, shock troops
+2557, shocker
+4393, shoreline raider
+5987, shoreline ranger
+3797, shoving match
+3168, show and tell
+5043, shower of coals
+3169, shower of sparks
+6230, shrapnel blast
+4599, shriek of dread
+2081, shrieking drake
+3979, shrieking mogg
+1468, shrink
+6434, shriveling rot
+4120, shrouded serpent
+7710, shu cavalry
+7711, shu defender
+7712, shu elite companions
+7713, shu elite infantry
+7714, shu farmer
+7715, shu foot soldiers
+7716, shu general
+7717, shu grain caravan
+7718, shu soldier-farmers
+7057, shuko
+6435, shunt
+7058, shuriken
+1281, shyft
+1282, sibilant spirit
+3355, sick and tired
+3170, sicken
+5230, sickening dreams
+7059, sickening shoal
+1886, sidar jabari
+6875, sideswipe
+5988, siege-gang commander
+2727, sift
+6876, sift through sands
+3504, sigil of sleep
+5652, sigil of the new dawn
+6606, silent arbiter
+3798, silent assassin
+3171, silent attendant
+5653, silent specter
+6877, silent-chant zubera
+700, silhouette
+3356, silk net
+3980, silkenfist fighter
+3981, silkenfist order
+5654, silklash spider
+4121, silt crawler
+4600, silver drake
+1283, silver erne
+5989, silver knight
+6231, silver myr
+5363, silver seraph
+2728, silver wyvern
+3799, silverglade elemental
+3800, silverglade pathfinder
+7060, silverstorm samurai
+5655, silvos, rogue elemental
+7719, sima yi, wei field marshal
+3357, simian grunts
+2082, simoon
+5044, simplify
+232, simulacrum
+369, sindbad
+4601, singe
+370, singing tree
+4602, sinister strength
+7245, sink into takenuma
+233, sinkhole
+701, sir shandlar of eberyn
+6878, sire of the storm
+234, siren's call
+1887, sirocco
+4603, sisay's ingenuity
+2083, sisay's ring
+867, sisters of the flame
+702, sivitri scarzam
+3982, sivvi's ruse
+3983, sivvi's valor
+3801, sizzle
+7412, skeletal crocodile
+5045, skeletal scrying
+7413, skeletal snake
+2729, skeleton scavengers
+6232, skeleton shard
+1284, skeleton ship
+5842, skinthinner
+3172, skirge familiar
+5843, skirk alarmist
+5656, skirk commando
+5844, skirk drill sergeant
+5657, skirk fire marshal
+5845, skirk marauder
+5846, skirk outrider
+5658, skirk prospector
+5990, skirk volcanist
+3505, skittering horror
+3173, skittering skirge
+4395, skittish kavu
+5659, skittish valesk
+4396, skizzik
+3802, skulking fugitive
+1888, skulking ghost
+1285, skull catapult
+7246, skull collector
+5046, skull fracture
+868, skull of orm
+3803, skull of ramos
+6607, skullcage
+6436, skullclamp
+7061, skullmane baku
+5231, skullscorch
+7062, skullsnatcher
+5991, skulltap
+1889, sky diamond
+2558, sky spirit
+4397, sky weaver
+5047, skycloud egg
+5048, skycloud expanse
+7247, skyfire kirin
+6233, skyhunter cub
+6234, skyhunter patrol
+6608, skyhunter prowler
+6609, skyhunter skirmisher
+6610, skyreach manta
+2881, skyshaper
+4604, skyship weatherlight
+5049, skyshooter
+2730, skyshroud archer
+3984, skyshroud behemoth
+4605, skyshroud blessing
+3985, skyshroud claim
+2559, skyshroud condor
+3986, skyshroud cutter
+2560, skyshroud elf
+2882, skyshroud elite
+2731, skyshroud falcon
+2561, skyshroud forest
+3987, skyshroud poacher
+2562, skyshroud ranger
+3988, skyshroud ridgeback
+3989, skyshroud sentinel
+2563, skyshroud troll
+2732, skyshroud troopers
+2564, skyshroud vampire
+2883, skyshroud war beast
+5232, skywing aven
+6235, slagwurm armor
+7720, slashing tiger
+5660, slate of ancestry
+2884, slaughter
+4606, slay
+3174, sleeper agent
+3358, sleeper's guile
+4398, sleeper's robe
+4607, sleeping potion
+7582, sleight of hand
+235, sleight of mind
+5661, slice and dice
+4399, slimy kavu
+4608, slingshot goblin
+4400, slinking serpent
+3506, slinking skirge
+3175, slippery karst
+5662, slipstream eel
+3990, sliptide serpent
+6236, slith ascendant
+6237, slith bloodletter
+6238, slith firewalker
+6239, slith predator
+6240, slith strider
+5233, slithery stalker
+5992, sliver overlord
+2733, sliver queen
+6437, slobad, goblin tinkerer
+3359, slow motion
+3360, sluggishness
+7063, slumbering tora
+4749, smash
+2734, smite
+236, smoke
+5847, smokespew invoker
+3176, smokestack
+3177, smoldering crater
+4401, smoldering tar
+5663, smother
+4122, snag
+2084, snake basket
+3804, snake pit
+3361, snap
+7414, snapping drake
+5664, snapping thragg
+5665, snarling undorak
+3178, sneak attack
+3991, sneaky homunculus
+3805, snorting gahr
+1287, snow devil
+1288, snow fortress
+1289, snow hound
+1291, snow-covered forest
+1292, snow-covered island
+1293, snow-covered mountain
+1294, snow-covered plains
+1295, snow-covered swamp
+1290, snowblind
+1296, snowfall
+3806, snuff out
+1890, soar
+6879, soilshaper
+6880, sokenzan bruiser
+7248, sokenzan renegade
+7249, sokenzan spellblade
+1583, sol grail
+237, sol ring
+703, sol'kanar the swamp king
+5666, solar blast
+6241, solar tide
+6611, solarion
+1584, soldevi adnate
+1585, soldevi digger
+1586, soldevi excavations
+1297, soldevi golem
+1587, soldevi heretic
+1298, soldevi machinist
+1588, soldevi sage
+1589, soldevi sentry
+1299, soldevi simulacrum
+1590, soldevi steam beast
+1591, soldier of fortune
+6242, soldier replica
+6243, solemn simulacrum
+2085, solfatara
+3507, solidarity
+5364, solitary confinement
+2735, soltari champion
+2565, soltari crusader
+2566, soltari emissary
+2567, soltari foot soldier
+2568, soltari guerrillas
+2569, soltari lancer
+2570, soltari monk
+2571, soltari priest
+2572, soltari trooper
+2885, soltari visionary
+6244, somber hoverguard
+3179, somnophore
+2086, song of blood
+2886, song of serenity
+1300, songs of the damned
+3180, songstitcher
+2887, sonic burst
+5234, sonic seizure
+5848, sootfeather flock
+3807, soothing balm
+3808, soothsaying
+7250, soramaro, first to dream
+7251, soratami cloud chariot
+6881, soratami cloudskater
+7064, soratami mindsweeper
+6882, soratami mirror-guard
+6883, soratami mirror-mage
+6884, soratami rainshaper
+6885, soratami savant
+6886, soratami seer
+1469, soraya the falconer
+371, sorceress queen
+7415, sorcerous sight
+869, sorrow's path
+7065, sosuke's summons
+6887, sosuke, son of seshiro
+1301, soul barrier
+1302, soul burn
+3809, soul channeling
+4123, soul charmer
+5993, soul collector
+1891, soul echo
+968, soul exchange
+3508, soul feast
+6245, soul foundry
+1303, soul kiss
+4750, soul link
+238, soul net
+6246, soul nova
+6888, soul of magma
+1892, soul rend
+5235, soul scourge
+3181, soul sculptor
+2261, soul shepherd
+7416, soul shred
+4124, soul strings
+2888, soul warden
+6889, soulblast
+5050, soulcatcher
+5365, soulcatchers' aerie
+2573, souldrinker
+5366, soulgorger orgg
+5667, soulless one
+6890, soulless revival
+6438, soulscour
+1893, soulshriek
+7721, southern elephant
+2262, southern paladin
+3509, sowing salt
+6612, spark elemental
+5051, spark mage
+5994, spark spray
+4609, sparkcaster
+5668, sparksmith
+6613, sparring collar
+4403, sparring golem
+1894, spatial binding
+6439, spawning pit
+3362, spawning pool
+6440, specter's shroud
+3810, specter's wail
+1470, spectral bears
+704, spectral cloak
+1895, spectral guardian
+4751, spectral lynx
+1304, spectral shield
+6614, spectral shift
+5849, spectral sliver
+239, spell blast
+5052, spellbane centaur
+6441, spellbinder
+2889, spellbook
+5367, spellgorger barbarian
+5368, spelljack
+2890, spellshock
+6247, spellweaver helix
+5053, sphere of duty
+5054, sphere of grace
+5055, sphere of law
+6248, sphere of purity
+5056, sphere of reason
+2891, sphere of resistance
+5057, sphere of truth
+2087, spider climb
+3811, spidersilk armor
+2736, spike breeder
+2892, spike cannibal
+2737, spike colony
+2575, spike drone
+2738, spike feeder
+2893, spike hatcher
+2894, spike rogue
+2739, spike soldier
+2895, spike weaver
+2740, spike worker
+6249, spikeshot goblin
+4125, spiketail drake
+4126, spiketail hatchling
+4404, spinal embrace
+2576, spinal graft
+6615, spinal parasite
+705, spinal villain
+6442, spincrusher
+2741, spindrift drake
+5669, spined basher
+3182, spined fluke
+2742, spined sliver
+2743, spined wurm
+3992, spineless thug
+2263, spinning darkness
+1592, spiny starfish
+7252, spiraling embers
+6443, spire golem
+3183, spire owl
+5369, spirit cairn
+2744, spirit en-kor
+5236, spirit flare
+706, spirit link
+2577, spirit mirror
+4405, spirit of resistance
+1896, spirit of the night
+707, spirit shackle
+969, spirit shield
+4406, spirit weaver
+4752, spiritmonger
+3993, spiritual asylum
+3812, spiritual focus
+7418, spiritual guardian
+708, spiritual sanctuary
+7253, spiritual visit
+5058, spiritualize
+4407, spite | malice
+3994, spiteful bully
+5670, spitfire handler
+2088, spitting drake
+1897, spitting earth
+5671, spitting gourna
+2745, spitting hydra
+870, spitting slug
+4127, spitting spider
+3510, splinter
+1593, splintering wind
+7068, split-tail miko
+1305, spoils of evil
+6250, spoils of the vault
+7722, spoils of victory
+1306, spoils of war
+2578, spontaneous combustion
+3813, spontaneous generation
+970, spore cloud
+971, spore flower
+4128, spore frog
+3184, sporogenesis
+7420, spotted griffin
+3185, spreading algae
+4408, spreading plague
+7723, spring of eternal peace
+5059, springing tiger
+5995, sprouting vines
+4129, spur grappler
+5370, spurnmage advocate
+5672, spurred wolverine
+5673, spy network
+3814, squall
+3815, squallmonger
+2089, squandered resources
+4753, squee's embrace
+4754, squee's revenge
+2579, squee's toy
+3816, squee, goblin nabob
+3817, squeeze
+6891, squelch
+871, squire
+3511, squirming mass
+5060, squirrel mob
+5061, squirrel nest
+4130, squirrel wrangler
+5996, stabilizer
+6616, staff of domination
+1307, staff of the ages
+439, staff of zegon
+5674, stag beetle
+4409, stalking assassin
+5062, stalking bloodsucker
+2580, stalking stones
+1898, stalking tiger
+3818, stamina
+1308, stampede
+3995, stampede driver
+7254, stampeding serow
+2090, stampeding wildebeests
+6617, stand firm
+4411, stand or fall
+6444, stand together
+4410, stand | deliver
+4755, standard bearer
+5675, standardize
+872, standing stones
+2896, standing troops
+5063, standstill
+709, stangg
+4610, star compass
+2581, starke of rath
+7422, starlight
+5850, starlight invoker
+7423, starlit angel
+5676, starlit sanctum
+5677, starstorm
+240, stasis
+6618, stasis cocoon
+3819, statecraft
+2582, static orb
+2583, staunch defenders
+3820, steadfast guard
+7424, steadfastness
+241, steal artifact
+2584, steal enchantment
+4131, steal strength
+3186, steam blast
+7584, steam catapult
+7585, steam frigate
+5064, steam vines
+5065, steamclaw
+2264, steel golem
+4611, steel leaf paladin
+6252, steel wall
+6445, steelshaper apprentice
+6619, steelshaper's gift
+5678, steely resolve
+1594, stench of decay
+1309, stench of evil
+4412, sterling grove
+5237, stern judge
+7425, stern marshal
+3187, stern proctor
+5997, stifle
+5066, still life
+3821, stinging barrier
+2585, stinging licid
+7069, stir the grave
+6446, stir the pride
+5371, stitch together
+5851, stoic champion
+7725, stolen grain
+873, stone calendar
+7726, stone catapult
+242, stone giant
+4612, stone kavu
+243, stone rain
+1311, stone spirit
+372, stone-throwing devils
+5067, stone-tongue basilisk
+1312, stonehands
+5852, stonewood invoker
+3512, storage matrix
+1595, storm cauldron
+1596, storm crow
+1597, storm elemental
+2587, storm front
+710, storm seeker
+1598, storm shaman
+1313, storm spirit
+711, storm world
+1314, stormbind
+4413, stormscape apprentice
+4613, stormscape battlemage
+4614, stormscape familiar
+4414, stormscape master
+4132, stormwatch eagle
+3823, story circle
+4615, strafe
+2265, strands of night
+6893, strange inversion
+4616, stratadon
+7728, strategic planning
+2266, straw golem
+7729, straw soldiers
+7070, stream of consciousness
+244, stream of life
+6894, strength of cedars
+5238, strength of isolation
+5239, strength of lunacy
+4756, strength of night
+4415, strength of unity
+440, strip mine
+2267, striped bears
+3188, stroke of genius
+1315, stromgald cabal
+1599, stromgald spy
+5679, strongarm tactics
+3824, strongarm thug
+2746, stronghold assassin
+3996, stronghold biologist
+3997, stronghold discipline
+3998, stronghold gambit
+3999, stronghold machinist
+2747, stronghold taskmaster
+4000, stronghold zeppelin
+6895, struggle for sanity
+6896, student of elements
+2588, stun
+1316, stunted growth
+5240, stupefying touch
+1900, stupor
+441, su-chi
+712, subdue
+4001, submerge
+3825, subterranean hangar
+1901, subterranean spirit
+3363, subversion
+2589, sudden impact
+5372, sudden strength
+4757, suffocating blast
+1600, suffocation
+4417, sulam djinn
+2091, suleiman's legacy
+4418, sulfur vent
+3189, sulfuric vapors
+5998, sulfuric vortex
+1317, sulfurous springs
+2092, summer bloom
+6620, summoner's egg
+6621, summoning station
+7730, sun ce, young conquerer
+2093, sun clasp
+6253, sun droplet
+7731, sun quan, lord of wu
+713, sunastian falconer
+6254, sunbeam spellbomb
+6622, suncrusher
+3190, sunder
+7255, sunder from within
+6447, sundering titan
+5680, sunfire balm
+245, sunglasses of urza
+5068, sungrass egg
+5069, sungrass prairie
+874, sunken city
+4133, sunken field
+4617, sunken hope
+4419, sunscape apprentice
+4618, sunscape battlemage
+4619, sunscape familiar
+4420, sunscape master
+1318, sunstone
+5853, sunstrike legionnaire
+5373, suntail hawk
+6623, suntouched myr
+1902, sunweb
+1903, superior numbers
+4758, suppress
+5681, supreme inquisitor
+2094, suq'ata assassin
+1904, suq'ata firewalker
+2095, suq'ata lancer
+6448, surestrike trident
+1601, surge of strength
+4620, surprise deployment
+2897, survival of the fittest
+3364, sustainer of the realm
+1602, sustaining spirit
+3826, sustenance
+5374, sutured ghoul
+972, svyelunite priest
+973, svyelunite temple
+6897, swallowing plague
+246, swamp
+1603, swamp mosquito
+7588, swarm of rats
+3365, swat
+4422, sway of illusion
+7071, sway of the stars
+5375, swelter
+6899, swirl the mists
+5376, swirling sandstorm
+5854, swooping talon
+4134, sword dancer
+6449, sword of fire and ice
+6256, sword of kaldra
+6450, sword of light and shadow
+714, sword of the ages
+2748, sword of the chosen
+247, swords to plowshares
+1604, sworn defender
+7589, sylvan basilisk
+2268, sylvan hierophant
+715, sylvan library
+4759, sylvan messenger
+5071, sylvan might
+716, sylvan paradise
+5377, sylvan safekeeper
+6257, sylvan scrying
+7430, sylvan tutor
+7590, sylvan yeti
+6624, sylvok explorer
+3192, symbiosis
+5684, symbiotic beast
+4760, symbiotic deployment
+5685, symbiotic elf
+5686, symbiotic wurm
+7431, symbol of unsummoning
+5855, synapse sliver
+5072, syncopate
+6451, synod artificer
+6625, synod centurion
+6258, synod sanctum
+5687, syphon mind
+717, syphon soul
+442, tablet of epityr
+4761, tahngarth's glare
+2591, tahngarth's rage
+4621, tahngarth, talruum hero
+248, taiga
+3193, tainted aether
+5241, tainted field
+5242, tainted isle
+5073, tainted pact
+5243, tainted peak
+1906, tainted specter
+4423, tainted well
+5244, tainted wood
+6259, taj-nar swordsmith
+7072, takeno's cavalry
+6900, takeno, samurai general
+7073, takenuma bleeder
+718, takklemaggot
+7591, talas air ship
+7592, talas explorer
+7593, talas merchant
+7594, talas researcher
+7595, talas scout
+7596, talas warrior
+6260, talisman of dominance
+6261, talisman of impulse
+6262, talisman of indulgence
+6263, talisman of progress
+6264, talisman of unity
+7074, tallowisp
+6452, talon of pain
+2592, talon sliver
+2096, talruum champion
+1907, talruum minotaur
+2097, talruum piper
+4424, tangle
+6626, tangle asp
+6453, tangle golem
+875, tangle kelp
+6454, tangle spider
+4002, tangle wire
+6265, tanglebloom
+6266, tangleroot
+6455, tanglewalker
+1908, taniwha
+7733, taoist hermit
+7734, taoist mystic
+2098, tar pit warrior
+2269, tariff
+5074, tarnished citadel
+1321, tarpan
+3828, task force
+4135, task mage assembly
+1605, taste of paradise
+6901, tatsumasa, the dragon's fang
+5075, tattoo ward
+7432, taunt
+7735, taunting challenge
+3513, taunting elf
+443, tawnos's coffin
+444, tawnos's wand
+445, tawnos's weaponry
+7075, teardrop kami
+6456, tears of rage
+3829, tectonic break
+4425, tectonic instability
+1909, teeka's dragon
+4426, teferi's care
+1910, teferi's curse
+1911, teferi's drake
+2099, teferi's honor guard
+1912, teferi's imp
+1913, teferi's isle
+4427, teferi's moat
+2100, teferi's puzzle box
+2101, teferi's realm
+4428, teferi's response
+2270, teferi's veil
+4429, tek
+6267, tel-jilad archers
+6268, tel-jilad chosen
+6269, tel-jilad exile
+6627, tel-jilad justice
+6628, tel-jilad lifebreather
+6457, tel-jilad outrider
+6270, tel-jilad stylus
+6458, tel-jilad wolf
+719, telekinesis
+5378, telekinetic bonds
+3514, telepathic spies
+3194, telepathy
+720, teleport
+2593, telethopter
+1914, telim'tor
+1915, telim'tor's darts
+1916, telim'tor's edict
+6902, teller of tales
+2749, temper
+2102, tempest drake
+721, tempest efreet
+6271, tempest of light
+7597, temple acolyte
+7598, temple elder
+5999, temple of the false god
+3515, temporal adept
+3195, temporal aperture
+6272, temporal cascade
+4430, temporal distortion
+6000, temporal fissure
+7599, temporal manipulation
+4762, temporal spring
+5245, temporary insanity
+7433, temporary truce
+2750, tempting licid
+5690, tempting wurm
+7076, tendo ice bridge
+6001, tendrils of agony
+2271, tendrils of despair
+6903, tenza, godo's maul
+5691, tephraderm
+6904, terashi's cry
+7077, terashi's grasp
+7078, terashi's verdict
+1917, teremko griffin
+4622, terminal moraine
+4623, terminate
+5246, teroh's faithful
+5247, teroh's vanguard
+4003, terrain generator
+5076, terravore
+3830, territorial dispute
+249, terror
+5379, test of endurance
+6459, test of faith
+5077, testament of faith
+3516, tethered griffin
+3366, tethered skirge
+446, tetravus
+722, tetsuo umezawa
+2751, thalakos deceiver
+2594, thalakos dreamsower
+2898, thalakos drifters
+2595, thalakos lowlands
+2596, thalakos mistfolk
+2899, thalakos scout
+2597, thalakos seer
+2598, thalakos sentry
+974, thallid
+975, thallid devourer
+7079, that which was taken
+5078, thaumatog
+1606, thawing glaciers
+723, the abyss
+724, the brute
+876, the fallen
+250, the hive
+725, the lady of the mountain
+447, the rack
+726, the tabernacle at pendrell vale
+6905, the unspeakable
+727, the wretched
+2900, theft of dreams
+976, thelon's chant
+977, thelon's curse
+978, thelonite druid
+979, thelonite monk
+5079, thermal blast
+3831, thermal glider
+6629, thermal navigator
+1322, thermokarst
+251, thicket basilisk
+4431, thicket elemental
+6906, thief of hope
+3832, thieves' auction
+3517, thieving magpie
+7435, thing from the deep
+5080, think tank
+1918, thirst
+6274, thirst for knowledge
+2901, thopter squadron
+3518, thorn elemental
+980, thorn thallid
+4432, thornscape apprentice
+4624, thornscape battlemage
+4625, thornscape familiar
+4433, thornscape master
+3367, thornwind faeries
+6630, thought courier
+5081, thought devourer
+6460, thought dissector
+5082, thought eater
+1607, thought lash
+5083, thought nibbler
+6275, thought prison
+6907, thoughtbind
+5692, thoughtbound primoc
+6276, thoughtcast
+252, thoughtlace
+1323, thoughtleech
+7256, thoughts of ruin
+6908, thousand-legged kami
+3519, thran dynamo
+2272, thran forge
+3520, thran foundry
+3521, thran golem
+3368, thran lens
+3196, thran quarry
+2273, thran tome
+3197, thran turbine
+3369, thran war machine
+3370, thran weaponry
+5693, thrashing mudspawn
+3833, thrashing wumpus
+7080, threads of disloyalty
+5694, threaten
+7081, three tragedies
+7736, three visits
+2103, three wishes
+4136, thresher beast
+5380, thriss, nantuko primus
+4137, thrive
+7082, throat slitter
+253, throne of bone
+6909, through the breach
+981, thrull champion
+982, thrull retainer
+2902, thrull surgeon
+983, thrull wizard
+2599, thumbscrews
+5695, thunder of hooves
+728, thunder spirit
+1324, thunder wall
+2274, thunderbolt
+3834, thunderclap
+6002, thundercloud elemental
+3198, thundering giant
+7436, thundering wurm
+2275, thundermare
+4434, thunderscape apprentice
+4626, thunderscape battlemage
+4627, thunderscape familiar
+4435, thunderscape master
+6461, thunderstaff
+3835, thwart
+3371, ticking gnomes
+3836, tidal bore
+1608, tidal control
+4763, tidal courier
+984, tidal flats
+985, tidal influence
+3837, tidal kraken
+2752, tidal surge
+4436, tidal visionary
+2753, tidal warrior
+1919, tidal wave
+6910, tide of war
+3838, tiger claws
+4437, tigereye cameo
+254, timber wolves
+5084, timberland ruins
+1325, timberline ridge
+5856, timberwatch elf
+2104, time and tide
+1326, time bomb
+2600, time ebb
+729, time elemental
+6911, time of need
+3199, time spiral
+6912, time stop
+5085, time stretch
+255, time vault
+256, time walk
+2601, time warp
+6277, timesifter
+257, timetwister
+2276, timid drake
+1471, timmerian fiends
+2105, tin-wing chimera
+4438, tinder farm
+1327, tinder wall
+3372, tinker
+5086, tireless tribe
+3200, titania's boon
+3201, titania's chosen
+448, titania's song
+6003, titanic bulvox
+6278, titanium golem
+2106, tithe
+877, tivadar's crusade
+730, tobias andrion
+7083, toils of night and day
+731, tolaria
+3202, tolarian academy
+2277, tolarian drake
+4439, tolarian emissary
+2278, tolarian entrancer
+2279, tolarian serpent
+3203, tolarian winds
+7257, tomb of urami
+5087, tombfire
+1920, tombstone stairwell
+7084, tomorrow, azami's familiar
+3840, tonic peddler
+2602, tooth and claw
+6279, tooth and nail
+6280, tooth of chiss-goria
+3841, tooth of ramos
+4004, topple
+1328, tor giant
+732, tor wauki
+3204, torch song
+7258, torii watchward
+2754, torment
+3522, tormented angel
+878, tormod's crypt
+1609, tornado
+6631, tornado elemental
+6004, torrent of fire
+1921, torrent of lava
+7085, torrent of stone
+733, torsten von ursus
+1472, torture
+2603, torture chamber
+2755, tortured existence
+7086, toshiro umezawa
+1329, total war
+5857, totem speaker
+7440, touch of brilliance
+734, touch of darkness
+1330, touch of death
+5088, touch of invisibility
+1331, touch of vitae
+2280, touchstone
+986, tourach's chant
+987, tourach's gate
+4440, tower drake
+6281, tower of champions
+879, tower of coireall
+6282, tower of eons
+6283, tower of fortunes
+6284, tower of murmurs
+3842, tower of the magistrate
+5696, towering baloth
+7604, town sentry
+5381, toxic stench
+5858, toxin sliver
+3843, toymaker
+880, tracker
+1473, trade caravan
+3844, trade routes
+5697, trade secrets
+2604, tradewind rider
+3373, tragic poet
+1332, trailblazer
+2605, trained armodon
+7737, trained cheetah
+7738, trained jackal
+5382, trained pronghorn
+1922, tranquil domain
+6913, tranquil garden
+2281, tranquil grove
+4764, tranquil path
+5698, tranquil thicket
+258, tranquility
+5248, transcendence
+2903, transmogrifying licid
+735, transmutation
+449, transmute artifact
+6005, trap digger
+3846, trap runner
+7087, traproot kami
+6285, trash for treasure
+5089, traumatize
+4442, traveler's cloak
+5090, traveling plague
+3374, treacherous link
+5383, treacherous vampire
+5384, treacherous werewolf
+3523, treachery
+2904, treasure hunter
+2905, treasure trove
+7605, tree monkey
+6286, tree of tales
+4443, treefolk healer
+3375, treefolk mystic
+3205, treefolk seedlings
+5699, treespring lorian
+4005, treetop bracers
+7441, treetop defense
+3206, treetop rangers
+6006, treetop scout
+5091, treetop sentinel
+3376, treetop village
+5092, tremble
+2107, tremor
+4444, trench wurm
+4138, trenching steed
+4446, treva's attendant
+4628, treva's charm
+4629, treva's ruins
+4445, treva, the renewer
+2108, triangle of war
+736, triassic egg
+4447, tribal flames
+5859, tribal forcemage
+5700, tribal golem
+5701, tribal unity
+5702, trickery charm
+4006, trickster mage
+6462, trinisphere
+6632, trinket mage
+7739, trip wire
+450, triskelion
+7607, trokin high guard
+6288, troll ascetic
+4448, troll-horn cameo
+6289, trolls of tel-jilad
+259, tropical island
+1923, tropical storm
+4139, troubled healer
+4140, troublesome spirit
+1474, truce
+5703, true believer
+3524, trumpet blast
+2607, trumpeting armodon
+7259, trusted advisor
+4449, tsabo tavoc
+4450, tsabo's assassin
+4451, tsabo's decree
+4452, tsabo's web
+260, tsunami
+737, tuknir deathlock
+261, tundra
+4765, tundra kavu
+738, tundra wolves
+262, tunnel
+5385, tunneler wurm
+5249, turbulent dreams
+4453, turf wound
+6463, turn the tables
+6290, turn to dust
+3207, turnabout
+263, twiddle
+5093, twigwalker
+4454, twilight's call
+7260, twincast
+7088, twist allegiance
+6007, twisted abomination
+3525, twisted experiment
+2608, twitch
+3848, two-headed dragon
+264, two-headed giant of foriys
+739, typhoon
+6633, tyrranax
+6914, uba mask
+2282, uktabi efreet
+1924, uktabi faerie
+2109, uktabi orangutan
+1925, uktabi wildcats
+3208, umbilicus
+7089, umezawa's jitte
+6008, unburden
+7090, unchecked growth
+881, uncle istvan
+6915, uncontrollable anger
+6009, uncontrolled infestation
+5704, undead gladiator
+6010, undead warchief
+1333, underground river
+265, underground sea
+1610, undergrowth
+4455, undermine
+3849, undertaker
+740, undertow
+741, underworld dreams
+2110, undiscovered paradise
+2111, undo
+7442, undying beast
+7261, undying flames
+3377, unearth
+6916, unearthly blizzard
+1926, unerring sling
+6464, unforge
+1927, unfulfilled desires
+5250, unhinge
+742, unholy citadel
+5705, unholy grotto
+266, unholy strength
+5706, unified strike
+5094, unifying theory
+1611, unlikely alliance
+3850, unmask
+3851, unnatural hunger
+4766, unnatural selection
+6917, unnatural speed
+3209, unnerve
+5386, unquestioned authority
+1928, unseen walker
+6011, unspeakable symbol
+5860, unstable hulk
+373, unstable mutation
+2609, unstable shapeshifter
+267, unsummon
+6918, untaidake, the cloud keeper
+743, untamed wilds
+3210, unworthy dead
+1929, unyaro bee sting
+1930, unyaro griffin
+1334, updraft
+5095, upheaval
+3852, uphill battle
+7091, uproot
+6012, upwelling
+745, ur-drago
+6465, ur-golem's eye
+744, urborg
+4456, urborg drake
+4767, urborg elf
+4457, urborg emissary
+2283, urborg justice
+2112, urborg mindsucker
+1931, urborg panther
+4458, urborg phantom
+4459, urborg shambler
+4460, urborg skeleton
+2284, urborg stalker
+4768, urborg uprising
+4461, urborg volcano
+3211, urza's armor
+453, urza's avenger
+1335, urza's bauble
+3378, urza's blueprints
+451, urza's chalice
+1612, urza's engine
+4462, urza's filter
+4630, urza's guilt
+3526, urza's incubator
+454, urza's mine
+452, urza's miter
+455, urza's power plant
+4463, urza's rage
+456, urza's tower
+268, uthden troll
+4464, utopia tree
+6919, uyo, silent prophet
+746, vaevictis asmadi
+5387, valor
+7444, valorous charge
+747, vampire bats
+2906, vampire hounds
+5096, vampiric dragon
+3212, vampiric embrace
+7445, vampiric feast
+7610, vampiric spirit
+7446, vampiric touch
+2113, vampiric tutor
+2114, vampirism
+2115, vanishing
+6634, vanquish
+1932, vaporous djinn
+1613, varchild's crusader
+1614, varchild's war-riders
+6920, vassal's duty
+6291, vault of whispers
+3213, vebulid
+2610, vec townships
+6292, vedalken archmage
+6466, vedalken engineer
+6635, vedalken mastermind
+6636, vedalken orrery
+6637, vedalken shackles
+3214, veil of birds
+7092, veil of secrecy
+3215, veiled apparition
+3216, veiled crocodile
+3217, veiled sentry
+3218, veiled serpent
+1475, veldrane of sengir
+1336, veldt
+748, venarian gold
+3853, vendetta
+6921, venerable kumo
+2756, venerable monk
+7448, vengeance
+6013, vengeful dead
+5251, vengeful dreams
+882, venom
+1337, venomous breath
+3855, venomous dragonfly
+3219, venomous fangs
+5388, venomous vines
+5707, venomspout brackus
+1933, ventifact bottle
+4141, verdant field
+2611, verdant force
+5097, verdant succession
+2757, verdant touch
+4465, verdeloth the ancient
+2612, verdigris
+4466, verduran emissary
+269, verduran enchantress
+6293, vermiculos
+3220, vernal bloom
+3856, vernal equinox
+1338, vertigo
+270, vesuvan doppelganger
+271, veteran bodyguard
+4142, veteran brawlers
+2285, veteran explorer
+1615, veteran's voice
+6467, vex
+1339, vexing arcanix
+5861, vexing beetle
+2613, vhati il-dal
+3379, viashino bey
+3380, viashino cutthroat
+4467, viashino grappler
+3381, viashino heretic
+3221, viashino outrider
+3222, viashino runner
+3382, viashino sandscout
+2116, viashino sandstalker
+3223, viashino sandswimmer
+1934, viashino warrior
+3224, viashino weaponsmith
+2117, viashivan dragon
+1340, vibrating sphere
+6638, vicious betrayal
+4007, vicious hunger
+4468, vicious kavu
+3225, victimize
+2758, victual sliver
+6922, vigilance
+3383, vigilant drake
+1935, vigilant martyr
+5389, vigilant sentry
+4469, vigorous charge
+4470, vile consumption
+5862, vile deacon
+3226, vile requiem
+1936, village elder
+6923, villainous ogre
+4769, vindicate
+3857, vine dryad
+6924, vine kami
+3858, vine trellis
+4143, vintara elephant
+4144, vintara snapper
+5252, violent eruption
+6468, viridian acolyte
+6294, viridian joiner
+6295, viridian longbow
+6639, viridian lorebearers
+6640, viridian scout
+6296, viridian shaman
+6469, viridian zealot
+7449, virtue's ruin
+7741, virtuous charge
+5708, visara the dreadful
+1616, viscerid armor
+1617, viscerid drone
+4008, viseling
+2118, vision charm
+749, visions
+7093, vital surge
+5709, vitality charm
+2286, vitalize
+1937, vitalizing cascade
+4145, vitalizing wind
+5098, vivify
+4471, vodalian hypnotist
+2287, vodalian illusionist
+988, vodalian knights
+989, vodalian mage
+4472, vodalian merchant
+4770, vodalian mystic
+4473, vodalian serpent
+990, vodalian soldiers
+991, vodalian war machine
+4474, vodalian zombie
+4631, voice of all
+3527, voice of duty
+3227, voice of grace
+3228, voice of law
+3528, voice of reason
+5710, voice of the woods
+4009, voice of truth
+4475, void
+5863, voidmage apprentice
+5711, voidmage prodigy
+1938, volcanic dragon
+272, volcanic eruption
+1939, volcanic geyser
+7451, volcanic hammer
+273, volcanic island
+5099, volcanic spray
+3859, volcanic wind
+4632, volcano imp
+5100, volley of boulders
+4010, volrath the fallen
+2614, volrath's curse
+2907, volrath's dungeon
+2759, volrath's gardens
+2760, volrath's laboratory
+2761, volrath's shapeshifter
+2762, volrath's stronghold
+6470, voltaic construct
+3229, voltaic key
+7613, volunteer militia
+2288, volunteer reserves
+750, voodoo doll
+4476, voracious cobra
+6297, vorrac battlehorns
+3230, vug lizard
+6298, vulshok battlegear
+6299, vulshok battlemaster
+6300, vulshok berserker
+6301, vulshok gauntlets
+6471, vulshok morningstar
+6641, vulshok sorcerer
+6472, vulshok war boar
+6302, wail of the nim
+1940, waiting in the weeds
+3529, wake of destruction
+2119, wake of vultures
+6925, waking nightmare
+7094, walker of secret ways
+751, walking dead
+5712, walking desecration
+2763, walking dream
+3384, walking sponge
+1341, walking wall
+274, wall of air
+6303, wall of blood
+2764, wall of blossoms
+275, wall of bone
+276, wall of brambles
+752, wall of caltrops
+1941, wall of corpses
+5864, wall of deceit
+2615, wall of diffusion
+3860, wall of distortion
+753, wall of dust
+754, wall of earth
+2765, wall of essence
+277, wall of fire
+3530, wall of glare
+7452, wall of granite
+755, wall of heat
+5865, wall of hope
+278, wall of ice
+3231, wall of junk
+1476, wall of kelp
+1342, wall of lava
+756, wall of light
+5713, wall of mulch
+2908, wall of nets
+757, wall of opposition
+1343, wall of pine needles
+758, wall of putrid flesh
+2766, wall of razors
+1942, wall of resistance
+1943, wall of roots
+759, wall of shadows
+1344, wall of shields
+2767, wall of souls
+457, wall of spears
+279, wall of stone
+280, wall of swords
+2768, wall of tears
+760, wall of tombstones
+761, wall of vapor
+4146, wall of vipers
+281, wall of water
+762, wall of wonder
+282, wall of wood
+4477, wallop
+2120, wand of denial
+883, wand of ith
+6473, wand of the elements
+6304, wanderguard sentry
+4011, wandering eye
+1618, wandering mage
+6926, wandering ones
+4478, wandering stream
+283, wanderlust
+884, war barge
+3861, war cadence
+1345, war chariot
+3232, war dance
+6305, war elemental
+374, war elephant
+284, war mammoth
+3862, war tax
+5866, warbreak trumpeter
+1944, ward of lights
+7095, ward of piety
+5867, ward sliver
+3863, warmonger
+2616, warmth
+1346, warning
+285, warp artifact
+3864, warpath
+4633, warped devotion
+5868, warped researcher
+1945, warping wurm
+2769, warrior angel
+2770, warrior en-kor
+7454, warrior's charge
+2121, warrior's honor
+7743, warrior's oath
+7614, warrior's stand
+2122, warthog
+4479, wash out
+5253, waste away
+2617, wasteland
+2618, watchdog
+286, water elemental
+885, water wurm
+3865, waterfront bouncer
+2123, waterspout djinn
+4634, waterspout elemental
+6927, waterveil cavern
+1946, wave elemental
+5714, wave of indifference
+3866, wave of reckoning
+2289, wave of terror
+4480, wax | wane
+7096, waxmane baku
+6642, wayfarer's bauble
+4481, wayfaring giant
+3233, waylay
+5101, wayward angel
+2909, wayward soul
+287, weakness
+458, weakstone
+6928, wear away
+5715, weathered wayfarer
+3385, weatherseed elf
+3386, weatherseed faeries
+3387, weatherseed treefolk
+5869, weaver of lies
+288, web
+5390, web of inertia
+7745, wei ambush force
+7746, wei assassins
+7747, wei elite companions
+7748, wei infantry
+7749, wei night raiders
+7750, wei scout
+7751, wei strike force
+5716, weird harvest
+6306, welding jar
+2910, welkin hawk
+4147, well of discovery
+2290, well of knowledge
+4148, well of life
+6474, well of lost dreams
+4482, well-laid plans
+1947, wellspring
+5717, wellwisher
+5102, werebear
+3234, western paladin
+1347, whalebone glider
+5718, wheel and deal
+289, wheel of fortune
+3388, wheel of torture
+3235, whetstone
+2619, whim of volrath
+4149, whip sergeant
+4483, whip silk
+1619, whip vine
+5719, whipcorder
+5870, whipgrass entangler
+5103, whipkeeper
+886, whippoorwill
+4150, whipstitched zombie
+7455, whiptail wurm
+2911, whiptongue frog
+1620, whirling catapult
+763, whirling dervish
+4771, whirlpool drake
+4772, whirlpool rider
+4773, whirlpool warrior
+3236, whirlwind
+5104, whispering shade
+2620, whispers of the muse
+6475, whispersilk cloak
+290, white knight
+764, white mana battery
+1348, white scarab
+291, white ward
+1349, whiteout
+6929, wicked akuba
+7456, wicked pact
+2124, wicked reward
+7752, wielding the green dragon
+1350, wiitigo
+1621, wild aesthir
+3531, wild colos
+3237, wild dogs
+1948, wild elephant
+7615, wild griffin
+292, wild growth
+3867, wild jhovall
+4012, wild mammoth
+4151, wild might
+5105, wild mongrel
+7616, wild ox
+4774, wild research
+2621, wild wurm
+3238, wildfire
+1949, wildfire emissary
+293, will-o'-the-wisp
+5872, willbender
+7457, willow dryad
+1477, willow faerie
+1478, willow priestess
+765, willow satyr
+2622, wind dancer
+2623, wind drake
+7618, wind sail
+2125, wind shear
+1352, wind spirit
+5873, windborn muse
+3239, windfall
+2291, winding canyons
+3240, winding wurm
+1950, windreaper falcon
+766, winds of change
+2624, winds of rath
+4152, windscouter
+6, windseeker centaur
+5720, windswept heath
+7262, wine of blood and iron
+6014, wing shards
+3389, wing snare
+4153, wing storm
+5874, wingbeat warrior
+2625, winged sliver
+1353, wings of aesthir
+4484, wings of hope
+4485, winnow
+767, winter blast
+294, winter orb
+1479, winter sky
+1354, winter's chill
+2626, winter's grasp
+1622, winter's night
+4154, wintermoon mesa
+6015, wipe clean
+3241, wirecat
+6476, wirefly hive
+5875, wirewood channeler
+5721, wirewood elf
+6016, wirewood guardian
+5722, wirewood herald
+5876, wirewood hivemaster
+5723, wirewood lodge
+5724, wirewood pride
+5725, wirewood savage
+6017, wirewood symbiote
+3868, wishmonger
+3242, witch engine
+887, witch hunter
+4155, withdraw
+5877, withered wretch
+1951, withering boon
+7461, withering gaze
+5726, withering hex
+1355, withering wisps
+3243, wizard mentor
+6307, wizard replica
+1480, wizards' school
+6308, woebearer
+7753, wolf pack
+768, wolverine pack
+5391, wonder
+769, wood elemental
+2912, wood elves
+2627, wood sage
+6018, woodcloaker
+5727, wooded foothills
+295, wooden sphere
+5106, woodland druid
+4013, woodripper
+1356, woolly mammoths
+1357, woolly spider
+888, word of binding
+1358, word of blasting
+296, word of command
+1359, word of undoing
+5728, words of war
+5729, words of waste
+5730, words of wilding
+5731, words of wind
+5107, words of wisdom
+5732, words of worship
+2913, workhorse
+5392, worldgorger dragon
+4486, worldly counsel
+1952, worldly tutor
+6309, worldslayer
+5393, wormfang behemoth
+5394, wormfang crab
+5395, wormfang drake
+5396, wormfang manta
+5397, wormfang newt
+5398, wormfang turtle
+889, worms of the earth
+890, wormwood treefolk
+3244, worn powerstone
+3870, worry beads
+3245, worship
+2628, worthy cause
+297, wrath of god
+1360, wrath of marit lage
+6310, wrench mind
+5733, wretched anurid
+7754, wu admiral
+7755, wu elite cavalry
+7756, wu infantry
+7757, wu light cavalry
+7758, wu longbowman
+7759, wu scout
+7760, wu spy
+7761, wu warship
+6477, wurm's tooth
+6311, wurmskin forger
+375, wyluli wolf
+2292, xanthic statue
+6019, xantid swarm
+459, xenic poltergeist
+7762, xiahou dun, the one-eyed
+770, xira arien
+7763, xun yu, wei advisor
+6930, yamabushi's flame
+6931, yamabushi's storm
+1953, yare
+1623, yavimaya ancients
+1624, yavimaya ants
+4487, yavimaya barbarian
+4775, yavimaya coast
+3532, yavimaya elder
+3533, yavimaya enchantress
+1361, yavimaya gnats
+3390, yavimaya granger
+3534, yavimaya hollow
+4488, yavimaya kavu
+3391, yavimaya scion
+3392, yavimaya wurm
+4776, yavimaya's embrace
+460, yawgmoth demon
+4489, yawgmoth's agenda
+3535, yawgmoth's bargain
+3246, yawgmoth's edict
+3247, yawgmoth's will
+376, ydwen efreet
+7764, yellow scarves cavalry
+7765, yellow scarves general
+7766, yellow scarves troops
+7097, yomiji, who bars the way
+6932, yosei, the morning star
+461, yotian soldier
+7767, young wei recruits
+2771, youthful knight
+7769, yuan shao's infantry
+7768, yuan shao, the indecisive
+7263, yuki-onna
+7098, yukora, the prisoner
+4490, zanam djinn
+4491, zap
+2914, zealots en-dal
+6020, zealous inquisitor
+1954, zebra unicorn
+992, zelyon sword
+3248, zephid
+3249, zephid's embrace
+771, zephyr falcon
+4156, zerapa minotaur
+1955, zhalfirin commander
+2126, zhalfirin crusader
+1956, zhalfirin knight
+7770, zhang fei, fierce warrior
+7771, zhang he, wei general
+7772, zhang liao, hero of hefei
+7773, zhao zilong, tiger general
+7774, zhou yu, chief commander
+7775, zhuge jin, wu strategist
+1957, zirilan of the claw
+6933, zo-zu the punisher
+7776, zodiac dog
+7777, zodiac dragon
+7778, zodiac goat
+7779, zodiac horse
+7780, zodiac monkey
+7781, zodiac ox
+7782, zodiac pig
+7783, zodiac rabbit
+7784, zodiac rat
+7785, zodiac rooster
+7786, zodiac snake
+7787, zodiac tiger
+5108, zombie assassin
+4777, zombie boa
+5878, zombie brute
+5109, zombie cannibal
+6021, zombie cutthroat
+5110, zombie infestation
+298, zombie master
+1958, zombie mob
+2293, zombie scavengers
+5254, zombie trailblazer
+5111, zombify
+5112, zoologist
+1959, zuberi, golden feather
+7788, zuo ci, the mocking sage
+1365, zur's weirding
+1362, zuran enchanter
+1363, zuran orb
+1364, zuran spellcaster

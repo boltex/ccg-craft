@@ -1,0 +1,109 @@
+Fonts used and their possible locations being used.
+===================================================
+
+medieval.ttf 
+ 	Card Names
+ 
+symbols.ttf
+ 	Casting Cost
+	Text Box
+
+plantin.ttf
+	Type Line
+	Text Box
+	Power/Toughness	
+
+
+Other card generation data
+==========================
+
+# all-cards.txt
+		index of "any" single in single-cards.txt of "LEGAL SINGLE NAME".
+		Meanining the first occurence of all card names.
+		(i.e. One of each: No repeat of Forest, Island, etc. across extensions)
+
+		Format: First line is just the total, then all the lines follow like so
+		with the serial (1-based), then the lowercased name (in alphabetical order)
+		(first 16 lines sample):
+
+7425
+2294, abandon hope
+4778, abandoned outpost
+1366, abbey gargoyles
+1367, abbey matron
+2127, abduction
+2128, abeyance
+2129, abjure
+4014, abolish
+462, abomination
+2130, aboroth
+4780, aboshan's desire
+4779, aboshan, cephalid emperor
+3250, about face
+2915, absolute grace
+2916, absolute law
+
+# single-cards.txt
+  		Format: Serial, firstFace, secondFace, Edition, SingleCardName
+		(sample that includes a split card "Assault | Battery" which has non-zero secondFace):
+
+4174, 4174, 0, IN, Artifact Mutation
+4175, 4175, 4176, IN, Assault | Battery
+4176, 4177, 0, IN, Atalya, Samite Master
+4177, 4178, 0, IN, Aura Mutation
+
+
+# face-index.dat
+		1-Serial#
+		2-Parent#
+		3-layout  (0=normal, 1= Flip, 2=Split)
+		4-Edition# (zero based)
+		5-NameIndex
+		6-ManacostIndex
+		7-TypelineIndex
+		8-Has PT
+		 -Power# (only present if has PT)
+		 -Tough# (only present if has PT)
+		9-NumText#
+ 		 - (if NumText>0) TextIndex (zero or more)
+
+Note: NameIndex, ManacostIndex, TypelineIndex and TextIndex are 1-based indexes. (subtract 1 when using)
+	
+# face-names.txt
+		Format: First line is just the total, then all the lines follow like so
+7455
+Arena
+Giant Badger
+Mana Crypt
+Nalathni Dragon
+Sewers of Estark
+
+# face-mana.txt
+		Format: First line is just the total, then all the lines follow like so
+301
+1GG
+0
+2RR
+2BB
+1RR
+
+# face-type-lines.txt
+		Format: First line is just the total, then all the lines follow like so
+632
+Land
+Creature - Badger
+Artifact
+Creature - Dragon
+Instant
+Creature - Centaur
+
+# face-text-lines.txt
+		Format: First line is just the total, then all the lines follow like so
+7296
+{3}, {T}: Choose a creature you control. An opponent chooses a creature he controls. Tap both creatures. Each of those creatures deals damage equal to its power to the other.
+Whenever <this> blocks, it gets +2/+2 until end of turn.
+At the beginning of your upkeep, flip a coin. If you lose the flip, <this> deals 3 damage to you.
+{T}: Add {2} to your mana pool.
+Flying, banding
+
+

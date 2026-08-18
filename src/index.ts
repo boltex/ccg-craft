@@ -2,26 +2,7 @@ import "./styles.css";
 
 import * as contants from "./constants";
 import * as utils from "./utils";
-
-type card = {
-    serial: number;
-    edition: string; // Edition abbreviation, e.g., "IN". Not a number in cards.
-    name: string;
-    face1: number;
-    face2: number;
-}
-
-type cardFace = {
-    faceSerial: number;
-    parentCard: number;
-    faceType: number;
-    edition: number; // Edition number, not abbreviation. This is a number in face-index.dat.
-    nameIndex: number;
-    manaCostIndex: number;
-    typeLineIndex: number;
-    powerToughness: number[]; // either empty or has two elements: [power, toughness]
-    textLines: number[]; // array of text lines indexes
-};
+import type { card, cardFace } from "./types";
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const previewElement = document.querySelector<HTMLElement>("#data-preview");
@@ -195,7 +176,6 @@ function showCardPreview(query: string): void {
             Text:
             ${faceTextLines}`;
 
-
     }
 
     // Remove spaces before each newline in the previewText for better formatting
@@ -299,10 +279,10 @@ async function bootstrap(): Promise<void> {
             pointer += 4;
             const typeLineIndex = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
             pointer += 4;
-            const hasPT = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
+            const isACreature = new DataView(arrayBuffer, pointer, 4).getUint32(0, true) !== 0;
             pointer += 4;
             let powerToughness: number[] = [];
-            if (hasPT) {
+            if (isACreature) {
                 const power = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
                 pointer += 4;
                 const toughness = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
@@ -325,6 +305,7 @@ async function bootstrap(): Promise<void> {
                 nameIndex,
                 manaCostIndex,
                 typeLineIndex,
+                isACreature,
                 powerToughness,
                 textLines
             });

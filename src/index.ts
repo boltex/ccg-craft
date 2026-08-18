@@ -1,5 +1,8 @@
 import "./styles.css";
 
+import * as contants from "./constants";
+import * as utils from "./utils";
+
 type card = {
     serial: number;
     edition: string; // Edition abbreviation, e.g., "IN". Not a number in cards.
@@ -202,7 +205,8 @@ function showCardPreview(query: string): void {
 
 
 async function bootstrap(): Promise<void> {
-    setStatus("TypeScript loaded and DOM connected.");
+
+    console.log(`Project ${utils.formatBootstrapMessage(contants.APP_NAME)} with accent ${contants.SAMPLE_THEME.accentColor}.`);
 
     try {
 

@@ -33,6 +33,10 @@ export type PrintableFace = {
 
     colorState: number;
     faceFrame: number;
+    faceColors: {
+        frameColor: Color;
+        tbColor: Color;
+    }
 }
 
 export type Color = [number, number, number]; // RGB color

@@ -1,8 +1,8 @@
 import "./styles.css";
 
-import * as contants from "./constants";
+import * as constants from "./constants";
 import * as utils from "./utils";
-import type { card, cardFace } from "./types";
+import type { card, cardFace, Color, PrintableFace } from "./types";
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const previewElement = document.querySelector<HTMLElement>("#data-preview");
@@ -41,6 +41,130 @@ if (lookupElement) {
             }
         }, 300); // 300ms debounce
     });
+}
+
+function getFaceData(cardSerial: number): [PrintableFace, PrintableFace] {
+
+    const card = singleCards[cardSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
+
+    const face1 = getPrintableFace(card.face1);
+    const face2 = getPrintableFace(card.face2, face1); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
+
+    return [face1, face2];
+
+}
+
+function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): PrintableFace {
+    const face = faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
+
+    console.log(`Getting printable face for serial: ${faceSerial}`, face);
+
+    // About FaceFrame
+    // Find it with Manacost, 0=is a land.
+    // If manacost = {0} & it IS a creature, then FaceFrame=frameR
+    let faceFrame: number;
+
+    let colorState = 0;
+    let faceColors: { frameColor: Color; tbColor: Color };
+    const manaCost = manaCostData[face.manaCostIndex - 1] || "";
+
+    if (manaCost.includes("G")) colorState += 1;
+    if (manaCost.includes("R")) colorState += 2;
+    if (manaCost.includes("B")) colorState += 4;
+    if (manaCost.includes("U")) colorState += 8;
+    if (manaCost.includes("W")) colorState += 16;
+
+    switch (colorState) {
+        case 0:
+            faceFrame = constants.frame.frameA;
+            faceColors = {
+                frameColor: constants.colors.FA,
+                tbColor: constants.colors.TBA
+            };
+            break;
+        case 1:
+            faceFrame = constants.frame.frameG;
+            faceColors = {
+                frameColor: constants.colors.FG,
+                tbColor: constants.colors.TBG
+            };
+            break;
+        case 2:
+            faceFrame = constants.frame.frameR;
+            faceColors = {
+                frameColor: constants.colors.FR,
+                tbColor: constants.colors.TBR
+            };
+            break;
+        case 4:
+            faceFrame = constants.frame.frameB;
+            faceColors = {
+                frameColor: constants.colors.FB,
+                tbColor: constants.colors.TBB
+            };
+            break;
+        case 8:
+            faceFrame = constants.frame.frameU;
+            faceColors = {
+                frameColor: constants.colors.FU,
+                tbColor: constants.colors.TBU
+            };
+            break;
+        case 16:
+            faceFrame = constants.frame.frameW;
+            faceColors = {
+                frameColor: constants.colors.FW,
+                tbColor: constants.colors.TBW
+            };
+            break;
+        default:
+            faceFrame = constants.frame.frameZ;
+            faceColors = {
+                frameColor: constants.colors.FZ,
+                tbColor: constants.colors.TBZ
+            };
+    }
+    if (manaCost === "") {
+        faceFrame = constants.frame.frameL;
+        faceColors = {
+            frameColor: constants.colors.FL,
+            tbColor: constants.colors.TBLZ
+        };
+    }
+
+    const typeLine = typeData[face.typeLineIndex - 1] || "";
+    if (colorState === 0 && face.isACreature && !typeLine.includes("Artifact")) {
+        faceFrame = constants.frame.frameR;
+        faceColors = {
+            frameColor: constants.colors.FR,
+            tbColor: constants.colors.TBR
+        };
+        colorState = 2;
+    }
+
+    // If this was the last side of a flip card, we need to set the faceFrame, and colorState, and faceColors to match the other side of the flip card.
+    if (face.faceType === 3 && otherFace) {
+        faceFrame = otherFace.faceFrame;
+        faceColors = otherFace.faceColors;
+        colorState = otherFace.colorState;
+    }
+
+    return {
+        serial: faceSerial,
+        faceLayout: face.faceType,
+
+        name: nameData[faceSerial - 1],
+        manaCost: manaCostData[faceSerial - 1],
+        typeLine: typeData[faceSerial - 1],
+        edition: face.edition,
+        isACreature: face.isACreature,
+        powerToughness: face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "",
+        textLines: face.textLines.map(index => textData[index - 1]?.replaceAll('<this>', nameData[face.nameIndex - 1]) || "").filter(line => line !== ""),
+        colorState: colorState,
+        faceFrame: face.faceType,
+        faceColors: faceColors
+
+    };
 }
 
 function setStatus(message: string): void {

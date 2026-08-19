@@ -186,8 +186,6 @@ function showCardPreview(query: string): void {
 
 async function bootstrap(): Promise<void> {
 
-    console.log(`Project ${utils.formatBootstrapMessage(contants.APP_NAME)} with accent ${contants.SAMPLE_THEME.accentColor}.`);
-
     try {
 
         let response = await fetch("face-names.txt");

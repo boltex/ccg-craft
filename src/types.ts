@@ -34,3 +34,34 @@ export type PrintableFace = {
     colorState: number;
     faceFrame: number;
 }
+
+export type Color = [number, number, number]; // RGB color
+
+// There will be 4 FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB
+export type FaceLayout = {
+    xback: number;
+    yback: number;
+    xbwidth: number;
+    ybheight: number;
+    xname: number;
+    yname: number;
+    xmana: number;
+    ymana: number;
+    xtypeline: number;
+    ytypeline: number;
+    xedition: number;
+    yedition: number;
+    xpowertough: number;
+    ypowertough: number;
+    xtext: number;
+    ytext: number;
+    textangle: number;
+    xtb: number;
+    ytb: number;
+    tbwidth: number;
+    tbheight: number;
+    xart: number;
+    yart: number;
+    artwidth: number;
+    artheight: number;
+}

@@ -74,7 +74,7 @@ export const LandColorByEdition: { [key: number]: Color } = {
 
 export const CardWidth = 223;
 export const CardHeight = 330;
-
+export const MCWidth = 12;
 
 // FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB
 export const FaceLayouts: { [key: number]: FaceLayout } = {
@@ -216,9 +216,44 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artwidth: 102,
         artheight: 147
     }
+};
 
+export const TextSizeLimits = [
+    [190, 88],
+    [190, 62],
+    [139, 65],
+    [190, 62],
+    [139, 65]
+];
 
-}
+export const LineHeights = [
+    16,
+    13,
+    11,
+    9,
+    7,
+    5
+];
 
-
+export const ManaSymbols = [
+    "{0}",
+    "{1}",
+    "{2}",
+    "{3}",
+    "{4}",
+    "{5}",
+    "{6}",
+    "{7}",
+    "{8}",
+    "{9}",
+    "{W}",
+    "{U}",
+    "{B}",
+    "{R}",
+    "{G}",
+    "{T}",
+    "{X}",
+    "{Y}",
+    "{Z}"
+];
 

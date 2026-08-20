@@ -273,34 +273,26 @@ function showCardPreview(query: string): void {
     }
 
     // Now test getFaceData
-    console.log(`Getting face data for card serial: ${serial}`);
-    const [face1, face2] = getFaceData(serial);
-    console.log(`Face 1:`, face1);
-    console.log(`Face 2:`, face2);
+    const faces = getFaceData(serial);
+    console.log(`Face 1:`, faces[0]);
+    console.log(`Face 2:`, faces[1]);
 
     let previewText = `Card: ${card.name} (Edition: ${card.edition})`;
-    for (let faceNum = 1; faceNum <= 2; faceNum++) {
-        const faceSerial = faceNum === 1 ? card.face1 : card.face2;
-        if (!faceSerial) {
-            // most have only face1 so if face2 is 0, we skip it.
-            continue;
-        }
-        const face = faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
+    for (const face of faces) {
         if (!face) {
-            console.warn(`No face found for serial: ${faceSerial}`);
             continue;
         }
-        const faceName = nameData[face.nameIndex - 1] || "Unknown";
-        const faceEdition = editions[face.edition] || "Unknown"; // ( zero based )
-        const faceManaCost = manaCostData[face.manaCostIndex - 1] || "Unknown";
-        const faceTypeLine = typeData[face.typeLineIndex - 1] || "Unknown";
-        const facePowerToughness = face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "N/A";
 
-        const faceTextLines = face.textLines.map(index => textData[index - 1]?.replaceAll('<this>', faceName) || "").filter(line => line !== "").join("\n");
+        const faceName = face.name || "Unknown";
+        const faceEdition = editions[face.edition] || "Unknown"; // ( zero based )
+        const faceManaCost = face.manaCost || "Unknown";
+        const faceTypeLine = face.typeLine || "Unknown";
+        const facePowerToughness = face.isACreature ? `${face.powerToughness}` : "N/A";
+        const faceTextLines = face.textLines.join("\n");
 
         previewText += `
             ---------------
-            Face ${faceNum}:
+            Face ${face.serial}:
             Name: ${faceName}
             Mana Cost: ${faceManaCost}
             Type Line: ${faceTypeLine}
@@ -465,8 +457,8 @@ async function bootstrap(): Promise<void> {
             throw new Error(`Failed to parse restricted-subsets.json: ${error}`);
         }
 
-        setStatus("Data loaded successfully.");
-        console.log("Data loaded successfully. Total cards:", singleCards.length, 'Card names:', allCardsNames.length, "Total faces:", faceData.length);
+        setStatus(`Total cards: ${singleCards.length}, Card names: ${allCardsNames.length}, Total faces: ${faceData.length}`);
+
 
 
 

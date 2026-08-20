@@ -112,3 +112,9 @@ h1 {
   white-space: pre-wrap;
   line-height: 1.5;
 }
+
+#card-preview {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+}

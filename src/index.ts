@@ -22,6 +22,8 @@ const textData: string[] = []; // Will fill from face-text-lines.txt
 
 const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restricted-subsets.json
 
+const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
+
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
     let debounceTimeout: number | undefined;
@@ -249,6 +251,25 @@ function parseSingleCards(rawText: string): card[] {
     return result;
 }
 
+function drawCardPlaceholder(): void {
+
+    // Demo version of a card drawing function. This will just draw a placeholder rectangle on the canvas for now.
+
+    if (!canvasElement) {
+        return;
+    }
+
+    const context = canvasElement.getContext("2d");
+    if (!context) {
+        return;
+    }
+
+    context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+    context.fillStyle = "#c96f28";
+    context.fillRect(40, 20, 320, 520);
+}
+
 function showCardPreview(query: string): void {
     // try to match the first that startswith the query, case insensitive
     // from the allCardsDict dictionary, which maps lowercased card names to serial numbers.
@@ -306,6 +327,9 @@ function showCardPreview(query: string): void {
     // Remove spaces before each newline in the previewText for better formatting
     previewText = previewText.replace(/^\s+/gm, '');
     setPreview(previewText);
+
+    // Todo: Implement actual card rendering on the canvas using the face data.
+    drawCardPlaceholder();
 }
 
 

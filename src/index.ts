@@ -43,11 +43,14 @@ if (lookupElement) {
     });
 }
 
-function getFaceData(cardSerial: number): [PrintableFace, PrintableFace] {
+function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefined] {
 
     const card = singleCards[cardSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
     const face1 = getPrintableFace(card.face1);
+    if (!card.face2 || card.face2 === 0) {
+        return [face1, undefined];
+    }
     const face2 = getPrintableFace(card.face2, face1); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
 
     return [face1, face2];
@@ -57,7 +60,7 @@ function getFaceData(cardSerial: number): [PrintableFace, PrintableFace] {
 function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): PrintableFace {
     const face = faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
-    console.log(`Getting printable face for serial: ${faceSerial}`, face);
+    console.log(`getPrintableFace for serial: ${faceSerial}`, face);
 
     // About FaceFrame
     // Find it with Manacost, 0=is a land.
@@ -153,9 +156,9 @@ function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): Printa
         serial: faceSerial,
         faceLayout: face.faceType,
 
-        name: nameData[faceSerial - 1],
-        manaCost: manaCostData[faceSerial - 1],
-        typeLine: typeData[faceSerial - 1],
+        name: nameData[face.nameIndex - 1],
+        manaCost: manaCostData[face.manaCostIndex - 1],
+        typeLine: typeData[face.typeLineIndex - 1],
         edition: face.edition,
         isACreature: face.isACreature,
         powerToughness: face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "",
@@ -269,6 +272,12 @@ function showCardPreview(query: string): void {
         return;
     }
 
+    // Now test getFaceData
+    console.log(`Getting face data for card serial: ${serial}`);
+    const [face1, face2] = getFaceData(serial);
+    console.log(`Face 1:`, face1);
+    console.log(`Face 2:`, face2);
+
     let previewText = `Card: ${card.name} (Edition: ${card.edition})`;
     for (let faceNum = 1; faceNum <= 2; faceNum++) {
         const faceSerial = faceNum === 1 ? card.face1 : card.face2;
@@ -285,7 +294,7 @@ function showCardPreview(query: string): void {
         const faceEdition = editions[face.edition] || "Unknown"; // ( zero based )
         const faceManaCost = manaCostData[face.manaCostIndex - 1] || "Unknown";
         const faceTypeLine = typeData[face.typeLineIndex - 1] || "Unknown";
-        const facePowerToughness = face.powerToughness.length === 2 ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "N/A";
+        const facePowerToughness = face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "N/A";
 
         const faceTextLines = face.textLines.map(index => textData[index - 1]?.replaceAll('<this>', faceName) || "").filter(line => line !== "").join("\n");
 

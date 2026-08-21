@@ -1,8 +1,8 @@
 import "./styles.css";
 
 import * as constants from "./constants";
-import * as utils from "./utils";
 import type { card, cardFace, Color, PrintableFace } from "./types";
+import { renderCardPreview } from "./renderer";
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const previewElement = document.querySelector<HTMLElement>("#data-preview");
@@ -166,7 +166,7 @@ function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): Printa
         powerToughness: face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "",
         textLines: face.textLines.map(index => textData[index - 1]?.replaceAll('<this>', nameData[face.nameIndex - 1]) || "").filter(line => line !== ""),
         colorState: colorState,
-        faceFrame: face.faceType,
+        faceFrame: faceFrame,
         faceColors: faceColors
 
     };
@@ -251,25 +251,6 @@ function parseSingleCards(rawText: string): card[] {
     return result;
 }
 
-function drawCardPlaceholder(): void {
-
-    // Demo version of a card drawing function. This will just draw a placeholder rectangle on the canvas for now.
-
-    if (!canvasElement) {
-        return;
-    }
-
-    const context = canvasElement.getContext("2d");
-    if (!context) {
-        return;
-    }
-
-    context.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-    context.fillStyle = "#c96f28";
-    context.fillRect(40, 20, 320, 520);
-}
-
 function showCardPreview(query: string): void {
     // try to match the first that startswith the query, case insensitive
     // from the allCardsDict dictionary, which maps lowercased card names to serial numbers.
@@ -299,6 +280,21 @@ function showCardPreview(query: string): void {
     console.log(`Face 2:`, faces[1]);
 
     let previewText = `Card: ${card.name} (Edition: ${card.edition})`;
+
+    if (!canvasElement) {
+        return;
+    }
+    const context = canvasElement.getContext("2d");
+    if (!context) {
+        return;
+    }
+
+    renderCardPreview(context, faces, {
+        padding: 20,
+        background: "#f3ecdf",
+        showArtPlaceholder: true,
+    });
+
     for (const face of faces) {
         if (!face) {
             continue;
@@ -328,8 +324,6 @@ function showCardPreview(query: string): void {
     previewText = previewText.replace(/^\s+/gm, '');
     setPreview(previewText);
 
-    // Todo: Implement actual card rendering on the canvas using the face data.
-    drawCardPlaceholder();
 }
 
 

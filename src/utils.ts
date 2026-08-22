@@ -45,3 +45,12 @@ export function scaleTextSizeLimits(limits: [number, number][], scale: number): 
 export function scaleLineHeights(heights: number[], scale: number): number[] {
     return heights.map(height => height * scale);
 }
+
+export function clearCanvas(canvas: HTMLCanvasElement | null) {
+    if (canvas) {
+        const context = canvas.getContext("2d");
+        if (context) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+}

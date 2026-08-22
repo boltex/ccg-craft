@@ -118,3 +118,27 @@ h1 {
   margin: 0 auto;
   border: 1px solid var(--border);
 }
+
+#card-lookup {
+  width: min(420px, 100%);
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fbf6ef;
+  color: var(--text);
+  font: inherit;
+  box-shadow: inset 0 1px 2px rgba(76, 52, 28, 0.08);
+  outline: none;
+}
+
+#card-lookup::placeholder {
+  color: var(--muted);
+}
+
+#card-lookup:focus {
+  border-color: #9a7b52;
+  box-shadow:
+    0 0 0 3px rgba(154, 123, 82, 0.18),
+    inset 0 1px 2px rgba(76, 52, 28, 0.08);
+  background: #fffaf3;
+}

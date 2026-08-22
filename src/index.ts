@@ -3,6 +3,7 @@ import "./styles.css";
 import * as constants from "./constants";
 import type { card, cardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
+import * as utils from "./utils";
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const previewElement = document.querySelector<HTMLElement>("#data-preview");
@@ -40,6 +41,8 @@ if (lookupElement) {
                 showCardPreview(query);
             } else {
                 setPreview("Please enter a card name to look up.");
+                // Clear the canvas 
+                utils.clearCanvas(canvasElement);
             }
         }, 300); // 300ms debounce
     });
@@ -265,6 +268,8 @@ function showCardPreview(query: string): void {
 
     if (matchedIndex === -1) {
         setPreview(`No card found starting with "${query}".`);
+        // Clear the canvas!
+        utils.clearCanvas(canvasElement);
         return;
     }
     const serial = allCardsIndexes[matchedIndex];
@@ -328,6 +333,12 @@ function showCardPreview(query: string): void {
 
 
 async function bootstrap(): Promise<void> {
+
+    if (lookupElement) {
+        requestAnimationFrame(() => {
+            lookupElement.focus();
+        });
+    }
 
     try {
 

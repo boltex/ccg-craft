@@ -7,10 +7,21 @@ import {
     getArtRect,
 } from "./renderer-geometry";
 
-export function drawFaceShell(renderCtx: RenderFaceContext): void {
-    drawFrameBackground(renderCtx);
+export function renderFace(renderCtx: RenderFaceContext): void {
+
+    const { ctx, face, layout, scene } = renderCtx;
+    if (face.faceLayout !== 3) {
+        // back
+        drawFrameBackground(renderCtx);
+
+        // art 
+        drawArtPlaceholder(renderCtx);
+
+    }
+
+    //  Rest of Face !!! Even if face layout = 3 
+
     drawTextBox(renderCtx);
-    drawArtPlaceholder(renderCtx);
 }
 
 export function drawFrameBackground(renderCtx: RenderFaceContext): void {
@@ -44,6 +55,7 @@ export function drawTextBox(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
 
+    console.log(`Drawing text box for face: ${face.name}, layout: ${layout}, rect: ${JSON.stringify(rect)}`);
 
     const fill = !face.manaCost && !face.isACreature
         ? getLandTextBoxFill(face)
@@ -98,10 +110,6 @@ export function drawTextBox(renderCtx: RenderFaceContext): void {
 
 export function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
-
-    if (face.faceLayout === 3) {
-        return;
-    }
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
     const artPath = toArtRelativePath(face.name);

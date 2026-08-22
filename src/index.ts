@@ -297,7 +297,6 @@ function showCardPreview(query: string): void {
     renderCardPreview(context, faces, {
         padding: 20,
         background: "#f3ecdf",
-        showArtPlaceholder: true,
     });
 
     for (const face of faces) {

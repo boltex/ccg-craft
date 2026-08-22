@@ -2,15 +2,12 @@ import * as constants from "./constants";
 import type { PrintableFace, FaceLayout } from "./types";
 import { getScaledFaceLayout } from "./renderer-geometry";
 import {
-    drawFrameBackground,
-    drawTextBox,
-    drawArtPlaceholder,
+    renderFace
 } from "./renderer-face";
 
 export type RenderCardOptions = {
     padding?: number;
     background?: string;
-    showArtPlaceholder?: boolean;
 };
 
 export type RenderCardScene = {
@@ -83,13 +80,4 @@ export function createRenderScene(
         cardWidth,
         cardHeight,
     };
-}
-
-export function renderFace(renderCtx: RenderFaceContext): void {
-    drawFrameBackground(renderCtx);
-    drawTextBox(renderCtx);
-
-    if (renderCtx.options.showArtPlaceholder !== false && renderCtx.face.faceLayout !== 3) {
-        drawArtPlaceholder(renderCtx);
-    }
 }

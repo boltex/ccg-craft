@@ -72,7 +72,7 @@ export const LandColorByEdition: { [key: number]: Color } = {
     12: [159, 180, 168], // VI
 };
 
-export const CardWidth = 223;
+export const CardWidth = 232;
 export const CardHeight = 330;
 export const MCWidth = 12;
 

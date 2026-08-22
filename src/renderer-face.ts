@@ -1,4 +1,5 @@
 import * as utils from "./utils";
+import { getLandTextBoxFill, getDefaultTextBoxFill } from "./frame-colors";
 import type { RenderFaceContext } from "./renderer";
 import {
     getFaceBounds,
@@ -24,12 +25,64 @@ export function drawFrameBackground(renderCtx: RenderFaceContext): void {
     ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
 }
 
+// export function drawTextBox(renderCtx: RenderFaceContext): void {
+//     const { ctx, face, layout, scene } = renderCtx;
+//     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
+
+//     ctx.fillStyle = utils.toCommaRgb(...face.faceColors.tbColor);
+//     ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+
+//     // todo Use the logic from old basic code where specific text box color(s) were used for specific card types (e.g., land, spell, etc.) instead of just using the faceColors.tbColor for all text boxes.
+//     // multicolor land text box color may have 2 colors and double lands draw concentric rectangles.
+
+//     ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
+//     ctx.lineWidth = Math.max(1, scene.scale * 0.5);
+//     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+// }
+
 export function drawTextBox(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
 
-    ctx.fillStyle = utils.toCommaRgb(...face.faceColors.tbColor);
-    ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+
+    const fill = !face.manaCost && !face.isACreature
+        ? getLandTextBoxFill(face)
+        : getDefaultTextBoxFill(face);
+
+    switch (fill.kind) {
+        case "solid": {
+            ctx.fillStyle = utils.toCommaRgb(...fill.color);
+            ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+            break;
+        }
+
+        case "split": {
+            const midX = rect.x + rect.width / 2;
+
+            ctx.fillStyle = utils.toCommaRgb(...fill.first);
+            ctx.fillRect(rect.x, rect.y, midX - rect.x, rect.height);
+
+            ctx.fillStyle = utils.toCommaRgb(...fill.second);
+            ctx.fillRect(midX, rect.y, rect.x + rect.width - midX, rect.height);
+            break;
+        }
+
+        case "striped": {
+            for (let index = 0; index < 8; index++) {
+                const inset = index * 6 * scene.scale;
+                const color = fill.colors[index % 2];
+
+                ctx.fillStyle = utils.toCommaRgb(...color);
+                ctx.fillRect(
+                    rect.x + inset,
+                    rect.y + inset,
+                    rect.width - inset * 2,
+                    rect.height - inset * 2
+                );
+            }
+            break;
+        }
+    }
 
     ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
     ctx.lineWidth = Math.max(1, scene.scale * 0.5);

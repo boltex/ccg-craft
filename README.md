@@ -50,9 +50,3 @@ Runs TypeScript without emitting build files:
 - src: application source files
 - public: static assets copied into the build output
 - dist: generated production build output
-
-## Notes
-
-- The dev server uses hot reload.
-- Static files from public are copied into the build output.
-- Production output is written to dist.

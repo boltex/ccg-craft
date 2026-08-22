@@ -57,13 +57,20 @@ export function drawTextBox(renderCtx: RenderFaceContext): void {
         }
 
         case "split": {
-            const midX = rect.x + rect.width / 2;
+            const gradient = ctx.createLinearGradient(
+                rect.x,
+                rect.y,
+                rect.x + rect.width,
+                rect.y
+            );
 
-            ctx.fillStyle = utils.toCommaRgb(...fill.first);
-            ctx.fillRect(rect.x, rect.y, midX - rect.x, rect.height);
+            gradient.addColorStop(0, utils.toCommaRgb(...fill.first));
+            gradient.addColorStop(0.37, utils.toCommaRgb(...fill.first));
+            gradient.addColorStop(0.63, utils.toCommaRgb(...fill.second));
+            gradient.addColorStop(1, utils.toCommaRgb(...fill.second));
 
-            ctx.fillStyle = utils.toCommaRgb(...fill.second);
-            ctx.fillRect(midX, rect.y, rect.x + rect.width - midX, rect.height);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
             break;
         }
 

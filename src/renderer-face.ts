@@ -10,6 +10,9 @@ import {
 export function renderFace(renderCtx: RenderFaceContext): void {
 
     const { ctx, face, layout, scene } = renderCtx;
+
+    // faceLayout 3 is the bottom flip side of a 180 degree flip card, so we don't draw the frame
+    //  background, manacost or art for that face which is already drawn on the top face.
     if (face.faceLayout !== 3) {
         // back
         drawFrameBackground(renderCtx);
@@ -17,11 +20,29 @@ export function renderFace(renderCtx: RenderFaceContext): void {
         // art 
         drawArtPlaceholder(renderCtx);
 
+        // manacost
+        drawManaCost(renderCtx);
+
     }
 
-    //  Rest of Face !!! Even if face layout = 3 
-
+    // Text box background
     drawTextBox(renderCtx);
+
+    // Name line
+    drawNameLine(renderCtx);
+
+    // Type line
+    drawTypeLine(renderCtx);
+
+    // Edition badge
+    drawEditionBadge(renderCtx);
+
+    // Power/Toughness
+    drawPowerToughness(renderCtx);
+
+    // Rules text
+    drawRulesText(renderCtx);
+
 }
 
 export function drawFrameBackground(renderCtx: RenderFaceContext): void {
@@ -35,21 +56,6 @@ export function drawFrameBackground(renderCtx: RenderFaceContext): void {
     ctx.lineWidth = Math.max(1, scene.scale);
     ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
 }
-
-// export function drawTextBox(renderCtx: RenderFaceContext): void {
-//     const { ctx, face, layout, scene } = renderCtx;
-//     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
-
-//     ctx.fillStyle = utils.toCommaRgb(...face.faceColors.tbColor);
-//     ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
-
-//     // todo Use the logic from old basic code where specific text box color(s) were used for specific card types (e.g., land, spell, etc.) instead of just using the faceColors.tbColor for all text boxes.
-//     // multicolor land text box color may have 2 colors and double lands draw concentric rectangles.
-
-//     ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
-//     ctx.lineWidth = Math.max(1, scene.scale * 0.5);
-//     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
-// }
 
 export function drawTextBox(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;

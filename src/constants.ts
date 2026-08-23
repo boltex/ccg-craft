@@ -106,6 +106,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artheight: 161,
     },
 
+    // flip top
     1: {
         xback: 0,
         yback: 0,
@@ -117,10 +118,13 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         ymana: 2,
         xtypeline: 10,
         ytypeline: 88,
-        xedition: 200,
-        yedition: 89,
-        xpowertough: 212,
-        ypowertough: 71,
+        xedition: 8,
+        yedition: CardHeight - 13,
+
+
+        xpowertough: 200,
+        ypowertough: 89,
+
         xtext: 5,
         ytext: 212,
         textangle: 0,
@@ -133,6 +137,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artwidth: 198,
         artheight: 121
     },
+    // flip bottom
     3: {
         xback: 0,
         yback: 0,
@@ -144,10 +149,13 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         ymana: CardHeight - 3,
         xtypeline: CardWidth - 10,
         ytypeline: 241,
-        xedition: 30,
-        yedition: 240,
-        xpowertough: 20,
-        ypowertough: 258,
+        xedition: 0, // unused
+        yedition: 0, // unused
+
+        xpowertough: 30,
+        ypowertough: 240,
+
+
         xtext: 5,
         ytext: 40,
         textangle: 180,
@@ -161,6 +169,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artheight: 121
     },
 
+    // split top
     2: {
         xback: 0,
         yback: CardHeight / 2,
@@ -189,6 +198,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artheight: 147
     },
 
+    // split bottom
     4: {
         xback: 0,
         yback: 0,

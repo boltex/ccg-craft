@@ -24,6 +24,9 @@ export function renderFace(renderCtx: RenderFaceContext): void {
         // manacost
         drawManaCost(renderCtx);
 
+        // Edition badge
+        drawEditionBadge(renderCtx);
+
     }
 
     // Text box background
@@ -34,9 +37,6 @@ export function renderFace(renderCtx: RenderFaceContext): void {
 
     // Type line
     drawTypeLine(renderCtx);
-
-    // Edition badge
-    drawEditionBadge(renderCtx);
 
     // Power/Toughness
     drawPowerToughness(renderCtx);
@@ -342,6 +342,7 @@ function drawManaCost(renderCtx: RenderFaceContext): void {
 }
 
 function drawPowerToughness(renderCtx: RenderFaceContext): void {
+
     // Old basic code for reference:
     /* 
         IF ISACREATURE(face) THEN
@@ -389,14 +390,38 @@ function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
     const { ctx, face, layout, scene } = renderCtx;
 
+    if (!face.isACreature) {
+        return;
+    }
+
     // get angle
     const angle = layout.textangle;
 
     ctx.save();
 
+    ctx.font = `${Math.max(13, 13 * scene.scale)}px Plantin, serif`;
+
+    ctx.fillStyle = 'white';
+    ctx.textAlign = "right";
+    ctx.textBaseline = "top";
+    // no stroke 
+    ctx.strokeStyle = 'transparent';
+
+    // shadow behind the white text 
+    ctx.shadowColor = 'black';
+    ctx.shadowOffsetX = 0.5 * scene.scale;
+    ctx.shadowOffsetY = 0.5 * scene.scale;
+    ctx.shadowBlur = 0;
+
+    ctx.translate(
+        layout.xpowertough + scene.offsetX,
+        layout.ypowertough + scene.offsetY
+    );
+
+    ctx.rotate((angle * Math.PI) / -180);
+    ctx.fillText(face.powerToughness, 0, 0);
 
     ctx.restore();
-
 
 }
 

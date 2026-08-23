@@ -6,6 +6,7 @@ import {
     getTextBoxRect,
     getArtRect,
 } from "./renderer-geometry";
+import * as constants from "./constants";
 
 export function renderFace(renderCtx: RenderFaceContext): void {
 
@@ -145,11 +146,90 @@ export function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     }
 }
 
-export function drawNameLine(renderCtx: RenderFaceContext): void { }
+export function drawNameLine(renderCtx: RenderFaceContext): void {
+    // Let's use medieval.ttf (Medieval font family) for card name rendering,
+    const { ctx, face, layout, scene } = renderCtx;
+
+    // get angle
+    const angle = layout.textangle;
+
+    ctx.save();
+
+    ctx.font = `${Math.max(13, 13 * scene.scale)}px Medieval, serif`;
+
+    ctx.fillStyle = 'white';
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    // no stroke 
+    ctx.strokeStyle = 'transparent';
+
+    // shadow behind the white text 
+    ctx.shadowColor = 'black';
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 1;
+    ctx.shadowBlur = 0;
+
+    // The important trick is to move the canvas origin to where you want the text, rotate the coordinate system, then draw the text at (0, 0).
+    // ok now setup the rotation and draw the text
+    ctx.translate(
+        layout.xname + scene.offsetX,
+        layout.yname + scene.offsetY
+
+    );
+
+    ctx.rotate((angle * Math.PI) / -180);
+    ctx.fillText(face.name, 0, 0);
+    ctx.restore();
+
+}
+
+export function drawTypeLine(renderCtx: RenderFaceContext): void {
+    // Use Plantin for type line, 12pt, white , left aligned, 1px shadow offset, no blur, no stroke.
+    const { ctx, face, layout, scene } = renderCtx;
+
+    // get angle
+    const angle = layout.textangle;
+
+    ctx.save();
+
+    ctx.font = `${Math.max(13, 13 * scene.scale)}px Plantin, serif`;
+
+    ctx.fillStyle = 'white';
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    // no stroke 
+    ctx.strokeStyle = 'transparent';
+
+    // shadow behind the white text 
+    ctx.shadowColor = 'black';
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 1;
+    ctx.shadowBlur = 0;
+
+    ctx.translate(
+        layout.xtypeline + scene.offsetX,
+        layout.ytypeline + scene.offsetY
+
+    );
+
+    ctx.rotate((angle * Math.PI) / -180);
+    ctx.fillText(face.typeLine, 0, 0);
+    ctx.restore();
+
+}
+
+export function drawEditionBadge(renderCtx: RenderFaceContext): void {
+
+    const { ctx, face, layout, scene } = renderCtx;
+
+
+
+}
+
 export function drawManaCost(renderCtx: RenderFaceContext): void { }
-export function drawTypeLine(renderCtx: RenderFaceContext): void { }
-export function drawEditionBadge(renderCtx: RenderFaceContext): void { }
+
 export function drawPowerToughness(renderCtx: RenderFaceContext): void { }
+
 export function drawRulesText(renderCtx: RenderFaceContext): void { }
 
 function toArtRelativePath(cardName: string): string {

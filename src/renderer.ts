@@ -47,6 +47,7 @@ export function renderCardPreview(
         }
 
         const layout = getScaledFaceLayout(face.faceLayout, scene.scale);
+
         renderFace({
             ctx,
             scene,

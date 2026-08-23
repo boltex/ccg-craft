@@ -117,14 +117,11 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xmana: 219,
         ymana: 2,
         xtypeline: 10,
-        ytypeline: 88,
-        xedition: 8,
+        ytypeline: 90,
+        xedition: 10,
         yedition: CardHeight - 13,
-
-
-        xpowertough: 200,
+        xpowertough: 220,
         ypowertough: 89,
-
         xtext: 5,
         ytext: 212,
         textangle: 0,
@@ -148,14 +145,11 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xmana: 50,
         ymana: CardHeight - 3,
         xtypeline: CardWidth - 10,
-        ytypeline: 241,
+        ytypeline: 240,
         xedition: 0, // unused
         yedition: 0, // unused
-
-        xpowertough: 30,
+        xpowertough: 10,
         ypowertough: 240,
-
-
         xtext: 5,
         ytext: 40,
         textangle: 180,

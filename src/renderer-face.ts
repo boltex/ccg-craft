@@ -343,51 +343,6 @@ function drawManaCost(renderCtx: RenderFaceContext): void {
 
 function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
-    // Old basic code for reference:
-    /* 
-        IF ISACREATURE(face) THEN
-            ' ***** SET BOLD !!!!! ******
-            'print text with minus "x" position.
-            Set_BGMode(TRANSPARENT)
-            hsize=-MulDiv(11, FDPI, 72) 
-            stg$="MPlantin"
-            Set_NewSFont(hsize, 0, textangle(faceL), textangle(faceL), FW_BOLD,_
-            ITALIC_OFF, UNDERLINE_OFF, STRIKEOUT_OFF, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,_
-            CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH OR FF_DONTCARE, VarPtr(stg$))
-            stg$=PowerTough(face)
-            PTlenght=Printer.TextWidth(PowerTough(face))
-            
-            IF textangle(faceL)=900 THEN
-                PTlenghtY=PTlenght
-                PTlenght=0
-            ELSE
-                PTlenghtY=0
-            END IF
-
-            IF textangle(faceL)=1800 THEN
-                PTlenght = 0 - PTlenght
-                PTlenghtY=0
-            END IF
-
-            Set_TextColour(0) ' black
-            stg$=PowerTough(face)
-
-            IF faceL = 3 THEN ' shadow position
-                Print_TextOut(xcoord+xpowertough(faceL)-(SCALE1+PTlenght),_
-                ycoord+ypowertough(faceL)-SCALE1, VarPtr(stg$), LEN(stg$)) 
-            ELSE
-                Print_TextOut((xcoord+xpowertough(faceL)+SCALE1)-PTlenght,_
-                ycoord+ypowertough(faceL)+SCALE1, VarPtr(stg$), LEN(stg$)) 
-            END IF
-
-            Set_TextColour(&H00FFFFFF) ' White
-            Print_TextOut((xcoord+xpowertough(faceL))-PTlenght,_
-            ycoord+ypowertough(faceL), VarPtr(stg$), LEN(stg$)) 
-            Restore_OldSFont
-
-        END IF
-    */
-
     const { ctx, face, layout, scene } = renderCtx;
 
     if (!face.isACreature) {

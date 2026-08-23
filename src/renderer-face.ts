@@ -279,41 +279,6 @@ export function drawManaCost(renderCtx: RenderFaceContext): void {
     const manaCharWidth = 12 * scene.scale; // approximate width of a single mana symbol character
     const manaBackSymbol = "o"; // back of mana symbol
 
-    // Reference: Old basic code used to draw the back of the mana symbols with 'o' character.
-    /*
-        mbsymbol = "o" 'back of mana symbol
-        strmana=Manacost(face)
-        tempvar1=LEN(strmana)
-        FOR tour1=1 to tempvar1 'loop manasymbol
-            strmana2 = MID$( strmana, tour1 , 1)
-            SELECT CASE ASC(strmana2)
-                CASE 87
-                    manafcolor = MFW : manabgcolor = MBW
-                CASE 85
-                    manafcolor = MFU : manabgcolor = MBU
-                CASE 66
-                    manafcolor = MFB : manabgcolor = MBB
-                CASE 82
-                    manafcolor = MFR : manabgcolor = MBR
-                CASE 71
-                    manafcolor = MFG : manabgcolor = MBG
-                CASE ELSE
-                    manafcolor = MFC : manabgcolor = MBC
-            END SELECT
-            IF textangle(faceL) = 900 THEN
-                Set_TextColour(manabgcolor) 
-                Print_TextOut(xmana(faceL),ymana(faceL)+(tempvar1*MCWIDTH)-((tour1-1)*MCWIDTH), VarPtr(mbsymbol), 1) 
-                Set_TextColour(manafcolor) 
-                Print_TextOut(xmana(faceL),ymana(faceL)+(tempvar1*MCWIDTH)-((tour1-1)*MCWIDTH), VarPtr(strmana2), 1) 
-            ELSE
-                Set_TextColour(manabgcolor) 
-                Print_TextOut(xmana(faceL)+((tour1-1)*MCWIDTH)-(tempvar1*MCWIDTH),ymana(faceL), VarPtr(mbsymbol), 1) 
-                Set_TextColour(manafcolor) 
-                Print_TextOut(xmana(faceL)+((tour1-1)*MCWIDTH)-(tempvar1*MCWIDTH),ymana(faceL), VarPtr(strmana2), 1) 
-            END IF	
-        NEXT 
-    */
-
     // negative offset to emulate right-alignment of mana symbols, 
     // since we are drawing them left to right but want them to appear right-aligned.
     const leftOffset = face.manaCost.length * -manaCharWidth;
@@ -350,25 +315,34 @@ export function drawManaCost(renderCtx: RenderFaceContext): void {
                 break;
         }
 
+        let x;
+        let y;
+
+        if (angle === 90) {
+            x = layout.xmana + scene.offsetX;
+            y = (-leftOffset) + layout.ymana + scene.offsetY - (i * manaCharWidth);
+        } else {
+            x = leftOffset + layout.xmana + scene.offsetX + (i * manaCharWidth);
+            y = layout.ymana + scene.offsetY;
+        }
+
+        ctx.save();
+
+        ctx.translate(x, y);
+        ctx.rotate((angle * Math.PI) / -180);
+
         // Draw the back of the mana symbol
         ctx.fillStyle = utils.toCommaRgb(...manaBgColor);
-        let x = leftOffset + layout.xmana + scene.offsetX + i * manaCharWidth;
-        let y = layout.ymana + scene.offsetY;
-
-
-        ctx.fillText(manaBackSymbol, x, y);
-
+        ctx.fillText(manaBackSymbol, 0, 0);
 
         // Draw the front of the mana symbol
         ctx.fillStyle = utils.toCommaRgb(...manaColor);
-        ctx.fillText(manaSymbol, x, y);
+        ctx.fillText(manaSymbol, 0, 0);
 
-
+        ctx.restore();
     }
 
     ctx.restore();
-
-
 
 }
 

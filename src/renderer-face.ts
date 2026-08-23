@@ -62,7 +62,6 @@ export function drawTextBox(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
 
-    console.log(`Drawing text box for face: ${face.name}, layout: ${layout}, rect: ${JSON.stringify(rect)}`);
 
     const fill = !face.manaCost && !face.isACreature
         ? getLandTextBoxFill(face)
@@ -174,7 +173,6 @@ export function drawNameLine(renderCtx: RenderFaceContext): void {
     ctx.translate(
         layout.xname + scene.offsetX,
         layout.yname + scene.offsetY
-
     );
 
     ctx.rotate((angle * Math.PI) / -180);
@@ -192,7 +190,7 @@ export function drawTypeLine(renderCtx: RenderFaceContext): void {
 
     ctx.save();
 
-    ctx.font = `${Math.max(13, 13 * scene.scale)}px Plantin, serif`;
+    ctx.font = `${Math.max(11, 11 * scene.scale)}px Plantin, serif`;
 
     ctx.fillStyle = 'white';
     ctx.textAlign = "left";
@@ -209,7 +207,6 @@ export function drawTypeLine(renderCtx: RenderFaceContext): void {
     ctx.translate(
         layout.xtypeline + scene.offsetX,
         layout.ytypeline + scene.offsetY
-
     );
 
     ctx.rotate((angle * Math.PI) / -180);
@@ -220,13 +217,160 @@ export function drawTypeLine(renderCtx: RenderFaceContext): void {
 
 export function drawEditionBadge(renderCtx: RenderFaceContext): void {
 
+    // Has to be done in two passes: once with the ExpBack and once with
+    // the ExpFront, because the ExpBack is a background for the ExpFront, and we want to draw the background first, then the front on top of it.
     const { ctx, face, layout, scene } = renderCtx;
+
+    if (face.edition === 1) {
+        // return; // unlimited edition, no badge
+    }
+
+    // get angle
+    const angle = layout.textangle;
+
+    ctx.save();
+
+    ctx.font = `${Math.max(35, 35 * scene.scale)}px ExpBack, serif`;
+    ctx.fillStyle = 'white';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "hanging";
+    // no stroke
+    ctx.strokeStyle = 'transparent';
+
+    ctx.translate(
+        layout.xedition + scene.offsetX,
+        layout.yedition + scene.offsetY
+    );
+
+    ctx.rotate((angle * Math.PI) / -180);
+
+    // Build character string for edition badge.
+    // example from old basic code: stg$=CHR$(Edition(face)+32)
+    const edString = String.fromCharCode(face.edition + 34);
+
+    ctx.fillText(edString, 0, 0);
+
+    ctx.font = `${Math.max(32, 32 * scene.scale)}px ExpFront, serif`;
+    ctx.fillStyle = 'black';
+
+    ctx.fillText(edString, 0, 0);
+
+    ctx.restore();
+}
+
+export function drawManaCost(renderCtx: RenderFaceContext): void {
+    // Draw back of symbols first with the character 'o' with the Symbols font, 
+    // then draw the front of the symbols with the character 'O' with the Symbols font, then draw the mana cost text with the character 'M' with the Symbols font.
+    const { ctx, face, layout, scene } = renderCtx;
+
+    if (!face.manaCost) {
+        return
+    }
+
+    // get angle
+    const angle = layout.textangle;
+
+    ctx.save();
+    ctx.font = `${Math.max(13, 13 * scene.scale)}px Symbols, serif`;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "hanging";
+    // no stroke
+    ctx.strokeStyle = 'transparent';
+    const manaCharWidth = 12 * scene.scale; // approximate width of a single mana symbol character
+    const manaBackSymbol = "o"; // back of mana symbol
+
+    // Reference: Old basic code used to draw the back of the mana symbols with 'o' character.
+    /*
+        mbsymbol = "o" 'back of mana symbol
+        strmana=Manacost(face)
+        tempvar1=LEN(strmana)
+        FOR tour1=1 to tempvar1 'loop manasymbol
+            strmana2 = MID$( strmana, tour1 , 1)
+            SELECT CASE ASC(strmana2)
+                CASE 87
+                    manafcolor = MFW : manabgcolor = MBW
+                CASE 85
+                    manafcolor = MFU : manabgcolor = MBU
+                CASE 66
+                    manafcolor = MFB : manabgcolor = MBB
+                CASE 82
+                    manafcolor = MFR : manabgcolor = MBR
+                CASE 71
+                    manafcolor = MFG : manabgcolor = MBG
+                CASE ELSE
+                    manafcolor = MFC : manabgcolor = MBC
+            END SELECT
+            IF textangle(faceL) = 900 THEN
+                Set_TextColour(manabgcolor) 
+                Print_TextOut(xmana(faceL),ymana(faceL)+(tempvar1*MCWIDTH)-((tour1-1)*MCWIDTH), VarPtr(mbsymbol), 1) 
+                Set_TextColour(manafcolor) 
+                Print_TextOut(xmana(faceL),ymana(faceL)+(tempvar1*MCWIDTH)-((tour1-1)*MCWIDTH), VarPtr(strmana2), 1) 
+            ELSE
+                Set_TextColour(manabgcolor) 
+                Print_TextOut(xmana(faceL)+((tour1-1)*MCWIDTH)-(tempvar1*MCWIDTH),ymana(faceL), VarPtr(mbsymbol), 1) 
+                Set_TextColour(manafcolor) 
+                Print_TextOut(xmana(faceL)+((tour1-1)*MCWIDTH)-(tempvar1*MCWIDTH),ymana(faceL), VarPtr(strmana2), 1) 
+            END IF	
+        NEXT 
+    */
+
+    // negative offset to emulate right-alignment of mana symbols, 
+    // since we are drawing them left to right but want them to appear right-aligned.
+    const leftOffset = face.manaCost.length * -manaCharWidth;
+
+    for (let i = 0; i < face.manaCost.length; i++) {
+        const manaSymbol = face.manaCost[i];
+        let manaColor: [number, number, number] = [0, 0, 0];
+        let manaBgColor: [number, number, number] = [0, 0, 0];
+
+        switch (manaSymbol) {
+            case "W":
+                manaColor = constants.colors.MFW;
+                manaBgColor = constants.colors.MBW;
+                break;
+            case "U":
+                manaColor = constants.colors.MFU;
+                manaBgColor = constants.colors.MBU;
+                break;
+            case "B":
+                manaColor = constants.colors.MFB;
+                manaBgColor = constants.colors.MBB;
+                break;
+            case "R":
+                manaColor = constants.colors.MFR;
+                manaBgColor = constants.colors.MBR;
+                break;
+            case "G":
+                manaColor = constants.colors.MFG;
+                manaBgColor = constants.colors.MBG;
+                break;
+            default:
+                manaColor = constants.colors.MFC;
+                manaBgColor = constants.colors.MBC;
+                break;
+        }
+
+        // Draw the back of the mana symbol
+        ctx.fillStyle = utils.toCommaRgb(...manaBgColor);
+        let x = leftOffset + layout.xmana + scene.offsetX + i * manaCharWidth;
+        let y = layout.ymana + scene.offsetY;
+
+
+        ctx.fillText(manaBackSymbol, x, y);
+
+
+        // Draw the front of the mana symbol
+        ctx.fillStyle = utils.toCommaRgb(...manaColor);
+        ctx.fillText(manaSymbol, x, y);
+
+
+    }
+
+    ctx.restore();
 
 
 
 }
-
-export function drawManaCost(renderCtx: RenderFaceContext): void { }
 
 export function drawPowerToughness(renderCtx: RenderFaceContext): void { }
 

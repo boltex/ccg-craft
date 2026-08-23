@@ -46,7 +46,7 @@ export function renderFace(renderCtx: RenderFaceContext): void {
 
 }
 
-export function drawFrameBackground(renderCtx: RenderFaceContext): void {
+function drawFrameBackground(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
     const bounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
 
@@ -58,7 +58,7 @@ export function drawFrameBackground(renderCtx: RenderFaceContext): void {
     ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
 }
 
-export function drawTextBox(renderCtx: RenderFaceContext): void {
+function drawTextBox(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
 
@@ -114,11 +114,11 @@ export function drawTextBox(renderCtx: RenderFaceContext): void {
     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 }
 
-export function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
+function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
-    const artPath = toArtRelativePath(face.name);
+    const artPath = utils.toArtRelativePath(face.name);
 
     ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
     ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -145,7 +145,7 @@ export function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     }
 }
 
-export function drawNameLine(renderCtx: RenderFaceContext): void {
+function drawNameLine(renderCtx: RenderFaceContext): void {
     // Let's use medieval.ttf (Medieval font family) for card name rendering,
     const { ctx, face, layout, scene } = renderCtx;
 
@@ -164,8 +164,8 @@ export function drawNameLine(renderCtx: RenderFaceContext): void {
 
     // shadow behind the white text 
     ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 1;
-    ctx.shadowOffsetY = 1;
+    ctx.shadowOffsetX = 0.5 * scene.scale;
+    ctx.shadowOffsetY = 0.5 * scene.scale;
     ctx.shadowBlur = 0;
 
     // The important trick is to move the canvas origin to where you want the text, rotate the coordinate system, then draw the text at (0, 0).
@@ -181,7 +181,7 @@ export function drawNameLine(renderCtx: RenderFaceContext): void {
 
 }
 
-export function drawTypeLine(renderCtx: RenderFaceContext): void {
+function drawTypeLine(renderCtx: RenderFaceContext): void {
     // Use Plantin for type line, 12pt, white , left aligned, 1px shadow offset, no blur, no stroke.
     const { ctx, face, layout, scene } = renderCtx;
 
@@ -200,8 +200,8 @@ export function drawTypeLine(renderCtx: RenderFaceContext): void {
 
     // shadow behind the white text 
     ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 1;
-    ctx.shadowOffsetY = 1;
+    ctx.shadowOffsetX = 0.5 * scene.scale;
+    ctx.shadowOffsetY = 0.5 * scene.scale;
     ctx.shadowBlur = 0;
 
     ctx.translate(
@@ -215,15 +215,11 @@ export function drawTypeLine(renderCtx: RenderFaceContext): void {
 
 }
 
-export function drawEditionBadge(renderCtx: RenderFaceContext): void {
+function drawEditionBadge(renderCtx: RenderFaceContext): void {
 
     // Has to be done in two passes: once with the ExpBack and once with
     // the ExpFront, because the ExpBack is a background for the ExpFront, and we want to draw the background first, then the front on top of it.
     const { ctx, face, layout, scene } = renderCtx;
-
-    if (face.edition === 1) {
-        // return; // unlimited edition, no badge
-    }
 
     // get angle
     const angle = layout.textangle;
@@ -234,9 +230,8 @@ export function drawEditionBadge(renderCtx: RenderFaceContext): void {
     ctx.fillStyle = 'white';
     ctx.textAlign = "center";
     ctx.textBaseline = "hanging";
-    // no stroke
+    // no stroke 
     ctx.strokeStyle = 'transparent';
-
     ctx.translate(
         layout.xedition + scene.offsetX,
         layout.yedition + scene.offsetY
@@ -250,7 +245,7 @@ export function drawEditionBadge(renderCtx: RenderFaceContext): void {
 
     ctx.fillText(edString, 0, 0);
 
-    ctx.font = `${Math.max(32, 32 * scene.scale)}px ExpFront, serif`;
+    ctx.font = `${Math.max(35, 35 * scene.scale)}px ExpFront, serif`;
     ctx.fillStyle = 'black';
 
     ctx.fillText(edString, 0, 0);
@@ -258,7 +253,7 @@ export function drawEditionBadge(renderCtx: RenderFaceContext): void {
     ctx.restore();
 }
 
-export function drawManaCost(renderCtx: RenderFaceContext): void {
+function drawManaCost(renderCtx: RenderFaceContext): void {
     // Draw back of symbols first with the character 'o' with the Symbols font, 
     // then draw the front of the symbols with the character 'O' with the Symbols font, then draw the mana cost text with the character 'M' with the Symbols font.
     const { ctx, face, layout, scene } = renderCtx;
@@ -346,21 +341,63 @@ export function drawManaCost(renderCtx: RenderFaceContext): void {
 
 }
 
-export function drawPowerToughness(renderCtx: RenderFaceContext): void { }
+function drawPowerToughness(renderCtx: RenderFaceContext): void {
+    // Old basic code for reference:
+    /* 
+        IF ISACREATURE(face) THEN
+            ' ***** SET BOLD !!!!! ******
+            'print text with minus "x" position.
+            Set_BGMode(TRANSPARENT)
+            hsize=-MulDiv(11, FDPI, 72) 
+            stg$="MPlantin"
+            Set_NewSFont(hsize, 0, textangle(faceL), textangle(faceL), FW_BOLD,_
+            ITALIC_OFF, UNDERLINE_OFF, STRIKEOUT_OFF, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,_
+            CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH OR FF_DONTCARE, VarPtr(stg$))
+            stg$=PowerTough(face)
+            PTlenght=Printer.TextWidth(PowerTough(face))
+            
+            IF textangle(faceL)=900 THEN
+                PTlenghtY=PTlenght
+                PTlenght=0
+            ELSE
+                PTlenghtY=0
+            END IF
 
-export function drawRulesText(renderCtx: RenderFaceContext): void { }
+            IF textangle(faceL)=1800 THEN
+                PTlenght = 0 - PTlenght
+                PTlenghtY=0
+            END IF
 
-function toArtRelativePath(cardName: string): string {
-    let slug = cardName.toLowerCase();
-    slug = slug.replaceAll("-", "_");
-    slug = slug.replaceAll(" ", "_");
-    slug = slug.replaceAll("'", "");
-    slug = slug.replaceAll(",", "");
-    slug = slug.replaceAll(":", "");
-    slug = slug.replaceAll("!", "");
+            Set_TextColour(0) ' black
+            stg$=PowerTough(face)
 
-    const first = slug[0] ?? "x";
-    const prefix = ["x", "y", "z"].includes(first) ? "xyz" : `${first}${first}`;
+            IF faceL = 3 THEN ' shadow position
+                Print_TextOut(xcoord+xpowertough(faceL)-(SCALE1+PTlenght),_
+                ycoord+ypowertough(faceL)-SCALE1, VarPtr(stg$), LEN(stg$)) 
+            ELSE
+                Print_TextOut((xcoord+xpowertough(faceL)+SCALE1)-PTlenght,_
+                ycoord+ypowertough(faceL)+SCALE1, VarPtr(stg$), LEN(stg$)) 
+            END IF
 
-    return `${prefix}/${slug}.bmp`;
+            Set_TextColour(&H00FFFFFF) ' White
+            Print_TextOut((xcoord+xpowertough(faceL))-PTlenght,_
+            ycoord+ypowertough(faceL), VarPtr(stg$), LEN(stg$)) 
+            Restore_OldSFont
+
+        END IF
+    */
+
+    const { ctx, face, layout, scene } = renderCtx;
+
+    // get angle
+    const angle = layout.textangle;
+
+    ctx.save();
+
+
+    ctx.restore();
+
+
 }
+
+function drawRulesText(renderCtx: RenderFaceContext): void { }

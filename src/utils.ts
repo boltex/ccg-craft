@@ -54,3 +54,18 @@ export function clearCanvas(canvas: HTMLCanvasElement | null) {
         }
     }
 }
+
+export function toArtRelativePath(cardName: string): string {
+    let slug = cardName.toLowerCase();
+    slug = slug.replaceAll("-", "_");
+    slug = slug.replaceAll(" ", "_");
+    slug = slug.replaceAll("'", "");
+    slug = slug.replaceAll(",", "");
+    slug = slug.replaceAll(":", "");
+    slug = slug.replaceAll("!", "");
+
+    const first = slug[0] ?? "x";
+    const prefix = ["x", "y", "z"].includes(first) ? "xyz" : `${first}${first}`;
+
+    return `${prefix}/${slug}.bmp`;
+}

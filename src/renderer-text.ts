@@ -1,4 +1,5 @@
 import type { PrintableFace, FaceLayout } from "./types";
+import { fitRulesText, type FittedRulesLayout } from "./renderer-rules";
 
 export type TextStyle = {
     fontFamily: string;
@@ -15,8 +16,6 @@ export type TextStyle = {
     rotationDegrees?: number;
     maxWidth?: number;
 };
-
-export type FittedRulesLayout = any;
 
 export function drawStyledText(
     ctx: CanvasRenderingContext2D,
@@ -66,14 +65,4 @@ export function measureTextWidth(
 
     ctx.restore();
     return width;
-}
-
-export function pickRulesFontSize(
-    ctx: CanvasRenderingContext2D,
-    face: PrintableFace,
-    layout: FaceLayout,
-    scale: number
-): FittedRulesLayout {
-    // todo: implement this function
-    return { /* fill in with appropriate default values */ };
 }

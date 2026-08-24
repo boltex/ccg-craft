@@ -6,6 +6,7 @@ import {
     getTextBoxRect,
     getArtRect,
 } from "./renderer-geometry";
+import { drawWrappedRulesText, fitRulesText } from "./renderer-rules";
 import { drawStyledText, type TextStyle } from "./renderer-text";
 import { drawManaCostRow } from "./renderer-symbols";
 
@@ -282,6 +283,15 @@ function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
 function drawRulesText(renderCtx: RenderFaceContext): void {
 
-    // Todo later
+    const { ctx, face, layout, scene } = renderCtx;
+    const fittedLayout = fitRulesText(ctx, face, layout, scene.scale);
+
+    drawWrappedRulesText(
+        ctx,
+        fittedLayout,
+        layout,
+        scene.offsetX,
+        scene.offsetY,
+    );
 
 }

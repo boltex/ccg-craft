@@ -9,6 +9,7 @@ export type RulesToken =
 export type WrappedRulesLine = {
     tokens: RulesToken[];
     width: number;
+    paragraphBreakAfter: boolean;
 };
 
 export type FittedRulesLayout = {
@@ -25,8 +26,8 @@ type RulesUnit = {
 };
 
 const RULES_FONT_FAMILY = "Plantin, serif";
-const MIN_RULES_FONT_SIZE = 6;
-const MAX_RULES_FONT_SIZE = 11;
+const MIN_RULES_FONT_SIZE = 8;
+const MAX_RULES_FONT_SIZE = 13;
 
 function getRulesFont(ctx: CanvasRenderingContext2D, fontSize: number): void {
     ctx.font = `${fontSize}px ${RULES_FONT_FAMILY}`;
@@ -150,15 +151,36 @@ function buildWrappedLines(
 ): WrappedRulesLine[] {
     const lines: WrappedRulesLine[] = [];
 
-    for (const paragraph of paragraphs) {
+    paragraphs.forEach((paragraph, paragraphIndex) => {
         const wrappedParagraph = wrapRulesParagraph(ctx, paragraph, maxWidth, fontSize, symbolSize);
 
         if (wrappedParagraph.length > 0) {
-            lines.push(...wrappedParagraph);
+            const lastLineIndex = wrappedParagraph.length - 1;
+
+            wrappedParagraph.forEach((line, lineIndex) => {
+                lines.push({
+                    ...line,
+                    paragraphBreakAfter: paragraphIndex < paragraphs.length - 1 && lineIndex === lastLineIndex,
+                });
+            });
         }
-    }
+    });
 
     return lines;
+}
+
+function getParagraphGap(lineHeight: number): number {
+    return lineHeight;
+}
+
+function getRulesHeight(lines: WrappedRulesLine[], lineHeight: number): number {
+    if (lines.length === 0) {
+        return 0;
+    }
+
+    return lines.reduce((totalHeight, line) => {
+        return totalHeight + lineHeight + (line.paragraphBreakAfter ? getParagraphGap(lineHeight) : 0);
+    }, 0);
 }
 
 export function tokenizeRulesText(text: string): RulesToken[] {
@@ -211,6 +233,7 @@ export function wrapRulesParagraph(
         lines.push({
             tokens: currentTokens,
             width: currentWidth,
+            paragraphBreakAfter: false,
         });
         currentTokens = [];
         currentWidth = 0;
@@ -263,10 +286,11 @@ export function fitRulesText(
 
     for (const size of candidateSizes) {
         const scaledFontSize = size * scale;
+        console.log("Trying font size:", scaledFontSize, "for face layout:", face.faceLayout);
         const symbolSize = scaledFontSize;
         const lineHeight = getLineHeightForFontSize(size, scale);
         const lines = buildWrappedLines(ctx, paragraphs, limits.width, scaledFontSize, symbolSize);
-        const usedHeight = lines.length * lineHeight;
+        const usedHeight = getRulesHeight(lines, lineHeight);
         const usedWidth = lines.reduce((maxWidth, line) => Math.max(maxWidth, line.width), 0);
 
         const candidateLayout: FittedRulesLayout = {
@@ -330,9 +354,12 @@ export function drawWrappedRulesText(
     ctx.strokeStyle = "transparent";
     getRulesFont(ctx, layout.fontSize);
 
-    layout.lines.forEach((line, lineIndex) => {
+    console.log("Drawing rules text with font size:", layout.fontSize, "and line height:", layout.lineHeight);
+
+    let cursorY = 0;
+
+    layout.lines.forEach((line) => {
         let cursorX = 0;
-        const cursorY = lineIndex * layout.lineHeight;
 
         for (const token of line.tokens) {
             if (token.kind === "mana") {
@@ -350,6 +377,12 @@ export function drawWrappedRulesText(
                 ctx.fillText(token.value, cursorX, cursorY);
                 cursorX += measureRulesText(ctx, token.value, layout.fontSize);
             }
+        }
+
+        cursorY += layout.lineHeight;
+
+        if (line.paragraphBreakAfter) {
+            cursorY += getParagraphGap(layout.lineHeight);
         }
     });
 

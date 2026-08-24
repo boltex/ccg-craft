@@ -231,12 +231,12 @@ export const TextSizeLimits = [
 ];
 
 export const LineHeights = [
+    19,
     16,
     13,
     11,
     9,
-    7,
-    5
+    7
 ];
 
 export const ManaSymbols = [

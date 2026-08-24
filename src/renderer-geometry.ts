@@ -10,27 +10,14 @@ export function getScaledFaceLayout(faceLayout: number, scale: number): FaceLayo
 }
 
 export function getFaceBounds(layout: FaceLayout, offsetX: number, offsetY: number): Rect {
-    // todo: Make sure this is correct!
     return { x: offsetX + layout.xback, y: offsetY + layout.yback, width: layout.xbwidth, height: layout.ybheight };
 
 }
 
 export function getTextBoxRect(layout: FaceLayout, offsetX: number, offsetY: number): Rect {
-    // todo: Make sure this is correct!
     return { x: offsetX + layout.xtb, y: offsetY + layout.ytb, width: layout.tbwidth, height: layout.tbheight };
 };
 
 export function getArtRect(layout: FaceLayout, offsetX: number, offsetY: number): Rect {
-    // todo: Make sure this is correct!
     return { x: offsetX + layout.xart, y: offsetY + layout.yart, width: layout.artwidth, height: layout.artheight };
-};
-
-export function withFaceTransform(
-    ctx: CanvasRenderingContext2D,
-    layout: FaceLayout,
-    originX: number,
-    originY: number,
-    draw: () => void
-): void {
-    // todo: Implement this function
 };

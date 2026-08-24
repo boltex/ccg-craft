@@ -380,4 +380,8 @@ function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
 }
 
-function drawRulesText(renderCtx: RenderFaceContext): void { }
+function drawRulesText(renderCtx: RenderFaceContext): void {
+
+    // Todo
+
+}

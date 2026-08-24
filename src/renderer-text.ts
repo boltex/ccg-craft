@@ -34,14 +34,6 @@ export function measureTextWidth(
     return 0;
 }
 
-export function pickNameFontSize(
-    face: PrintableFace,
-    scale: number
-): number {
-    // todo: implement this function
-    return 0;
-}
-
 export function pickRulesFontSize(
     ctx: CanvasRenderingContext2D,
     face: PrintableFace,

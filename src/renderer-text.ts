@@ -1,6 +1,3 @@
-import type { PrintableFace, FaceLayout } from "./types";
-import { fitRulesText, type FittedRulesLayout } from "./renderer-rules";
-
 export type TextStyle = {
     fontFamily: string;
     fontSize: number;

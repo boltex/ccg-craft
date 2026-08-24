@@ -143,6 +143,8 @@ function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     for (let index = 0; index < lines.length; index++) {
         ctx.fillText(lines[index], centerX, startY + index * lineHeight, rect.width - 8 * scene.scale);
     }
+
+    // Todo last in the project: implement actual art rendering, including loading the image and drawing it to the canvas.
 }
 
 function drawNameLine(renderCtx: RenderFaceContext): void {
@@ -382,6 +384,6 @@ function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
 function drawRulesText(renderCtx: RenderFaceContext): void {
 
-    // Todo
+    // Todo later
 
 }

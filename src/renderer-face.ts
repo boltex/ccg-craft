@@ -6,7 +6,30 @@ import {
     getTextBoxRect,
     getArtRect,
 } from "./renderer-geometry";
-import * as constants from "./constants";
+import { drawStyledText, type TextStyle } from "./renderer-text";
+import { drawManaCostRow } from "./renderer-symbols";
+
+type CardTextStyleOverrides = TextStyle;
+
+function getCardTextStyle(
+    sceneScale: number,
+    fontFamily: string,
+    baseSize: number,
+    overrides: Partial<CardTextStyleOverrides> = {}
+): CardTextStyleOverrides {
+    return {
+        fontFamily,
+        fontSize: Math.max(baseSize, baseSize * sceneScale),
+        fillStyle: "white",
+        strokeStyle: "transparent",
+        shadowColor: "black",
+        shadowOffsetX: 0.5 * sceneScale,
+        shadowOffsetY: 0.5 * sceneScale,
+        textAlign: "left",
+        textBaseline: "top",
+        ...overrides,
+    };
+}
 
 export function renderFace(renderCtx: RenderFaceContext): void {
 
@@ -127,11 +150,6 @@ function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     ctx.lineWidth = Math.max(1, scene.scale * 0.5);
     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
-    ctx.font = `${Math.max(10, 10 * scene.scale)}px serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
     const label = ["ART", artPath].join("\n");
     const centerX = rect.x + rect.width / 2;
     const centerY = rect.y + rect.height / 2;
@@ -141,80 +159,39 @@ function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
 
     for (let index = 0; index < lines.length; index++) {
-        ctx.fillText(lines[index], centerX, startY + index * lineHeight, rect.width - 8 * scene.scale);
+        drawStyledText(ctx, lines[index], centerX, startY + index * lineHeight, {
+            fontFamily: "serif",
+            fontSize: Math.max(10, 10 * scene.scale),
+            fillStyle: "rgba(0, 0, 0, 0.75)",
+            textAlign: "center",
+            textBaseline: "middle",
+            maxWidth: rect.width - 8 * scene.scale,
+        });
     }
 
     // Todo last in the project: implement actual art rendering, including loading the image and drawing it to the canvas.
 }
 
 function drawNameLine(renderCtx: RenderFaceContext): void {
-    // Let's use medieval.ttf (Medieval font family) for card name rendering,
     const { ctx, face, layout, scene } = renderCtx;
-
-    // get angle
-    const angle = layout.textangle;
-
-    ctx.save();
-
-    ctx.font = `${Math.max(13, 13 * scene.scale)}px Medieval, serif`;
-
-    ctx.fillStyle = 'white';
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    // no stroke 
-    ctx.strokeStyle = 'transparent';
-
-    // shadow behind the white text 
-    ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 0.5 * scene.scale;
-    ctx.shadowOffsetY = 0.5 * scene.scale;
-    ctx.shadowBlur = 0;
-
-    // The important trick is to move the canvas origin to where you want the text, rotate the coordinate system, then draw the text at (0, 0).
-    // ok now setup the rotation and draw the text
-    ctx.translate(
+    drawStyledText(ctx, face.name,
         layout.xname + scene.offsetX,
-        layout.yname + scene.offsetY
+        layout.yname + scene.offsetY,
+        getCardTextStyle(scene.scale, "Medieval, serif", 13, {
+            rotationDegrees: layout.textangle,
+        })
     );
-
-    ctx.rotate((angle * Math.PI) / -180);
-    ctx.fillText(face.name, 0, 0);
-    ctx.restore();
-
 }
 
 function drawTypeLine(renderCtx: RenderFaceContext): void {
-    // Use Plantin for type line, 12pt, white , left aligned, 1px shadow offset, no blur, no stroke.
     const { ctx, face, layout, scene } = renderCtx;
-
-    // get angle
-    const angle = layout.textangle;
-
-    ctx.save();
-
-    ctx.font = `${Math.max(11, 11 * scene.scale)}px Plantin, serif`;
-
-    ctx.fillStyle = 'white';
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    // no stroke 
-    ctx.strokeStyle = 'transparent';
-
-    // shadow behind the white text 
-    ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 0.5 * scene.scale;
-    ctx.shadowOffsetY = 0.5 * scene.scale;
-    ctx.shadowBlur = 0;
-
-    ctx.translate(
+    drawStyledText(ctx, face.typeLine,
         layout.xtypeline + scene.offsetX,
-        layout.ytypeline + scene.offsetY
+        layout.ytypeline + scene.offsetY,
+        getCardTextStyle(scene.scale, "Plantin, serif", 11, {
+            rotationDegrees: layout.textangle,
+        })
     );
-
-    ctx.rotate((angle * Math.PI) / -180);
-    ctx.fillText(face.typeLine, 0, 0);
-    ctx.restore();
-
 }
 
 function drawEditionBadge(renderCtx: RenderFaceContext): void {
@@ -223,124 +200,66 @@ function drawEditionBadge(renderCtx: RenderFaceContext): void {
     // the ExpFront, because the ExpBack is a background for the ExpFront, and we want to draw the background first, then the front on top of it.
     const { ctx, face, layout, scene } = renderCtx;
 
-    // get angle
-    const angle = layout.textangle;
-
-    ctx.save();
-
-    ctx.font = `${Math.max(35, 35 * scene.scale)}px ExpBack, serif`;
-    ctx.fillStyle = 'white';
-    ctx.textAlign = "center";
-    ctx.textBaseline = "hanging";
-    // no stroke 
-    ctx.strokeStyle = 'transparent';
-    ctx.translate(
-        layout.xedition + scene.offsetX,
-        layout.yedition + scene.offsetY
-    );
-
-    ctx.rotate((angle * Math.PI) / -180);
-
     // Build character string for edition badge.
     // example from old basic code: stg$=CHR$(Edition(face)+32)
     const edString = String.fromCharCode(face.edition + 34);
 
-    ctx.fillText(edString, 0, 0);
+    drawStyledText(
+        ctx,
+        edString,
+        layout.xedition + scene.offsetX,
+        layout.yedition + scene.offsetY,
+        {
+            ...getCardTextStyle(scene.scale, "ExpBack, serif", 35, {
+                shadowColor: "transparent",
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+            }),
+            fillStyle: "white",
+            textAlign: "left",
+            textBaseline: "hanging",
+            rotationDegrees: layout.textangle,
+        }
+    );
 
-    ctx.font = `${Math.max(35, 35 * scene.scale)}px ExpFront, serif`;
-    ctx.fillStyle = 'black';
-
-    ctx.fillText(edString, 0, 0);
-
-    ctx.restore();
+    drawStyledText(
+        ctx,
+        edString,
+        layout.xedition + scene.offsetX,
+        layout.yedition + scene.offsetY,
+        {
+            ...getCardTextStyle(scene.scale, "ExpFront, serif", 35, {
+                shadowColor: "transparent",
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+            }),
+            fillStyle: "black",
+            textAlign: "left",
+            textBaseline: "hanging",
+            rotationDegrees: layout.textangle,
+        }
+    );
 }
 
 function drawManaCost(renderCtx: RenderFaceContext): void {
-    // Draw back of symbols first with the character 'o' with the Symbols font, 
-    // then draw the front of the symbols with the character 'O' with the Symbols font, then draw the mana cost text with the character 'M' with the Symbols font.
     const { ctx, face, layout, scene } = renderCtx;
 
     if (!face.manaCost) {
-        return
+        return;
     }
 
-    // get angle
-    const angle = layout.textangle;
-
-    ctx.save();
-    ctx.font = `${Math.max(13, 13 * scene.scale)}px Symbols, serif`;
-    ctx.textAlign = "left";
-    ctx.textBaseline = "hanging";
-    // no stroke
-    ctx.strokeStyle = 'transparent';
-    const manaCharWidth = 12 * scene.scale; // approximate width of a single mana symbol character
-    const manaBackSymbol = "o"; // back of mana symbol
-
-    // negative offset to emulate right-alignment of mana symbols, 
-    // since we are drawing them left to right but want them to appear right-aligned.
-    const leftOffset = face.manaCost.length * -manaCharWidth;
-
-    for (let i = 0; i < face.manaCost.length; i++) {
-        const manaSymbol = face.manaCost[i];
-        let manaColor: [number, number, number] = [0, 0, 0];
-        let manaBgColor: [number, number, number] = [0, 0, 0];
-
-        switch (manaSymbol) {
-            case "W":
-                manaColor = constants.colors.MFW;
-                manaBgColor = constants.colors.MBW;
-                break;
-            case "U":
-                manaColor = constants.colors.MFU;
-                manaBgColor = constants.colors.MBU;
-                break;
-            case "B":
-                manaColor = constants.colors.MFB;
-                manaBgColor = constants.colors.MBB;
-                break;
-            case "R":
-                manaColor = constants.colors.MFR;
-                manaBgColor = constants.colors.MBR;
-                break;
-            case "G":
-                manaColor = constants.colors.MFG;
-                manaBgColor = constants.colors.MBG;
-                break;
-            default:
-                manaColor = constants.colors.MFC;
-                manaBgColor = constants.colors.MBC;
-                break;
+    drawManaCostRow(
+        ctx,
+        face.manaCost,
+        layout.xmana + scene.offsetX,
+        layout.ymana + scene.offsetY,
+        {
+            direction: layout.textangle === 90 ? "vertical" : "horizontal",
+            size: Math.max(13, 13 * scene.scale),
+            align: "end",
+            rotationDegrees: layout.textangle,
         }
-
-        let x;
-        let y;
-
-        if (angle === 90) {
-            x = layout.xmana + scene.offsetX;
-            y = (-leftOffset) + layout.ymana + scene.offsetY - (i * manaCharWidth);
-        } else {
-            x = leftOffset + layout.xmana + scene.offsetX + (i * manaCharWidth);
-            y = layout.ymana + scene.offsetY;
-        }
-
-        ctx.save();
-
-        ctx.translate(x, y);
-        ctx.rotate((angle * Math.PI) / -180);
-
-        // Draw the back of the mana symbol
-        ctx.fillStyle = utils.toCommaRgb(...manaBgColor);
-        ctx.fillText(manaBackSymbol, 0, 0);
-
-        // Draw the front of the mana symbol
-        ctx.fillStyle = utils.toCommaRgb(...manaColor);
-        ctx.fillText(manaSymbol, 0, 0);
-
-        ctx.restore();
-    }
-
-    ctx.restore();
-
+    );
 }
 
 function drawPowerToughness(renderCtx: RenderFaceContext): void {
@@ -351,35 +270,14 @@ function drawPowerToughness(renderCtx: RenderFaceContext): void {
         return;
     }
 
-    // get angle
-    const angle = layout.textangle;
-
-    ctx.save();
-
-    ctx.font = `${Math.max(13, 13 * scene.scale)}px Plantin, serif`;
-
-    ctx.fillStyle = 'white';
-    ctx.textAlign = "right";
-    ctx.textBaseline = "top";
-    // no stroke 
-    ctx.strokeStyle = 'transparent';
-
-    // shadow behind the white text 
-    ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 0.5 * scene.scale;
-    ctx.shadowOffsetY = 0.5 * scene.scale;
-    ctx.shadowBlur = 0;
-
-    ctx.translate(
+    drawStyledText(ctx, face.powerToughness,
         layout.xpowertough + scene.offsetX,
-        layout.ypowertough + scene.offsetY
+        layout.ypowertough + scene.offsetY,
+        getCardTextStyle(scene.scale, "Plantin, serif", 13, {
+            textAlign: "right",
+            rotationDegrees: layout.textangle,
+        })
     );
-
-    ctx.rotate((angle * Math.PI) / -180);
-    ctx.fillText(face.powerToughness, 0, 0);
-
-    ctx.restore();
-
 }
 
 function drawRulesText(renderCtx: RenderFaceContext): void {

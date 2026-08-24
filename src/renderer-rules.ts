@@ -301,9 +301,7 @@ export function fitRulesText(
             yAdjust: 0,
         };
 
-        if (!fallbackLayout) {
-            fallbackLayout = candidateLayout;
-        }
+        fallbackLayout = candidateLayout; // will end up with smallest font size that fits in width, even if it exceeds height
 
         if (usedWidth <= limits.width && usedHeight <= limits.height) {
             const shouldCenter = size === candidateSizes[0];

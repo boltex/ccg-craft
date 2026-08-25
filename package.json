@@ -7,7 +7,8 @@
     "build": "webpack --mode=production",
     "dev": "webpack serve --mode=development",
     "start": "webpack serve --mode=development --open",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check-face-duplicates": "node scripts/check-duplicate-face-lines.mjs"
   },
   "keywords": [
     "ccg",

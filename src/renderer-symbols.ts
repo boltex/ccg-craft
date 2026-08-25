@@ -21,6 +21,8 @@ export type DrawManaCostOptions = {
 
 const SYMBOL_FONT_FAMILY = "Symbols, serif";
 const MANA_BACK_SYMBOL = "o";
+const COMPACT_NUMERIC_SCALE = 0.9;
+const COMPACT_NUMERIC_TRACKING = -6;
 
 const SYMBOL_COLORS: Record<string, { fg: Color; bg: Color }> = {
     W: { fg: constants.colors.MFW, bg: constants.colors.MBW },
@@ -39,7 +41,7 @@ function getSymbolColors(code: string): { fg: Color; bg: Color } {
 }
 
 export function parseManaCost(manaCost: string): ManaSymbol[] {
-    const tokens = manaCost.match(/\{[^}]+\}|./g) ?? [];
+    const tokens = manaCost.match(/\{[^}]+\}|\d{1,2}|./g) ?? [];
 
     return tokens
         .map(token => manaTokenToSymbol(token))
@@ -75,6 +77,8 @@ export function drawManaSymbol(
     size: number,
     rotationDegrees = 0
 ): void {
+    const isCompactNumeric = /^\d{2}$/.test(symbol.code);
+
     ctx.save();
 
     ctx.font = `${size}px ${SYMBOL_FONT_FAMILY}`;
@@ -92,7 +96,30 @@ export function drawManaSymbol(
     ctx.fillText(MANA_BACK_SYMBOL, 0, 0);
 
     ctx.fillStyle = utils.toCommaRgb(...symbol.fg);
-    ctx.fillText(symbol.code, 0, 0);
+
+    if (!isCompactNumeric) {
+        ctx.fillText(symbol.code, 0, 0);
+        ctx.restore();
+        return;
+    }
+
+    ctx.font = `${size * COMPACT_NUMERIC_SCALE}px ${SYMBOL_FONT_FAMILY}`;
+
+    const digits = symbol.code.split("");
+    const digitWidths = digits.map(digit => ctx.measureText(digit).width);
+    const tracking = COMPACT_NUMERIC_TRACKING * (size / 13);
+    const compactWidth = digitWidths.reduce((total, width) => total + width, 0)
+        + tracking * (digits.length - 1);
+    const symbolWidth = measureManaSymbol(size);
+    const compactX = (symbolWidth - compactWidth) / 2;
+    const compactY = size * 0.18;
+
+    let digitX = compactX;
+
+    digits.forEach((digit, index) => {
+        ctx.fillText(digit, digitX, compactY);
+        digitX += digitWidths[index] + tracking;
+    });
 
     ctx.restore();
 };

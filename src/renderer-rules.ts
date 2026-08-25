@@ -283,6 +283,7 @@ export function fitRulesText(
     const defaultFontSize = candidateSizes[candidateSizes.length - 1] * scale;
     const defaultLineHeight = getLineHeightForFontSize(candidateSizes[candidateSizes.length - 1], scale);
     let fallbackLayout: FittedRulesLayout | null = null;
+    let biggestPass = true;
 
     for (const size of candidateSizes) {
         const scaledFontSize = size * scale;
@@ -304,7 +305,20 @@ export function fitRulesText(
         fallbackLayout = candidateLayout; // will end up with smallest font size that fits in width, even if it exceeds height
 
         if (usedWidth <= limits.width && usedHeight <= limits.height) {
-            const shouldCenter = size === candidateSizes[0];
+            // Here we already know that we fit in the box, but we want to check if we should center the text vertically and horizontally. We should center if either of these conditions apply:
+            // 1- the font size is the largest candidate size (size === candidateSizes[0])
+            // 2- there is only one line of text (lines.length === 1)
+            const shouldCenter = size === candidateSizes[0] || lines.length === 1;
+
+            // Here we should not return yet if three specific conditions apply (to fix short textbox with single orphan): 
+            // 1- there was only one rule textLine. face.textLines.length === 1
+            // 2- that rule textline wraps to exactly a second line. lines.length === 2
+            // 3- that second line only has one token. lines[1].tokens.length === 1
+            // (also checking biggestPass because technically this can only happen on the first pass, but just in case)
+            if (biggestPass && face.textLines.length === 1 && lines.length === 2 && lines[1].tokens.length === 1) {
+                console.log("Skipping font size:", scaledFontSize, "due to orphaned second line.");
+                continue; // skip this font size and try the next smaller one
+            }
 
             return {
                 ...candidateLayout,
@@ -312,6 +326,7 @@ export function fitRulesText(
                 yAdjust: shouldCenter ? Math.max(0, (limits.height - usedHeight) / 2) : 0,
             };
         }
+        biggestPass = false;
     }
 
     if (fallbackLayout) {

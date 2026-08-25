@@ -287,7 +287,6 @@ export function fitRulesText(
 
     for (const size of candidateSizes) {
         const scaledFontSize = size * scale;
-        console.log("Trying font size:", scaledFontSize, "for face layout:", face.faceLayout);
         const symbolSize = scaledFontSize;
         const lineHeight = getLineHeightForFontSize(size, scale);
         const lines = buildWrappedLines(ctx, paragraphs, limits.width, scaledFontSize, symbolSize);
@@ -316,7 +315,6 @@ export function fitRulesText(
             // 3- that second line only has one token. lines[1].tokens.length === 1
             // (also checking biggestPass because technically this can only happen on the first pass, but just in case)
             if (biggestPass && face.textLines.length === 1 && lines.length === 2 && lines[1].tokens.length === 1) {
-                console.log("Skipping font size:", scaledFontSize, "due to orphaned second line.");
                 continue; // skip this font size and try the next smaller one
             }
 
@@ -366,8 +364,6 @@ export function drawWrappedRulesText(
     ctx.shadowColor = "transparent";
     ctx.strokeStyle = "transparent";
     getRulesFont(ctx, layout.fontSize);
-
-    console.log("Drawing rules text with font size:", layout.fontSize, "and line height:", layout.lineHeight);
 
     let cursorY = 0;
 

@@ -10,6 +10,7 @@ const previewElement = document.querySelector<HTMLElement>("#data-preview");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 
 const editions: string[] = []; // Will fill from editions.txt
+const editionsScry: Record<string, string[]> = {}; // Will fill from editions-scry.json
 const singleCards: card[] = []; // Will fill from single-cards.txt
 
 const allCardsIndexes: number[] = []; // Will fill from all-cards.txt
@@ -277,10 +278,14 @@ function showCardPreview(query: string): void {
         return;
     }
 
+    // Now we have the card, we can get its face data. But first let's get the art from the card name and edition. 
+    const cardName = card.name;
+    const possibleCardEditions = editionsScry[card.edition];
+    console.log(`Card found: ${cardName} (possible editions: ${possibleCardEditions?.join(", ")})`);
+
+
     // Now test getFaceData
     const faces = getFaceData(serial);
-
-    let previewText = `Card: ${card.name} (Edition: ${card.edition})`;
 
     if (!canvasElement) {
         return;
@@ -290,16 +295,18 @@ function showCardPreview(query: string): void {
         return;
     }
 
+    // Now it's finally time to render the card preview on the canvas. We'll use the renderCardPreview function for this.
     renderCardPreview(context, faces, {
         padding: 20,
         background: "#f3ecdf",
     });
 
+    // And to complete the preview, let's also show the card name, edition, and face details in the preview text area.
+    let previewText = `Card: ${card.name} (Edition: ${card.edition})`;
     for (const face of faces) {
         if (!face) {
             continue;
         }
-
         const faceName = face.name || "Unknown";
         const faceEdition = editions[face.edition] || "Unknown"; // ( zero based )
         const faceManaCost = face.manaCost || "Unknown";
@@ -317,11 +324,8 @@ function showCardPreview(query: string): void {
             Power/Toughness: ${facePowerToughness}
             Text:
             ${faceTextLines}`;
-
     }
-
-    // Remove spaces before each newline in the previewText for better formatting
-    previewText = previewText.replace(/^\s+/gm, '');
+    previewText = previewText.replace(/^\s+/gm, ''); // Remove spaces before newlines for better formatting
     setPreview(previewText);
 
 }
@@ -372,6 +376,14 @@ async function bootstrap(): Promise<void> {
         }
         text = await response.text();
         editions.push(...parseEditions(text));
+
+        // Fetch editions-scry.json and parse it
+        response = await fetch("editions-scry.json");
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        text = await response.text();
+        Object.assign(editionsScry, JSON.parse(text));
 
         // Fetch all-cards.txt and parse it to fill up allCardsDict
         response = await fetch("all-cards.txt");

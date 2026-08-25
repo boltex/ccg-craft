@@ -194,6 +194,7 @@ function addMissingBasicLandRules(faces, typeLines, textLines) {
             if (!typeLine.includes(landType)) {
                 continue;
             }
+            // In case it was already present, we don't want to add duplicates.
             if (!face.textLines.includes(textIndex)) {
                 face.textLines.push(textIndex);
                 patchedFaces += 1;

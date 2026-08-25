@@ -23,6 +23,7 @@ const SYMBOL_FONT_FAMILY = "Symbols, serif";
 const MANA_BACK_SYMBOL = "o";
 const COMPACT_NUMERIC_SCALE = 0.9;
 const COMPACT_NUMERIC_TRACKING = -6;
+const COMPACT_NUMERIC_VERTICAL_OFFSET = 0.04;
 
 const SYMBOL_COLORS: Record<string, { fg: Color; bg: Color }> = {
     W: { fg: constants.colors.MFW, bg: constants.colors.MBW },
@@ -112,7 +113,7 @@ export function drawManaSymbol(
         + tracking * (digits.length - 1);
     const symbolWidth = measureManaSymbol(size);
     const compactX = (symbolWidth - compactWidth) / 2;
-    const compactY = size * 0.18;
+    const compactY = size * COMPACT_NUMERIC_VERTICAL_OFFSET;
 
     let digitX = compactX;
 

@@ -20,7 +20,7 @@ function getCardTextStyle(
 ): CardTextStyleOverrides {
     return {
         fontFamily,
-        fontSize: Math.max(baseSize, baseSize * sceneScale),
+        fontSize: baseSize * sceneScale,
         fillStyle: "white",
         strokeStyle: "transparent",
         shadowColor: "black",
@@ -162,7 +162,7 @@ function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     for (let index = 0; index < lines.length; index++) {
         drawStyledText(ctx, lines[index], centerX, startY + index * lineHeight, {
             fontFamily: "serif",
-            fontSize: Math.max(10, 10 * scene.scale),
+            fontSize: 10 * scene.scale,
             fillStyle: "rgba(0, 0, 0, 0.75)",
             textAlign: "center",
             textBaseline: "middle",
@@ -256,7 +256,7 @@ function drawManaCost(renderCtx: RenderFaceContext): void {
         layout.ymana + scene.offsetY,
         {
             direction: layout.textangle === 90 ? "vertical" : "horizontal",
-            size: Math.max(13, 13 * scene.scale),
+            size: 13 * scene.scale,
             align: "end",
             rotationDegrees: layout.textangle,
         }

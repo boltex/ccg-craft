@@ -11,7 +11,6 @@ export function getScaledFaceLayout(faceLayout: number, scale: number): FaceLayo
 
 export function getFaceBounds(layout: FaceLayout, offsetX: number, offsetY: number): Rect {
     return { x: offsetX + layout.xback, y: offsetY + layout.yback, width: layout.xbwidth, height: layout.ybheight };
-
 }
 
 export function getTextBoxRect(layout: FaceLayout, offsetX: number, offsetY: number): Rect {

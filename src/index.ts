@@ -65,8 +65,6 @@ function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefi
 function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): PrintableFace {
     const face = faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
-    console.log(`getPrintableFace for serial: ${faceSerial}`, face);
-
     // About FaceFrame
     // Find it with Manacost, 0=is a land.
     // If manacost = {0} & it IS a creature, then FaceFrame=frameR
@@ -281,8 +279,6 @@ function showCardPreview(query: string): void {
 
     // Now test getFaceData
     const faces = getFaceData(serial);
-    console.log(`Face 1:`, faces[0]);
-    console.log(`Face 2:`, faces[1]);
 
     let previewText = `Card: ${card.name} (Edition: ${card.edition})`;
 
@@ -448,6 +444,7 @@ async function bootstrap(): Promise<void> {
                 pointer += 4;
                 textLines.push(textIndex);
             }
+
             faceData.push({
                 faceSerial,
                 parentCard,
@@ -460,7 +457,9 @@ async function bootstrap(): Promise<void> {
                 powerToughness,
                 textLines
             });
+
         }
+        // faceData is filled with all face data from face-index.dat and is ready for rendering.
 
         // Now load the restrictedSubsets which is json 
         response = await fetch("restricted-subsets.json");

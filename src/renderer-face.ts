@@ -43,7 +43,7 @@ export function renderFace(renderCtx: RenderFaceContext): void {
         drawFrameBackground(renderCtx);
 
         // art 
-        drawArtPlaceholder(renderCtx);
+        drawArtBitmap(renderCtx);
 
         // manacost
         drawManaCost(renderCtx);
@@ -138,14 +138,23 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 }
 
-function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
+function drawArtBitmap(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
     const artImage = renderCtx.options.artByFaceSerial?.get(face.serial);
+    const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
 
     if (artImage) {
-        ctx.drawImage(artImage, rect.x, rect.y, rect.width, rect.height);
+        if (shouldRotateArt) {
+            ctx.save();
+            ctx.translate(rect.x + rect.width / 2, rect.y + rect.height / 2);
+            ctx.rotate((90 * Math.PI) / -180);
+            ctx.drawImage(artImage, -rect.height / 2, -rect.width / 2, rect.height, rect.width);
+            ctx.restore();
+        } else {
+            ctx.drawImage(artImage, rect.x, rect.y, rect.width, rect.height);
+        }
 
         ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
         ctx.lineWidth = Math.max(1, scene.scale * 0.5);

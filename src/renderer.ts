@@ -8,6 +8,7 @@ import {
 export type RenderCardOptions = {
     padding?: number;
     background?: string;
+    artByFaceSerial?: ReadonlyMap<number, CanvasImageSource>;
 };
 
 export type RenderCardScene = {

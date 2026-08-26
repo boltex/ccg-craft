@@ -39,6 +39,22 @@ export type PrintableFace = {
     }
 }
 
+export type CachedFaceArt = {
+    faceSerial: number;
+    blob: Blob;
+    width: number;
+    height: number;
+    cachedAt: number;
+};
+
+export type CachedFaceArtInput = {
+    faceSerial: number;
+    blob: Blob;
+    width: number;
+    height: number;
+    cachedAt?: number;
+};
+
 export type Color = [number, number, number]; // RGB color
 
 // There will be 4 FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB

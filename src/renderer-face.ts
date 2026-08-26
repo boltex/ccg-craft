@@ -142,6 +142,17 @@ function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
+    const artImage = renderCtx.options.artByFaceSerial?.get(face.serial);
+
+    if (artImage) {
+        ctx.drawImage(artImage, rect.x, rect.y, rect.width, rect.height);
+
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
+        ctx.lineWidth = Math.max(1, scene.scale * 0.5);
+        ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+        return;
+    }
+
     const artPath = utils.toArtRelativePath(face.name);
 
     ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
@@ -169,8 +180,6 @@ function drawArtPlaceholder(renderCtx: RenderFaceContext): void {
             maxWidth: rect.width - 8 * scene.scale,
         });
     }
-
-    // Todo last in the project: implement actual art rendering, including loading the image and drawing it to the canvas.
 }
 
 function drawNameLine(renderCtx: RenderFaceContext): void {

@@ -1,5 +1,6 @@
 import "./styles.css";
 
+import { loadFaceArtForCard } from "./art-loader";
 import * as constants from "./constants";
 import type { card, cardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
@@ -25,6 +26,7 @@ const textData: string[] = []; // Will fill from face-text-lines.txt
 const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restricted-subsets.json
 
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
+let renderedFaceArt = new Map<number, ImageBitmap>();
 
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
@@ -282,79 +284,23 @@ async function showCardPreview(query: string): Promise<void> {
     // The first face is always present, the second face may be undefined if the card has only one face.
     const faces = getFaceData(serial);
 
-    // Now we have the card, we can get its face data. But first let's get the art from the card name and edition. 
+    // Now we have the card, we can get its face data. Then we can resolve any cached or fetched face art.
     const cardName = card.name;
     const possibleCardEditions = editionsScry[card.edition];
     if (!possibleCardEditions || possibleCardEditions.length === 0) {
         throw new Error(`No editions found for card: ${cardName} (edition: ${card.edition})`);
     }
 
-    let editionToUse: string;
-    if (possibleCardEditions && possibleCardEditions.length > 1) {
-        editionToUse = possibleCardEditions[0]; // Should be "PHPR"
-        // special case
-        if (cardName === "Nalathni Dragon" && possibleCardEditions.includes("PDRC")) {
-            editionToUse = "PDRC";
-        }
-    } else {
-        editionToUse = possibleCardEditions[0];
-    }
-
     console.log(`Card found: ${cardName} (possible editions: ${possibleCardEditions?.join(", ")})`);
 
-    // TODO : if the image database is setup, check if we have the image, or images for split cards, already in the db, and if so, use it. Otherwise, fetch it.
+    releaseRenderedFaceArt();
 
     try {
-        const queryParameter = encodeURIComponent(`name:"${cardName}" e:${editionToUse} unique:art`);
-        const url = `https://api.scryfall.com/cards/search?q=${queryParameter}`;
-
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const json = await response.json();
-
-        let artCropUrl: string | undefined;
-        // Grab the first matching card from the data array
-        if (json.data && json.data.length > 0) {
-            console.log(`   Found ${json.data.length} matching cards for: ${cardName} (edition: ${editionToUse})`);
-            const cardData = json.data[0];
-            artCropUrl = cardData.image_uris?.art_crop;
-            console.log(`   Artwork URL: ${artCropUrl}`);
-        } else {
-            console.warn(`❓ No results found for: ${cardName}`);
-        }
-
-
-
-        // now grab the jpg's art data and scale resize it to a smaller image, reducing the moiree of the scan.
-        if (artCropUrl) {
-            const artResponse = await fetch(artCropUrl);
-            if (!artResponse.ok) {
-                throw new Error(`HTTP error fetching art! Status: ${artResponse.status}`);
-            }
-            const artBlob = await artResponse.blob();
-            const artImage = new Image();
-            artImage.src = URL.createObjectURL(artBlob);
-            await new Promise<void>((resolve, reject) => {
-                artImage.onload = () => {
-                    console.log(`   Artwork loaded: ${artImage.width}x${artImage.height}`);
-                    resolve();
-                };
-                artImage.onerror = (err) => {
-                    reject(new Error(`Failed to load artwork image from blob URL.`));
-                }
-            });
-            // Now we have the artImage loaded.
-            // We can now use it, split in in two images if the card is a 'split' card. ('flip' card still have a single image box)
-            // TODO: add a scaled down version of the image(s) to a database for future use, so we don't have to fetch it again. But for now, let's just render the card preview with the artImage.
-            // The db key should be the face name (face instead of card in case of split cards) and nothing else, not even the edition because we always only show the first edition of the card existance.
-
-        }
-
-
+        renderedFaceArt = await loadFaceArtForCard({
+            card,
+            faces,
+            scryfallEditions: possibleCardEditions,
+        });
     } catch (error) {
         console.error(`Error fetching card data for ${cardName}:`, error);
     }
@@ -371,6 +317,7 @@ async function showCardPreview(query: string): Promise<void> {
     renderCardPreview(context, faces, {
         padding: 20,
         background: "#f3ecdf",
+        artByFaceSerial: renderedFaceArt,
     });
 
     // And to complete the preview, let's also show the card name, edition, and face details in the preview text area.
@@ -400,6 +347,14 @@ async function showCardPreview(query: string): Promise<void> {
     previewText = previewText.replace(/^\s+/gm, ''); // Remove spaces before newlines for better formatting
     setPreview(previewText);
 
+}
+
+function releaseRenderedFaceArt(): void {
+    for (const artBitmap of renderedFaceArt.values()) {
+        artBitmap.close();
+    }
+
+    renderedFaceArt = new Map<number, ImageBitmap>();
 }
 
 

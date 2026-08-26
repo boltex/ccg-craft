@@ -1,6 +1,13 @@
 import "./styles.css";
 
 import { loadFaceArtForCard } from "./art-loader";
+import {
+    clearCachedFaceArt,
+    exportCachedFaceArt,
+    getCachedFaceArtCount,
+    importCachedFaceArt,
+    logCachedFaceArt
+} from "./art-cache";
 import * as constants from "./constants";
 import type { card, cardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
@@ -9,6 +16,11 @@ import * as utils from "./utils";
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const previewElement = document.querySelector<HTMLElement>("#data-preview");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
+const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
+const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
+const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache");
+const logArtCacheButton = document.querySelector<HTMLButtonElement>("#log-art-cache");
+const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 
 const editions: string[] = []; // Will fill from editions.txt
 const editionsScry: Record<string, string[]> = {}; // Will fill from editions-scry.json
@@ -27,6 +39,11 @@ const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restri
 
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 let renderedFaceArt = new Map<number, ImageBitmap>();
+let statusSummary = {
+    totalCards: 0,
+    totalCardNames: 0,
+    totalFaces: 0,
+};
 
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
@@ -48,6 +65,76 @@ if (lookupElement) {
                 utils.clearCanvas(canvasElement);
             }
         }, 300); // 300ms debounce
+    });
+}
+
+if (clearArtCacheButton) {
+    clearArtCacheButton.addEventListener("click", async () => {
+        if (!window.confirm("Clear all cached art images from IndexedDB?")) {
+            return;
+        }
+
+        try {
+            await clearCachedFaceArt();
+            await updateStatusSummary("Art cache cleared.");
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            setStatus(`Failed to clear art cache: ${message}`);
+        }
+    });
+}
+
+if (exportArtCacheButton) {
+    exportArtCacheButton.addEventListener("click", async () => {
+        try {
+            const exportBlob = await exportCachedFaceArt();
+            downloadArtCacheExport(exportBlob);
+            await updateStatusSummary("Art cache exported.");
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            setStatus(`Failed to export art cache: ${message}`);
+        }
+    });
+}
+
+if (importArtCacheButton && importArtCacheFileInput) {
+    importArtCacheButton.addEventListener("click", () => {
+        importArtCacheFileInput.click();
+    });
+
+    importArtCacheFileInput.addEventListener("change", async () => {
+        const file = importArtCacheFileInput.files?.[0];
+        importArtCacheFileInput.value = "";
+
+        if (!file) {
+            return;
+        }
+
+        try {
+            const result = await importCachedFaceArt(file);
+            await updateStatusSummary(`Imported ${result.importedCount} art images.`);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            setStatus(`Failed to import art cache: ${message}`);
+        }
+    });
+}
+
+if (logArtCacheButton) {
+    logArtCacheButton.addEventListener("click", async () => {
+        if (!faceData) {
+            setStatus("Face data not loaded yet. Please wait for the bootstrap process to complete.");
+            return;
+        }
+
+        try {
+            await logCachedFaceArt(faceData, nameData);
+
+            await updateStatusSummary("Art cache logged to console.");
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            setStatus(`Failed to log art cache: ${message}`);
+        }
     });
 }
 
@@ -180,6 +267,12 @@ function setStatus(message: string): void {
     if (statusElement) {
         statusElement.textContent = message;
     }
+}
+
+async function updateStatusSummary(note?: string): Promise<void> {
+    const cachedArtCount = await getCachedFaceArtCount();
+    const summary = `Total cards: ${statusSummary.totalCards}, Card names: ${statusSummary.totalCardNames}, Total faces: ${statusSummary.totalFaces}, Cached art: ${cachedArtCount}`;
+    setStatus(note ? `${summary}. ${note}` : summary);
 }
 
 function setPreview(message: string): void {
@@ -357,6 +450,15 @@ function releaseRenderedFaceArt(): void {
     renderedFaceArt = new Map<number, ImageBitmap>();
 }
 
+function downloadArtCacheExport(exportBlob: Blob): void {
+    const downloadUrl = URL.createObjectURL(exportBlob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+}
+
 
 async function bootstrap(): Promise<void> {
 
@@ -523,7 +625,13 @@ async function bootstrap(): Promise<void> {
             throw new Error(`Failed to parse restricted-subsets.json: ${error}`);
         }
 
-        setStatus(`Total cards: ${singleCards.length}, Card names: ${allCardsNames.length}, Total faces: ${faceData.length}`);
+        statusSummary = {
+            totalCards: singleCards.length,
+            totalCardNames: allCardsNames.length,
+            totalFaces: faceData.length,
+        };
+
+        await updateStatusSummary();
 
 
 

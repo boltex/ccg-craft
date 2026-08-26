@@ -21,6 +21,12 @@ export async function loadFaceArtForCard(
     const missingFaces: PrintableFace[] = [];
 
     for (const face of faces) {
+
+        // If face type is 3, flip b, there is only central art, so no need to process it, it will be drawn from the flip a face.
+        if (face.faceLayout === 3) {
+            continue;
+        }
+
         const cachedArt = await getCachedFaceArt(face.serial);
         if (cachedArt) {
             artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));

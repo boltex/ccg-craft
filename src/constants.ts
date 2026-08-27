@@ -115,12 +115,12 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         ybheight: CardHeight,
         xname: 8,
         yname: 3,
-        xmana: 219,
-        ymana: 2,
+        xmana: 222,
+        ymana: 3,
         xtypeline: 10,
         ytypeline: 90,
         xedition: 10,
-        yedition: CardHeight - 13,
+        yedition: CardHeight - 14,
         xpowertough: 220,
         ypowertough: 89,
         xtext: 17,
@@ -164,7 +164,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artheight: 121
     },
 
-    // split top
+    // split bottom
     2: {
         xback: 0,
         yback: CardHeight / 2,
@@ -172,16 +172,16 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         ybheight: CardHeight / 2,
         xname: 3,
         yname: CardHeight - 6,
-        xmana: 1,
-        ymana: 170,
-        xtypeline: 124,
+        xmana: 2,
+        ymana: 167,
+        xtypeline: 128,
         ytypeline: CardHeight - 7,
-        xedition: 125,
+        xedition: 130,
         yedition: 189,
         xpowertough: 200,
         ypowertough: 250,
         xtext: 150,
-        ytext: 300,
+        ytext: 312,
         textangle: 90,
         xtb: 142,
         ytb: (CardHeight / 2) + 10,
@@ -193,7 +193,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         artheight: 147
     },
 
-    // split bottom
+    // split top
     4: {
         xback: 0,
         yback: 0,
@@ -201,16 +201,16 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         ybheight: CardHeight / 2,
         xname: 3,
         yname: (CardHeight / 2) - 6,
-        xmana: 1,
-        ymana: 6,
-        xtypeline: 124,
+        xmana: 2,
+        ymana: 3,
+        xtypeline: 128,
         ytypeline: (CardHeight / 2) - 7,
-        xedition: 125,
+        xedition: 130,
         yedition: 25,
         xpowertough: 200,
         ypowertough: 30,
         xtext: 150,
-        ytext: 120,
+        ytext: 147,
         textangle: 90,
         xtb: 142,
         ytb: 10,

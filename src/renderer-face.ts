@@ -77,7 +77,8 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     ctx.fillStyle = utils.toCommaRgb(...face.faceColors.frameColor);
     ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 
-    ctx.strokeStyle = "black";
+    // ctx.strokeStyle = "black";
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
     ctx.lineWidth = Math.max(1, scene.scale);
     ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
 }
@@ -85,7 +86,6 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
 function drawTextBox(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
-
 
     const fill = !face.manaCost && !face.isACreature
         ? getLandTextBoxFill(face)

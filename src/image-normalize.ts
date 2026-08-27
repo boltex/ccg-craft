@@ -5,8 +5,6 @@ export const normalizedFaceArtHeight = 160;
 
 export type NormalizedFaceArt = {
     blob: Blob;
-    width: number;
-    height: number;
 };
 
 export type NormalizeFaceArtOptions = {
@@ -69,8 +67,6 @@ export async function normalizeFaceArtBitmap(
 
     return {
         blob,
-        width: targetWidth,
-        height: targetHeight,
     };
 }
 

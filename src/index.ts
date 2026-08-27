@@ -384,8 +384,6 @@ async function showCardPreview(query: string): Promise<void> {
         throw new Error(`No editions found for card: ${cardName} (edition: ${card.edition})`);
     }
 
-    console.log(`Card found: ${cardName} (possible editions: ${possibleCardEditions?.join(", ")})`);
-
     releaseRenderedFaceArt();
 
     try {

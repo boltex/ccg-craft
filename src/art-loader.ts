@@ -55,8 +55,6 @@ export async function loadFaceArtForCard(
             const cachedArt = await putCachedFaceArt({
                 faceSerial: face.serial,
                 blob: normalizedArt.blob,
-                width: normalizedArt.width,
-                height: normalizedArt.height,
             });
 
             artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));

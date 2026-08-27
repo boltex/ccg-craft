@@ -42,17 +42,11 @@ export type PrintableFace = {
 export type CachedFaceArt = {
     faceSerial: number;
     blob: Blob;
-    width: number;
-    height: number;
-    cachedAt: number;
 };
 
 export type CachedFaceArtInput = {
     faceSerial: number;
     blob: Blob;
-    width: number;
-    height: number;
-    cachedAt?: number;
 };
 
 export type Color = [number, number, number]; // RGB color

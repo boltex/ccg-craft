@@ -1,11 +1,10 @@
 import type { CachedFaceArt, CachedFaceArtInput, cardFace } from "./types";
 
 const ART_CACHE_DB_NAME = "ccg-craft-art";
-const ART_CACHE_DB_VERSION = 1;
+const ART_CACHE_DB_VERSION = 2;
 const FACE_ART_STORE_NAME = "faceArt";
-const FACE_ART_CACHED_AT_INDEX = "cachedAt";
 const ART_CACHE_EXPORT_FORMAT = "ccg-craft-art-cache";
-const ART_CACHE_EXPORT_VERSION = 1;
+const ART_CACHE_EXPORT_VERSION = 2;
 
 let databasePromise: Promise<IDBDatabase> | undefined;
 
@@ -22,14 +21,23 @@ function openArtCacheDatabase(): Promise<IDBDatabase> {
 
         request.onupgradeneeded = () => {
             const database = request.result;
+            const transaction = request.transaction;
             const store = database.objectStoreNames.contains(FACE_ART_STORE_NAME)
-                ? request.transaction?.objectStore(FACE_ART_STORE_NAME)
+                ? transaction?.objectStore(FACE_ART_STORE_NAME)
                 : database.createObjectStore(FACE_ART_STORE_NAME, {
                     keyPath: "faceSerial",
                 });
 
-            if (store && !store.indexNames.contains(FACE_ART_CACHED_AT_INDEX)) {
-                store.createIndex(FACE_ART_CACHED_AT_INDEX, FACE_ART_CACHED_AT_INDEX);
+            if (!store) {
+                return;
+            }
+
+            if (store.indexNames.contains("cachedAt")) {
+                store.deleteIndex("cachedAt");
+            }
+
+            if (request.transaction && request.transaction.db.version >= 2) {
+                migrateFaceArtStore(store);
             }
         };
 
@@ -56,9 +64,25 @@ function normalizeCachedFaceArt(input: CachedFaceArtInput): CachedFaceArt {
     return {
         faceSerial: input.faceSerial,
         blob: input.blob,
-        width: input.width,
-        height: input.height,
-        cachedAt: input.cachedAt ?? Date.now(),
+    };
+}
+
+function migrateFaceArtStore(store: IDBObjectStore): void {
+    const request = store.openCursor();
+
+    request.onsuccess = () => {
+        const cursor = request.result;
+        if (!cursor) {
+            return;
+        }
+
+        const normalizedRecord = normalizeCachedFaceArt(cursor.value as CachedFaceArtInput);
+        cursor.update(normalizedRecord);
+        cursor.continue();
+    };
+
+    request.onerror = () => {
+        throw request.error ?? new Error("Failed to migrate art cache records.");
     };
 }
 
@@ -163,7 +187,6 @@ export async function exportCachedFaceArt(): Promise<Blob> {
     const exportPayload: ArtCacheExportFile = {
         format: ART_CACHE_EXPORT_FORMAT,
         version: ART_CACHE_EXPORT_VERSION,
-        exportedAt: Date.now(),
         records: serializedRecords,
     };
 
@@ -192,9 +215,6 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
         await putCachedFaceArt({
             faceSerial: record.faceSerial,
             blob,
-            width: record.width,
-            height: record.height,
-            cachedAt: record.cachedAt,
         });
         importedCount += 1;
     }
@@ -206,15 +226,11 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
 }
 
 export async function logCachedFaceArt(faceData: cardFace[], faceNames: string[]): Promise<void> {
-    // Logs to the console the names of the faces in the cache, sorted by cachedAt descending.
     const records = await getAllCachedFaceArt();
-    records.sort((a, b) => b.cachedAt - a.cachedAt);
     console.log("Cached Face Art Records:");
     for (const record of records) {
         const face = faceData[record.faceSerial - 1];
         const name = faceNames[face.nameIndex - 1];
-        // console.log(`Face Serial: ${record.faceSerial}, Name: ${name}, Cached At: ${new Date(record.cachedAt).toLocaleString()}`);
-        // Just the name
         console.log(name);
     }
 }
@@ -223,9 +239,6 @@ export async function logCachedFaceArt(faceData: cardFace[], faceNames: string[]
 async function serializeCachedFaceArt(record: CachedFaceArt): Promise<SerializedCachedFaceArt> {
     return {
         faceSerial: record.faceSerial,
-        width: record.width,
-        height: record.height,
-        cachedAt: record.cachedAt,
         mimeType: record.blob.type || "application/octet-stream",
         dataBase64: await blobToBase64(record.blob),
     };
@@ -238,9 +251,6 @@ function isSerializedCachedFaceArt(value: unknown): value is SerializedCachedFac
 
     const record = value as Partial<SerializedCachedFaceArt>;
     return typeof record.faceSerial === "number"
-        && typeof record.width === "number"
-        && typeof record.height === "number"
-        && typeof record.cachedAt === "number"
         && typeof record.mimeType === "string"
         && typeof record.dataBase64 === "string";
 }
@@ -278,9 +288,6 @@ function base64ToBlob(dataBase64: string, mimeType: string): Blob {
 
 type SerializedCachedFaceArt = {
     faceSerial: number;
-    width: number;
-    height: number;
-    cachedAt: number;
     mimeType: string;
     dataBase64: string;
 };
@@ -288,6 +295,5 @@ type SerializedCachedFaceArt = {
 type ArtCacheExportFile = {
     format: typeof ART_CACHE_EXPORT_FORMAT;
     version: typeof ART_CACHE_EXPORT_VERSION;
-    exportedAt: number;
     records: SerializedCachedFaceArt[];
 };

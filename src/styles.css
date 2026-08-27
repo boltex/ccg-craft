@@ -3,9 +3,14 @@
   --bg: #f4efe7;
   --bg-accent: #e4d5c2;
   --panel: rgba(255, 252, 247, 0.9);
+  --panel-highlight: #fffaf2;
   --text: #2a2118;
   --muted: #6e5d4b;
   --border: #cfb89a;
+  --border-strong: #9a7b52;
+  --button-top: #f6ead8;
+  --button-bottom: #dcc1a1;
+  --button-shadow: rgba(70, 44, 20, 0.22);
   --shadow: 0 18px 40px rgba(76, 52, 28, 0.12);
   --radius: 18px;
 }
@@ -99,6 +104,77 @@ h1 {
 
 #status {
   font-weight: 700;
+}
+
+#status + p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+button {
+  position: relative;
+  padding: 11px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 42%),
+    linear-gradient(180deg, var(--button-top), var(--button-bottom));
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 10px var(--button-shadow);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease,
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(123, 89, 51, 0.24);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+button:hover {
+  border-color: #7e5f3c;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 7px 16px rgba(70, 44, 20, 0.28);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 4px rgba(70, 44, 20, 0.18),
+    0 2px 6px rgba(70, 44, 20, 0.18);
+}
+
+button:focus-visible {
+  outline: none;
+  border-color: #7b5b37;
+  box-shadow:
+    0 0 0 3px rgba(154, 123, 82, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 6px 14px rgba(70, 44, 20, 0.24);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 #data-preview {

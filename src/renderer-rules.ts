@@ -170,7 +170,7 @@ function buildWrappedLines(
 }
 
 function getParagraphGap(lineHeight: number): number {
-    return lineHeight;
+    return lineHeight * 0.5; // Half of the line height for paragraph gap
 }
 
 function getRulesHeight(lines: WrappedRulesLine[], lineHeight: number): number {
@@ -304,10 +304,14 @@ export function fitRulesText(
         fallbackLayout = candidateLayout; // will end up with smallest font size that fits in width, even if it exceeds height
 
         if (usedWidth <= limits.width && usedHeight <= limits.height) {
+
             // Here we already know that we fit in the box, but we want to check if we should center the text vertically and horizontally. We should center if either of these conditions apply:
             // 1- the font size is the largest candidate size (size === candidateSizes[0])
             // 2- there is only one line of text (lines.length === 1)
-            const shouldCenter = size === candidateSizes[0] || lines.length === 1;
+            // const shouldCenter = size === candidateSizes[0] || lines.length === 1;
+
+            // Or, maybe we just always want to center the text regardless of the conditions
+            const shouldCenter = true;
 
             // Here we should not return yet if three specific conditions apply (to fix short textbox with single orphan): 
             // 1- there was only one rule textLine. face.textLines.length === 1
@@ -318,10 +322,15 @@ export function fitRulesText(
                 continue; // skip this font size and try the next smaller one
             }
 
+            let verticalAdjustment = 0;
+            if (shouldCenter) {
+                verticalAdjustment = candidateLayout.lineHeight * 0.35;
+            }
+
             return {
                 ...candidateLayout,
                 xAdjust: shouldCenter ? Math.max(0, (limits.width - usedWidth) / 2) : 0,
-                yAdjust: shouldCenter ? Math.max(0, (limits.height - usedHeight) / 2) : 0,
+                yAdjust: shouldCenter ? Math.max(0, (limits.height - usedHeight) / 2) + verticalAdjustment : 0,
             };
         }
         biggestPass = false;
@@ -345,7 +354,7 @@ export function drawWrappedRulesText(
     layout: FittedRulesLayout,
     faceLayout: FaceLayout,
     originX: number,
-    originY: number
+    originY: number,
 ): void {
     if (layout.lines.length === 0 || layout.fontSize <= 0) {
         return;
@@ -365,6 +374,7 @@ export function drawWrappedRulesText(
     ctx.strokeStyle = "transparent";
     getRulesFont(ctx, layout.fontSize);
 
+    // If regular layout then add a small offset to the cursorY to avoid text being too close to the top.
     let cursorY = 0;
 
     layout.lines.forEach((line) => {

@@ -94,8 +94,8 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         yedition: 188,
         xpowertough: 222,
         ypowertough: 312,
-        xtext: 22,
-        ytext: 205,
+        xtext: 20,
+        ytext: 204,
         textangle: 0,
         xtb: 18,
         ytb: 200,
@@ -152,7 +152,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xpowertough: 10,
         ypowertough: 240,
         xtext: CardWidth - 23,
-        ytext: CardHeight - 27,
+        ytext: CardHeight - 31,
         textangle: 180,
         xtb: 18,
         ytb: 240,
@@ -234,10 +234,10 @@ export const TextSizeLimits = [
 export const LineHeights = [
     19,
     16,
-    13,
-    11,
-    9,
-    7
+    14,
+    12,
+    10,
+    8
 ];
 
 export const ManaSymbols = [

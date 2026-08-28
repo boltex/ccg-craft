@@ -77,6 +77,51 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     ctx.fillStyle = utils.toCommaRgb(...face.faceColors.frameColor);
     ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 
+    // Now draw a bevel inside the frame to give it some depth
+    // using utils.darkenColor and utils.lightenColor. 
+    // Top and right sides are lighter, while bottom and left sides are darker.
+    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.2);
+    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.2);
+
+    const bevelWidth = Math.min(
+        2 * scene.scale,
+        bounds.width / 2,
+        bounds.height / 2,
+    );
+    if (bevelWidth > 0) {
+        const x = bounds.x;
+        const y = bounds.y;
+        const right = bounds.x + bounds.width;
+        const bottom = bounds.y + bounds.height;
+        const innerLeft = x + bevelWidth;
+        const innerTop = y + bevelWidth;
+        const innerRight = right - bevelWidth;
+        const innerBottom = bottom - bevelWidth;
+
+        ctx.fillStyle = utils.toCommaRgb(...lightColor);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(right, y);
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(innerRight, innerBottom);
+        ctx.lineTo(innerRight, innerTop);
+        ctx.lineTo(innerLeft, innerTop);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = utils.toCommaRgb(...darkColor);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(innerLeft, innerTop);
+        ctx.lineTo(innerLeft, innerBottom);
+        ctx.lineTo(innerRight, innerBottom);
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(x, bottom);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+
     // ctx.strokeStyle = "black";
     ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
     ctx.lineWidth = Math.max(1, scene.scale);
@@ -138,12 +183,61 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 }
 
+function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
+    const { ctx, face, layout, scene } = renderCtx;
+    const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
+    const bevelWidth = Math.min(
+        4 * scene.scale,
+        rect.width / 2,
+        rect.height / 2,
+    );
+
+    if (bevelWidth <= 0) {
+        return;
+    }
+
+    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.24);
+    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.24);
+    const outerLeft = rect.x - bevelWidth;
+    const outerTop = rect.y - bevelWidth;
+    const outerRight = rect.x + rect.width + bevelWidth;
+    const outerBottom = rect.y + rect.height + bevelWidth;
+    const innerLeft = rect.x;
+    const innerTop = rect.y;
+    const innerRight = rect.x + rect.width;
+    const innerBottom = rect.y + rect.height;
+
+    ctx.fillStyle = utils.toCommaRgb(...darkColor);
+    ctx.beginPath();
+    ctx.moveTo(outerLeft, outerTop);
+    ctx.lineTo(outerRight, outerTop);
+    ctx.lineTo(outerRight, outerBottom);
+    ctx.lineTo(innerRight, innerBottom);
+    ctx.lineTo(innerRight, innerTop);
+    ctx.lineTo(innerLeft, innerTop);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = utils.toCommaRgb(...lightColor);
+    ctx.beginPath();
+    ctx.moveTo(outerLeft, outerTop);
+    ctx.lineTo(innerLeft, innerTop);
+    ctx.lineTo(innerLeft, innerBottom);
+    ctx.lineTo(innerRight, innerBottom);
+    ctx.lineTo(outerRight, outerBottom);
+    ctx.lineTo(outerLeft, outerBottom);
+    ctx.closePath();
+    ctx.fill();
+}
+
 function drawArtBitmap(renderCtx: RenderFaceContext): void {
     const { ctx, face, layout, scene } = renderCtx;
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
     const artImage = renderCtx.options.artByFaceSerial?.get(face.serial);
     const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
+
+    drawArtOuterBevel(renderCtx);
 
     if (artImage) {
         if (shouldRotateArt) {

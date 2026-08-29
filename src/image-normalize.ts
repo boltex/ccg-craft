@@ -34,6 +34,27 @@ export async function normalizeFaceArtBitmap(
     face: PrintableFace,
     options: NormalizeFaceArtOptions = {}
 ): Promise<NormalizedFaceArt> {
+
+    // --- STEP 1: DESTROY MOIRÉ AT ORIGINAL SIZE ---
+    // Create an offscreen canvas matching the source dimensions
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = sourceBitmap.width;
+    offCanvas.height = sourceBitmap.height;
+
+    const offContext = offCanvas.getContext('2d');
+    if (!offContext) {
+        throw new Error("Could not create a 2D context for moiré removal.");
+    }
+    // Apply a native blur to blend the halftone dot patterns together
+    // Close to 1px is ideal for a ~550px source image
+    offContext.filter = "blur(0.75px)"; //  0.75 is sufficient for moiré removal. A full pixel made the result a bit too soft.
+    offContext.drawImage(sourceBitmap, 0, 0);
+    // Reset filter
+    offContext.filter = "none";
+
+    // Now use the offscreen canvas as the source for further processing
+    sourceBitmap = await createSourceArtBitmap(await canvasToBlob(offCanvas, "image/webp", 1.0));
+
     const targetWidth = options.targetWidth ?? normalizedFaceArtWidth;
     const targetHeight = options.targetHeight ?? normalizedFaceArtHeight;
     const mimeType = options.mimeType ?? "image/webp";

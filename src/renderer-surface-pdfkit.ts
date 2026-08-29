@@ -70,8 +70,6 @@ const FALLBACK_PDF_FONT_REGISTRY: PdfKitFontRegistry = {
     expansionBack: "Helvetica-Bold",
 };
 
-const PDFKIT_IMAGE_TYPES = new Set(["string", "object"]);
-
 export function createPdfKitRenderSurface(
     document: PdfKitDocument,
     width: number,
@@ -193,7 +191,6 @@ export function createPdfKitRenderSurface(
                     align: toPdfKitTextAlign(style.textAlign),
                 });
                 document.restore();
-                applyTextStyle(style);
             }
 
             document.text(text, 0, 0, {

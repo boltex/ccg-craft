@@ -178,6 +178,24 @@ export function createPdfKitRenderSurface(
                 document.rotate(-style.rotationDegrees, { origin: [0, 0] });
             }
 
+            if (shouldDrawTextShadow(style)) {
+                document.save();
+                applyTextStyle({
+                    ...style,
+                    fillStyle: style.shadowColor ?? style.fillStyle,
+                    shadowColor: undefined,
+                    shadowOffsetX: undefined,
+                    shadowOffsetY: undefined,
+                });
+                document.text(text, style.shadowOffsetX ?? 0, style.shadowOffsetY ?? 0, {
+                    lineBreak: false,
+                    width: style.maxWidth,
+                    align: toPdfKitTextAlign(style.textAlign),
+                });
+                document.restore();
+                applyTextStyle(style);
+            }
+
             document.text(text, 0, 0, {
                 lineBreak: false,
                 width: style.maxWidth,
@@ -260,6 +278,16 @@ function isPdfKitImageSource(image: RenderImageSource): image is PdfKitImageSour
     return typeof image === "string"
         || image instanceof ArrayBuffer
         || image instanceof Uint8Array;
+}
+
+function shouldDrawTextShadow(style: TextStyle): boolean {
+    const shadowColor = style.shadowColor?.trim();
+
+    if (!shadowColor || shadowColor === "transparent") {
+        return false;
+    }
+
+    return (style.shadowOffsetX ?? 0) !== 0 || (style.shadowOffsetY ?? 0) !== 0;
 }
 
 function applyFillColor(document: PdfKitDocument, color: string): void {

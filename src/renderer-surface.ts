@@ -6,7 +6,6 @@ export type TextStyle = {
     shadowColor?: string;
     shadowOffsetX?: number;
     shadowOffsetY?: number;
-    shadowBlur?: number;
     textAlign?: CanvasTextAlign;
     textBaseline?: CanvasTextBaseline;
     strokeStyle?: string;
@@ -82,7 +81,6 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
         ctx.shadowColor = style.shadowColor ?? "transparent";
         ctx.shadowOffsetX = style.shadowOffsetX ?? 0;
         ctx.shadowOffsetY = style.shadowOffsetY ?? 0;
-        ctx.shadowBlur = style.shadowBlur ?? 0;
     }
 
     return {

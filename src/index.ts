@@ -9,6 +9,7 @@ import {
     logCachedFaceArt
 } from "./art-cache";
 import * as constants from "./constants";
+import { generateSingleCardPdf } from "./pdf-export";
 import type { card, cardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
 import * as utils from "./utils";
@@ -20,6 +21,7 @@ const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-ar
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache");
 const logArtCacheButton = document.querySelector<HTMLButtonElement>("#log-art-cache");
+const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 
 const editions: string[] = []; // Will fill from editions.txt
@@ -39,6 +41,10 @@ const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restri
 
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 let renderedFaceArt = new Map<number, ImageBitmap>();
+let currentPreviewState: {
+    card: card;
+    faces: [PrintableFace, PrintableFace | undefined];
+} | null = null;
 let statusSummary = {
     totalCards: 0,
     totalCardNames: 0,
@@ -60,11 +66,42 @@ if (lookupElement) {
             if (query) {
                 showCardPreview(query);
             } else {
+                clearCurrentPreviewState();
                 setPreview("Please enter a card name to look up.");
                 // Clear the canvas 
                 utils.clearCanvas(canvasElement);
             }
         }, 300); // 300ms debounce
+    });
+}
+
+if (generatePdfButton) {
+    generatePdfButton.addEventListener("click", async () => {
+        if (!currentPreviewState) {
+            setStatus("No valid card preview is available for PDF export.");
+            return;
+        }
+
+        const originalLabel = generatePdfButton.textContent;
+        generatePdfButton.disabled = true;
+        generatePdfButton.textContent = "Generating PDF...";
+
+        try {
+            const pdfBlob = await generateSingleCardPdf({
+                faces: currentPreviewState.faces,
+                artByFaceSerial: renderedFaceArt,
+                pageBackground: "#ffffff",
+            });
+
+            downloadGeneratedPdf(currentPreviewState.card.name, pdfBlob);
+            await updateStatusSummary(`Generated PDF for ${currentPreviewState.card.name}.`);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            setStatus(`Failed to generate PDF: ${message}`);
+        } finally {
+            generatePdfButton.disabled = currentPreviewState === null;
+            generatePdfButton.textContent = originalLabel;
+        }
     });
 }
 
@@ -361,6 +398,7 @@ async function showCardPreview(query: string): Promise<void> {
     }
 
     if (matchedIndex === -1) {
+        clearCurrentPreviewState();
         setPreview(`No card found starting with "${query}".`);
         // Clear the canvas!
         utils.clearCanvas(canvasElement);
@@ -369,6 +407,7 @@ async function showCardPreview(query: string): Promise<void> {
     const serial = allCardsIndexes[matchedIndex];
     const card = singleCards[serial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
     if (!card) {
+        clearCurrentPreviewState();
         setPreview(`No card found for serial: ${serial}`);
         return;
     }
@@ -436,8 +475,23 @@ async function showCardPreview(query: string): Promise<void> {
             ${faceTextLines}`;
     }
     previewText = previewText.replace(/^\s+/gm, ''); // Remove spaces before newlines for better formatting
+    currentPreviewState = { card, faces };
+    syncGeneratePdfButton();
     setPreview(previewText);
 
+}
+
+function clearCurrentPreviewState(): void {
+    currentPreviewState = null;
+    syncGeneratePdfButton();
+}
+
+function syncGeneratePdfButton(): void {
+    if (!generatePdfButton) {
+        return;
+    }
+
+    generatePdfButton.disabled = currentPreviewState === null;
 }
 
 function releaseRenderedFaceArt(): void {
@@ -455,6 +509,23 @@ function downloadArtCacheExport(exportBlob: Blob): void {
     link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
+}
+
+function downloadGeneratedPdf(cardName: string, pdfBlob: Blob): void {
+    const downloadUrl = URL.createObjectURL(pdfBlob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `${toDownloadSlug(cardName)}-${new Date().toISOString().slice(0, 10)}.pdf`;
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+}
+
+function toDownloadSlug(value: string): string {
+    return value
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "card";
 }
 
 

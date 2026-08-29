@@ -1,6 +1,6 @@
 declare module "*.css";
 
-declare module "pdfkit/js/pdfkit.browser.mjs" {
+declare module "pdfkit" {
     export class PDFDocument {
         constructor(options?: Record<string, unknown>);
     }

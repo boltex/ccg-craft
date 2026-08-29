@@ -46,7 +46,7 @@ let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
 
 export async function generateSingleCardPdf(input: GenerateSingleCardPdfInput): Promise<Blob> {
     const [{ default: PDFDocument }, { toBlob }] = await Promise.all([
-        import("pdfkit/js/pdfkit.browser.mjs"),
+        import("pdfkit"),
         import("pdfkit/output"),
     ]);
 
@@ -55,6 +55,7 @@ export async function generateSingleCardPdf(input: GenerateSingleCardPdfInput): 
         autoFirstPage: false,
         margin: 0,
         compress: true,
+        font: null,
     });
 
     const outputPromise = toBlob(document);

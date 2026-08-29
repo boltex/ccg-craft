@@ -16,7 +16,7 @@ export type PdfKitFontRegistry = {
 export type PdfKitImageSource = ArrayBuffer | Uint8Array | string;
 
 export type PdfKitGradient = {
-    stop(offset: number, color: string): PdfKitGradient;
+    stop(offset: number, color: string, opacity?: number): PdfKitGradient;
     apply(): void;
 };
 
@@ -37,8 +37,8 @@ export type PdfKitDocument = {
         y: number,
         options?: { width?: number; height?: number }
     ): PdfKitDocument;
-    fillColor(color: string): PdfKitDocument;
-    strokeColor(color: string): PdfKitDocument;
+    fillColor(color: string, opacity?: number): PdfKitDocument;
+    strokeColor(color: string, opacity?: number): PdfKitDocument;
     lineWidth(width: number): PdfKitDocument;
     font(src: string): PdfKitDocument;
     fontSize(size: number): PdfKitDocument;
@@ -60,7 +60,9 @@ type PdfKitGradientHandle = {
 
 type PdfKitFill = string | PdfKitGradientHandle;
 
-const DEFAULT_FONT_REGISTRY: PdfKitFontRegistry = {
+// Fallback-only PDF standard fonts. These are built into PDF readers rather than
+// being looked up from the operating system, so they avoid OS-level font-missing errors.
+const FALLBACK_PDF_FONT_REGISTRY: PdfKitFontRegistry = {
     regularText: "Times-Roman",
     titleText: "Times-Bold",
     manaSymbols: "Symbol",
@@ -77,7 +79,7 @@ export function createPdfKitRenderSurface(
     fonts: Partial<PdfKitFontRegistry> = {}
 ): RenderSurface {
     const fontRegistry = {
-        ...DEFAULT_FONT_REGISTRY,
+        ...FALLBACK_PDF_FONT_REGISTRY,
         ...fonts,
     };
 
@@ -86,12 +88,12 @@ export function createPdfKitRenderSurface(
     function applyTextStyle(style: TextStyle): void {
         document.font(resolvePdfKitFontName(style.fontFamily, fontRegistry));
         document.fontSize(style.fontSize);
-        document.fillColor(style.fillStyle);
+        applyFillColor(document, style.fillStyle);
     }
 
     function applyCurrentFill(): void {
         if (typeof currentFill === "string") {
-            document.fillColor(currentFill);
+            applyFillColor(document, currentFill);
             return;
         }
 
@@ -153,7 +155,7 @@ export function createPdfKitRenderSurface(
             currentFill = toPdfKitFill(document, fillStyle);
         },
         setStrokeStyle(strokeStyle) {
-            document.strokeColor(strokeStyle);
+            applyStrokeColor(document, strokeStyle);
         },
         setLineWidth(lineWidth) {
             document.lineWidth(lineWidth);
@@ -211,7 +213,8 @@ function toPdfKitFill(document: PdfKitDocument, fillStyle: FillStyle): PdfKitFil
     );
 
     fillStyle.stops.forEach(stop => {
-        gradient.stop(stop.offset, stop.color);
+        const normalized = normalizePdfKitColor(stop.color);
+        gradient.stop(stop.offset, normalized.color, normalized.opacity);
     });
 
     return {
@@ -257,4 +260,60 @@ function isPdfKitImageSource(image: RenderImageSource): image is PdfKitImageSour
     return typeof image === "string"
         || image instanceof ArrayBuffer
         || image instanceof Uint8Array;
+}
+
+function applyFillColor(document: PdfKitDocument, color: string): void {
+    const normalized = normalizePdfKitColor(color);
+    document.fillColor(normalized.color, normalized.opacity);
+}
+
+function applyStrokeColor(document: PdfKitDocument, color: string): void {
+    const normalized = normalizePdfKitColor(color);
+    document.strokeColor(normalized.color, normalized.opacity);
+}
+
+function normalizePdfKitColor(color: string): { color: string; opacity?: number } {
+    const normalized = color.trim();
+    const rgbMatch = normalized.match(/^rgba?\(([^)]+)\)$/i);
+
+    if (!rgbMatch) {
+        return { color: normalized };
+    }
+
+    const channels = rgbMatch[1].split(",").map(part => part.trim());
+    const [rawR, rawG, rawB, rawAlpha] = channels;
+
+    if (!rawR || !rawG || !rawB) {
+        return { color: normalized };
+    }
+
+    const r = clampColorChannel(Number.parseFloat(rawR));
+    const g = clampColorChannel(Number.parseFloat(rawG));
+    const b = clampColorChannel(Number.parseFloat(rawB));
+    const opacity = rawAlpha === undefined ? undefined : clampOpacity(Number.parseFloat(rawAlpha));
+
+    return {
+        color: `#${toHexByte(r)}${toHexByte(g)}${toHexByte(b)}`,
+        opacity,
+    };
+}
+
+function clampColorChannel(value: number): number {
+    if (!Number.isFinite(value)) {
+        return 0;
+    }
+
+    return Math.max(0, Math.min(255, Math.round(value)));
+}
+
+function clampOpacity(value: number): number | undefined {
+    if (!Number.isFinite(value)) {
+        return undefined;
+    }
+
+    return Math.max(0, Math.min(1, value));
+}
+
+function toHexByte(value: number): string {
+    return value.toString(16).padStart(2, "0");
 }

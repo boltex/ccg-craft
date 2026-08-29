@@ -102,7 +102,7 @@ export function createPdfKitRenderSurface(
         width,
         height,
         clearRect() {
-            throw new Error("PDF surfaces do not support clearRect. Fill the page background instead.");
+            // PDF pages start empty, so clearing is a no-op for this surface.
         },
         fillRect(x, y, rectWidth, rectHeight) {
             applyCurrentFill();

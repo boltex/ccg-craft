@@ -34,7 +34,7 @@ function getCardTextStyle(
 }
 
 function drawRectangleBevel(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderFaceContext["surface"],
     x: number,
     y: number,
     width: number,
@@ -64,57 +64,57 @@ function drawRectangleBevel(
     const innerBottom = intensity >= 0 ? y + height - bevelWidth : y + height;
 
     if (useTopLeftLight) {
-        ctx.fillStyle = utils.toCommaRgb(...lightColor);
-        ctx.beginPath();
-        ctx.moveTo(outerLeft, outerTop);
-        ctx.lineTo(outerRight, outerTop);
-        ctx.lineTo(innerRight, innerTop);
-        ctx.lineTo(innerLeft, innerTop);
-        ctx.lineTo(innerLeft, innerBottom);
-        ctx.lineTo(outerLeft, outerBottom);
-        ctx.closePath();
-        ctx.fill();
+        surface.setFillStyle(utils.toCommaRgb(...lightColor));
+        surface.beginPath();
+        surface.moveTo(outerLeft, outerTop);
+        surface.lineTo(outerRight, outerTop);
+        surface.lineTo(innerRight, innerTop);
+        surface.lineTo(innerLeft, innerTop);
+        surface.lineTo(innerLeft, innerBottom);
+        surface.lineTo(outerLeft, outerBottom);
+        surface.closePath();
+        surface.fill();
 
-        ctx.fillStyle = utils.toCommaRgb(...darkColor);
-        ctx.beginPath();
-        ctx.moveTo(outerRight, outerTop);
-        ctx.lineTo(outerRight, outerBottom);
-        ctx.lineTo(outerLeft, outerBottom);
-        ctx.lineTo(innerLeft, innerBottom);
-        ctx.lineTo(innerRight, innerBottom);
-        ctx.lineTo(innerRight, innerTop);
-        ctx.closePath();
-        ctx.fill();
+        surface.setFillStyle(utils.toCommaRgb(...darkColor));
+        surface.beginPath();
+        surface.moveTo(outerRight, outerTop);
+        surface.lineTo(outerRight, outerBottom);
+        surface.lineTo(outerLeft, outerBottom);
+        surface.lineTo(innerLeft, innerBottom);
+        surface.lineTo(innerRight, innerBottom);
+        surface.lineTo(innerRight, innerTop);
+        surface.closePath();
+        surface.fill();
 
         return;
     }
 
-    ctx.fillStyle = utils.toCommaRgb(...lightColor);
-    ctx.beginPath();
-    ctx.moveTo(outerLeft, outerTop);
-    ctx.lineTo(outerRight, outerTop);
-    ctx.lineTo(outerRight, outerBottom);
-    ctx.lineTo(innerRight, innerBottom);
-    ctx.lineTo(innerRight, innerTop);
-    ctx.lineTo(innerLeft, innerTop);
-    ctx.closePath();
-    ctx.fill();
+    surface.setFillStyle(utils.toCommaRgb(...lightColor));
+    surface.beginPath();
+    surface.moveTo(outerLeft, outerTop);
+    surface.lineTo(outerRight, outerTop);
+    surface.lineTo(outerRight, outerBottom);
+    surface.lineTo(innerRight, innerBottom);
+    surface.lineTo(innerRight, innerTop);
+    surface.lineTo(innerLeft, innerTop);
+    surface.closePath();
+    surface.fill();
 
-    ctx.fillStyle = utils.toCommaRgb(...darkColor);
-    ctx.beginPath();
-    ctx.moveTo(outerLeft, outerTop);
-    ctx.lineTo(innerLeft, innerTop);
-    ctx.lineTo(innerLeft, innerBottom);
-    ctx.lineTo(innerRight, innerBottom);
-    ctx.lineTo(outerRight, outerBottom);
-    ctx.lineTo(outerLeft, outerBottom);
-    ctx.closePath();
-    ctx.fill();
+    surface.setFillStyle(utils.toCommaRgb(...darkColor));
+    surface.beginPath();
+    surface.moveTo(outerLeft, outerTop);
+    surface.lineTo(innerLeft, innerTop);
+    surface.lineTo(innerLeft, innerBottom);
+    surface.lineTo(innerRight, innerBottom);
+    surface.lineTo(outerRight, outerBottom);
+    surface.lineTo(outerLeft, outerBottom);
+    surface.closePath();
+    surface.fill();
 }
 
 export function renderFace(renderCtx: RenderFaceContext): void {
 
-    const { ctx, face, layout, scene } = renderCtx;
+    const { ctx, surface, face, layout, scene } = renderCtx;
 
     // faceLayout 3 is the bottom flip side of a 180 degree flip card, so we don't draw the frame
     //  background, manacost or art for that face which is already drawn on the top face.
@@ -151,11 +151,11 @@ export function renderFace(renderCtx: RenderFaceContext): void {
 }
 
 function drawFrameBackground(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
     const bounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
 
-    ctx.fillStyle = utils.toCommaRgb(...face.faceColors.frameColor);
-    ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
+    surface.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 
     // Now draw a bevel inside the frame to give it some depth
     // using utils.darkenColor and utils.lightenColor. 
@@ -165,7 +165,7 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
 
     drawRectangleBevel(
-        ctx,
+        surface,
         bounds.x,
         bounds.y,
         bounds.width,
@@ -177,13 +177,13 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     );
 
     // ctx.strokeStyle = "black";
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
-    ctx.lineWidth = Math.max(1, scene.scale);
-    ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
+    surface.setLineWidth(Math.max(1, scene.scale));
+    surface.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
 }
 
 function drawTextBox(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
 
     const fill = !face.manaCost && !face.isACreature
@@ -192,26 +192,26 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
     switch (fill.kind) {
         case "solid": {
-            ctx.fillStyle = utils.toCommaRgb(...fill.color);
-            ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+            surface.setFillStyle(utils.toCommaRgb(...fill.color));
+            surface.fillRect(rect.x, rect.y, rect.width, rect.height);
             break;
         }
 
         case "split": {
-            const gradient = ctx.createLinearGradient(
-                rect.x,
-                rect.y,
-                rect.x + rect.width,
-                rect.y
-            );
-
-            gradient.addColorStop(0, utils.toCommaRgb(...fill.first));
-            gradient.addColorStop(0.37, utils.toCommaRgb(...fill.first));
-            gradient.addColorStop(0.63, utils.toCommaRgb(...fill.second));
-            gradient.addColorStop(1, utils.toCommaRgb(...fill.second));
-
-            ctx.fillStyle = gradient;
-            ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+            surface.setFillStyle({
+                kind: "linear-gradient",
+                x0: rect.x,
+                y0: rect.y,
+                x1: rect.x + rect.width,
+                y1: rect.y,
+                stops: [
+                    { offset: 0, color: utils.toCommaRgb(...fill.first) },
+                    { offset: 0.37, color: utils.toCommaRgb(...fill.first) },
+                    { offset: 0.63, color: utils.toCommaRgb(...fill.second) },
+                    { offset: 1, color: utils.toCommaRgb(...fill.second) },
+                ],
+            });
+            surface.fillRect(rect.x, rect.y, rect.width, rect.height);
             break;
         }
 
@@ -220,8 +220,8 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 const inset = index * 6 * scene.scale;
                 const color = fill.colors[index % 2];
 
-                ctx.fillStyle = utils.toCommaRgb(...color);
-                ctx.fillRect(
+                surface.setFillStyle(utils.toCommaRgb(...color));
+                surface.fillRect(
                     rect.x + inset,
                     rect.y + inset,
                     rect.width - inset * 2,
@@ -232,13 +232,13 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         }
     }
 
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
-    ctx.lineWidth = Math.max(1, scene.scale * 0.5);
-    ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+    surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
+    surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+    surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
 }
 
 function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
 
     const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.24);
@@ -247,7 +247,7 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
     const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
 
     drawRectangleBevel(
-        ctx,
+        surface,
         rect.x,
         rect.y,
         rect.width,
@@ -261,7 +261,7 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
 }
 
 function drawArtBitmap(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
     const artImage = renderCtx.options.artByFaceSerial?.get(face.serial);
@@ -271,29 +271,29 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
 
     if (artImage) {
         if (shouldRotateArt) {
-            ctx.save();
-            ctx.translate(rect.x + rect.width / 2, rect.y + rect.height / 2);
-            ctx.rotate((90 * Math.PI) / -180);
-            ctx.drawImage(artImage, -rect.height / 2, -rect.width / 2, rect.height, rect.width);
-            ctx.restore();
+            surface.save();
+            surface.translate(rect.x + rect.width / 2, rect.y + rect.height / 2);
+            surface.rotate((90 * Math.PI) / -180);
+            surface.drawImage(artImage, -rect.height / 2, -rect.width / 2, rect.height, rect.width);
+            surface.restore();
         } else {
-            ctx.drawImage(artImage, rect.x, rect.y, rect.width, rect.height);
+            surface.drawImage(artImage, rect.x, rect.y, rect.width, rect.height);
         }
 
-        ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
-        ctx.lineWidth = Math.max(1, scene.scale * 0.5);
-        ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+        surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
+        surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
         return;
     }
 
     const artPath = utils.toArtRelativePath(face.name);
 
-    ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
-    ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+    surface.setFillStyle("rgba(255, 255, 255, 0.18)");
+    surface.fillRect(rect.x, rect.y, rect.width, rect.height);
 
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
-    ctx.lineWidth = Math.max(1, scene.scale * 0.5);
-    ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+    surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
+    surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+    surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
 
     const label = ["ART", artPath].join("\n");
     const centerX = rect.x + rect.width / 2;
@@ -304,7 +304,7 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
     const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
 
     for (let index = 0; index < lines.length; index++) {
-        drawStyledText(ctx, lines[index], centerX, startY + index * lineHeight, {
+        drawStyledText(surface, lines[index], centerX, startY + index * lineHeight, {
             fontFamily: "serif",
             fontSize: 10 * scene.scale,
             fillStyle: "rgba(0, 0, 0, 0.75)",
@@ -316,8 +316,8 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
 }
 
 function drawNameLine(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
-    drawStyledText(ctx, face.name,
+    const { surface, face, layout, scene } = renderCtx;
+    drawStyledText(surface, face.name,
         layout.xname + scene.offsetX,
         layout.yname + scene.offsetY,
         getCardTextStyle(scene.scale, "Medieval, serif", 13, {
@@ -327,8 +327,8 @@ function drawNameLine(renderCtx: RenderFaceContext): void {
 }
 
 function drawTypeLine(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
-    drawStyledText(ctx, face.typeLine,
+    const { surface, face, layout, scene } = renderCtx;
+    drawStyledText(surface, face.typeLine,
         layout.xtypeline + scene.offsetX,
         layout.ytypeline + scene.offsetY,
         getCardTextStyle(scene.scale, "Plantin, serif", 11, {
@@ -341,14 +341,14 @@ function drawEditionBadge(renderCtx: RenderFaceContext): void {
 
     // Has to be done in two passes: once with the ExpBack and once with
     // the ExpFront, because the ExpBack is a background for the ExpFront, and we want to draw the background first, then the front on top of it.
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
 
     // Build character string for edition badge.
     // example from old basic code: stg$=CHR$(Edition(face)+32)
     const edString = String.fromCharCode(face.edition + 34);
 
     drawStyledText(
-        ctx,
+        surface,
         edString,
         layout.xedition + scene.offsetX,
         layout.yedition + scene.offsetY,
@@ -366,7 +366,7 @@ function drawEditionBadge(renderCtx: RenderFaceContext): void {
     );
 
     drawStyledText(
-        ctx,
+        surface,
         edString,
         layout.xedition + scene.offsetX,
         layout.yedition + scene.offsetY,
@@ -385,14 +385,14 @@ function drawEditionBadge(renderCtx: RenderFaceContext): void {
 }
 
 function drawManaCost(renderCtx: RenderFaceContext): void {
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
 
     if (!face.manaCost) {
         return;
     }
 
     drawManaCostRow(
-        ctx,
+        surface,
         face.manaCost,
         layout.xmana + scene.offsetX,
         layout.ymana + scene.offsetY,
@@ -407,13 +407,13 @@ function drawManaCost(renderCtx: RenderFaceContext): void {
 
 function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
-    const { ctx, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene } = renderCtx;
 
     if (!face.isACreature) {
         return;
     }
 
-    drawStyledText(ctx, face.powerToughness,
+    drawStyledText(surface, face.powerToughness,
         layout.xpowertough + scene.offsetX,
         layout.ypowertough + scene.offsetY,
         getCardTextStyle(scene.scale, "Plantin, serif", 13, {
@@ -425,11 +425,11 @@ function drawPowerToughness(renderCtx: RenderFaceContext): void {
 
 function drawRulesText(renderCtx: RenderFaceContext): void {
 
-    const { ctx, face, layout, scene } = renderCtx;
-    const fittedLayout = fitRulesText(ctx, face, layout, scene.scale);
+    const { surface, face, layout, scene } = renderCtx;
+    const fittedLayout = fitRulesText(surface, face, layout, scene.scale);
 
     drawWrappedRulesText(
-        ctx,
+        surface,
         fittedLayout,
         layout,
         scene.offsetX,

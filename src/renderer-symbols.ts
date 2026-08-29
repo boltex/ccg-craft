@@ -1,5 +1,6 @@
 import type { Color } from "./types";
 import * as constants from "./constants";
+import type { RenderSurface, TextStyle } from "./renderer-surface";
 import * as utils from "./utils";
 
 export type ManaSymbol = {
@@ -72,7 +73,7 @@ export function measureManaSymbol(size: number): number {
 };
 
 export function drawManaSymbol(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     symbol: ManaSymbol,
     x: number,
     y: number,
@@ -80,35 +81,44 @@ export function drawManaSymbol(
     rotationDegrees = 0
 ): void {
     const isCompactNumeric = /^\d{2}$/.test(symbol.code);
+    const baseStyle: TextStyle = {
+        fontFamily: SYMBOL_FONT_FAMILY,
+        fontSize: size,
+        fillStyle: utils.toCommaRgb(...symbol.bg),
+        textAlign: "left",
+        textBaseline: "hanging",
+        strokeStyle: "transparent",
+    };
 
-    ctx.save();
-
-    ctx.font = `${size}px ${SYMBOL_FONT_FAMILY}`;
-    ctx.textAlign = "left";
-    ctx.textBaseline = "hanging";
-    ctx.strokeStyle = "transparent";
-
-    ctx.translate(x, y);
+    surface.save();
+    surface.translate(x, y);
 
     if (rotationDegrees) {
-        ctx.rotate((rotationDegrees * Math.PI) / -180);
+        surface.rotate((rotationDegrees * Math.PI) / -180);
     }
 
-    ctx.fillStyle = utils.toCommaRgb(...symbol.bg);
-    ctx.fillText(MANA_BACK_SYMBOL, 0, 0);
+    surface.applyTextStyle(baseStyle);
+    surface.fillText(MANA_BACK_SYMBOL, 0, 0);
 
-    ctx.fillStyle = utils.toCommaRgb(...symbol.fg);
+    surface.applyTextStyle({
+        ...baseStyle,
+        fillStyle: utils.toCommaRgb(...symbol.fg),
+    });
 
     if (!isCompactNumeric) {
-        ctx.fillText(symbol.code, 0, 0);
-        ctx.restore();
+        surface.fillText(symbol.code, 0, 0);
+        surface.restore();
         return;
     }
 
-    ctx.font = `${size * COMPACT_NUMERIC_SCALE}px ${SYMBOL_FONT_FAMILY}`;
+    const compactStyle: TextStyle = {
+        ...baseStyle,
+        fontSize: size * COMPACT_NUMERIC_SCALE,
+        fillStyle: utils.toCommaRgb(...symbol.fg),
+    };
 
     const digits = symbol.code.split("");
-    const digitWidths = digits.map(digit => ctx.measureText(digit).width);
+    const digitWidths = digits.map(digit => surface.measureText(digit, compactStyle));
     const tracking = COMPACT_NUMERIC_TRACKING * (size / 13);
     const compactWidth = digitWidths.reduce((total, width) => total + width, 0)
         + tracking * (digits.length - 1);
@@ -124,17 +134,18 @@ export function drawManaSymbol(
     const compactY = size * COMPACT_NUMERIC_VERTICAL_OFFSET;
 
     let digitX = compactX;
+    surface.applyTextStyle(compactStyle);
 
     digits.forEach((digit, index) => {
-        ctx.fillText(digit, digitX, compactY);
+        surface.fillText(digit, digitX, compactY);
         digitX += digitWidths[index] + tracking;
     });
 
-    ctx.restore();
-};
+    surface.restore();
+}
 
 export function drawManaCostRow(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     manaCost: string,
     x: number,
     y: number,
@@ -159,7 +170,7 @@ export function drawManaCostRow(
         const symbolY = options.direction === "vertical" ? y + offset : y;
 
         drawManaSymbol(
-            ctx,
+            surface,
             symbol,
             symbolX,
             symbolY,
@@ -167,4 +178,4 @@ export function drawManaCostRow(
             options.rotationDegrees ?? 0
         );
     });
-};
+}

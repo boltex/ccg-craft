@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import { createCanvasRenderSurface, type RenderSurface } from "./renderer-surface";
 import type { PrintableFace, FaceLayout } from "./types";
 import { getScaledFaceLayout } from "./renderer-geometry";
 import {
@@ -21,6 +22,7 @@ export type RenderCardScene = {
 
 export type RenderFaceContext = {
     ctx: CanvasRenderingContext2D;
+    surface: RenderSurface;
     scene: RenderCardScene;
     face: PrintableFace;
     layout: FaceLayout;
@@ -34,12 +36,13 @@ export function renderCardPreview(
 ): void {
     const canvas = ctx.canvas as HTMLCanvasElement;
     const scene = createRenderScene(canvas, options);
+    const surface = createCanvasRenderSurface(ctx);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    surface.clearRect(0, 0, canvas.width, canvas.height);
 
     if (options.background) {
-        ctx.fillStyle = options.background;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        surface.setFillStyle(options.background);
+        surface.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     for (const face of faces) {
@@ -51,6 +54,7 @@ export function renderCardPreview(
 
         renderFace({
             ctx,
+            surface,
             scene,
             face,
             layout,

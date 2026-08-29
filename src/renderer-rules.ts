@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import type { RenderSurface, TextStyle } from "./renderer-surface";
 import type { PrintableFace, FaceLayout } from "./types";
 import { drawManaSymbol, manaTokenToSymbol, measureManaSymbol } from "./renderer-symbols";
 
@@ -29,25 +30,28 @@ const RULES_FONT_FAMILY = "Plantin, serif";
 const MIN_RULES_FONT_SIZE = 8;
 const MAX_RULES_FONT_SIZE = 13;
 
-function getRulesFont(ctx: CanvasRenderingContext2D, fontSize: number): void {
-    ctx.font = `${fontSize}px ${RULES_FONT_FAMILY}`;
+function getRulesTextStyle(fontSize: number): TextStyle {
+    return {
+        fontFamily: RULES_FONT_FAMILY,
+        fontSize,
+        fillStyle: "black",
+        textAlign: "left",
+        textBaseline: "hanging",
+        shadowColor: "transparent",
+        strokeStyle: "transparent",
+    };
 }
 
-function measureRulesText(ctx: CanvasRenderingContext2D, text: string, fontSize: number): number {
+function measureRulesText(surface: RenderSurface, text: string, fontSize: number): number {
     if (!text) {
         return 0;
     }
 
-    ctx.save();
-    getRulesFont(ctx, fontSize);
-    const width = ctx.measureText(text).width;
-    ctx.restore();
-
-    return width;
+    return surface.measureText(text, getRulesTextStyle(fontSize));
 }
 
 function measureRulesToken(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     token: RulesToken,
     fontSize: number,
     symbolSize: number
@@ -56,22 +60,22 @@ function measureRulesToken(
         return measureManaSymbol(symbolSize);
     }
 
-    return measureRulesText(ctx, token.value, fontSize);
+    return measureRulesText(surface, token.value, fontSize);
 }
 
 function measureRulesLine(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     tokens: RulesToken[],
     fontSize: number,
     symbolSize: number
 ): number {
     return tokens.reduce((total, token) => (
-        total + measureRulesToken(ctx, token, fontSize, symbolSize)
+        total + measureRulesToken(surface, token, fontSize, symbolSize)
     ), 0);
 }
 
 function splitParagraphIntoUnits(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     paragraph: RulesToken[],
     fontSize: number,
     symbolSize: number
@@ -86,7 +90,7 @@ function splitParagraphIntoUnits(
 
         units.push({
             tokens: currentUnit,
-            width: measureRulesLine(ctx, currentUnit, fontSize, symbolSize),
+            width: measureRulesLine(surface, currentUnit, fontSize, symbolSize),
         });
         currentUnit = [];
     };
@@ -143,7 +147,7 @@ function getCandidateFontSizes(faceLayout: number): number[] {
 }
 
 function buildWrappedLines(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     paragraphs: RulesToken[][],
     maxWidth: number,
     fontSize: number,
@@ -152,7 +156,7 @@ function buildWrappedLines(
     const lines: WrappedRulesLine[] = [];
 
     paragraphs.forEach((paragraph, paragraphIndex) => {
-        const wrappedParagraph = wrapRulesParagraph(ctx, paragraph, maxWidth, fontSize, symbolSize);
+        const wrappedParagraph = wrapRulesParagraph(surface, paragraph, maxWidth, fontSize, symbolSize);
 
         if (wrappedParagraph.length > 0) {
             const lastLineIndex = wrappedParagraph.length - 1;
@@ -212,15 +216,15 @@ export function tokenizeRulesParagraphs(lines: string[]): RulesToken[][] {
         .map(tokenizeRulesText);
 }
 export function wrapRulesParagraph(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     paragraph: RulesToken[],
     maxWidth: number,
     fontSize: number,
     symbolSize: number
 ): WrappedRulesLine[] {
-    const units = splitParagraphIntoUnits(ctx, paragraph, fontSize, symbolSize);
+    const units = splitParagraphIntoUnits(surface, paragraph, fontSize, symbolSize);
     const spaceToken: RulesToken = { kind: "text", value: " " };
-    const spaceWidth = measureRulesText(ctx, " ", fontSize);
+    const spaceWidth = measureRulesText(surface, " ", fontSize);
     const lines: WrappedRulesLine[] = [];
     let currentTokens: RulesToken[] = [];
     let currentWidth = 0;
@@ -261,7 +265,7 @@ export function wrapRulesParagraph(
 }
 
 export function fitRulesText(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     face: PrintableFace,
     layout: FaceLayout,
     scale: number
@@ -289,7 +293,7 @@ export function fitRulesText(
         const scaledFontSize = size * scale;
         const symbolSize = scaledFontSize;
         const lineHeight = getLineHeightForFontSize(size, scale);
-        const lines = buildWrappedLines(ctx, paragraphs, limits.width, scaledFontSize, symbolSize);
+        const lines = buildWrappedLines(surface, paragraphs, limits.width, scaledFontSize, symbolSize);
         const usedHeight = getRulesHeight(lines, lineHeight);
         const usedWidth = lines.reduce((maxWidth, line) => Math.max(maxWidth, line.width), 0);
 
@@ -350,7 +354,7 @@ export function fitRulesText(
 }
 
 export function drawWrappedRulesText(
-    ctx: CanvasRenderingContext2D,
+    surface: RenderSurface,
     layout: FittedRulesLayout,
     faceLayout: FaceLayout,
     originX: number,
@@ -360,19 +364,14 @@ export function drawWrappedRulesText(
         return;
     }
 
-    ctx.save();
-    ctx.translate(originX + faceLayout.xtext + layout.xAdjust, originY + faceLayout.ytext + layout.yAdjust);
+    surface.save();
+    surface.translate(originX + faceLayout.xtext + layout.xAdjust, originY + faceLayout.ytext + layout.yAdjust);
 
     if (faceLayout.textangle) {
-        ctx.rotate((faceLayout.textangle * Math.PI) / -180);
+        surface.rotate((faceLayout.textangle * Math.PI) / -180);
     }
 
-    ctx.fillStyle = "black";
-    ctx.textAlign = "left";
-    ctx.textBaseline = "hanging";
-    ctx.shadowColor = "transparent";
-    ctx.strokeStyle = "transparent";
-    getRulesFont(ctx, layout.fontSize);
+    surface.applyTextStyle(getRulesTextStyle(layout.fontSize));
 
     // If regular layout then add a small offset to the cursorY to avoid text being too close to the top.
     let cursorY = 0;
@@ -385,7 +384,7 @@ export function drawWrappedRulesText(
                 const symbol = manaTokenToSymbol(token.value);
 
                 if (symbol) {
-                    drawManaSymbol(ctx, symbol, cursorX, cursorY, layout.fontSize, 0);
+                    drawManaSymbol(surface, symbol, cursorX, cursorY, layout.fontSize, 0);
                     cursorX += measureManaSymbol(layout.fontSize);
                 }
 
@@ -393,8 +392,8 @@ export function drawWrappedRulesText(
             }
 
             if (token.value.length > 0) {
-                ctx.fillText(token.value, cursorX, cursorY);
-                cursorX += measureRulesText(ctx, token.value, layout.fontSize);
+                surface.fillText(token.value, cursorX, cursorY);
+                cursorX += measureRulesText(surface, token.value, layout.fontSize);
             }
         }
 
@@ -405,5 +404,5 @@ export function drawWrappedRulesText(
         }
     });
 
-    ctx.restore();
+    surface.restore();
 }

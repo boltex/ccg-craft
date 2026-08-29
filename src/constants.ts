@@ -77,6 +77,16 @@ export const CardWidth = 232;
 export const CardHeight = 330;
 export const MCWidth = 12;
 
+export const PointsPerInch = 72;
+export const PdfPageWidthInches = 8.5;
+export const PdfPageHeightInches = 11;
+export const PdfCardWidthInches = 2.5;
+export const PdfCardHeightInches = 3.5;
+export const PdfPageWidth = PdfPageWidthInches * PointsPerInch;
+export const PdfPageHeight = PdfPageHeightInches * PointsPerInch;
+export const PdfCardWidth = PdfCardWidthInches * PointsPerInch;
+export const PdfCardHeight = PdfCardHeightInches * PointsPerInch;
+
 // FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB
 export const FaceLayouts: { [key: number]: FaceLayout } = {
     0: {

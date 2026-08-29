@@ -29,6 +29,12 @@ export type LinearGradientFill = {
 };
 
 export type FillStyle = string | LinearGradientFill;
+export type RenderImageSource = CanvasImageSource | ArrayBuffer | Uint8Array | string;
+
+export type RenderSurfaceSize = {
+    width: number;
+    height: number;
+};
 
 export interface RenderSurface {
     readonly width: number;
@@ -45,7 +51,7 @@ export interface RenderSurface {
     lineTo(x: number, y: number): void;
     closePath(): void;
     fill(): void;
-    drawImage(image: CanvasImageSource, x: number, y: number, width: number, height: number): void;
+    drawImage(image: RenderImageSource, x: number, y: number, width: number, height: number): void;
     setFillStyle(fillStyle: FillStyle): void;
     setStrokeStyle(strokeStyle: string): void;
     setLineWidth(width: number): void;
@@ -57,6 +63,14 @@ export interface RenderSurface {
 
 export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): RenderSurface {
     const canvas = ctx.canvas as HTMLCanvasElement;
+
+    function assertCanvasImageSource(image: RenderImageSource): CanvasImageSource {
+        if (typeof image === "string" || image instanceof ArrayBuffer || image instanceof Uint8Array) {
+            throw new Error("Canvas render surface requires a canvas-compatible image source.");
+        }
+
+        return image;
+    }
 
     function applyCanvasTextStyle(style: TextStyle): void {
         const weight = style.fontWeight ? `${style.fontWeight} ` : "";
@@ -111,7 +125,7 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
             ctx.fill();
         },
         drawImage(image, x, y, width, height) {
-            ctx.drawImage(image, x, y, width, height);
+            ctx.drawImage(assertCanvasImageSource(image), x, y, width, height);
         },
         setFillStyle(fillStyle) {
             if (typeof fillStyle === "string") {

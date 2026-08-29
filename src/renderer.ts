@@ -1,5 +1,10 @@
 import * as constants from "./constants";
-import { createCanvasRenderSurface, type RenderSurface } from "./renderer-surface";
+import {
+    createCanvasRenderSurface,
+    type RenderImageSource,
+    type RenderSurface,
+    type RenderSurfaceSize,
+} from "./renderer-surface";
 import type { PrintableFace, FaceLayout } from "./types";
 import { getScaledFaceLayout } from "./renderer-geometry";
 import {
@@ -9,7 +14,7 @@ import {
 export type RenderCardOptions = {
     padding?: number;
     background?: string;
-    artByFaceSerial?: ReadonlyMap<number, CanvasImageSource>;
+    artByFaceSerial?: ReadonlyMap<number, RenderImageSource>;
 };
 
 export type RenderCardScene = {
@@ -21,7 +26,6 @@ export type RenderCardScene = {
 };
 
 export type RenderFaceContext = {
-    ctx: CanvasRenderingContext2D;
     surface: RenderSurface;
     scene: RenderCardScene;
     face: PrintableFace;
@@ -34,15 +38,22 @@ export function renderCardPreview(
     faces: Array<PrintableFace | undefined>,
     options: RenderCardOptions = {}
 ): void {
-    const canvas = ctx.canvas as HTMLCanvasElement;
-    const scene = createRenderScene(canvas, options);
     const surface = createCanvasRenderSurface(ctx);
+    renderCardToSurface(surface, faces, options);
+}
 
-    surface.clearRect(0, 0, canvas.width, canvas.height);
+export function renderCardToSurface(
+    surface: RenderSurface,
+    faces: Array<PrintableFace | undefined>,
+    options: RenderCardOptions = {}
+): void {
+    const scene = createRenderScene(surface, options);
+
+    surface.clearRect(0, 0, surface.width, surface.height);
 
     if (options.background) {
         surface.setFillStyle(options.background);
-        surface.fillRect(0, 0, canvas.width, canvas.height);
+        surface.fillRect(0, 0, surface.width, surface.height);
     }
 
     for (const face of faces) {
@@ -53,7 +64,6 @@ export function renderCardPreview(
         const layout = getScaledFaceLayout(face.faceLayout, scene.scale);
 
         renderFace({
-            ctx,
             surface,
             scene,
             face,
@@ -64,12 +74,12 @@ export function renderCardPreview(
 }
 
 export function createRenderScene(
-    canvas: HTMLCanvasElement,
+    target: RenderSurfaceSize,
     options: RenderCardOptions = {}
 ): RenderCardScene {
     const padding = options.padding ?? 20;
-    const availableWidth = Math.max(1, canvas.width - padding * 2);
-    const availableHeight = Math.max(1, canvas.height - padding * 2);
+    const availableWidth = Math.max(1, target.width - padding * 2);
+    const availableHeight = Math.max(1, target.height - padding * 2);
 
     const scale = Math.min(
         availableWidth / constants.CardWidth,
@@ -81,8 +91,8 @@ export function createRenderScene(
 
     return {
         scale,
-        offsetX: (canvas.width - cardWidth) / 2,
-        offsetY: (canvas.height - cardHeight) / 2,
+        offsetX: (target.width - cardWidth) / 2,
+        offsetY: (target.height - cardHeight) / 2,
         cardWidth,
         cardHeight,
     };

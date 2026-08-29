@@ -114,7 +114,7 @@ function drawRectangleBevel(
 
 export function renderFace(renderCtx: RenderFaceContext): void {
 
-    const { ctx, surface, face, layout, scene } = renderCtx;
+    const { face } = renderCtx;
 
     // faceLayout 3 is the bottom flip side of a 180 degree flip card, so we don't draw the frame
     //  background, manacost or art for that face which is already drawn on the top face.

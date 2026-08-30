@@ -234,7 +234,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
 };
 
 export const TextSizeLimits = [
-    [190, 88],
+    [190, 96],
     [190, 62],
     [139, 65],
     [190, 62],

@@ -328,7 +328,7 @@ export function fitRulesText(
 
             let verticalAdjustment = 0;
             if (shouldCenter) {
-                verticalAdjustment = candidateLayout.lineHeight * 0.35;
+                verticalAdjustment = candidateLayout.lineHeight * 0.25;
             }
 
             return {

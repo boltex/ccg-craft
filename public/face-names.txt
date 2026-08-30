@@ -314,7 +314,7 @@ City of Brass
 Cuombajj Witches
 Cyclone
 Dancing Scimitar
-Dandan
+Dandân
 Desert
 Desert Nomads
 Desert Twister
@@ -329,21 +329,21 @@ Eye for an Eye
 Fishliver Oil
 Flying Carpet
 Flying Men
-Ghazban Ogre
+Ghazbán Ogre
 Giant Tortoise
 Guardian Beast
 Hasran Ogress
 Hurr Jackal
-Ifh-Biff Efreet
+Ifh-Bíff Efreet
 Island Fish Jasconius
 Island of Wak-Wak
 Jandor's Ring
 Jandor's Saddlebags
 Jeweled Bird
 Jihad
-Junun Efreet
-Juzam Djinn
-Khabal Ghoul
+Junún Efreet
+Juzám Djinn
+Khabál Ghoul
 King Suleiman
 Kird Ape
 Library of Alexandria
@@ -359,7 +359,7 @@ Oubliette
 Piety
 Pyramids
 Repentant Blacksmith
-Ring of Ma'ruf
+Ring of Ma'rûf
 Rukh Egg
 Sandals of Abdallah
 Sandstorm
@@ -1174,18 +1174,18 @@ Land Cap
 Lapis Lazuli Talisman
 Lava Burst
 Lava Tubes
-Legions of Lim-Dul
+Legions of Lim-Dûl
 Leshrac's Rite
 Leshrac's Sigil
 Lhurgoyf
 Lightning Blow
-Lim-Dul's Cohort
-Lim-Dul's Hex
+Lim-Dûl's Cohort
+Lim-Dûl's Hex
 Lost Order of Jarkeld
 Maddening Wind
 Magus of the Unseen
 Malachite Talisman
-Marton Stromgald
+Márton Stromgald
 Melee
 Melting
 Mercenaries
@@ -1212,7 +1212,7 @@ Naked Singularity
 Nature's Lore
 Necropotence
 Norritt
-Oath of Lim-Dul
+Oath of Lim-Dûl
 Onyx Talisman
 Orcish Cannoneers
 Orcish Conscripts
@@ -1516,9 +1516,9 @@ Krovikan Plague
 Lake of the Dead
 Lat-Nam's Legacy
 Library of Lat-Nam
-Lim-Dul's High Guard
-Lim-Dul's Paladin
-Lim-Dul's Vault
+Lim-Dûl's High Guard
+Lim-Dûl's Paladin
+Lim-Dûl's Vault
 Lodestone Bauble
 Lord of Tresserhorn
 Martyrdom
@@ -2104,7 +2104,7 @@ Blossoming Wreath
 Bogardan Firefiend
 Boiling Blood
 Bone Dancer
-Bosium Strip
+Bösium Strip
 Briar Shield
 Bubble Matrix
 Buried Alive
@@ -7106,7 +7106,7 @@ Cruel Tutor
 Deep Wood
 Deep-Sea Serpent
 Defiant Stand
-Deja Vu
+Déjà Vu
 Desert Drake
 Devastation
 Devoted Hero

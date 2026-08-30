@@ -96,7 +96,7 @@ Creature - Ali-from-Cairo
 Creature - Maiden
 Creature - Camel
 Creature - Witch
-Creature - Dandan
+Creature - Dandân
 Land - Desert
 Creature - Nomad
 Creature - El-Hajjâj

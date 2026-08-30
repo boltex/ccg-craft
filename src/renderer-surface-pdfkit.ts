@@ -170,6 +170,16 @@ export function createPdfKitRenderSurface(
         drawText(text, x, y, style) {
             document.save();
             applyTextStyle(style);
+
+
+            // If right align, calculate the width and adjust the x position accordingly. leaving left align.
+            let align = toPdfKitTextAlign(style.textAlign);
+            let textWidth = document.widthOfString(text);
+            if (align === "right") {
+                document.translate(-textWidth, 0);
+                align = "left"; // After translating for right alignment, treat as left for further calculations.
+            }
+
             document.translate(x, y);
 
             if (style.rotationDegrees) {
@@ -188,7 +198,7 @@ export function createPdfKitRenderSurface(
                 document.text(text, style.shadowOffsetX ?? 0, style.shadowOffsetY ?? 0, {
                     lineBreak: false,
                     width: style.maxWidth,
-                    align: toPdfKitTextAlign(style.textAlign),
+                    align: align,
                 });
                 document.restore();
             }
@@ -196,7 +206,7 @@ export function createPdfKitRenderSurface(
             document.text(text, 0, 0, {
                 lineBreak: false,
                 width: style.maxWidth,
-                align: toPdfKitTextAlign(style.textAlign),
+                align: align,
             });
             document.restore();
         },

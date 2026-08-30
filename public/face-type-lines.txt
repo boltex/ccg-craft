@@ -99,7 +99,7 @@ Creature - Witch
 Creature - Dandan
 Land - Desert
 Creature - Nomad
-Creature - El-Hajjaj
+Creature - El-Hajjâj
 Creature - Raider
 Creature - Flying-Men
 Creature - Tortoise

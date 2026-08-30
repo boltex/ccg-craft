@@ -27,6 +27,7 @@ Other card generation data
 
 		Format: First line is just the total, then all the lines follow like so
 		with the serial (1-based), then the lowercased name (in alphabetical order)
+		USED FOR SEARCHING SO NO ACCENTS ON LETTERS: el-hajjaj instead of El-Hajjâj
 		(first 16 lines sample):
 
 7425

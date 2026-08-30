@@ -321,7 +321,7 @@
 321, 321, 0, AN, Drop of Honey
 322, 322, 0, AN, Ebony Horse
 323, 323, 0, AN, Elephant Graveyard
-324, 324, 0, AN, El-Hajjaj
+324, 324, 0, AN, El-Hajjâj
 325, 325, 0, AN, Erg Raiders
 326, 326, 0, AN, Erhnam Djinn
 327, 327, 0, AN, Eye for an Eye

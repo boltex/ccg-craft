@@ -70,6 +70,13 @@ const FALLBACK_PDF_FONT_REGISTRY: PdfKitFontRegistry = {
     expansionBack: "Helvetica-Bold",
 };
 
+const VERTICAL_TEXT_OFFSET_DEFAULT: number = 0.08; // generic factor
+const VERTICAL_TEXT_OFFSET_PLANTIN: number = 0.02; // font related factor
+const VERTICAL_TEXT_OFFSET_MEDIEVAL: number = 0.15; // font related factor
+const VERTICAL_TEXT_OFFSET_SYMBOLS: number = 0.15; // font related factor
+
+let pdfKitVerticalTextOffset: number = 0; // offset (pdfkit vs canvas text position), set each time a new text style is applied
+
 export function createPdfKitRenderSurface(
     document: PdfKitDocument,
     width: number,
@@ -84,6 +91,20 @@ export function createPdfKitRenderSurface(
     let currentFill: PdfKitFill = "black";
 
     function applyTextStyle(style: TextStyle): void {
+
+        if (style.fontFamily.includes("Plantin")) {
+            pdfKitVerticalTextOffset = VERTICAL_TEXT_OFFSET_PLANTIN * style.fontSize;
+        } else if (style.fontFamily.includes("Medieval")) {
+            pdfKitVerticalTextOffset = VERTICAL_TEXT_OFFSET_MEDIEVAL * style.fontSize;
+        } else if (style.fontFamily.includes("Symbols")) {
+            pdfKitVerticalTextOffset = VERTICAL_TEXT_OFFSET_SYMBOLS * style.fontSize;
+        } else {
+            // For ExpFront and ExpBack fonts
+            pdfKitVerticalTextOffset = VERTICAL_TEXT_OFFSET_DEFAULT * style.fontSize;
+            console.log(`Using default vertical text offset for font family: ${style.fontFamily}`);
+        }
+
+        // console.log(style.fontSize);
         document.font(resolvePdfKitFontName(style.fontFamily, fontRegistry));
         document.fontSize(style.fontSize);
         applyFillColor(document, style.fillStyle);
@@ -162,7 +183,11 @@ export function createPdfKitRenderSurface(
             applyTextStyle(style);
         },
         fillText(text, x, y, maxWidth) {
-            document.text(text, x, y, {
+            if (!pdfKitVerticalTextOffset) {
+                console.log("pdfKitVerticalTextOffset is not set.");
+            }
+
+            document.text(text, x, y - pdfKitVerticalTextOffset, {
                 lineBreak: false,
                 width: maxWidth,
             });
@@ -195,15 +220,23 @@ export function createPdfKitRenderSurface(
                     shadowOffsetX: undefined,
                     shadowOffsetY: undefined,
                 });
-                document.text(text, style.shadowOffsetX ?? 0, style.shadowOffsetY ?? 0, {
+
+                if (!pdfKitVerticalTextOffset) {
+                    console.log("pdfKitVerticalTextOffset is not set.");
+                }
+
+                document.text(text, style.shadowOffsetX ?? 0, (style.shadowOffsetY ?? 0) - pdfKitVerticalTextOffset, {
                     lineBreak: false,
                     width: style.maxWidth,
                     align: align,
                 });
                 document.restore();
             }
+            if (!pdfKitVerticalTextOffset) {
+                console.log("pdfKitVerticalTextOffset is not set.");
+            }
 
-            document.text(text, 0, 0, {
+            document.text(text, 0, 0 - pdfKitVerticalTextOffset, {
                 lineBreak: false,
                 width: style.maxWidth,
                 align: align,

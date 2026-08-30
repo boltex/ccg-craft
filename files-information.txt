@@ -12,7 +12,10 @@ plantin.ttf
 	Type Line
 	Text Box
 	Power/Toughness	
-
+	
+expansions-b.ttf
+expansions-f.ttf
+	Expansion badge background and foreground
 
 Other card generation data
 ==========================

@@ -314,7 +314,7 @@ export function fitRulesText(
             // 2- there is only one line of text (lines.length === 1)
             // const shouldCenter = size === candidateSizes[0] || lines.length === 1;
 
-            // Or, maybe we just always want to center the text regardless of the conditions
+            // Or, maybe we just always want to center the text regardless of the conditions?
             const shouldCenter = true;
 
             // Here we should not return yet if three specific conditions apply (to fix short textbox with single orphan): 

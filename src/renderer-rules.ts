@@ -174,7 +174,7 @@ function buildWrappedLines(
 }
 
 function getParagraphGap(lineHeight: number): number {
-    return lineHeight * 0.5; // Half of the line height for paragraph gap
+    return lineHeight * 0.4;
 }
 
 function getRulesHeight(lines: WrappedRulesLine[], lineHeight: number): number {

@@ -76,7 +76,7 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
         ctx.font = `${weight}${style.fontSize}px ${style.fontFamily}`;
         ctx.fillStyle = style.fillStyle;
         ctx.textAlign = style.textAlign ?? "left";
-        ctx.textBaseline = style.textBaseline ?? "top";
+        ctx.textBaseline = style.textBaseline ?? "hanging";
         ctx.strokeStyle = style.strokeStyle ?? "transparent";
         ctx.shadowColor = style.shadowColor ?? "transparent";
         ctx.shadowOffsetX = style.shadowOffsetX ?? 0;

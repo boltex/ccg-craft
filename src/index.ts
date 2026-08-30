@@ -61,13 +61,23 @@ if (lookupElement) {
         if (debounceTimeout) {
             clearTimeout(debounceTimeout);
         }
-        debounceTimeout = window.setTimeout(() => {
+        debounceTimeout = window.setTimeout(async () => {
             const query = lookupElement.value.trim().toLowerCase();
             if (query) {
-                showCardPreview(query);
+                try {
+                    await showCardPreview(query);
+                    await updateStatusSummary();
+                } catch (error) {
+                    const message = error instanceof Error ? error.message : String(error);
+                    setStatus(`Failed to show card preview: ${message}`);
+                    clearCurrentPreviewState();
+                    setPreview("Failed to show card preview.");
+                    utils.clearCanvas(canvasElement);
+                }
             } else {
                 clearCurrentPreviewState();
                 setPreview("Please enter a card name to look up.");
+                await updateStatusSummary();
                 // Clear the canvas 
                 utils.clearCanvas(canvasElement);
             }
@@ -433,6 +443,7 @@ async function showCardPreview(query: string): Promise<void> {
         });
     } catch (error) {
         console.error(`Error fetching card data for ${cardName}:`, error);
+        throw error;
     }
 
     if (!canvasElement) {

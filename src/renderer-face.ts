@@ -28,7 +28,7 @@ function getCardTextStyle(
         shadowOffsetX: 0.5 * sceneScale,
         shadowOffsetY: 0.5 * sceneScale,
         textAlign: "left",
-        textBaseline: "top",
+        textBaseline: "hanging",
         ...overrides,
     };
 }
@@ -309,7 +309,7 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
             fontSize: 10 * scene.scale,
             fillStyle: "rgba(0, 0, 0, 0.75)",
             textAlign: "center",
-            textBaseline: "middle",
+            textBaseline: "hanging",
             maxWidth: rect.width - 8 * scene.scale,
         });
     }

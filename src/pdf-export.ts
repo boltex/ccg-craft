@@ -1,4 +1,6 @@
 import * as constants from "./constants";
+import PDFDocument from "pdfkit";
+import { toBlob } from "pdfkit/output";
 import { renderCardToSurface, type RenderCardOptions } from "./renderer";
 import {
     createPdfKitRenderSurface,
@@ -45,11 +47,6 @@ type PdfKitDocumentWithOutput = PdfKitDocument & {
 let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
 
 export async function generateSingleCardPdf(input: GenerateSingleCardPdfInput): Promise<Blob> {
-    const [{ default: PDFDocument }, { toBlob }] = await Promise.all([
-        import("pdfkit"),
-        import("pdfkit/output"),
-    ]);
-
     const PdfDocument = PDFDocument as unknown as PdfKitDocumentConstructor;
     const document = new PdfDocument({
         autoFirstPage: false,

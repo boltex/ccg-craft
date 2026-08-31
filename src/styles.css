@@ -41,6 +41,7 @@ h1,
 h2,
 .medieval {
   font-family: "Medieval", "Plantin", Georgia, serif;
+  line-height: 1;
 }
 
 .symbol {

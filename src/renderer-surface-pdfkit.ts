@@ -72,7 +72,7 @@ const FALLBACK_PDF_FONT_REGISTRY: PdfKitFontRegistry = {
 
 const VERTICAL_TEXT_OFFSET_DEFAULT: number = 0.08; // generic factor
 const VERTICAL_TEXT_OFFSET_PLANTIN: number = 0.02; // font related factor
-const VERTICAL_TEXT_OFFSET_MEDIEVAL: number = 0.15; // font related factor
+const VERTICAL_TEXT_OFFSET_MEDIEVAL: number = 0.22; // font related factor
 const VERTICAL_TEXT_OFFSET_SYMBOLS: number = 0.15; // font related factor
 
 let pdfKitVerticalTextOffset: number = 0; // offset (pdfkit vs canvas text position), set each time a new text style is applied

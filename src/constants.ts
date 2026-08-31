@@ -95,7 +95,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xbwidth: CardWidth,
         ybheight: CardHeight,
         xname: 9,
-        yname: 4,
+        yname: 1.5,
         xmana: 222,
         ymana: 4,
         xtypeline: 10,

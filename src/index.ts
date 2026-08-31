@@ -5,8 +5,7 @@ import {
     clearCachedFaceArt,
     exportCachedFaceArt,
     getCachedFaceArtCount,
-    importCachedFaceArt,
-    logCachedFaceArt
+    importCachedFaceArt
 } from "./art-cache";
 import * as constants from "./constants";
 import { generateSingleCardPdf } from "./pdf-export";
@@ -19,8 +18,7 @@ const previewElement = document.querySelector<HTMLElement>("#data-preview");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
-const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache");
-const logArtCacheButton = document.querySelector<HTMLButtonElement>("#log-art-cache");
+const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 
@@ -163,24 +161,6 @@ if (importArtCacheButton && importArtCacheFileInput) {
         } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             setStatus(`Failed to import art cache: ${message}`);
-        }
-    });
-}
-
-if (logArtCacheButton) {
-    logArtCacheButton.addEventListener("click", async () => {
-        if (!faceData) {
-            setStatus("Face data not loaded yet. Please wait for the bootstrap process to complete.");
-            return;
-        }
-
-        try {
-            await logCachedFaceArt(faceData, nameData);
-
-            await updateStatusSummary("Art cache logged to console.");
-        } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
-            setStatus(`Failed to log art cache: ${message}`);
         }
     });
 }

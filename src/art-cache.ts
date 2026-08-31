@@ -225,17 +225,6 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
     };
 }
 
-export async function logCachedFaceArt(faceData: cardFace[], faceNames: string[]): Promise<void> {
-    const records = await getAllCachedFaceArt();
-    console.log("Cached Face Art Records:");
-    for (const record of records) {
-        const face = faceData[record.faceSerial - 1];
-        const name = faceNames[face.nameIndex - 1];
-        console.log(name);
-    }
-}
-
-
 async function serializeCachedFaceArt(record: CachedFaceArt): Promise<SerializedCachedFaceArt> {
     return {
         faceSerial: record.faceSerial,

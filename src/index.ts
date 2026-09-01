@@ -60,7 +60,11 @@ if (lookupElement) {
             clearTimeout(debounceTimeout);
         }
         debounceTimeout = window.setTimeout(async () => {
-            const query = lookupElement.value.trim().toLowerCase();
+            let query = lookupElement.value.trim().toLowerCase();
+
+            // replace accented letters by their plain lowercase version
+            query = query.normalize("NFD").replace(/\p{M}/gu, "");
+
             if (query) {
                 try {
                     await showCardPreview(query);

@@ -155,8 +155,6 @@ export async function generateCardSheetPdf(input: GenerateSingleCardPdfInput): P
 
     drawCropMarksForGrid(document, input.renderOptions?.background ?? null, gridOriginX, gridOriginY, gridWidth, gridHeight, SHEET_COLUMNS, SHEET_ROWS);
 
-
-
     document.end();
 
     return outputPromise;

@@ -8,7 +8,7 @@ import {
     importCachedFaceArt
 } from "./art-cache";
 import * as constants from "./constants";
-import { generateSingleCardPdf } from "./pdf-export";
+import { generateCardSheetPdf, generateSingleCardPdf } from "./pdf-export";
 import type { card, cardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
 import * as utils from "./utils";
@@ -95,10 +95,14 @@ if (generatePdfButton) {
         generatePdfButton.textContent = "Generating PDF...";
 
         try {
-            const pdfBlob = await generateSingleCardPdf({
+            const pdfBlob = await generateCardSheetPdf({
                 faces: currentPreviewState.faces,
                 artByFaceSerial: renderedFaceArt,
                 pageBackground: "#ffffff",
+                renderOptions: {
+                    padding: 5, // Example padding value, adjust as needed
+                    background: "#000000"
+                }
             });
 
             downloadGeneratedPdf(currentPreviewState.card.name, pdfBlob);

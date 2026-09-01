@@ -93,6 +93,127 @@ export async function generateSingleCardPdf(input: GenerateSingleCardPdfInput): 
     return outputPromise;
 }
 
+const SHEET_COLUMNS = 3;
+const SHEET_ROWS = 3;
+const CROP_MARK_GAP = 4;
+const CROP_MARK_LENGTH = 10;
+const CROP_MARK_LINE_WIDTH = 0.5;
+const CROP_MARK_COLOR = "#000000";
+
+export async function generateCardSheetPdf(input: GenerateSingleCardPdfInput): Promise<Blob> {
+    const PdfDocument = PDFDocument as unknown as PdfKitDocumentConstructor;
+    const document = new PdfDocument({
+        autoFirstPage: false,
+        margin: 0,
+        compress: true,
+        font: null,
+    });
+
+    const outputPromise = toBlob(document);
+
+    document.addPage({
+        size: [constants.PdfPageWidth, constants.PdfPageHeight],
+        margin: 0,
+    });
+
+    fillPdfPageBackground(document, input.pageBackground ?? "#ffffff");
+
+    const fontBytes = await loadPdfFontBytes();
+    registerPdfFonts(document, fontBytes);
+
+    const pdfArt = await normalizeArtMapForPdf(input.artByFaceSerial);
+
+    const gridWidth = constants.PdfCardWidth * SHEET_COLUMNS;
+    const gridHeight = constants.PdfCardHeight * SHEET_ROWS;
+    const gridOriginX = (constants.PdfPageWidth - gridWidth) / 2;
+    const gridOriginY = (constants.PdfPageHeight - gridHeight) / 2;
+
+    for (let row = 0; row < SHEET_ROWS; row++) {
+        for (let column = 0; column < SHEET_COLUMNS; column++) {
+            const cellOriginX = gridOriginX + column * constants.PdfCardWidth;
+            const cellOriginY = gridOriginY + row * constants.PdfCardHeight;
+
+            document.save();
+            document.translate(cellOriginX, cellOriginY);
+
+            const surface = createPdfKitRenderSurface(
+                document,
+                constants.PdfCardWidth,
+                constants.PdfCardHeight,
+                PDF_FONT_ALIASES,
+            );
+
+            renderCardToSurface(surface, input.faces, {
+                ...input.renderOptions,
+                padding: input.renderOptions?.padding ?? 0,
+                artByFaceSerial: pdfArt,
+            });
+
+            document.restore();
+        }
+    }
+
+    drawCropMarksForGrid(document, input.renderOptions?.background ?? null, gridOriginX, gridOriginY, gridWidth, gridHeight, SHEET_COLUMNS, SHEET_ROWS);
+
+
+
+    document.end();
+
+    return outputPromise;
+}
+
+function drawCropMarksForGrid(
+    document: PdfKitDocument,
+    paddingColor: string | null,
+    gridOriginX: number,
+    gridOriginY: number,
+    gridWidth: number,
+    gridHeight: number,
+    columns: number,
+    rows: number,
+): void {
+    document.save();
+    document.strokeColor(CROP_MARK_COLOR);
+    document.lineWidth(CROP_MARK_LINE_WIDTH);
+
+    const gridRight = gridOriginX + gridWidth;
+    const gridBottom = gridOriginY + gridHeight;
+    const cardWidth = gridWidth / columns;
+    const cardHeight = gridHeight / rows;
+
+    // Vertical grid-line ticks live in the top and bottom margins, clear of the card art.
+    for (let column = 0; column <= columns; column++) {
+        const x = gridOriginX + column * cardWidth;
+
+        document
+            .moveTo(x, gridOriginY - CROP_MARK_GAP - CROP_MARK_LENGTH)
+            .lineTo(x, gridOriginY - CROP_MARK_GAP)
+            .stroke();
+
+        document
+            .moveTo(x, gridBottom + CROP_MARK_GAP)
+            .lineTo(x, gridBottom + CROP_MARK_GAP + CROP_MARK_LENGTH)
+            .stroke();
+    }
+
+    // Horizontal grid-line ticks live in the left and right margins, clear of the card art.
+    for (let row = 0; row <= rows; row++) {
+        const y = gridOriginY + row * cardHeight;
+
+        document
+            .moveTo(gridOriginX - CROP_MARK_GAP - CROP_MARK_LENGTH, y)
+            .lineTo(gridOriginX - CROP_MARK_GAP, y)
+            .stroke();
+
+        document
+            .moveTo(gridRight + CROP_MARK_GAP, y)
+            .lineTo(gridRight + CROP_MARK_GAP + CROP_MARK_LENGTH, y)
+            .stroke();
+    }
+
+    document.restore();
+}
+
 type PdfFontBytes = Record<keyof PdfKitFontRegistry, Uint8Array>;
 
 async function loadPdfFontBytes(): Promise<PdfFontBytes> {

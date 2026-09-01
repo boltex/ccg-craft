@@ -101,7 +101,6 @@ export function createPdfKitRenderSurface(
         } else {
             // For ExpFront and ExpBack fonts
             pdfKitVerticalTextOffset = VERTICAL_TEXT_OFFSET_DEFAULT * style.fontSize;
-            console.log(`Using default vertical text offset for font family: ${style.fontFamily}`);
         }
 
         // console.log(style.fontSize);

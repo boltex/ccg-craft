@@ -1,3 +1,4 @@
+import { stripWebPMetadata } from "./stripWebPMetadata";
 import type { PrintableFace } from "./types";
 
 export const normalizedFaceArtWidth = 200;
@@ -41,7 +42,7 @@ export async function normalizeFaceArtBitmap(
     offCanvas.width = sourceBitmap.width;
     offCanvas.height = sourceBitmap.height;
 
-    const offContext = offCanvas.getContext('2d');
+    const offContext = offCanvas.getContext('2d', { alpha: false });
     if (!offContext) {
         throw new Error("Could not create a 2D context for moiré removal.");
     }
@@ -65,7 +66,7 @@ export async function normalizeFaceArtBitmap(
     canvas.width = targetWidth;
     canvas.height = targetHeight;
 
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext('2d', { alpha: false });
     if (!context) {
         throw new Error("Could not create a 2D context for art normalization.");
     }
@@ -84,10 +85,12 @@ export async function normalizeFaceArtBitmap(
         targetHeight
     );
 
-    const blob = await canvasToBlob(canvas, mimeType, quality);
+    const blob = await canvasToBlob(canvas, mimeType, quality); // webp with quality 1 is lossless, with better compression than PNG.
+
+    const strippedBlob = await stripWebPMetadata(blob); // Make the imagedata even smaller by removing unnecessary metadata.
 
     return {
-        blob,
+        blob: strippedBlob,
     };
 }
 

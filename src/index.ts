@@ -497,7 +497,7 @@ function downloadArtCacheExport(exportBlob: Blob): void {
     const downloadUrl = URL.createObjectURL(exportBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.zip`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }

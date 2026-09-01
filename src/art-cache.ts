@@ -1,10 +1,11 @@
+import { Unzip, UnzipInflate, zipSync, type UnzipFile, type Zippable } from "fflate";
 import type { CachedFaceArt, CachedFaceArtInput, cardFace } from "./types";
 
 const ART_CACHE_DB_NAME = "ccg-craft-art";
 const ART_CACHE_DB_VERSION = 2;
 const FACE_ART_STORE_NAME = "faceArt";
-const ART_CACHE_EXPORT_FORMAT = "ccg-craft-art-cache";
-const ART_CACHE_EXPORT_VERSION = 2;
+const ART_CACHE_ZIP_ENTRY_PATTERN = /^(\d+)\.webp$/i;
+const ART_CACHE_IMPORT_BATCH_SIZE = 200;
 
 let databasePromise: Promise<IDBDatabase> | undefined;
 
@@ -182,42 +183,84 @@ export async function getCachedFaceArtCount(): Promise<number> {
 
 export async function exportCachedFaceArt(): Promise<Blob> {
     const records = await getAllCachedFaceArt();
-    const serializedRecords = await Promise.all(records.map(serializeCachedFaceArt));
+    const files: Zippable = {};
 
-    const exportPayload: ArtCacheExportFile = {
-        format: ART_CACHE_EXPORT_FORMAT,
-        version: ART_CACHE_EXPORT_VERSION,
-        records: serializedRecords,
-    };
+    for (const record of records) {
+        files[`${record.faceSerial}.webp`] = new Uint8Array(await record.blob.arrayBuffer());
+    }
 
-    return new Blob([
-        JSON.stringify(exportPayload, null, 2)
-    ], {
-        type: "application/json",
-    });
+    // Images are already WebP-compressed, so DEFLATE (level > 0) would just burn CPU for no size benefit.
+    const zipped = zipSync(files, { level: 0 });
+
+    return new Blob([zipped], { type: "application/zip" });
 }
 
 export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: number; totalCount: number; }> {
-    const text = await file.text();
-    const parsed = JSON.parse(text) as Partial<ArtCacheExportFile>;
-
-    if (parsed.format !== ART_CACHE_EXPORT_FORMAT || parsed.version !== ART_CACHE_EXPORT_VERSION || !Array.isArray(parsed.records)) {
-        throw new Error("The selected file is not a valid CCG Craft art cache export.");
-    }
+    const database = await getArtCacheDatabase();
 
     let importedCount = 0;
-    for (const record of parsed.records) {
-        if (!isSerializedCachedFaceArt(record)) {
-            throw new Error("The selected file contains an invalid art cache record.");
+    let batch: CachedFaceArtInput[] = [];
+    let pendingWrite = Promise.resolve();
+
+    const flushBatch = (): void => {
+        if (batch.length === 0) {
+            return;
+        }
+        const recordsToWrite = batch;
+        batch = [];
+        pendingWrite = pendingWrite.then(() => writeCachedFaceArtBatch(database, recordsToWrite));
+    };
+
+    const unzip = new Unzip();
+    unzip.register(UnzipInflate);
+    unzip.onfile = (entry: UnzipFile) => {
+        const match = entry.name.match(ART_CACHE_ZIP_ENTRY_PATTERN);
+        if (!match) {
+            return;
         }
 
-        const blob = base64ToBlob(record.dataBase64, record.mimeType);
-        await putCachedFaceArt({
-            faceSerial: record.faceSerial,
-            blob,
-        });
-        importedCount += 1;
+        const faceSerial = Number.parseInt(match[1], 10);
+        const chunks: Uint8Array[] = [];
+        entry.ondata = (error, chunk, final) => {
+            if (error) {
+                throw error;
+            }
+
+            chunks.push(chunk);
+            if (!final) {
+                return;
+            }
+
+            batch.push({
+                faceSerial,
+                blob: new Blob(chunks as BlobPart[], { type: "image/webp" }),
+            });
+            importedCount += 1;
+            if (batch.length >= ART_CACHE_IMPORT_BATCH_SIZE) {
+                flushBatch();
+            }
+        };
+        entry.start();
+    };
+
+    // Stream the zip in chunks instead of using unzipSync, since decompressing a large archive all at
+    // once would hold every extracted image in memory simultaneously.
+    const reader = file.stream().getReader();
+    try {
+        for (; ;) {
+            const { value, done } = await reader.read();
+            if (done) {
+                unzip.push(new Uint8Array(0), true);
+                break;
+            }
+            unzip.push(value, false);
+        }
+    } finally {
+        reader.releaseLock();
     }
+
+    flushBatch();
+    await pendingWrite;
 
     return {
         importedCount,
@@ -225,64 +268,13 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
     };
 }
 
-async function serializeCachedFaceArt(record: CachedFaceArt): Promise<SerializedCachedFaceArt> {
-    return {
-        faceSerial: record.faceSerial,
-        mimeType: record.blob.type || "application/octet-stream",
-        dataBase64: await blobToBase64(record.blob),
-    };
-}
+async function writeCachedFaceArtBatch(database: IDBDatabase, records: CachedFaceArtInput[]): Promise<void> {
+    const transaction = database.transaction(FACE_ART_STORE_NAME, "readwrite");
+    const store = transaction.objectStore(FACE_ART_STORE_NAME);
 
-function isSerializedCachedFaceArt(value: unknown): value is SerializedCachedFaceArt {
-    if (!value || typeof value !== "object") {
-        return false;
+    for (const record of records) {
+        store.put(normalizeCachedFaceArt(record));
     }
 
-    const record = value as Partial<SerializedCachedFaceArt>;
-    return typeof record.faceSerial === "number"
-        && typeof record.mimeType === "string"
-        && typeof record.dataBase64 === "string";
+    await waitForTransaction(transaction);
 }
-
-function blobToBase64(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const result = reader.result;
-            if (typeof result !== "string") {
-                reject(new Error("Failed to read cached art blob."));
-                return;
-            }
-
-            const commaIndex = result.indexOf(",");
-            resolve(commaIndex >= 0 ? result.slice(commaIndex + 1) : result);
-        };
-        reader.onerror = () => {
-            reject(reader.error ?? new Error("Failed to read cached art blob."));
-        };
-        reader.readAsDataURL(blob);
-    });
-}
-
-function base64ToBlob(dataBase64: string, mimeType: string): Blob {
-    const binary = atob(dataBase64);
-    const bytes = new Uint8Array(binary.length);
-
-    for (let index = 0; index < binary.length; index++) {
-        bytes[index] = binary.charCodeAt(index);
-    }
-
-    return new Blob([bytes], { type: mimeType });
-}
-
-type SerializedCachedFaceArt = {
-    faceSerial: number;
-    mimeType: string;
-    dataBase64: string;
-};
-
-type ArtCacheExportFile = {
-    format: typeof ART_CACHE_EXPORT_FORMAT;
-    version: typeof ART_CACHE_EXPORT_VERSION;
-    records: SerializedCachedFaceArt[];
-};

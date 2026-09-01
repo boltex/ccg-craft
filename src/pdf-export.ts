@@ -173,13 +173,24 @@ function drawCropMarksForGrid(
     rows: number,
 ): void {
     document.save();
-    document.strokeColor(CROP_MARK_COLOR);
-    document.lineWidth(CROP_MARK_LINE_WIDTH);
 
     const gridRight = gridOriginX + gridWidth;
     const gridBottom = gridOriginY + gridHeight;
     const cardWidth = gridWidth / columns;
     const cardHeight = gridHeight / rows;
+
+    if (paddingColor) {
+        document.fillColor(paddingColor);
+
+        // Bands covering the gap between the card edges and where the marks start, corners included.
+        document.rect(gridOriginX - CROP_MARK_GAP, gridOriginY - CROP_MARK_GAP, gridWidth + CROP_MARK_GAP * 2, CROP_MARK_GAP).fill();
+        document.rect(gridOriginX - CROP_MARK_GAP, gridBottom, gridWidth + CROP_MARK_GAP * 2, CROP_MARK_GAP).fill();
+        document.rect(gridOriginX - CROP_MARK_GAP, gridOriginY, CROP_MARK_GAP, gridHeight).fill();
+        document.rect(gridRight, gridOriginY, CROP_MARK_GAP, gridHeight).fill();
+    }
+
+    document.strokeColor(CROP_MARK_COLOR);
+    document.lineWidth(CROP_MARK_LINE_WIDTH);
 
     // Vertical grid-line ticks live in the top and bottom margins, clear of the card art.
     for (let column = 0; column <= columns; column++) {

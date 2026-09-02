@@ -8,6 +8,7 @@ import {
     importCachedFaceArt
 } from "./art-cache";
 import * as constants from "./constants";
+import { buildEditionCheckboxes } from "./edition-filter";
 import { generateCardSheetPdf, generateSingleCardPdf } from "./pdf-export";
 import type { card, cardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
@@ -21,6 +22,9 @@ const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
+// TODO: read from this dict, keyed by edition code, when implementing the "Generate Sealed Deck" handler.
+const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
+let editionSelection: Record<string, boolean> = {};
 
 const editions: string[] = []; // Will fill from editions.txt
 const editionsScry: Record<string, string[]> = {}; // Will fill from editions-scry.json
@@ -573,6 +577,10 @@ async function bootstrap(): Promise<void> {
         }
         text = await response.text();
         editions.push(...parseEditions(text));
+
+        if (editionCheckboxesContainer) {
+            editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer);
+        }
 
         // Fetch editions-scry.json and parse it
         response = await fetch("editions-scry.json");

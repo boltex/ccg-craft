@@ -21,8 +21,8 @@ const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-ar
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-pdf");
+const generateSealedButton = document.querySelector<HTMLButtonElement>("#generate-sealed");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
-// TODO: read from this dict, keyed by edition code, when implementing the "Generate Sealed Deck" handler.
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 let editionSelection: Record<string, boolean> = {};
 
@@ -122,6 +122,15 @@ if (generatePdfButton) {
             generatePdfButton.disabled = currentPreviewState === null;
             generatePdfButton.textContent = originalLabel;
         }
+    });
+}
+
+if (generateSealedButton) {
+    generateSealedButton.addEventListener("click", () => {
+        const selectedEditions = Object.entries(editionSelection)
+            .filter(([, checked]) => checked)
+            .map(([code]) => code);
+        console.log("Selected editions for sealed deck:", selectedEditions);
     });
 }
 
@@ -497,6 +506,14 @@ function syncGeneratePdfButton(): void {
     generatePdfButton.disabled = currentPreviewState === null;
 }
 
+function syncGenerateSealedButton(): void {
+    if (!generateSealedButton) {
+        return;
+    }
+
+    generateSealedButton.disabled = !Object.values(editionSelection).some(Boolean);
+}
+
 function releaseRenderedFaceArt(): void {
     for (const artBitmap of renderedFaceArt.values()) {
         artBitmap.close();
@@ -579,7 +596,8 @@ async function bootstrap(): Promise<void> {
         editions.push(...parseEditions(text));
 
         if (editionCheckboxesContainer) {
-            editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer);
+            editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer, syncGenerateSealedButton);
+            syncGenerateSealedButton();
         }
 
         // Fetch editions-scry.json and parse it

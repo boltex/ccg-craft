@@ -98,7 +98,6 @@ function createSelectionToggleButton(
             for (const checkbox of checkboxes) {
                 checkbox.checked = checkedValue.includes(checkbox.dataset.edition as string);
                 selection[checkbox.dataset.edition as string] = checkbox.checked;
-                console.log(`Checkbox for edition ${checkbox.dataset.edition} clicked with checkedValue ${checkedValue}`);
             }
             onChange?.();
         });

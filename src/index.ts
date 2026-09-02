@@ -131,6 +131,7 @@ if (generateSealedButton) {
             .filter(([, checked]) => checked)
             .map(([code]) => code);
         console.log("Selected editions for sealed deck:", selectedEditions);
+
     });
 }
 

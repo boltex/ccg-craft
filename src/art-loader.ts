@@ -6,6 +6,40 @@ import {
 import type { card, PrintableFace } from "./types";
 
 const scryfallSearchUrl = "https://api.scryfall.com/cards/search";
+const scryfallRequestDelayMs = 125;
+const scryfallMaxRetries = 5;
+
+function sleep(milliseconds: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+// Retry on HTTP 429 up to a capped number of attempts, honoring the retry-after header when present.
+async function fetchWithRetry(url: string): Promise<Response> {
+    for (let attempt = 0; ; attempt++) {
+        const response = await fetch(url);
+
+        if (response.status === 429) {
+            if (attempt >= scryfallMaxRetries) {
+                throw new Error(`Rate limit exceeded after ${scryfallMaxRetries} retries for ${url}.`);
+            }
+
+            const retryAfterHeader = response.headers.get("retry-after");
+            const retryAfterSeconds = Number.parseInt(retryAfterHeader ?? "1", 10);
+            const retryDelayMs = Number.isFinite(retryAfterSeconds) ? retryAfterSeconds * 1000 : 1000;
+
+            await sleep(retryDelayMs);
+            continue;
+        }
+
+        return response;
+    }
+}
+
+// Be polite to Scryfall's api.scryfall.com rate limit guidance; not needed for the cards.scryfall.io image CDN.
+async function fetchFromScryfallApi(url: string): Promise<Response> {
+    await sleep(scryfallRequestDelayMs);
+    return fetchWithRetry(url);
+}
 
 export type LoadFaceArtForCardInput = {
     card: card;
@@ -88,7 +122,7 @@ async function fetchArtCropUrl(cardName: string, edition: string): Promise<strin
     cardName = cardName.replace("|", "//");
 
     const query = encodeURIComponent(`name:"${cardName}" e:${edition} unique:art`);
-    const response = await fetch(`${scryfallSearchUrl}?q=${query}`);
+    const response = await fetchFromScryfallApi(`${scryfallSearchUrl}?q=${query}`);
 
     if (!response.ok) {
         throw new Error(`Scryfall search failed with HTTP ${response.status}.`);
@@ -100,7 +134,7 @@ async function fetchArtCropUrl(cardName: string, edition: string): Promise<strin
 }
 
 async function fetchSourceArtBlob(artCropUrl: string): Promise<Blob> {
-    const response = await fetch(artCropUrl);
+    const response = await fetchWithRetry(artCropUrl);
     if (!response.ok) {
         throw new Error(`Artwork fetch failed with HTTP ${response.status}.`);
     }

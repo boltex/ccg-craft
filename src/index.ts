@@ -30,6 +30,7 @@ const saveDecklistButton = document.querySelector<HTMLButtonElement>("#save-deck
 const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-decklist");
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
+const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
 const deckPanels: Record<string, HTMLElement | null> = {
     constructed: document.querySelector<HTMLElement>("#deck-panel-constructed"),
@@ -221,6 +222,29 @@ if (addToDecklistButton) {
         const existingText = decklistTextArea.value;
         const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
         decklistTextArea.value = `${existingText}${separator}${currentPreviewState.card.name}\n`;
+    });
+}
+
+if (addP9ToDecklistButton) {
+    addP9ToDecklistButton.addEventListener("click", () => {
+        if (!decklistTextArea) {
+            return;
+        }
+
+        const existingText = decklistTextArea.value;
+        const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
+        const power9Cards = [
+            "Time Walk",
+            "Ancestral Recall",
+            "Timetwister",
+            "Mox Emerald",
+            "Black Lotus",
+            "Mox Pearl",
+            "Mox Ruby",
+            "Mox Jet",
+            "Mox Sapphire",
+        ];
+        decklistTextArea.value = `${existingText}${separator}${power9Cards.join("\n")}\n`;
     });
 }
 

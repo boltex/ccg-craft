@@ -179,6 +179,25 @@ button:disabled {
   transform: none;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.row > .col {
+  flex: 1 1 0;
+  padding: 0 10px;
+}
+
+.row > .col:first-child {
+  flex: 0 0 auto;
+}
+
+.row > .col:last-child {
+  flex: 1 1 auto;
+}
+
 .edition-checkboxes {
   display: flex;
   flex-wrap: wrap;
@@ -258,4 +277,51 @@ input[type="checkbox"] {
     0 0 0 3px rgba(154, 123, 82, 0.18),
     inset 0 1px 2px rgba(76, 52, 28, 0.08);
   background: #fffaf3;
+}
+
+textarea,
+select {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fbf6ef;
+  color: var(--text);
+  font: inherit;
+  box-shadow: inset 0 1px 2px rgba(76, 52, 28, 0.08);
+  outline: none;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  resize: both;
+}
+
+textarea::placeholder {
+  color: var(--muted);
+}
+
+textarea:focus,
+select:focus {
+  border-color: #9a7b52;
+  box-shadow:
+    0 0 0 3px rgba(154, 123, 82, 0.18),
+    inset 0 1px 2px rgba(76, 52, 28, 0.08);
+  background: #fffaf3;
+}
+
+select {
+  padding: 10px 32px 10px 14px;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--border-strong) 50%),
+    linear-gradient(135deg, var(--border-strong) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) center,
+    calc(100% - 13px) center;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
 }

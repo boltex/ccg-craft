@@ -20,10 +20,17 @@ const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
-const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-pdf");
+const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck");
 const generateSealedButton = document.querySelector<HTMLButtonElement>("#generate-sealed");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
+const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
+const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size");
+const loadDecklistButton = document.querySelector<HTMLButtonElement>("#load-decklist");
+const saveDecklistButton = document.querySelector<HTMLButtonElement>("#save-decklist");
+const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-decklist");
+const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
+const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 let editionSelection: Record<string, boolean> = {};
 
 const editions: string[] = []; // Will fill from editions.txt
@@ -134,6 +141,61 @@ if (generateSealedButton) {
 
     });
 }
+
+if (loadDecklistButton && loadDecklistFileInput) {
+    loadDecklistButton.addEventListener("click", () => {
+        loadDecklistFileInput.click();
+    });
+
+    loadDecklistFileInput.addEventListener("change", async () => {
+        const file = loadDecklistFileInput.files?.[0];
+        loadDecklistFileInput.value = "";
+
+        if (!file) {
+            return;
+        }
+
+        try {
+            const text = await file.text();
+            if (decklistTextArea) {
+                decklistTextArea.value = text;
+            }
+            setStatus(`Loaded decklist from ${file.name}.`);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            setStatus(`Failed to load decklist: ${message}`);
+        }
+    });
+}
+
+if (saveDecklistButton) {
+    saveDecklistButton.addEventListener("click", () => {
+        const text = decklistTextArea?.value ?? "";
+        downloadDecklist(text);
+        setStatus("Decklist saved.");
+    });
+}
+
+if (clearDecklistButton) {
+    clearDecklistButton.addEventListener("click", () => {
+        if (decklistTextArea) {
+            decklistTextArea.value = "";
+        }
+    });
+}
+
+if (addToDecklistButton) {
+    addToDecklistButton.addEventListener("click", () => {
+        if (!currentPreviewState || !decklistTextArea) {
+            return;
+        }
+
+        const existingText = decklistTextArea.value;
+        const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
+        decklistTextArea.value = `${existingText}${separator}${currentPreviewState.card.name}\n`;
+    });
+}
+
 
 if (clearArtCacheButton) {
     clearArtCacheButton.addEventListener("click", async () => {
@@ -500,11 +562,13 @@ function clearCurrentPreviewState(): void {
 }
 
 function syncGeneratePdfButton(): void {
-    if (!generatePdfButton) {
-        return;
+    if (generatePdfButton) {
+        generatePdfButton.disabled = currentPreviewState === null;
     }
 
-    generatePdfButton.disabled = currentPreviewState === null;
+    if (addToDecklistButton) {
+        addToDecklistButton.disabled = currentPreviewState === null;
+    }
 }
 
 function syncGenerateSealedButton(): void {
@@ -528,6 +592,16 @@ function downloadArtCacheExport(exportBlob: Blob): void {
     const link = document.createElement("a");
     link.href = downloadUrl;
     link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.zip`;
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+}
+
+function downloadDecklist(text: string): void {
+    const exportBlob = new Blob([text], { type: "text/plain" });
+    const downloadUrl = URL.createObjectURL(exportBlob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `ccg-craft-decklist-${new Date().toISOString().slice(0, 10)}.txt`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }

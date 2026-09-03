@@ -179,6 +179,42 @@ button:disabled {
   transform: none;
 }
 
+.deck-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.deck-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.deck-tab {
+  padding: 8px 16px;
+  opacity: 0.65;
+}
+
+.deck-tab.active {
+  opacity: 1;
+  border-color: #7e5f3c;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 7px 16px rgba(70, 44, 20, 0.28);
+}
+
+.deck-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;

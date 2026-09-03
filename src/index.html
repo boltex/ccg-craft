@@ -34,41 +34,44 @@
         </section>
 
         <section class="panel">
-            <h2>Sealed Deck</h2>
-            <p>
-                <button type="button" id="generate-sealed">Generate PDF</button>
-                <span id="edition-checkboxes" class="edition-checkboxes"></span>
-            </p>
-        </section>
-
-        <section class="panel">
-            <h2>Constructed Deck</h2>
-
-            <div class="row">
-                <div class="col">
-                    <p>
-                        <textarea id="decklist-text" rows="10" placeholder="One card per line..."></textarea>
-                    </p>
+            <nav class="deck-nav">
+                <div class="deck-tabs">
+                    <button type="button" class="deck-tab active" id="tab-constructed"
+                        data-deck-tab="constructed">Constructed Deck</button>
+                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed">Sealed Deck</button>
                 </div>
-                <div class="col">
-                    <p>
-                        <button type="button" id="generate-deck" disabled>Generate PDF</button>
-                    </p>
-                    <p>
-                        <select id="decklist-paper-size">
-                            <option value="letter">Letter 8.5 x 11 inches</option>
-                            <option value="a4">A4 210 x 297 mm</option>
-                        </select>
-                    </p>
-                    <p>
-                        <button type="button" id="load-decklist">Load Decklist</button>
-                        <button type="button" id="save-decklist">Save Decklist</button>
-                        <button type="button" id="clear-decklist">Clear</button>
-                        <input type="file" id="load-decklist-file" accept="text/plain" hidden />
-                    </p>
+                <div class="deck-controls">
+                    <select id="decklist-paper-size">
+                        <option value="letter">Letter - 8.5 x 11 inches</option>
+                        <option value="a4">A4 - 210 x 297 mm</option>
+                    </select>
+                    <button type="button" id="generate-deck-pdf" disabled>Generate PDF</button>
+                </div>
+            </nav>
+
+            <div class="deck-panel" id="deck-panel-constructed">
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            <textarea id="decklist-text" rows="10" placeholder="One card per line..."></textarea>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <p>
+                            <button type="button" id="load-decklist">Load Decklist</button>
+                            <button type="button" id="save-decklist">Save Decklist</button>
+                            <button type="button" id="clear-decklist">Clear</button>
+                            <input type="file" id="load-decklist-file" accept="text/plain" hidden />
+                        </p>
+                    </div>
                 </div>
             </div>
 
+            <div class="deck-panel" id="deck-panel-sealed" hidden>
+                <p>
+                    <span id="edition-checkboxes" class="edition-checkboxes"></span>
+                </p>
+            </div>
         </section>
 
         <section class="panel">

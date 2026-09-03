@@ -20,8 +20,7 @@ const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
-const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck");
-const generateSealedButton = document.querySelector<HTMLButtonElement>("#generate-sealed");
+const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
@@ -31,6 +30,12 @@ const saveDecklistButton = document.querySelector<HTMLButtonElement>("#save-deck
 const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-decklist");
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
+const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
+const deckPanels: Record<string, HTMLElement | null> = {
+    constructed: document.querySelector<HTMLElement>("#deck-panel-constructed"),
+    sealed: document.querySelector<HTMLElement>("#deck-panel-sealed"),
+};
+let activeDeckTab: "constructed" | "sealed" = "constructed";
 let editionSelection: Record<string, boolean> = {};
 
 const editions: string[] = []; // Will fill from editions.txt
@@ -100,6 +105,14 @@ if (lookupElement) {
 
 if (generatePdfButton) {
     generatePdfButton.addEventListener("click", async () => {
+        if (activeDeckTab === "sealed") {
+            const selectedEditions = Object.entries(editionSelection)
+                .filter(([, checked]) => checked)
+                .map(([code]) => code);
+            console.log("Selected editions for sealed deck:", selectedEditions);
+            return;
+        }
+
         if (!currentPreviewState) {
             setStatus("No valid card preview is available for PDF export.");
             return;
@@ -126,19 +139,34 @@ if (generatePdfButton) {
             const message = error instanceof Error ? error.message : String(error);
             setStatus(`Failed to generate PDF: ${message}`);
         } finally {
-            generatePdfButton.disabled = currentPreviewState === null;
+            generatePdfButton.disabled = false;
             generatePdfButton.textContent = originalLabel;
+            syncGeneratePdfButton();
         }
     });
 }
 
-if (generateSealedButton) {
-    generateSealedButton.addEventListener("click", () => {
-        const selectedEditions = Object.entries(editionSelection)
-            .filter(([, checked]) => checked)
-            .map(([code]) => code);
-        console.log("Selected editions for sealed deck:", selectedEditions);
+if (deckTabButtons.length > 0) {
+    deckTabButtons.forEach(tabButton => {
+        tabButton.addEventListener("click", () => {
+            const tab = tabButton.dataset.deckTab;
+            if (tab !== "constructed" && tab !== "sealed") {
+                return;
+            }
+            activeDeckTab = tab;
 
+            deckTabButtons.forEach(button => {
+                button.classList.toggle("active", button === tabButton);
+            });
+
+            for (const [panelTab, panelElement] of Object.entries(deckPanels)) {
+                if (panelElement) {
+                    panelElement.hidden = panelTab !== tab;
+                }
+            }
+
+            syncGeneratePdfButton();
+        });
     });
 }
 
@@ -563,7 +591,9 @@ function clearCurrentPreviewState(): void {
 
 function syncGeneratePdfButton(): void {
     if (generatePdfButton) {
-        generatePdfButton.disabled = currentPreviewState === null;
+        generatePdfButton.disabled = activeDeckTab === "sealed"
+            ? !Object.values(editionSelection).some(Boolean)
+            : currentPreviewState === null;
     }
 
     if (addToDecklistButton) {
@@ -572,11 +602,7 @@ function syncGeneratePdfButton(): void {
 }
 
 function syncGenerateSealedButton(): void {
-    if (!generateSealedButton) {
-        return;
-    }
-
-    generateSealedButton.disabled = !Object.values(editionSelection).some(Boolean);
+    syncGeneratePdfButton();
 }
 
 function releaseRenderedFaceArt(): void {

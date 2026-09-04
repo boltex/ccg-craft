@@ -35,29 +35,29 @@
 
         <section class="panel">
             <nav class="deck-nav">
-                <div class="deck-tabs">
-                    <button type="button" class="deck-tab active" id="tab-constructed"
-                        data-deck-tab="constructed">Constructed Deck</button>
-                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed">Sealed Deck</button>
-                </div>
                 <div class="deck-controls">
                     <select id="decklist-paper-size">
-                        <option value="letter">Letter - 8.5 x 11 inches</option>
-                        <option value="a4">A4 - 210 x 297 mm</option>
+                        <option value="letter">Letter (8.5" x 11")</option>
+                        <option value="a4">A4 (210 x 297 mm)</option>
                     </select>
                     <button type="button" id="generate-deck-pdf" disabled>Generate PDF</button>
+                </div>
+                <div class="deck-tabs">
+                    <button type="button" class="deck-tab active" id="tab-constructed"
+                        data-deck-tab="constructed">Constructed</button>
+                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed">Sealed Deck</button>
                 </div>
             </nav>
 
             <div class="deck-panel" id="deck-panel-constructed">
                 <div class="row">
                     <div class="col">
-                        <p>
+                        <p class="mb-0">
                             <textarea id="decklist-text" rows="10" placeholder="One card per line..."></textarea>
                         </p>
                     </div>
                     <div class="col">
-                        <p>
+                        <p class="mb-0 text-center">
                             <button type="button" id="load-decklist">Load Decklist</button>
                             <button type="button" id="save-decklist">Save Decklist</button>
                             <button type="button" id="clear-decklist">Clear</button>
@@ -69,27 +69,19 @@
             </div>
 
             <div class="deck-panel" id="deck-panel-sealed" hidden>
-                <p>
+                <p class="mb-0">
                     <span id="edition-checkboxes" class="edition-checkboxes"></span>
                 </p>
             </div>
         </section>
 
-        <section class="panel">
+        <section class="panel overflow-x-hidden">
             <h2>Card Lookup</h2>
-            <p>
-                <input type="text" id="card-lookup" placeholder="Enter card name..." />
-                <button type="button" id="add-to-decklist" disabled>Add to Decklist</button>
+            <p class="text-center mb-0">
+                <input type="text" id="card-lookup" class="mb-20" placeholder="Enter card name..." />
+                <button type="button" id="add-to-decklist" class="mb-20" disabled>Add to Decklist</button>
             </p>
-        </section>
-
-        <section class="panel">
-            <h2>Card Preview</h2>
             <canvas id="card-preview" width="575" height="800"></canvas>
-        </section>
-
-        <section class="panel">
-            <pre id="data-preview"></pre>
         </section>
 
     </main>

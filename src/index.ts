@@ -15,7 +15,6 @@ import { renderCardPreview } from "./renderer";
 import * as utils from "./utils";
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
-const previewElement = document.querySelector<HTMLElement>("#data-preview");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
@@ -171,6 +170,12 @@ if (deckTabButtons.length > 0) {
     });
 }
 
+if (decklistTextArea) {
+    decklistTextArea.addEventListener("input", () => {
+        syncGeneratePdfButton();
+    });
+}
+
 if (loadDecklistButton && loadDecklistFileInput) {
     loadDecklistButton.addEventListener("click", () => {
         loadDecklistFileInput.click();
@@ -188,6 +193,7 @@ if (loadDecklistButton && loadDecklistFileInput) {
             const text = await file.text();
             if (decklistTextArea) {
                 decklistTextArea.value = text;
+                syncGeneratePdfButton();
             }
             setStatus(`Loaded decklist from ${file.name}.`);
         } catch (error) {
@@ -209,6 +215,7 @@ if (clearDecklistButton) {
     clearDecklistButton.addEventListener("click", () => {
         if (decklistTextArea) {
             decklistTextArea.value = "";
+            syncGeneratePdfButton();
         }
     });
 }
@@ -222,6 +229,7 @@ if (addToDecklistButton) {
         const existingText = decklistTextArea.value;
         const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
         decklistTextArea.value = `${existingText}${separator}${currentPreviewState.card.name}\n`;
+        syncGeneratePdfButton();
     });
 }
 
@@ -245,6 +253,7 @@ if (addP9ToDecklistButton) {
             "Mox Sapphire",
         ];
         decklistTextArea.value = `${existingText}${separator}${power9Cards.join("\n")}\n`;
+        syncGeneratePdfButton();
     });
 }
 
@@ -439,9 +448,8 @@ async function updateStatusSummary(note?: string): Promise<void> {
 }
 
 function setPreview(message: string): void {
-    if (previewElement) {
-        previewElement.textContent = message;
-    }
+    // Just console log the message for now.
+    console.log(message);
 }
 
 function parseTextData(rawText: string): string[] {
@@ -617,7 +625,7 @@ function syncGeneratePdfButton(): void {
     if (generatePdfButton) {
         generatePdfButton.disabled = activeDeckTab === "sealed"
             ? !Object.values(editionSelection).some(Boolean)
-            : currentPreviewState === null;
+            : (decklistTextArea?.value.trim() ?? "") === "";
     }
 
     if (addToDecklistButton) {

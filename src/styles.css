@@ -5,7 +5,7 @@
   --panel: rgba(255, 252, 247, 0.9);
   --panel-highlight: #fffaf2;
   --text: #2a2118;
-  --muted: #7f7162;
+  --muted: #c3a988;
   --border: #cfb89a;
   --border-strong: #9a7b52;
   --button-top: #f6ead8;
@@ -53,6 +53,25 @@ h2,
 }
 .exp-back {
   font-family: "ExpBack", Courier, "Courier New", monospace;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 
 .app {
@@ -181,10 +200,11 @@ button:disabled {
 
 .deck-nav {
   display: flex;
+  flex-direction: row-reverse;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 12px;
+  gap: 1px;
   margin-bottom: 12px;
   border-bottom: 1px solid var(--border);
 }
@@ -194,6 +214,7 @@ button:disabled {
   flex-wrap: wrap;
   gap: 0px;
   margin-bottom: -1px;
+  margin-right: auto;
 }
 
 .deck-tab {
@@ -202,7 +223,7 @@ button:disabled {
   padding: 10px 20px;
   border-radius: 10px 10px 0 0;
   border-bottom: none;
-  background: rgba(200, 196, 189, 0.35);
+  background: rgb(209 209 209 / 35%);
   color: var(--muted);
   box-shadow: none;
   opacity: 1;
@@ -258,7 +279,12 @@ button:disabled {
 }
 
 .row > .col:last-child {
-  flex: 1 1 auto;
+  flex: 1 1 0;
+}
+
+.col button {
+  margin-bottom: 10px;
+  margin-right: 8px;
 }
 
 .edition-checkboxes {
@@ -267,6 +293,7 @@ button:disabled {
   gap: 8px 12px;
   width: 100%;
   margin-top: 4px;
+  margin-bottom: 8px;
 }
 
 .edition-checkbox {
@@ -300,18 +327,6 @@ input[type="checkbox"] {
   margin-right: 8px;
 }
 
-#data-preview {
-  margin: 0;
-  padding: 16px;
-  overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: #f8f2ea;
-  color: #3b2d21;
-  white-space: pre-wrap;
-  line-height: 1.5;
-}
-
 #card-preview {
   display: block;
   margin: 0 auto;
@@ -319,9 +334,9 @@ input[type="checkbox"] {
 }
 
 #card-lookup {
-  width: min(420px, 100%);
+  width: min(408px, 100%);
   padding: 12px 14px;
-  margin-right: 12px;
+  margin-right: 10px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: #fbf6ef;
@@ -374,7 +389,7 @@ select:focus {
 }
 
 select {
-  padding: 10px 32px 10px 14px;
+  padding: 10px 28px 10px 14px;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;

@@ -105,44 +105,15 @@ if (lookupElement) {
 
 if (generatePdfButton) {
     generatePdfButton.addEventListener("click", async () => {
+
+        // Two modes of this app: Sealed deck and constructed deck PDF generation
+
         if (activeDeckTab === "sealed") {
-            const selectedEditions = Object.entries(editionSelection)
-                .filter(([, checked]) => checked)
-                .map(([code]) => code);
-            console.log("Selected editions for sealed deck:", selectedEditions);
-            return;
+            await generateSealedPDF();
+        } else {
+            await generateDeckPDF();
         }
 
-        if (!currentPreviewState) {
-            setStatus("No valid card preview is available for PDF export.");
-            return;
-        }
-
-        const originalLabel = generatePdfButton.textContent;
-        generatePdfButton.disabled = true;
-        generatePdfButton.textContent = "Generating PDF...";
-
-        try {
-            const pdfBlob = await generateCardSheetPdf({
-                faces: currentPreviewState.faces,
-                artByFaceSerial: renderedFaceArt,
-                pageBackground: "#ffffff",
-                renderOptions: {
-                    padding: 5, // Example padding value, adjust as needed
-                    background: "#000000"
-                }
-            });
-
-            downloadGeneratedPdf(currentPreviewState.card.name, pdfBlob);
-            await updateStatusSummary(`Generated PDF for ${currentPreviewState.card.name}.`);
-        } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
-            setStatus(`Failed to generate PDF: ${message}`);
-        } finally {
-            generatePdfButton.disabled = false;
-            generatePdfButton.textContent = originalLabel;
-            syncGeneratePdfButton();
-        }
     });
 }
 
@@ -308,6 +279,48 @@ if (importArtCacheButton && importArtCacheFileInput) {
             setStatus(`Failed to import art cache: ${message}`);
         }
     });
+}
+
+async function generateSealedPDF(): Promise<void> {
+    const selectedEditions = Object.entries(editionSelection)
+        .filter(([, checked]) => checked)
+        .map(([code]) => code);
+    console.log("Selected editions for sealed deck:", selectedEditions);
+    return;
+}
+
+async function generateDeckPDF(): Promise<void> {
+
+    if (!currentPreviewState || !generatePdfButton) {
+        setStatus("No valid card preview is available for PDF export.");
+        return;
+    }
+
+    const originalLabel = generatePdfButton.textContent;
+    generatePdfButton.disabled = true;
+    generatePdfButton.textContent = "Generating PDF...";
+
+    try {
+        const pdfBlob = await generateCardSheetPdf({
+            faces: currentPreviewState.faces,
+            artByFaceSerial: renderedFaceArt,
+            pageBackground: "#ffffff",
+            renderOptions: {
+                padding: 5, // Example padding value, adjust as needed
+                background: "#000000"
+            }
+        });
+
+        downloadGeneratedPdf(currentPreviewState.card.name, pdfBlob);
+        await updateStatusSummary(`Generated PDF for ${currentPreviewState.card.name}.`);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to generate PDF: ${message}`);
+    } finally {
+        generatePdfButton.disabled = false;
+        generatePdfButton.textContent = originalLabel;
+        syncGeneratePdfButton();
+    }
 }
 
 function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefined] {

@@ -82,10 +82,20 @@ export const PdfPageWidthInches = 8.5;
 export const PdfPageHeightInches = 11;
 export const PdfCardWidthInches = 2.5;
 export const PdfCardHeightInches = 3.5;
+
 export const PdfPageWidth = PdfPageWidthInches * PointsPerInch;
 export const PdfPageHeight = PdfPageHeightInches * PointsPerInch;
 export const PdfCardWidth = PdfCardWidthInches * PointsPerInch;
 export const PdfCardHeight = PdfCardHeightInches * PointsPerInch;
+
+// Specific page sizes contants dictionary to help with this select options:
+export const SpecificPageSizes: { [key: string]: [number, number] } = {
+    letter: [8.5 * PointsPerInch, 11 * PointsPerInch],
+    ledger: [11 * PointsPerInch, 17 * PointsPerInch],
+    a4: [210 / 25.4 * PointsPerInch, 297 / 25.4 * PointsPerInch],
+    a3: [297 / 25.4 * PointsPerInch, 420 / 25.4 * PointsPerInch],
+};
+
 
 // FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB
 export const FaceLayouts: { [key: number]: FaceLayout } = {

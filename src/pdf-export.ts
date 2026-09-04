@@ -46,6 +46,7 @@ type PdfKitDocumentWithOutput = PdfKitDocument & {
 
 let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
 
+// Demo function that generates a PDF containing a single card, centered on the page.
 export async function generateSingleCardPdf(input: GenerateSingleCardPdfInput): Promise<Blob> {
     const PdfDocument = PDFDocument as unknown as PdfKitDocumentConstructor;
     const document = new PdfDocument({
@@ -100,6 +101,7 @@ const CROP_MARK_LENGTH = 10;
 const CROP_MARK_LINE_WIDTH = 0.5;
 const CROP_MARK_COLOR = "#000000";
 
+// Demo function that generates a PDF sheet containing copies of a single card arranged in a 3 by 3 grid
 export async function generateCardSheetPdf(input: GenerateSingleCardPdfInput): Promise<Blob> {
     const PdfDocument = PDFDocument as unknown as PdfKitDocumentConstructor;
     const document = new PdfDocument({

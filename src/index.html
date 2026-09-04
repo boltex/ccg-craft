@@ -37,8 +37,13 @@
             <nav class="deck-nav">
                 <div class="deck-controls">
                     <select id="decklist-paper-size">
+                        <!-- Single and double page of 3x3 cards in imperial sizes-->
                         <option value="letter">Letter (8.5" x 11")</option>
+                        <option value="ledger">Ledger (11" x 17")</option>
+
+                        <!-- Single and double page of 3x3 cards in metric sizes-->
                         <option value="a4">A4 (210 x 297 mm)</option>
+                        <option value="a3">A3 (297 x 420 mm)</option>
                     </select>
                     <button type="button" id="generate-deck-pdf" disabled>Generate PDF</button>
                 </div>

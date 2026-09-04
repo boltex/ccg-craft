@@ -307,7 +307,22 @@ async function generateSealedPDF(): Promise<void> {
     const sealedDeckSize = 81; // nine sheets of 3 by 3 cards each
     const sealedDeckCards: Card[] = [];
 
-    return;
+    // Fill the sealed deck with random cards from the available cards in totalUniqueAvailableCards.
+    const availableCardPool = Object.values(availableCardsDict);
+    if (availableCardPool.length === 0) {
+        setStatus("No cards are available for the selected editions.");
+        return;
+    }
+    while (sealedDeckCards.length < sealedDeckSize) {
+        const randomIndex = Math.floor(Math.random() * availableCardPool.length);
+        sealedDeckCards.push(availableCardPool[randomIndex]);
+    }
+
+    console.log(`Generated sealed deck with ${sealedDeckCards.length} cards.`);
+    console.log("Sealed deck cards:", sealedDeckCards);
+
+    // TODO : Send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice. (may be double 3x3 pages)
+
 }
 
 async function generateDeckPDF(): Promise<void> {

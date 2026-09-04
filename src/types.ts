@@ -1,4 +1,4 @@
-export type card = {
+export type Card = {
     serial: number;
     edition: string; // Edition abbreviation, e.g., "IN". Not a number in cards.
     name: string;
@@ -6,7 +6,7 @@ export type card = {
     face2: number;
 }
 
-export type cardFace = {
+export type CardFace = {
     faceSerial: number;
     parentCard: number;
     faceType: number;

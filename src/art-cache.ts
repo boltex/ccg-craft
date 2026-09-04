@@ -1,5 +1,5 @@
 import { Unzip, UnzipInflate, zipSync, type UnzipFile, type Zippable } from "fflate";
-import type { CachedFaceArt, CachedFaceArtInput, cardFace } from "./types";
+import type { CachedFaceArt, CachedFaceArtInput, CardFace } from "./types";
 
 const ART_CACHE_DB_NAME = "ccg-craft-art";
 const ART_CACHE_DB_VERSION = 2;

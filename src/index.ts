@@ -10,7 +10,7 @@ import {
 import * as constants from "./constants";
 import { buildEditionCheckboxes } from "./edition-filter";
 import { generateCardSheetPdf, generateSingleCardPdf } from "./pdf-export";
-import type { card, cardFace, Color, PrintableFace } from "./types";
+import type { Card, CardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
 import * as utils from "./utils";
 
@@ -23,7 +23,7 @@ const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-d
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
-const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size");
+// const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size"); // For future use
 const loadDecklistButton = document.querySelector<HTMLButtonElement>("#load-decklist");
 const saveDecklistButton = document.querySelector<HTMLButtonElement>("#save-decklist");
 const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-decklist");
@@ -40,12 +40,12 @@ let editionSelection: Record<string, boolean> = {};
 
 const editions: string[] = []; // Will fill from editions.txt
 const editionsScry: Record<string, string[]> = {}; // Will fill from editions-scry.json
-const singleCards: card[] = []; // Will fill from single-cards.txt
+const singleCards: Card[] = []; // Will fill from single-cards.txt
 
 const allCardsIndexes: number[] = []; // Will fill from all-cards.txt
 const allCardsNames: string[] = []; // Will fill from all-cards.txt
 
-const faceData: cardFace[] = []; // Will fill from face-index.dat
+const faceData: CardFace[] = []; // Will fill from face-index.dat
 const nameData: string[] = []; // Will fill from face-names.txt
 const manaCostData: string[] = []; // Will fill from face-mana.txt
 const typeData: string[] = []; // Will fill from face-type-lines.txt
@@ -56,7 +56,7 @@ const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restri
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 let renderedFaceArt = new Map<number, ImageBitmap>();
 let currentPreviewState: {
-    card: card;
+    card: Card;
     faces: [PrintableFace, PrintableFace | undefined];
 } | null = null;
 let statusSummary = {
@@ -286,6 +286,27 @@ async function generateSealedPDF(): Promise<void> {
         .filter(([, checked]) => checked)
         .map(([code]) => code);
     console.log("Selected editions for sealed deck:", selectedEditions);
+
+    // Let's build an array of available cards by looping singleCards and making sure its edition is selected.
+    // And that the card is not a basic land.
+    const availableCards = singleCards.filter(card => selectedEditions.includes(card.edition) && !constants.BasicLandNames.includes(card.name));
+    // Convert it to a dict, with the card name as the key for easy lookup. Keeping the first occurrence if there are duplicates.
+    const availableCardsDict: Record<string, typeof singleCards[0]> = {};
+    for (const card of availableCards) {
+        if (!availableCardsDict[card.name]) {
+            availableCardsDict[card.name] = card;
+        }
+    }
+    // Console log the total of available cards and the total of unique available cards.
+    console.log(`Total available cards without basic lands: ${availableCards.length}`);
+
+    const totalUniqueAvailableCards = Object.keys(availableCardsDict).length;
+    console.log(`Total unique available cards without basic lands: ${totalUniqueAvailableCards}`);
+
+    // A sealed deck is here set to be a total of 81 cards. (nine sheets of 3 by 3 cards each)
+    const sealedDeckSize = 81; // nine sheets of 3 by 3 cards each
+    const sealedDeckCards: Card[] = [];
+
     return;
 }
 
@@ -505,9 +526,9 @@ function parseEditions(rawText: string): string[] {
     return result;
 }
 
-function parseSingleCards(rawText: string): card[] {
+function parseSingleCards(rawText: string): Card[] {
     const lines = rawText.split(/\r?\n/);
-    const result: card[] = [];
+    const result: Card[] = [];
     // single-cards.txt does not have a total count lines, but it ends with a single dot '.' on a line by itself.
     for (let i = 0; i < lines.length; i++) {
         if (lines[i] === ".") {

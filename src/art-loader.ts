@@ -3,7 +3,7 @@ import {
     createSourceArtBitmap,
     normalizeFaceArtBitmap,
 } from "./image-normalize";
-import type { card, PrintableFace } from "./types";
+import type { Card, PrintableFace } from "./types";
 
 const scryfallSearchUrl = "https://api.scryfall.com/cards/search";
 const scryfallRequestDelayMs = 125;
@@ -42,7 +42,7 @@ async function fetchFromScryfallApi(url: string): Promise<Response> {
 }
 
 export type LoadFaceArtForCardInput = {
-    card: card;
+    card: Card;
     faces: Array<PrintableFace | undefined>;
     scryfallEditions: string[];
 };

@@ -272,3 +272,18 @@ export const ManaSymbols = [
     "{Z}"
 ];
 
+export const BasicLandNames = [
+    "Plains",
+    "Island",
+    "Swamp",
+    "Mountain",
+    "Forest",
+    "Snow-Covered Plains",
+    "Snow-Covered Island",
+    "Snow-Covered Swamp",
+    "Snow-Covered Mountain",
+    "Snow-Covered Forest",
+    // For future sets not already included:
+    "Wastes",
+    "Snow-Covered Wastes",
+];

@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { loadFaceArtForCard } from "./art-loader";
+import { loadFaceArtForCard, prepareFaceArtForCard } from "./art-loader";
 import {
     clearCachedFaceArt,
     exportCachedFaceArt,
@@ -281,6 +281,24 @@ if (importArtCacheButton && importArtCacheFileInput) {
     });
 }
 
+async function preloadCardArtForCards(cards: Card[]): Promise<void> {
+    for (const card of cards) {
+
+        const serial = card.serial;
+
+        const faces = getFaceData(serial);
+        const possibleCardEditions = editionsScry[card.edition];
+
+        await prepareFaceArtForCard({
+            card,
+            faces,
+            scryfallEditions: possibleCardEditions,
+        });
+        console.log(`Preloaded art for card: ${card.name}`);
+    }
+}
+
+
 async function generateSealedPDF(): Promise<void> {
     const selectedEditions = Object.entries(editionSelection)
         .filter(([, checked]) => checked)
@@ -330,7 +348,11 @@ async function generateSealedPDF(): Promise<void> {
     // TODO : fetch any missing card art from local cache, and send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice.
 
     try {
-        // ...
+
+        console.log("Generating PDF for sealed deck...");
+        await preloadCardArtForCards(sealedDeckCards);
+
+
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         setStatus(`Failed to generate PDF: ${message}`);
@@ -344,8 +366,7 @@ async function generateSealedPDF(): Promise<void> {
 
 async function generateDeckPDF(): Promise<void> {
 
-    if (!currentPreviewState || !generatePdfButton) {
-        setStatus("No valid card preview is available for PDF export.");
+    if (!generatePdfButton) {
         return;
     }
 
@@ -389,7 +410,6 @@ async function generateDeckPDF(): Promise<void> {
         }
 
         if (matchedIndex === -1) {
-            clearCurrentPreviewState();
             console.log(`No card found starting with "${cardName}".`);
         } else {
             console.log(`Matched card index for "${cardName}": ${matchedIndex}`);
@@ -406,11 +426,22 @@ async function generateDeckPDF(): Promise<void> {
 
     // TODO : fetch any missing card art from local cache, and finally generate the PDF based on the selected decklist paper size.
 
+    try {
+
+        console.log("Generating PDF for constructed deck...");
+        await preloadCardArtForCards(decklistCards);
 
 
-
-
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to generate PDF: ${message}`);
+    } finally {
+        generatePdfButton.disabled = false;
+        generatePdfButton.textContent = originalLabel;
+        syncGeneratePdfButton();
+    }
     // CODE EXAMPLE : Simple experiment below that only generates a PDF for the current preview state without considering the full sealed deck.
+    /*
     try {
         const pdfBlob = await generateCardSheetPdf({
             faces: currentPreviewState.faces,
@@ -432,6 +463,7 @@ async function generateDeckPDF(): Promise<void> {
         generatePdfButton.textContent = originalLabel;
         syncGeneratePdfButton();
     }
+    */
 }
 
 function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefined] {

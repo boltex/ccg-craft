@@ -1,5 +1,9 @@
 import type { Color, FaceLayout } from "./types";
 
+export function sleep(milliseconds: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 // Creates "rgb(r, g, b)" or "rgba(r, g, b, a)"
 export function toCommaRgb(r: number, g: number, b: number, alpha: number | null = null) {
     if (alpha === null) {

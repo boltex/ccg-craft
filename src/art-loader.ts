@@ -4,17 +4,16 @@ import {
     normalizeFaceArtBitmap,
 } from "./image-normalize";
 import type { Card, PrintableFace } from "./types";
+import * as utils from "./utils";
 
 const scryfallSearchUrl = "https://api.scryfall.com/cards/search";
-const scryfallRequestDelayMs = 125;
+const scryfallRequestDelayMs = 500;
 const scryfallMaxRetries = 5;
 
-function sleep(milliseconds: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
 // Retry on HTTP 429 up to a capped number of attempts, honoring the retry-after header when present.
-async function fetchWithRetry(url: string): Promise<Response> {
+async function fetchWithRetry(url: string, delay: number): Promise<Response> {
+    // First, respect the Scryfall API rate limit by sleeping for the configured delay.
+    await utils.sleep(delay);
     for (let attempt = 0; ; attempt++) {
         const response = await fetch(url);
 
@@ -27,17 +26,12 @@ async function fetchWithRetry(url: string): Promise<Response> {
             const retryAfterSeconds = Number.parseInt(retryAfterHeader ?? "1", 10);
             const retryDelayMs = Number.isFinite(retryAfterSeconds) ? retryAfterSeconds * 1000 : 1000;
 
-            await sleep(retryDelayMs);
+            await utils.sleep(retryDelayMs);
             continue;
         }
 
         return response;
     }
-}
-
-// Be polite to Scryfall's api.scryfall.com rate limit guidance; not needed for the cards.scryfall.io image CDN.
-async function fetchFromScryfallApi(url: string): Promise<Response> {
-    return fetchWithRetry(url);
 }
 
 export type LoadFaceArtForCardInput = {
@@ -46,9 +40,23 @@ export type LoadFaceArtForCardInput = {
     scryfallEditions: string[];
 };
 
+
+export async function prepareFaceArtForCard(
+    input: LoadFaceArtForCardInput
+): Promise<void> {
+    const artByFaceSerial = await loadFaceArtForCard(input);
+    for (const bitmap of artByFaceSerial.values()) {
+        bitmap.close();
+    }
+    // Now all the face art for the card has been prepared and cached locally.
+}
+
 export async function loadFaceArtForCard(
     input: LoadFaceArtForCardInput
 ): Promise<Map<number, ImageBitmap>> {
+
+    // This function loads the face art for a given card, either from the local cache or by fetching and normalizing it from Scryfall.
+
     const faces = input.faces.filter(isPrintableFace);
     const artByFaceSerial = new Map<number, ImageBitmap>();
     const missingFaces: PrintableFace[] = [];
@@ -121,7 +129,7 @@ async function fetchArtCropUrl(cardName: string, edition: string): Promise<strin
     cardName = cardName.replace("|", "//");
 
     const query = encodeURIComponent(`name:"${cardName}" e:${edition} unique:art`);
-    const response = await fetchFromScryfallApi(`${scryfallSearchUrl}?q=${query}`);
+    const response = await fetchWithRetry(`${scryfallSearchUrl}?q=${query}`, scryfallRequestDelayMs);
 
     if (!response.ok) {
         throw new Error(`Scryfall search failed with HTTP ${response.status}.`);
@@ -133,7 +141,7 @@ async function fetchArtCropUrl(cardName: string, edition: string): Promise<strin
 }
 
 async function fetchSourceArtBlob(artCropUrl: string): Promise<Blob> {
-    const response = await fetchWithRetry(artCropUrl);
+    const response = await fetchWithRetry(artCropUrl, 0); // no delay for image CDN requests
     if (!response.ok) {
         throw new Error(`Artwork fetch failed with HTTP ${response.status}.`);
     }

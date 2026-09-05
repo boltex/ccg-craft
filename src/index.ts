@@ -49,7 +49,7 @@ const nameData: string[] = []; // Will fill from face-names.txt
 const manaCostData: string[] = []; // Will fill from face-mana.txt
 const typeData: string[] = []; // Will fill from face-type-lines.txt
 const textData: string[] = []; // Will fill from face-text-lines.txt
-const artists: string[] = []; // Will fill from artists.txt
+const artistsData: string[] = []; // Will fill from artists.txt
 
 const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restricted-subsets.json
 
@@ -474,17 +474,20 @@ function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefi
 
     const card = singleCards[cardSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
-    const face1 = getPrintableFace(card.face1);
+    const artistIndex = card.artist;
+    const artist = artistsData[artistIndex - 1]; // Assuming artistData is an array of artist names.
+
+    const face1 = getPrintableFace(card.face1, undefined, artist);
     if (!card.face2 || card.face2 === 0) {
         return [face1, undefined];
     }
-    const face2 = getPrintableFace(card.face2, face1); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
+    const face2 = getPrintableFace(card.face2, face1, artist); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
 
     return [face1, face2];
 
 }
 
-function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): PrintableFace {
+function getPrintableFace(faceSerial: number, otherFace: PrintableFace | undefined, artist: string): PrintableFace {
     const face = faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
     // About FaceFrame
@@ -590,7 +593,8 @@ function getPrintableFace(faceSerial: number, otherFace?: PrintableFace): Printa
         textLines: face.textLines.map(index => textData[index - 1]?.replaceAll('<this>', nameData[face.nameIndex - 1]) || "").filter(line => line !== ""),
         colorState: colorState,
         faceFrame: faceFrame,
-        faceColors: faceColors
+        faceColors: faceColors,
+        artist: artist,
 
     };
 }
@@ -886,7 +890,7 @@ async function bootstrap(): Promise<void> {
             throw new Error(`HTTP ${response.status}`);
         }
         text = await response.text();
-        artists.push(...parseTextData(text));
+        artistsData.push(...parseTextData(text));
 
         // Fetch editions.txt and parse it
         response = await fetch("editions.txt");

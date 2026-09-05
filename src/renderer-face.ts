@@ -131,6 +131,9 @@ export function renderFace(renderCtx: RenderFaceContext): void {
         // Edition badge
         drawEditionBadge(renderCtx);
 
+        // Artist credit
+        drawArtistCredit(renderCtx);
+
     }
 
     // Text box background
@@ -382,6 +385,24 @@ function drawEditionBadge(renderCtx: RenderFaceContext): void {
             rotationDegrees: layout.textangle,
         }
     );
+}
+
+function drawArtistCredit(renderCtx: RenderFaceContext): void {
+    const { surface, face, layout, scene } = renderCtx;
+    if (!face.artist) {
+        return;
+    }
+    drawStyledText(
+        surface,
+        "Illus. " + face.artist,
+        layout.xartist + scene.offsetX,
+        layout.yartist + scene.offsetY,
+        getCardTextStyle(scene.scale, "Plantin, serif", 10, {
+            textAlign: "left",
+            rotationDegrees: layout.textangle,
+        })
+    );
+
 }
 
 function drawManaCost(renderCtx: RenderFaceContext): void {

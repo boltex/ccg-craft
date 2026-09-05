@@ -32,6 +32,7 @@ export type PrintableFace = {
     isACreature: boolean;
     powerToughness: string; // either empty or has two elements: [power, toughness]
     textLines: string[]; // array of text lines indexes
+    artist: string; // Name of the artist
 
     colorState: number;
     faceFrame: number;
@@ -80,4 +81,6 @@ export type FaceLayout = {
     yart: number;
     artwidth: number;
     artheight: number;
+    xartist: number;
+    yartist: number;
 }

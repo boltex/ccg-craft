@@ -39,6 +39,8 @@ export function scaleFaceLayout(layout: FaceLayout, scale: number): FaceLayout {
         yart: layout.yart * scale,
         artwidth: layout.artwidth * scale,
         artheight: layout.artheight * scale,
+        xartist: layout.xartist * scale,
+        yartist: layout.yartist * scale,
     };
 }
 

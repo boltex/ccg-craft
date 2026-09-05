@@ -124,6 +124,8 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         yart: 20,
         artwidth: 198,
         artheight: 161,
+        xartist: 10,
+        yartist: 314,
     },
 
     // flip top
@@ -137,22 +139,24 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xmana: 222,
         ymana: 4,
         xtypeline: 10,
-        ytypeline: 88.5,
-        xedition: 10,
+        ytypeline: 80.5,
+        xedition: CardWidth - 32,
         yedition: CardHeight - 14,
         xpowertough: 220,
-        ypowertough: 88,
+        ypowertough: 80,
         xtext: 17,
-        ytext: 17,
+        ytext: 15,
         textangle: 0,
         xtb: 18,
         ytb: 17,
         tbwidth: 196,
-        tbheight: 70,
+        tbheight: 62,
         xart: 17,
-        yart: (CardHeight - 121) / 2,
+        yart: (CardHeight - 137) / 2,
         artwidth: 198,
-        artheight: 121
+        artheight: 121,
+        xartist: 10,
+        yartist: 317,
     },
     // flip bottom
     3: {
@@ -161,26 +165,28 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xbwidth: CardWidth,
         ybheight: CardHeight,
         xname: CardWidth - 9,
-        yname: CardHeight - 4,
+        yname: CardHeight - 18,
         xmana: 50,
         ymana: CardHeight - 3,
         xtypeline: CardWidth - 10,
-        ytypeline: 241.5,
+        ytypeline: 233.5,
         xedition: 0, // unused
         yedition: 0, // unused
         xpowertough: 10,
-        ypowertough: 241.5,
+        ypowertough: 233.5,
         xtext: CardWidth - 23,
-        ytext: CardHeight - 35,
+        ytext: CardHeight - 46,
         textangle: 180,
         xtb: 18,
-        ytb: 243,
+        ytb: 235,
         tbwidth: 196,
-        tbheight: 70,
-        xart: 17,
-        yart: 100,
-        artwidth: 198,
-        artheight: 121
+        tbheight: 62,
+        xart: 0, // unused
+        yart: 0, // unused
+        artwidth: 0, // unused
+        artheight: 0, // unused
+        xartist: 0, // unused
+        yartist: 0, // unused
     },
 
     // split bottom
@@ -209,7 +215,9 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xart: 18,
         yart: (CardHeight / 2) + 9,
         artwidth: 102,
-        artheight: 147
+        artheight: 147,
+        xartist: 221,
+        yartist: CardHeight - 7,
     },
 
     // split top
@@ -238,7 +246,9 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         xart: 18,
         yart: 9,
         artwidth: 102,
-        artheight: 147
+        artheight: 147,
+        xartist: 221,
+        yartist: (CardHeight / 2) - 7,
     }
 };
 

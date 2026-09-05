@@ -309,10 +309,16 @@ async function generateSealedPDF(): Promise<void> {
 
     // Fill the sealed deck with random cards from the available cards in totalUniqueAvailableCards.
     const availableCardPool = Object.values(availableCardsDict);
-    if (availableCardPool.length === 0) {
+    if (availableCardPool.length === 0 || !generatePdfButton) {
         setStatus("No cards are available for the selected editions.");
         return;
     }
+
+    const originalLabel = generatePdfButton.textContent;
+    generatePdfButton.disabled = true;
+    generatePdfButton.textContent = "Generating PDF...";
+
+
     while (sealedDeckCards.length < sealedDeckSize) {
         const randomIndex = Math.floor(Math.random() * availableCardPool.length);
         sealedDeckCards.push(availableCardPool[randomIndex]);
@@ -321,7 +327,18 @@ async function generateSealedPDF(): Promise<void> {
     console.log(`Generated sealed deck with ${sealedDeckCards.length} cards. Papersize is ${decklistPaperSizeSelect?.value}`);
     console.log("Sealed deck cards:", sealedDeckCards);
 
-    // TODO : setup loading bar, fetch any missing card art from local cache, and send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice. (may be double 3x3 pages)
+    // TODO : fetch any missing card art from local cache, and send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice.
+
+    try {
+        // ...
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to generate PDF: ${message}`);
+    } finally {
+        generatePdfButton.disabled = false;
+        generatePdfButton.textContent = originalLabel;
+        syncGeneratePdfButton();
+    }
 
 }
 
@@ -338,8 +355,62 @@ async function generateDeckPDF(): Promise<void> {
     generatePdfButton.disabled = true;
     generatePdfButton.textContent = "Generating PDF...";
 
-    // TODO : setup loading bar, cleanup decklistTextArea's content in a nice string array, then fetch any missing card art from local cache, and finally generate the PDF based on the selected decklist paper size.
+    // 1 : cleanup decklistTextArea's content in a nice string array.
+    const cleanedDecklist = decklistTextArea?.value
+        .split(/\r?\n/)
+        .map(line => line.trim().replace(/^[\s,]+|[\s,]+$/g, ""))
+        // also replace accented letters with their non-accented counterparts
+        .map(line => line.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
+        // also lowercase the line for consistency
+        .map(line => line.toLowerCase())
+        .filter(line => line.length > 0);
 
+    // 2 : Now if any of those lines start with a number followed by "x" (e.g., "3x"), we can interpret that as a quantity for the card in the decklist.
+    const decklistWithQuantities = cleanedDecklist?.map(line => {
+        const match = line.match(/^(\d+)x\s*(.*)$/i);
+        if (match) {
+            return { quantity: parseInt(match[1], 10), cardName: match[2] };
+        }
+        return { quantity: 1, cardName: line };
+    });
+
+    console.log("Decklist with quantities:", decklistWithQuantities);
+
+    const decklistCards: Card[] = [];
+
+    for (const { quantity, cardName } of decklistWithQuantities ?? []) {
+        console.log(`Card: ${cardName}, Quantity: ${quantity}`);
+        let matchedIndex = -1;
+        for (let i = 0; i < allCardsNames.length; i++) {
+            if (allCardsNames[i].startsWith(cardName)) {
+                matchedIndex = i;
+                break;
+            }
+        }
+
+        if (matchedIndex === -1) {
+            clearCurrentPreviewState();
+            console.log(`No card found starting with "${cardName}".`);
+        } else {
+            console.log(`Matched card index for "${cardName}": ${matchedIndex}`);
+            const serial = allCardsIndexes[matchedIndex];
+            const card = singleCards[serial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
+
+            for (let i = 0; i < quantity; i++) {
+                decklistCards.push(card);
+            }
+        }
+    }
+
+    console.log("Consolidated decklist cards:", decklistCards);
+
+    // TODO : fetch any missing card art from local cache, and finally generate the PDF based on the selected decklist paper size.
+
+
+
+
+
+    // CODE EXAMPLE : Simple experiment below that only generates a PDF for the current preview state without considering the full sealed deck.
     try {
         const pdfBlob = await generateCardSheetPdf({
             faces: currentPreviewState.faces,

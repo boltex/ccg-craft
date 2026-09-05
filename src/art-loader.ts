@@ -37,7 +37,6 @@ async function fetchWithRetry(url: string): Promise<Response> {
 
 // Be polite to Scryfall's api.scryfall.com rate limit guidance; not needed for the cards.scryfall.io image CDN.
 async function fetchFromScryfallApi(url: string): Promise<Response> {
-    await sleep(scryfallRequestDelayMs);
     return fetchWithRetry(url);
 }
 

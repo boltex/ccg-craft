@@ -115,13 +115,3 @@ async function fetchSourceArtBlob(artCropUrl: string): Promise<Blob> {
 
     return response.blob();
 }
-
-type ScryfallSearchResponse = {
-    data?: ScryfallCardResult[];
-};
-
-type ScryfallCardResult = {
-    image_uris?: {
-        art_crop?: string;
-    };
-};

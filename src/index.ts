@@ -295,7 +295,7 @@ async function preloadCardArtForCards(cards: Card[]): Promise<void> {
             card,
             faces
         });
-        console.log(`Preloaded art for card: ${card.name}`);
+
     }
 }
 
@@ -444,30 +444,7 @@ async function generateDeckPDF(): Promise<void> {
         await updateStatusSummary();
 
     }
-    // CODE EXAMPLE : Simple experiment below that only generates a PDF for the current preview state without considering the full sealed deck.
-    /*
-    try {
-        const pdfBlob = await generateCardSheetPdf({
-            faces: currentPreviewState.faces,
-            artByFaceSerial: renderedFaceArt,
-            pageBackground: "#ffffff",
-            renderOptions: {
-                padding: 5, // Example padding value, adjust as needed
-                background: "#000000"
-            }
-        });
 
-        downloadGeneratedPdf(currentPreviewState.card.name, pdfBlob);
-        await updateStatusSummary(`Generated PDF for ${currentPreviewState.card.name}.`);
-    } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        setStatus(`Failed to generate PDF: ${message}`);
-    } finally {
-        generatePdfButton.disabled = false;
-        generatePdfButton.textContent = originalLabel;
-        syncGeneratePdfButton();
-    }
-    */
 }
 
 function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefined] {
@@ -632,25 +609,6 @@ function parseTextData(rawText: string): string[] {
     // Verify that the number of lines read matches the expected total entries.
     if (result.length !== totalEntries) {
         throw new Error(`Mismatch in expected text lines: expected ${totalEntries}, got ${result.length}.`);
-    }
-
-    return result;
-}
-
-function parseEditions(rawText: string): string[] {
-    // Editions data is expected to be a list of editions abbreviations, one per line, with no total count line. 
-    // The list ends with a single dot '.' on a line by itself.
-
-    const lines = rawText.split(/\r?\n/);
-    const result: string[] = [];
-
-    const totalEntries = lines.length;
-    for (let i = 0; i < totalEntries; i++) {
-        // If we get a single dot '.', it means we are done with the text lines.
-        if (lines[i] === ".") {
-            break;
-        }
-        result.push(lines[i]);
     }
 
     return result;
@@ -828,24 +786,6 @@ function downloadDecklist(text: string): void {
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }
-
-function downloadGeneratedPdf(cardName: string, pdfBlob: Blob): void {
-    const downloadUrl = URL.createObjectURL(pdfBlob);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = `${toDownloadSlug(cardName)}-${new Date().toISOString().slice(0, 10)}.pdf`;
-    link.click();
-    URL.revokeObjectURL(downloadUrl);
-}
-
-function toDownloadSlug(value: string): string {
-    return value
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") || "card";
-}
-
 
 async function bootstrap(): Promise<void> {
 
@@ -1029,9 +969,6 @@ async function bootstrap(): Promise<void> {
 
         await updateStatusSummary();
 
-
-
-
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         setStatus("Fetch failed.");
@@ -1044,8 +981,6 @@ async function bootstrap(): Promise<void> {
         );
         console.error(error);
     }
-
-
 
 }
 

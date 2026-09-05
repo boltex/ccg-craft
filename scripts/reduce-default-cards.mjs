@@ -103,8 +103,9 @@ async function processCards() {
             const artist = card.artist || card.card_faces?.[0]?.artist || null;
 
             results[key] = {
-                artist: artist,
-                art_crop: artCrop
+                a: artist,
+                // Remove "https://cards.scryfall.io/art_crop/front/" from start of artCrop if it exists
+                b: artCrop?.replace(/^https:\/\/cards\.scryfall\.io\/art_crop\/front\//, '')
             };
         } catch (err) {
             console.error(`Error parsing line ${totalLines}:`, err);

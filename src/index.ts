@@ -475,7 +475,7 @@ function getFaceData(cardSerial: number): [PrintableFace, PrintableFace | undefi
     const card = singleCards[cardSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
     const artistIndex = card.artist;
-    const artist = artistsData[artistIndex - 1]; // Assuming artistData is an array of artist names.
+    const artist = artistsData[artistIndex]; // Assuming artistData is an array of artist names.
 
     const face1 = getPrintableFace(card.face1, undefined, artist);
     if (!card.face2 || card.face2 === 0) {
@@ -892,26 +892,23 @@ async function bootstrap(): Promise<void> {
         text = await response.text();
         artistsData.push(...parseTextData(text));
 
-        // Fetch editions.txt and parse it
-        response = await fetch("editions.txt");
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        text = await response.text();
-        editions.push(...parseEditions(text));
-
-        if (editionCheckboxesContainer) {
-            editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer, syncGenerateSealedButton);
-            syncGenerateSealedButton();
-        }
-
         // Fetch editions-scry.json and parse it
-        response = await fetch("editions-scry.json");
+        response = await fetch("editions.json");
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
         }
         text = await response.text();
         Object.assign(editionsScry, JSON.parse(text));
+        for (const key in editionsScry) {
+            if (editionsScry.hasOwnProperty(key)) {
+                editions.push(key); // Build editions with the keys from editionsScry
+            }
+        }
+
+        if (editionCheckboxesContainer) {
+            editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer, syncGenerateSealedButton);
+            syncGenerateSealedButton();
+        }
 
         // Fetch all-cards.txt and parse it to fill up allCardsDict
         response = await fetch("all-cards.txt");

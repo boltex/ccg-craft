@@ -47,14 +47,15 @@ Other card generation data
 2915, absolute grace
 2916, absolute law
 
+
 # single-cards.txt
-  		Format: Serial, firstFace, secondFace, Edition, SingleCardName
+  		Format: Serial, firstFace, secondFace, Edition, Artist-Index, Art-URL, SingleCardName
 		(sample that includes a split card "Assault | Battery" which has non-zero secondFace):
 
-4174, 4174, 0, IN, Artifact Mutation
-4175, 4175, 4176, IN, Assault | Battery
-4176, 4177, 0, IN, Atalya, Samite Master
-4177, 4178, 0, IN, Aura Mutation
+4174, 4174, 0, IN, 181, d/5/d5eef49c-a80f-4622-ba77-999f9151c841.jpg?1783945666, Artifact Mutation
+4175, 4175, 4176, IN, 215, 0/e/0ec6a889-c941-4898-a2f6-4d3863faf535.jpg?1783945651, Assault | Battery
+4176, 4177, 0, IN, 65, 9/0/90500e7a-f76d-453a-bda0-d56d3f7c7534.jpg?1783945719, Atalya, Samite Master
+4177, 4178, 0, IN, 33, 3/8/38421179-615e-4aba-91a4-503bfee05403.jpg?1783945666, Aura Mutation
 
 
 # face-index.dat
@@ -73,6 +74,7 @@ Other card generation data
 
 Note: NameIndex, ManacostIndex, TypelineIndex and TextIndex are 1-based indexes. (subtract 1 when using)
 	
+
 # face-names.txt
 		Format: First line is just the total, then all the lines follow like so
 7455
@@ -82,6 +84,7 @@ Mana Crypt
 Nalathni Dragon
 Sewers of Estark
 
+
 # face-mana.txt
 		Format: First line is just the total, then all the lines follow like so
 301
@@ -90,6 +93,7 @@ Sewers of Estark
 2RR
 2BB
 1RR
+
 
 # face-type-lines.txt
 		Format: First line is just the total, then all the lines follow like so
@@ -101,6 +105,7 @@ Creature - Dragon
 Instant
 Creature - Centaur
 
+
 # face-text-lines.txt
 		Format: First line is just the total, then all the lines follow like so
 7296
@@ -111,3 +116,30 @@ At the beginning of your upkeep, flip a coin. If you lose the flip, <this> deals
 Flying, banding
 
 
+# artists.txt
+		Format: First line is just the total, then all the lines follow like so
+367
+Rob Alexander
+Liz Danforth
+Mark Tedin
+Michael Whelan
+
+
+# editions.json
+		Format: Json dict of all the internal set names, with member array of scryfall possible names.
+{
+    "BK": [
+        "PHPR",
+        "PDRC"
+    ],
+    "UN": [
+        "2ED"
+    ],
+    "AN": [
+        "ARN"
+    ],
+    "AQ": [
+        "ATQ"
+    ],
+	...
+}

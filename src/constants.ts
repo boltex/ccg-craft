@@ -90,12 +90,11 @@ export const PdfCardHeight = PdfCardHeightInches * PointsPerInch;
 
 // Specific page sizes contants dictionary to help with this select options:
 export const SpecificPageSizes: { [key: string]: [number, number] } = {
-    letter: [8.5 * PointsPerInch, 11 * PointsPerInch],
-    ledger: [11 * PointsPerInch, 17 * PointsPerInch],
-    a4: [210 / 25.4 * PointsPerInch, 297 / 25.4 * PointsPerInch],
-    a3: [297 / 25.4 * PointsPerInch, 420 / 25.4 * PointsPerInch],
+    letter: [8.5 * PointsPerInch, 11 * PointsPerInch], // Portrait, fits 3 x 3 cards
+    ledger: [17 * PointsPerInch, 11 * PointsPerInch], // Landscape, fits 6 x 3 cards
+    a4: [210 / 25.4 * PointsPerInch, 297 / 25.4 * PointsPerInch], // portrait, fits 3 x 3 cards
+    a3: [420 / 25.4 * PointsPerInch, 297 / 25.4 * PointsPerInch], // landscape, fits 6 x 3 cards
 };
-
 
 // FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB
 export const FaceLayouts: { [key: number]: FaceLayout } = {

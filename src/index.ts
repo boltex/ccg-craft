@@ -23,7 +23,7 @@ const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-d
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
-// const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size"); // For future use
+const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size"); // For future use
 const loadDecklistButton = document.querySelector<HTMLButtonElement>("#load-decklist");
 const saveDecklistButton = document.querySelector<HTMLButtonElement>("#save-decklist");
 const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-decklist");
@@ -318,10 +318,10 @@ async function generateSealedPDF(): Promise<void> {
         sealedDeckCards.push(availableCardPool[randomIndex]);
     }
 
-    console.log(`Generated sealed deck with ${sealedDeckCards.length} cards.`);
+    console.log(`Generated sealed deck with ${sealedDeckCards.length} cards. Papersize is ${decklistPaperSizeSelect?.value}`);
     console.log("Sealed deck cards:", sealedDeckCards);
 
-    // TODO : Send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice. (may be double 3x3 pages)
+    // TODO : setup loading bar, fetch any missing card art from local cache, and send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice. (may be double 3x3 pages)
 
 }
 
@@ -332,9 +332,13 @@ async function generateDeckPDF(): Promise<void> {
         return;
     }
 
+    console.log(`Selected decklist paper size: ${decklistPaperSizeSelect?.value}`);
+
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
     generatePdfButton.textContent = "Generating PDF...";
+
+    // TODO : setup loading bar, cleanup decklistTextArea's content in a nice string array, then fetch any missing card art from local cache, and finally generate the PDF based on the selected decklist paper size.
 
     try {
         const pdfBlob = await generateCardSheetPdf({

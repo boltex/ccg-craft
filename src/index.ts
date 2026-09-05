@@ -52,7 +52,6 @@ const textData: string[] = []; // Will fill from face-text-lines.txt
 const artists: string[] = []; // Will fill from artists.txt
 
 const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restricted-subsets.json
-const artData: Record<string, { a: string; b: string }> = {}; // Will fill from reduced-default-cards.json
 
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 let renderedFaceArt = new Map<number, ImageBitmap>();
@@ -294,9 +293,8 @@ async function preloadCardArtForCards(cards: Card[]): Promise<void> {
 
         await prepareFaceArtForCard({
             card,
-            faces,
-            scryfallEditions: possibleCardEditions,
-        }, artData);
+            faces
+        });
         console.log(`Preloaded art for card: ${card.name}`);
     }
 }
@@ -348,13 +346,12 @@ async function generateSealedPDF(): Promise<void> {
     console.log(`Generated sealed deck with ${sealedDeckCards.length} cards. Papersize is ${decklistPaperSizeSelect?.value}`);
     console.log("Sealed deck cards:", sealedDeckCards);
 
-    // TODO : fetch any missing card art from local cache, and send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice.
-
     try {
 
         console.log("Generating PDF for sealed deck...");
         await preloadCardArtForCards(sealedDeckCards);
 
+        // TODO : send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice.
 
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -430,13 +427,12 @@ async function generateDeckPDF(): Promise<void> {
 
     console.log("Consolidated decklist cards:", decklistCards);
 
-    // TODO : fetch any missing card art from local cache, and finally generate the PDF based on the selected decklist paper size.
-
     try {
 
         console.log("Generating PDF for constructed deck...");
         await preloadCardArtForCards(decklistCards);
 
+        // TODO : generate the PDF based on the selected decklist paper size.
 
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -728,9 +724,8 @@ async function showCardPreview(query: string): Promise<void> {
     try {
         renderedFaceArt = await loadFaceArtForCard({
             card,
-            faces,
-            scryfallEditions: possibleCardEditions,
-        }, artData);
+            faces
+        });
     } catch (error) {
         console.error(`Error fetching card data for ${cardName}:`, error);
         throw error;
@@ -905,14 +900,6 @@ async function bootstrap(): Promise<void> {
             editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer, syncGenerateSealedButton);
             syncGenerateSealedButton();
         }
-
-        // Fetch art-data.json and parse it
-        response = await fetch("art-data.json");
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        text = await response.text();
-        Object.assign(artData, JSON.parse(text));
 
         // Fetch editions-scry.json and parse it
         response = await fetch("editions-scry.json");

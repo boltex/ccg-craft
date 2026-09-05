@@ -44,7 +44,7 @@ text = await readFile(path.join(publicDir, "editions-scry.json"), "utf-8");
 Object.assign(editionsScry, JSON.parse(text));
 
 // Read art-data.json and parse it
-text = await readFile(path.join(publicDir, "art-data.json"), "utf-8");
+text = await readFile(path.join(__dirname, "art-data.json"), "utf-8");
 Object.assign(artData, JSON.parse(text));
 
 console.log("Total single cards:", singleCards.length, "Editions Scry:", Object.keys(editionsScry).length, "Art Data:", Object.keys(artData).length);

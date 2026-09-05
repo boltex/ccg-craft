@@ -7670,7 +7670,7 @@
 7670, 7700, 0, PO3, Imperial Seal
 7671, 7701, 0, PO3, Independent Troops
 7672, 7702, 0, PO3, Island
-7673, 7703, 0, PO3, Kongming, Sleeping Dragon
+7673, 7703, 0, PO3, Kongming, "Sleeping Dragon"
 7674, 7704, 0, PO3, Kongming's Contraptions
 7675, 7705, 0, PO3, Lady Sun
 7676, 7706, 0, PO3, Lady Zhurong, Warrior Queen
@@ -7690,7 +7690,7 @@
 7690, 7720, 0, PO3, Mountain Bandit
 7691, 7721, 0, PO3, Mystic Denial
 7692, 7722, 0, PO3, Overwhelming Forces
-7693, 7723, 0, PO3, Pang Tong, Young Phoenix
+7693, 7723, 0, PO3, Pang Tong, "Young Phoenix"
 7694, 7724, 0, PO3, Peach Garden Oath
 7695, 7725, 0, PO3, Plains
 7696, 7726, 0, PO3, Poison Arrow

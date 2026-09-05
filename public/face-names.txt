@@ -7350,7 +7350,7 @@ Imperial Edict
 Imperial Recruiter
 Imperial Seal
 Independent Troops
-Kongming, Sleeping Dragon
+Kongming, "Sleeping Dragon"
 Kongming's Contraptions
 Lady Sun
 Lady Zhurong, Warrior Queen
@@ -7367,7 +7367,7 @@ Meng Huo's Horde
 Misfortune's Gain
 Mountain Bandit
 Overwhelming Forces
-Pang Tong, Young Phoenix
+Pang Tong, "Young Phoenix"
 Peach Garden Oath
 Poison Arrow
 Preemptive Strike

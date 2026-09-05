@@ -6,8 +6,6 @@ import {
 import type { Card, PrintableFace } from "./types";
 import * as utils from "./utils";
 
-const scryfallSearchUrl = "https://api.scryfall.com/cards/search";
-const scryfallRequestDelayMs = 500;
 const scryfallMaxRetries = 5;
 
 // Retry on HTTP 429 up to a capped number of attempts, honoring the retry-after header when present.
@@ -42,9 +40,9 @@ export type LoadFaceArtForCardInput = {
 
 
 export async function prepareFaceArtForCard(
-    input: LoadFaceArtForCardInput
+    input: LoadFaceArtForCardInput, artData: Record<string, { a: string; b: string }>
 ): Promise<void> {
-    const artByFaceSerial = await loadFaceArtForCard(input);
+    const artByFaceSerial = await loadFaceArtForCard(input, artData);
     for (const bitmap of artByFaceSerial.values()) {
         bitmap.close();
     }
@@ -52,7 +50,8 @@ export async function prepareFaceArtForCard(
 }
 
 export async function loadFaceArtForCard(
-    input: LoadFaceArtForCardInput
+    input: LoadFaceArtForCardInput,
+    artData: Record<string, { a: string; b: string }>
 ): Promise<Map<number, ImageBitmap>> {
 
     // This function loads the face art for a given card, either from the local cache or by fetching and normalizing it from Scryfall.
@@ -82,7 +81,7 @@ export async function loadFaceArtForCard(
     }
 
     const editionToUse = selectScryfallEdition(input.card.name, input.scryfallEditions);
-    const artCropUrl = await fetchArtCropUrl(input.card.name, editionToUse);
+    const artCropUrl = fetchArtCropUrl(input.card.name, editionToUse, artData);
     if (!artCropUrl) {
         return artByFaceSerial;
     }
@@ -123,21 +122,28 @@ function selectScryfallEdition(cardName: string, scryfallEditions: string[]): st
     return scryfallEditions[0];
 }
 
-async function fetchArtCropUrl(cardName: string, edition: string): Promise<string | undefined> {
-    // Scryfall search query: name:"Card Name" e:EDITION unique:art 
-    // We need to replace vertical bar to double slash for cards like assault | battery which should be searched as "assault // battery" in Scryfall.
+function fetchArtCropUrl(cardName: string, edition: string, artData: Record<string, { a: string; b: string }>): string | undefined {
+
+    // We need to replace vertical bar to double slash for cards like assault | battery which should be searched as "assault // battery"
     cardName = cardName.replace("|", "//");
 
-    const query = encodeURIComponent(`name:"${cardName}" e:${edition} unique:art`);
-    const response = await fetchWithRetry(`${scryfallSearchUrl}?q=${query}`, scryfallRequestDelayMs);
+    // key of art is `${cardSetUpper}:${cardName}`
+    const cardSetUpper = edition.toUpperCase();
+    const artKey = `${cardSetUpper}:${cardName}`;
+    return "https://cards.scryfall.io/art_crop/front/" + artData[artKey]?.b;
 
-    if (!response.ok) {
-        throw new Error(`Scryfall search failed with HTTP ${response.status}.`);
-    }
+    // OLD WAY OF GETTING ART CROP URL FROM SCRYFALL
 
-    const json = await response.json() as ScryfallSearchResponse;
-    const firstMatch = json.data?.[0]; // Choose the first match for now, maybe when there's sets of 4 the 3rd one is best but we'll see.
-    return firstMatch?.image_uris?.art_crop;
+    // const query = encodeURIComponent(`name:"${cardName}" e:${edition} unique:art`);
+    // const response = await fetchWithRetry(`${scryfallSearchUrl}?q=${query}`, scryfallRequestDelayMs);
+
+    // if (!response.ok) {
+    //     throw new Error(`Scryfall search failed with HTTP ${response.status}.`);
+    // }
+
+    // const json = await response.json() as ScryfallSearchResponse;
+    // const firstMatch = json.data?.[0]; // Choose the first match for now, maybe when there's sets of 4 the 3rd one is best but we'll see.
+    // return firstMatch?.image_uris?.art_crop;
 }
 
 async function fetchSourceArtBlob(artCropUrl: string): Promise<Blob> {

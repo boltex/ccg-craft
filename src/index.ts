@@ -9,7 +9,6 @@ import {
 } from "./art-cache";
 import * as constants from "./constants";
 import { buildEditionCheckboxes } from "./edition-filter";
-import { generateCardSheetPdf, generateSingleCardPdf } from "./pdf-export";
 import type { Card, CardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
 import * as utils from "./utils";
@@ -52,6 +51,7 @@ const typeData: string[] = []; // Will fill from face-type-lines.txt
 const textData: string[] = []; // Will fill from face-text-lines.txt
 
 const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restricted-subsets.json
+const artData: Record<string, { a: string; b: string }> = {}; // Will fill from reduced-default-cards.json
 
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 let renderedFaceArt = new Map<number, ImageBitmap>();
@@ -80,6 +80,8 @@ if (lookupElement) {
 
             // replace accented letters by their plain lowercase version
             query = query.normalize("NFD").replace(/\p{M}/gu, "");
+            // Remove any quotes
+            query = query.replace(/"/g, "");
 
             if (query) {
                 try {
@@ -293,7 +295,7 @@ async function preloadCardArtForCards(cards: Card[]): Promise<void> {
             card,
             faces,
             scryfallEditions: possibleCardEditions,
-        });
+        }, artData);
         console.log(`Preloaded art for card: ${card.name}`);
     }
 }
@@ -379,6 +381,8 @@ async function generateDeckPDF(): Promise<void> {
     // 1 : cleanup decklistTextArea's content in a nice string array.
     const cleanedDecklist = decklistTextArea?.value
         .split(/\r?\n/)
+        // also remove any quotes
+        .map(line => line.replace(/"/g, ""))
         .map(line => line.trim().replace(/^[\s,]+|[\s,]+$/g, ""))
         // also replace accented letters with their non-accented counterparts
         .map(line => line.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
@@ -720,7 +724,7 @@ async function showCardPreview(query: string): Promise<void> {
             card,
             faces,
             scryfallEditions: possibleCardEditions,
-        });
+        }, artData);
     } catch (error) {
         console.error(`Error fetching card data for ${cardName}:`, error);
         throw error;
@@ -888,6 +892,14 @@ async function bootstrap(): Promise<void> {
             editionSelection = buildEditionCheckboxes(editions, editionCheckboxesContainer, syncGenerateSealedButton);
             syncGenerateSealedButton();
         }
+
+        // Fetch art-data.json and parse it
+        response = await fetch("art-data.json");
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        text = await response.text();
+        Object.assign(artData, JSON.parse(text));
 
         // Fetch editions-scry.json and parse it
         response = await fetch("editions-scry.json");

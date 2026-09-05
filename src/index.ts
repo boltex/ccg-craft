@@ -362,6 +362,7 @@ async function generateSealedPDF(): Promise<void> {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         syncGeneratePdfButton();
+        await updateStatusSummary();
     }
 
 }
@@ -443,6 +444,8 @@ async function generateDeckPDF(): Promise<void> {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         syncGeneratePdfButton();
+        await updateStatusSummary();
+
     }
     // CODE EXAMPLE : Simple experiment below that only generates a PDF for the current preview state without considering the full sealed deck.
     /*

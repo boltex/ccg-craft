@@ -79,6 +79,11 @@ async function processCards() {
         totalLines++;
         if (!line.trim()) continue;
 
+        // At every 250 lines, log progress
+        if (totalLines % 250 === 0) {
+            console.log(`Processed ${totalLines} lines so far...`);
+        }
+
         try {
             const card = JSON.parse(line);
             const cardSetUpper = (card.set || '').toUpperCase();

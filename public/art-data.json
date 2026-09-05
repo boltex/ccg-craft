@@ -1459,7 +1459,7 @@
     "a": "Christopher Moeller",
     "b": "0/b/0b4dc1d3-53a1-411b-abf9-f5e4e80edc63.jpg?1783944931"
   },
-  "SOK:Erayo, Soratami Ascendant // Erayo's Essence": {
+  "SOK:Erayo, Soratami Ascendant": {
     "a": "Matt Cavotta",
     "b": "0/b/0b61d772-2d8b-4acf-9dd2-b2e8b03538c8.jpg?1783944164"
   },
@@ -4067,7 +4067,7 @@
     "a": "David Martin",
     "b": "1/f/1fd66433-b0e9-453d-9a27-ea0efb158dac.jpg?1783945202"
   },
-  "BOK:Cunning Bandit // Azamuki, Treachery Incarnate": {
+  "BOK:Cunning Bandit": {
     "a": "Paolo Parente",
     "b": "1/f/1fe2b76f-ddb7-49d5-933b-ccb06be5d46f.jpg?1783944191"
   },
@@ -5223,7 +5223,7 @@
     "a": "Ron Spencer",
     "b": "2/8/28f6642d-393d-49a5-8c49-c1f62524ea20.jpg?1783946731"
   },
-  "BOK:Hired Muscle // Scarmaker": {
+  "BOK:Hired Muscle": {
     "a": "Arnie Swekel",
     "b": "2/8/28f72260-c8f9-4c44-92b5-23cef6690fdd.jpg?1783944199"
   },
@@ -6547,7 +6547,7 @@
     "a": "Yang Hong",
     "b": "3/3/33a1fe45-52d2-4c50-bedc-eee156ab69c8.jpg?1783946108"
   },
-  "CHK:Jushi Apprentice // Tomoya the Revealer": {
+  "CHK:Jushi Apprentice": {
     "a": "Glen Angus",
     "b": "3/3/33a8e5b9-6bfb-4ff2-a16d-3168a5412807.jpg?1783944325"
   },
@@ -8183,7 +8183,7 @@
     "a": "Sam Wood",
     "b": "4/0/40fed2c7-c922-41c3-b86b-a8ed41a1308d.jpg?1783945931"
   },
-  "SOK:Kuon, Ogre Ascendant // Kuon's Essence": {
+  "SOK:Kuon, Ogre Ascendant": {
     "a": "Hideaki Takamura",
     "b": "4/1/41004bdf-8e09-4b2c-9e9c-26c25eac9854.jpg?1783944153"
   },
@@ -8355,7 +8355,7 @@
     "a": "Mark Brill",
     "b": "4/2/42b7b73b-4800-4fc7-9a5c-93e00ea88498.jpg?1783944496"
   },
-  "SOK:Rune-Tail, Kitsune Ascendant // Rune-Tail's Essence": {
+  "SOK:Rune-Tail, Kitsune Ascendant": {
     "a": "Randy Gallegos",
     "b": "4/2/42ba0e13-d20f-47f9-9c86-2b0b13c39ada.jpg?1783944168"
   },
@@ -9211,7 +9211,7 @@
     "a": "Geofrey Darrow & I. Rabarot",
     "b": "4/9/49980982-d534-4204-bc15-3e6c4ffa1a53.jpg?1783946989"
   },
-  "CHK:Budoka Gardener // Dokai, Weaver of Life": {
+  "CHK:Budoka Gardener": {
     "a": "Kev Walker",
     "b": "4/9/49999b95-5e62-414c-b975-4191b9c1ab39.jpg?1783944292"
   },
@@ -13819,7 +13819,7 @@
     "a": "Matt Cavotta",
     "b": "6/e/6ec9a91d-7af0-44a8-839f-fb9960be0ddd.jpg?1783945649"
   },
-  "CHK:Akki Lavarunner // Tok-Tok, Volcano Born": {
+  "CHK:Akki Lavarunner": {
     "a": "Matt Cavotta",
     "b": "6/e/6ee6cd34-c117-4d7e-97d1-8f8464bfaac8.jpg?1783944304"
   },
@@ -14351,7 +14351,7 @@
     "a": "Amy Weber",
     "b": "7/3/73636b95-103d-43c8-bc96-63fad0da34dd.jpg?1783948588"
   },
-  "BOK:Budoka Pupil // Ichiga, Who Topples Oaks": {
+  "BOK:Budoka Pupil": {
     "a": "Shishizaru",
     "b": "7/3/73636ca0-2309-4bb3-9300-8bd0c0bb5b31.jpg?1783944186"
   },
@@ -14691,7 +14691,7 @@
     "a": "Charles Gillespie",
     "b": "7/5/75629aa3-426e-4e25-a7ab-71e03436e061.jpg?1783947123"
   },
-  "BOK:Faithful Squire // Kaiso, Memory of Loyalty": {
+  "BOK:Faithful Squire": {
     "a": "Mark Zug",
     "b": "7/5/758abd53-6ad2-406e-8615-8e48678405b4.jpg?1783944216"
   },
@@ -14959,7 +14959,7 @@
     "a": "Franz Vohwinkel",
     "b": "7/7/77d8ae73-70d1-4082-8581-5f74c1aaa63b.jpg?1783945620"
   },
-  "CHK:Nezumi Graverobber // Nighteyes the Desecrator": {
+  "CHK:Nezumi Graverobber": {
     "a": "Jim Nelson",
     "b": "7/7/77ffd913-8efa-48e5-a5cf-293d3068dbbf.jpg?1783944311"
   },
@@ -16463,7 +16463,7 @@
     "a": "John Avon",
     "b": "8/4/848d686a-e2f7-488d-947f-a555099b74b1.jpg?1783945200"
   },
-  "SOK:Homura, Human Ascendant // Homura's Essence": {
+  "SOK:Homura, Human Ascendant": {
     "a": "Kev Walker",
     "b": "8/4/84920a21-ee2a-41ac-a369-347633d10371.jpg?1783944146"
   },
@@ -16699,7 +16699,7 @@
     "a": "Heather Hudson",
     "b": "8/6/8642e530-914c-4149-944a-c4966ee27299.jpg?1783945671"
   },
-  "CHK:Bushi Tenderfoot // Kenzo the Hardhearted": {
+  "CHK:Bushi Tenderfoot": {
     "a": "Mark Zug",
     "b": "8/6/864ad989-19a6-4930-8efc-bbc077a18c32.jpg?1783944342"
   },
@@ -19643,7 +19643,7 @@
     "a": "Rebecca Guay",
     "b": "9/d/9de0ee5d-10f6-4152-8416-1f2b749b439d.jpg?1783945933"
   },
-  "CHK:Student of Elements // Tobita, Master of Winds": {
+  "CHK:Student of Elements": {
     "a": "Ittoku",
     "b": "9/d/9de1eebf-5725-438c-bcf0-f3a4d8a89fb0.jpg?1783944320"
   },
@@ -20511,7 +20511,7 @@
     "a": "Michael Sutfin",
     "b": "a/4/a4f33c08-f3c3-4015-970d-ac0530f97c9c.jpg?1783944422"
   },
-  "CHK:Orochi Eggwatcher // Shidako, Broodmistress": {
+  "CHK:Orochi Eggwatcher": {
     "a": "Dan Murayama Scott",
     "b": "a/4/a4f4aa3b-c64a-4430-b1a2-a7fca87d0a22.jpg?1783944284"
   },
@@ -22187,7 +22187,7 @@
     "a": "Rebecca Guay",
     "b": "b/3/b3387540-93bf-451e-8e7a-fc78caab42b0.jpg?1783945612"
   },
-  "CHK:Initiate of Blood // Goka the Unjust": {
+  "CHK:Initiate of Blood": {
     "a": "Carl Critchlow",
     "b": "b/3/b3523b8e-065f-427c-8d5b-eb731ca91ede.jpg?1783944299"
   },
@@ -24547,7 +24547,7 @@
     "a": "Jeff Laubenstein",
     "b": "c/8/c8173030-1c33-417c-b8e9-79231b6a85a7.jpg?1783946516"
   },
-  "CHK:Nezumi Shortfang // Stabwhisker the Odious": {
+  "CHK:Nezumi Shortfang": {
     "a": "Daren Bader",
     "b": "c/8/c8265c39-d287-4c5a-baba-f2f09dd80a1c.jpg?1783944311"
   },
@@ -24771,7 +24771,7 @@
     "a": "Phil Foglio",
     "b": "c/a/ca02861b-9639-480d-8e54-e024f0c70158.jpg?1783947457"
   },
-  "BOK:Callow Jushi // Jaraku the Interloper": {
+  "BOK:Callow Jushi": {
     "a": "Tsutomu Kawade",
     "b": "c/a/ca03131a-9bd4-4fba-b95c-90f1831e86e7.jpg?1783944207"
   },
@@ -25795,7 +25795,7 @@
     "a": "Pete Venters",
     "b": "d/2/d22231f5-30af-4f46-b2c9-0b71124c6939.jpg?1783947199"
   },
-  "SOK:Sasaya, Orochi Ascendant // Sasaya's Essence": {
+  "SOK:Sasaya, Orochi Ascendant": {
     "a": "Christopher Moeller",
     "b": "d/2/d224c50f-8146-4c91-9401-04e5bd306d02.jpg?1783944135"
   },
@@ -29643,7 +29643,7 @@
     "a": "Jeff Miracola",
     "b": "f/2/f2d9b77b-d775-4546-91c8-df438a1d8dbe.jpg?1783944436"
   },
-  "CHK:Kitsune Mystic // Autumn-Tail, Kitsune Sage": {
+  "CHK:Kitsune Mystic": {
     "a": "Jim Murray",
     "b": "f/2/f2ddf1a3-e6fa-4dd0-b80d-1a585b51b934.jpg?1783944336"
   },

@@ -4,6 +4,8 @@ export type Card = {
     name: string;
     face1: number;
     face2: number;
+    url: string; // URL to the card's artwork
+    artist: number; // Index of the artist in the artists array
 }
 
 export type CardFace = {

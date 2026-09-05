@@ -93,7 +93,11 @@ async function processCards() {
             }
 
             const cardName = card.name;
-            const key = `${cardSetUpper}:${cardName}`;
+            let key = `${cardSetUpper}:${cardName}`;
+            if (['CHK', 'BOK', 'SOK'].includes(cardSetUpper)) {
+                // Trim all after, and including  " //"
+                key = key.split(" //")[0];
+            }
 
             if (results[key]) {
                 continue;

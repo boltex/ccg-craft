@@ -49,6 +49,7 @@ const nameData: string[] = []; // Will fill from face-names.txt
 const manaCostData: string[] = []; // Will fill from face-mana.txt
 const typeData: string[] = []; // Will fill from face-type-lines.txt
 const textData: string[] = []; // Will fill from face-text-lines.txt
+const artists: string[] = []; // Will fill from artists.txt
 
 const restrictedSubsets: Record<string, string[]> = {}; // Will fill from restricted-subsets.json
 const artData: Record<string, { a: string; b: string }> = {}; // Will fill from reduced-default-cards.json
@@ -664,7 +665,7 @@ function parseSingleCards(rawText: string): Card[] {
             break;
         }
         // lines look like this:
-        // 4174, 4174, 0, IN, Artifact Mutation
+        // 4174, 4174, 0, IN, Greg Staples, d/5/d5eef49c-a80f-4622-ba77-999f9151c841.jpg?1783945666, Artifact Mutation
         const parts = lines[i].split(",");
         if (parts.length < 5) {
             console.warn(`Skipping malformed line: ${lines[i]}`);
@@ -674,9 +675,11 @@ function parseSingleCards(rawText: string): Card[] {
         const face1 = parseInt(parts[1].trim(), 10);
         const face2 = parseInt(parts[2].trim(), 10);
         const edition = parts[3].trim();
-        const name = parts.slice(4).join(",").trim();
+        const artist = parseInt(parts[4].trim(), 10);
+        const url = parts[5].trim();
+        const name = parts.slice(6).join(",").trim();
 
-        result.push({ serial, face1, face2, edition, name });
+        result.push({ serial, face1, face2, edition, name, artist, url });
     }
 
     return result;
@@ -883,6 +886,13 @@ async function bootstrap(): Promise<void> {
         text = await response.text();
         textData.push(...parseTextData(text));
 
+        response = await fetch("artists.txt");
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        text = await response.text();
+        artists.push(...parseTextData(text));
+
         // Fetch editions.txt and parse it
         response = await fetch("editions.txt");
         if (!response.ok) {
@@ -1044,6 +1054,7 @@ async function bootstrap(): Promise<void> {
                 `Error: ${message}`
             ].join("\n")
         );
+        console.error(error);
     }
 
 

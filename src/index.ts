@@ -12,6 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import type { Card, CardFace, Color, PrintableFace } from "./types";
 import { renderCardPreview } from "./renderer";
 import * as utils from "./utils";
+import { generateDeckPdf } from "./pdf-export";
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
@@ -299,12 +300,10 @@ async function preloadCardArtForCards(cards: Card[]): Promise<void> {
     }
 }
 
-
 async function generateSealedPDF(): Promise<void> {
     const selectedEditions = Object.entries(editionSelection)
         .filter(([, checked]) => checked)
         .map(([code]) => code);
-    console.log("Selected editions for sealed deck:", selectedEditions);
 
     // Let's build an array of available cards by looping singleCards and making sure its edition is selected.
     // And that the card is not a basic land.
@@ -351,7 +350,18 @@ async function generateSealedPDF(): Promise<void> {
         console.log("Generating PDF for sealed deck...");
         await preloadCardArtForCards(sealedDeckCards);
 
-        // TODO : send to a function that generates a PDF for the sealed deck taking into account the decklistPaperSizeSelect choice.
+        const pdfBlob = await generateDeckPdf({
+            cards: sealedDeckCards,
+            pageBackground: "#ffffff",
+            paperSize: decklistPaperSizeSelect?.value,
+            renderOptions: {
+                padding: 5, // Example padding value, adjust as needed
+                background: "#000000"
+            }
+        });
+
+        downloadGeneratedPdf("sealed-deck", pdfBlob);
+        await updateStatusSummary(`Generated PDF for sealed deck.`);
 
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -432,8 +442,18 @@ async function generateDeckPDF(): Promise<void> {
         console.log("Generating PDF for constructed deck...");
         await preloadCardArtForCards(decklistCards);
 
-        // TODO : generate the PDF based on the selected decklist paper size.
+        const pdfBlob = await generateDeckPdf({
+            cards: decklistCards,
+            pageBackground: "#ffffff",
+            paperSize: decklistPaperSizeSelect?.value,
+            renderOptions: {
+                padding: 5, // Example padding value, adjust as needed
+                background: "#000000"
+            }
+        });
 
+        downloadGeneratedPdf("constructed-deck", pdfBlob);
+        await updateStatusSummary(`Generated PDF for Decklist.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         setStatus(`Failed to generate PDF: ${message}`);
@@ -442,7 +462,6 @@ async function generateDeckPDF(): Promise<void> {
         generatePdfButton.textContent = originalLabel;
         syncGeneratePdfButton();
         await updateStatusSummary();
-
     }
 
 }
@@ -785,6 +804,23 @@ function downloadDecklist(text: string): void {
     link.download = `ccg-craft-decklist-${new Date().toISOString().slice(0, 10)}.txt`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
+}
+
+function downloadGeneratedPdf(title: string, pdfBlob: Blob): void {
+    const downloadUrl = URL.createObjectURL(pdfBlob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `${toDownloadSlug(title)}-${new Date().toISOString().slice(0, 10)}.pdf`;
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+}
+
+function toDownloadSlug(value: string): string {
+    return value
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "decklist";
 }
 
 async function bootstrap(): Promise<void> {

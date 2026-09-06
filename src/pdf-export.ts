@@ -10,7 +10,7 @@ import {
     type PdfKitImageSource,
 } from "./renderer-surface-pdfkit";
 import type { RenderImageSource } from "./renderer-surface";
-import type { PrintableFace } from "./types";
+import type { Card, PrintableFace } from "./types";
 
 const PDF_FONT_ALIASES: PdfKitFontRegistry = {
     regularText: "PlantinPdf",
@@ -45,6 +45,20 @@ type PdfKitDocumentWithOutput = PdfKitDocument & {
 };
 
 let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
+
+// export async generateDeckPdf
+export type GenerateDeckPdfInput = {
+    cards: Card[];
+    paperSize?: string;
+    pageBackground?: string;
+    renderOptions?: Omit<RenderCardOptions, "artByFaceSerial">;
+};
+
+export async function generateDeckPdf(input: GenerateDeckPdfInput): Promise<Blob> {
+    // TODO
+    console.log("Generating PDF for deck with input:", input);
+    throw new Error("generateDeckPdf is not yet implemented.");
+}
 
 // Demo function that generates a PDF containing a single card, centered on the page.
 export async function generateSingleCardPdf(input: GenerateSingleCardPdfInput): Promise<Blob> {

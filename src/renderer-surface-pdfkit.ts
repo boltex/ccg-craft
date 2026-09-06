@@ -103,7 +103,6 @@ export function createPdfKitRenderSurface(
             pdfKitVerticalTextOffset = VERTICAL_TEXT_OFFSET_DEFAULT * style.fontSize;
         }
 
-        // console.log(style.fontSize);
         document.font(resolvePdfKitFontName(style.fontFamily, fontRegistry));
         document.fontSize(style.fontSize);
         applyFillColor(document, style.fillStyle);

@@ -114,7 +114,7 @@ if (generatePdfButton) {
         if (activeDeckTab === "sealed") {
             await generateSealedPDF();
         } else {
-            await generateDeckPDF();
+            await generateConstructedPDF();
         }
 
     });
@@ -284,13 +284,16 @@ if (importArtCacheButton && importArtCacheFileInput) {
     });
 }
 
-async function preloadCardArtForCards(cards: Card[]): Promise<void> {
+async function preloadCardArtForCards(cards: Card[], logFunction?: (message: string) => void): Promise<void> {
+    let cardCounter = 0;
     for (const card of cards) {
+        if (logFunction) {
+            logFunction(`Preloading art: ${++cardCounter}/${cards.length}`);
+        }
 
         const serial = card.serial;
 
         const faces = getFaceData(serial);
-        const possibleCardEditions = editionsScry[card.edition];
 
         await prepareFaceArtForCard({
             card,
@@ -315,8 +318,6 @@ async function generateSealedPDF(): Promise<void> {
             availableCardsDict[card.name] = card;
         }
     }
-    // Console log the total of available cards and the total of unique available cards.
-    console.log(`Total available cards without basic lands: ${availableCards.length}`);
 
     const totalUniqueAvailableCards = Object.keys(availableCardsDict).length;
     console.log(`Total unique available cards without basic lands: ${totalUniqueAvailableCards}`);
@@ -336,29 +337,28 @@ async function generateSealedPDF(): Promise<void> {
     generatePdfButton.disabled = true;
     generatePdfButton.textContent = "Generating PDF...";
 
-
     while (sealedDeckCards.length < sealedDeckSize) {
         const randomIndex = Math.floor(Math.random() * availableCardPool.length);
         sealedDeckCards.push(availableCardPool[randomIndex]);
     }
 
-    console.log(`Generated sealed deck with ${sealedDeckCards.length} cards. Papersize is ${decklistPaperSizeSelect?.value}`);
-    console.log("Sealed deck cards:", sealedDeckCards);
-
     try {
 
         console.log("Generating PDF for sealed deck...");
-        await preloadCardArtForCards(sealedDeckCards);
+        await preloadCardArtForCards(sealedDeckCards, setStatus);
 
         const pdfBlob = await generateDeckPdf({
             cards: sealedDeckCards,
             pageBackground: "#ffffff",
             paperSize: decklistPaperSizeSelect?.value,
+            getFaceData: getFaceData,
             renderOptions: {
                 padding: 5, // Example padding value, adjust as needed
                 background: "#000000"
-            }
-        });
+            },
+        },
+            setStatus
+        );
 
         downloadGeneratedPdf("sealed-deck", pdfBlob);
         await updateStatusSummary(`Generated PDF for sealed deck.`);
@@ -375,13 +375,11 @@ async function generateSealedPDF(): Promise<void> {
 
 }
 
-async function generateDeckPDF(): Promise<void> {
+async function generateConstructedPDF(): Promise<void> {
 
     if (!generatePdfButton) {
         return;
     }
-
-    console.log(`Selected decklist paper size: ${decklistPaperSizeSelect?.value}`);
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
@@ -408,12 +406,9 @@ async function generateDeckPDF(): Promise<void> {
         return { quantity: 1, cardName: line };
     });
 
-    console.log("Decklist with quantities:", decklistWithQuantities);
-
     const decklistCards: Card[] = [];
 
     for (const { quantity, cardName } of decklistWithQuantities ?? []) {
-        console.log(`Card: ${cardName}, Quantity: ${quantity}`);
         let matchedIndex = -1;
         for (let i = 0; i < allCardsNames.length; i++) {
             if (allCardsNames[i].startsWith(cardName)) {
@@ -425,7 +420,6 @@ async function generateDeckPDF(): Promise<void> {
         if (matchedIndex === -1) {
             console.log(`No card found starting with "${cardName}".`);
         } else {
-            console.log(`Matched card index for "${cardName}": ${matchedIndex}`);
             const serial = allCardsIndexes[matchedIndex];
             const card = singleCards[serial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
@@ -435,22 +429,23 @@ async function generateDeckPDF(): Promise<void> {
         }
     }
 
-    console.log("Consolidated decklist cards:", decklistCards);
-
     try {
 
         console.log("Generating PDF for constructed deck...");
-        await preloadCardArtForCards(decklistCards);
+        await preloadCardArtForCards(decklistCards, setStatus);
 
         const pdfBlob = await generateDeckPdf({
             cards: decklistCards,
+            getFaceData: getFaceData,
             pageBackground: "#ffffff",
             paperSize: decklistPaperSizeSelect?.value,
             renderOptions: {
                 padding: 5, // Example padding value, adjust as needed
                 background: "#000000"
             }
-        });
+        },
+            setStatus
+        );
 
         downloadGeneratedPdf("constructed-deck", pdfBlob);
         await updateStatusSummary(`Generated PDF for Decklist.`);

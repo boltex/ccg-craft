@@ -48,7 +48,7 @@
                 <div class="deck-tabs">
                     <button type="button" class="deck-tab active" id="tab-constructed"
                         data-deck-tab="constructed">Constructed</button>
-                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed">Sealed Deck</button>
+                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed">Sealed</button>
                 </div>
             </nav>
 
@@ -60,6 +60,10 @@
                         </p>
                     </div>
                     <div class="col">
+                        <p class="user-instructions">
+                            You can use a prefix like '2x Dark Ritual' for multiples
+                            (200 card max).
+                        </p>
                         <p class="mb-0 text-center">
                             <button type="button" id="load-decklist">Load Decklist</button>
                             <button type="button" id="save-decklist">Save Decklist</button>
@@ -72,6 +76,9 @@
             </div>
 
             <div class="deck-panel" id="deck-panel-sealed" hidden>
+                <p class="user-instructions">
+                    Select which sets to draw from to generate an 81 cards sealed deck
+                </p>
                 <p class="mb-0">
                     <span id="edition-checkboxes" class="edition-checkboxes"></span>
                 </p>

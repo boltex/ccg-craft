@@ -123,6 +123,14 @@ h1 {
   font-size: 1.05rem;
 }
 
+.user-instructions {
+  margin-bottom: 10px;
+  color: #8e785d;
+  font-size: 0.95rem;
+  text-align: center;
+  font-style: italic;
+}
+
 #status {
   font-weight: 700;
 }
@@ -228,6 +236,9 @@ button:disabled {
   box-shadow: none;
   opacity: 1;
   margin-left: 12px;
+  font-family: "Medieval", "Plantin", Georgia, serif;
+  font-size: 1.5em;
+  line-height: 0.9;
 }
 
 .deck-tab::before {

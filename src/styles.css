@@ -214,7 +214,7 @@ button:disabled {
   justify-content: space-between;
   gap: 1px;
   margin-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
 }
 
 .deck-tabs {
@@ -227,8 +227,9 @@ button:disabled {
 
 .deck-tab {
   position: relative;
-  top: 0px;
+  top: 1px;
   padding: 10px 20px;
+  border: 2px solid var(--border);
   border-radius: 10px 10px 0 0;
   border-bottom: none;
   background: rgb(209 209 209 / 35%);
@@ -246,7 +247,7 @@ button:disabled {
 }
 
 .deck-tab:hover {
-  border-color: var(--border-strong);
+  border-color: var(--border);
   color: var(--text);
   background: rgba(207, 184, 154, 0.5);
   box-shadow: none;
@@ -261,7 +262,6 @@ button:disabled {
 .deck-tab.active {
   color: var(--text);
   background: var(--panel-highlight);
-  border-color: var(--border);
   border-bottom: 1px solid var(--panel-highlight);
 }
 

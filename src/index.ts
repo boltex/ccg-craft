@@ -190,6 +190,7 @@ if (clearDecklistButton) {
         if (decklistTextArea) {
             decklistTextArea.value = "";
             syncGeneratePdfButton();
+            updateStatusSummary();
         }
     });
 }
@@ -427,6 +428,14 @@ async function generateConstructedPDF(): Promise<void> {
                 decklistCards.push(card);
             }
         }
+    }
+
+    if (decklistCards.length > constants.maxCardsInDeck) {
+        setStatus(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
+        generatePdfButton.disabled = false;
+        generatePdfButton.textContent = originalLabel;
+        syncGeneratePdfButton();
+        return;
     }
 
     try {

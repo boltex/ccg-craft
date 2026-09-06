@@ -73,6 +73,8 @@ export const LandColorByEdition: { [key: number]: Color } = {
     11: [159, 180, 168], // VI
 };
 
+export const maxCardsInDeck = 200;
+
 export const CardWidth = 232;
 export const CardHeight = 330;
 export const MCWidth = 12;

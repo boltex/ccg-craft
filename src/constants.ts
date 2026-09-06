@@ -74,6 +74,7 @@ export const LandColorByEdition: { [key: number]: Color } = {
 };
 
 export const maxCardsInDeck = 200;
+export const sealedDeckSize = 81;
 
 export const CardWidth = 232;
 export const CardHeight = 330;

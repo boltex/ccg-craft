@@ -323,8 +323,7 @@ async function generateSealedPDF(): Promise<void> {
     const totalUniqueAvailableCards = Object.keys(availableCardsDict).length;
     console.log(`Total unique available cards without basic lands: ${totalUniqueAvailableCards}`);
 
-    // A sealed deck is here set to be a total of 81 cards. (nine sheets of 3 by 3 cards each)
-    const sealedDeckSize = 81; // nine sheets of 3 by 3 cards each
+    const sealedDeckSize = constants.sealedDeckSize;
     const sealedDeckCards: Card[] = [];
 
     // Fill the sealed deck with random cards from the available cards in totalUniqueAvailableCards.

@@ -96,8 +96,10 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
         font: null,
     });
 
-    console.log('testing png for frame backgrounds');
-    console.log('frameLBackground:', frameLBackground);
+    if (input.cards.length === 1 && input.cards[0].name === "Fear") {
+        console.log('testing png for frame backgrounds');
+        console.log('frameLBackground:', frameLBackground);
+    }
 
     const outputPromise = toBlob(document);
 

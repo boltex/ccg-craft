@@ -15,31 +15,28 @@ import { loadFaceArtForCard } from "./art-loader";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
 // Let's import the 8 possible background images for the card frames
-// import frameLBackground from "../public/fl.png";
-// import frameABackground from "../public/fa.png";
-// import frameWBackground from "../public/fw.png";
-// import frameUBackground from "../public/fu.png";
-// import frameBBackground from "../public/fb.png";
-// import frameRBackground from "../public/fr.png";
-// import frameGBackground from "../public/fg.png";
-// import frameZBackground from "../public/fz.png";
 
-// @ts-expect-error
+// @ts-expect-error The imported image is treated as a module due to the '?inline' query.
 import frameLBackground from "../public/fl.png?inline";
-
-// import frameABackground from "fa.png";
-// import frameWBackground from "fw.png";
-// import frameUBackground from "fu.png";
-// import frameBBackground from "fb.png";
-// import frameRBackground from "fr.png";
-// import frameGBackground from "fg.png";
-// import frameZBackground from "fz.png";
+// @ts-expect-error 
+import frameABackground from "../public/fa.png?inline";
+// @ts-expect-error 
+import frameWBackground from "../public/fw.png?inline";
+// @ts-expect-error 
+import frameUBackground from "../public/fu.png?inline";
+// @ts-expect-error 
+import frameBBackground from "../public/fb.png?inline";
+// @ts-expect-error 
+import frameRBackground from "../public/fr.png?inline";
+// @ts-expect-error 
+import frameGBackground from "../public/fg.png?inline";
+// @ts-expect-error 
+import frameZBackground from "../public/fz.png?inline";
 
 
 export type GenerateSingleCardPdfInput = {
     faces: Array<PrintableFace | undefined>;
     artByFaceSerial?: ReadonlyMap<number, RenderImageSource>;
-    pageBackground?: string;
     renderOptions?: Omit<RenderCardOptions, "artByFaceSerial">;
 };
 
@@ -59,7 +56,6 @@ export type GenerateDeckPdfInput = {
     cards: Card[];
     getFaceData: (cardSerial: number) => [PrintableFace, PrintableFace | undefined];
     paperSize?: string;
-    pageBackground?: string;
     renderOptions?: Omit<RenderCardOptions, "artByFaceSerial">;
 };
 
@@ -96,10 +92,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
         font: null,
     });
 
-    if (input.cards.length === 1 && input.cards[0].name === "Fear") {
-        console.log('testing png for frame backgrounds');
-        console.log('frameLBackground:', frameLBackground);
-    }
 
     const outputPromise = toBlob(document);
 
@@ -107,7 +99,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
         size: constants.SpecificPageSizes[input.paperSize ?? "letter"],
         margin: 0,
     });
-    // fillPdfPageBackground(document, input.pageBackground ?? "#ffffff");
 
     const fontBytes = await loadPdfFontBytes();
     registerPdfFonts(document, fontBytes);
@@ -181,7 +172,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
                 size: constants.SpecificPageSizes[input.paperSize ?? "letter"],
                 margin: 0,
             });
-            fillPdfPageBackground(document, input.pageBackground ?? "#ffffff");
         }
 
     }
@@ -277,15 +267,6 @@ function registerPdfFonts(document: PdfKitDocument, fontBytes: PdfFontBytes): vo
     for (const [key, alias] of Object.entries(PDF_FONT_ALIASES) as Array<[keyof PdfKitFontRegistry, string]>) {
         registerPdfKitFont(document, alias, fontBytes[key]);
     }
-}
-
-function fillPdfPageBackground(document: PdfKitDocument, color: string): void {
-    document
-        .save()
-        .fillColor(color)
-        .rect(0, 0, constants.PdfPageWidth, constants.PdfPageHeight)
-        .fill()
-        .restore();
 }
 
 async function normalizeArtMapForPdf(

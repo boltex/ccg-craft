@@ -57,7 +57,6 @@ export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): 
     return generateDeckPdf(
         {
             cards: sealedDeckCards,
-            pageBackground: "#ffffff",
             paperSize: input.paperSize,
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             renderOptions: {
@@ -103,7 +102,6 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
         {
             cards: decklistCards,
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
-            pageBackground: "#ffffff",
             paperSize: input.paperSize,
             renderOptions: {
                 padding: 5,

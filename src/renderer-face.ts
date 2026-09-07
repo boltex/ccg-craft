@@ -189,7 +189,9 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene } = renderCtx;
     const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
 
-    const fill = !face.manaCost && !face.isACreature
+    const isLand = !face.manaCost && !face.isACreature;
+
+    const fill = isLand
         ? getLandTextBoxFill(face)
         : getDefaultTextBoxFill(face);
 
@@ -238,6 +240,32 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
     surface.setLineWidth(Math.max(1, scene.scale * 0.5));
     surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
+
+    // Todo: Add border around the text box, and if a land, also add border around the art's bevel & card frame.
+    if (isLand) {
+        // Add border around text box, the art's bevel, and the card frame.
+    } else if (fill.kind === "solid") {
+        // Add border around the text box for non-lands.
+
+        const lightColor = utils.lightenColor(fill.color, 0.3);
+        const darkColor = utils.darkenColor(fill.color, 0.18);
+        const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
+
+        drawRectangleBevel(
+            surface,
+            rect.x,
+            rect.y,
+            rect.width,
+            rect.height,
+            bevelWidth,
+            darkColor,
+            lightColor,
+            face.faceLayout === 2 || face.faceLayout === 4
+        );
+
+    }
+
+
 }
 
 function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
@@ -259,7 +287,6 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
         darkColor,
         lightColor,
         face.faceLayout === 2 || face.faceLayout === 4
-
     );
 }
 

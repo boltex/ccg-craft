@@ -76,6 +76,16 @@ export function toArtRelativePath(cardName: string): string {
     return `${prefix}/${slug}.bmp`;
 }
 
+// The factor determines the weight of color2 in the mix. A factor of 0 returns color1, and a factor of 1 returns color2.
+export function mixColors(color1: Color, color2: Color, factor: number): Color {
+    const amount = Math.min(Math.max(factor, 0), 1);
+    return [
+        color1[0] * (1 - amount) + color2[0] * amount,
+        color1[1] * (1 - amount) + color2[1] * amount,
+        color1[2] * (1 - amount) + color2[2] * amount,
+    ];
+}
+
 export function darkenColor(color: Color, factor: number): Color {
     const amount = Math.min(Math.max(factor, 0), 1);
 

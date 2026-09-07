@@ -13,6 +13,29 @@ import type { RenderImageSource } from "./renderer-surface";
 import type { Card, PrintableFace } from "./types";
 import { loadFaceArtForCard } from "./art-loader";
 
+// Webpack can be configured to import images directly as inline Base64 data URIs
+// Let's import the 8 possible background images for the card frames
+// import frameLBackground from "../public/fl.png";
+// import frameABackground from "../public/fa.png";
+// import frameWBackground from "../public/fw.png";
+// import frameUBackground from "../public/fu.png";
+// import frameBBackground from "../public/fb.png";
+// import frameRBackground from "../public/fr.png";
+// import frameGBackground from "../public/fg.png";
+// import frameZBackground from "../public/fz.png";
+
+// @ts-expect-error
+import frameLBackground from "../public/fl.png?inline";
+
+// import frameABackground from "fa.png";
+// import frameWBackground from "fw.png";
+// import frameUBackground from "fu.png";
+// import frameBBackground from "fb.png";
+// import frameRBackground from "fr.png";
+// import frameGBackground from "fg.png";
+// import frameZBackground from "fz.png";
+
+
 export type GenerateSingleCardPdfInput = {
     faces: Array<PrintableFace | undefined>;
     artByFaceSerial?: ReadonlyMap<number, RenderImageSource>;
@@ -73,13 +96,16 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
         font: null,
     });
 
+    console.log('testing png for frame backgrounds');
+    console.log('frameLBackground:', frameLBackground);
+
     const outputPromise = toBlob(document);
 
     document.addPage({
         size: constants.SpecificPageSizes[input.paperSize ?? "letter"],
         margin: 0,
     });
-    fillPdfPageBackground(document, input.pageBackground ?? "#ffffff");
+    // fillPdfPageBackground(document, input.pageBackground ?? "#ffffff");
 
     const fontBytes = await loadPdfFontBytes();
     registerPdfFonts(document, fontBytes);

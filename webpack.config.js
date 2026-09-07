@@ -29,6 +29,11 @@ module.exports = (env, argv) => {
                     test: /\.css$/,
                     use: ["style-loader", "css-loader"],
                 },
+                {
+                    // Detects when you append resourceQuery '?inline' to an import
+                    resourceQuery: /inline/,
+                    type: 'asset/inline',
+                },
             ],
         },
 

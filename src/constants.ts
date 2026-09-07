@@ -47,6 +47,7 @@ export const colors: { [key: string]: Color } = {
     TBU: [234, 241, 247],
 };
 
+// The 8 possible frame types for cards
 export enum frame {
     frameL, // enums default start at 0, so frameL = 0, frameA = 1, etc.
     frameA,

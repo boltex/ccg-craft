@@ -108,7 +108,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
             logFunction(`Starting page ${pageCount}`);
         }
 
-
         for (let row = 0; row < maxSheetRows; row++) {
             for (let column = 0; column < maxSheetColumns; column++) {
                 if (cardPointer >= input.cards.length) {
@@ -116,8 +115,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
                 }
                 const card = input.cards[cardPointer];
                 const faces = input.getFaceData(card.serial);
-
-
 
                 const rawArtByFaceSerial = await loadFaceArtForCard({ card, faces });
                 const artByFaceSerial = await normalizeArtMapForPdf(rawArtByFaceSerial);

@@ -187,7 +187,13 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
 
 function drawTextBox(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene } = renderCtx;
-    const rect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
+    const textBoxRect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
+    const faceBounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
+    const cardBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
+
+    const artBoxRect = getArtRect(layout, scene.offsetX, scene.offsetY);
+    const artBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
+    const textBoxBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 2 : 3) * scene.scale;
 
     const isLand = !face.manaCost && !face.isACreature;
 
@@ -198,17 +204,17 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     switch (fill.kind) {
         case "solid": {
             surface.setFillStyle(utils.toCommaRgb(...fill.color));
-            surface.fillRect(rect.x, rect.y, rect.width, rect.height);
+            surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
             break;
         }
 
         case "split": {
             surface.setFillStyle({
                 kind: "linear-gradient",
-                x0: rect.x,
-                y0: rect.y,
-                x1: rect.x + rect.width,
-                y1: rect.y,
+                x0: textBoxRect.x,
+                y0: textBoxRect.y,
+                x1: textBoxRect.x + textBoxRect.width,
+                y1: textBoxRect.y,
                 stops: [
                     { offset: 0, color: utils.toCommaRgb(...fill.first) },
                     { offset: 0.37, color: utils.toCommaRgb(...fill.first) },
@@ -216,7 +222,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                     { offset: 1, color: utils.toCommaRgb(...fill.second) },
                 ],
             });
-            surface.fillRect(rect.x, rect.y, rect.width, rect.height);
+            surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
             break;
         }
 
@@ -227,10 +233,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
                 surface.setFillStyle(utils.toCommaRgb(...color));
                 surface.fillRect(
-                    rect.x + inset,
-                    rect.y + inset,
-                    rect.width - inset * 2,
-                    rect.height - inset * 2
+                    textBoxRect.x + inset,
+                    textBoxRect.y + inset,
+                    textBoxRect.width - inset * 2,
+                    textBoxRect.height - inset * 2
                 );
             }
             break;
@@ -239,25 +245,121 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
     surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
     surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-    surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
+    surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
 
-    // Todo: Add border around the text box, and if a land, also add border around the art's bevel & card frame.
     if (isLand) {
+
         // Add border around text box, the art's bevel, and the card frame.
+        let color1;
+        let color2;
+
+        switch (fill.kind) {
+            case "solid": {
+                color1 = fill.color;
+                color2 = fill.color;
+                break;
+            }
+            case "split": {
+                color1 = fill.first;
+                color2 = fill.second;
+                break;
+            }
+
+            case "striped": {
+                color1 = fill.colors[0];
+                color2 = fill.colors[1];
+                break;
+            }
+        }
+
+        // Darken a bit the colors for the border effect
+        color1 = utils.darkenColor(color1, 0.2);
+        color2 = utils.darkenColor(color2, 0.2);
+
+        // first, lets use color2
+        surface.setStrokeStyle(utils.toCommaRgb(...color2));
+        // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        surface.setLineWidth(scene.scale * 0.5);
+        surface.strokeRect(faceBounds.x + cardBevelWidth, faceBounds.y + cardBevelWidth, faceBounds.width - cardBevelWidth * 2, faceBounds.height - cardBevelWidth * 2);
+
+        // Next another line using color1 around artbox
+        surface.setStrokeStyle(utils.toCommaRgb(...color1));
+        // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        surface.setLineWidth(scene.scale * 1);
+        surface.strokeRect(artBoxRect.x - artBevelWidth, artBoxRect.y - artBevelWidth, artBoxRect.width + artBevelWidth * 2, artBoxRect.height + artBevelWidth * 2);
+
+        if (fill.kind === "solid") {
+            drawRectangleBevel(
+                surface,
+                textBoxRect.x,
+                textBoxRect.y,
+                textBoxRect.width,
+                textBoxRect.height,
+                textBoxBevelWidth,
+                color1,
+                color2,
+                face.faceLayout === 2 || face.faceLayout === 4
+            );
+        } else if (fill.kind === "striped") {
+
+            // Finally, the two bevels in the textbox
+            drawRectangleBevel(
+                surface,
+                textBoxRect.x,
+                textBoxRect.y,
+                textBoxRect.width,
+                textBoxRect.height,
+                textBoxBevelWidth / 2,
+                color1,
+                color2,
+                face.faceLayout === 2 || face.faceLayout === 4
+            );
+            // Second one with reversed colors
+            drawRectangleBevel(
+                surface,
+                textBoxRect.x + textBoxBevelWidth / 2,
+                textBoxRect.y + textBoxBevelWidth / 2,
+                textBoxRect.width - textBoxBevelWidth,
+                textBoxRect.height - textBoxBevelWidth,
+                textBoxBevelWidth / 2,
+                color2,
+                color1,
+                face.faceLayout === 2 || face.faceLayout === 4
+            );
+        } else if (fill.kind === "split") {
+
+            // Handle gradient fill for the text box
+            drawRectangleBevel(
+                surface,
+                textBoxRect.x,
+                textBoxRect.y,
+                textBoxRect.width,
+                textBoxRect.height,
+                textBoxBevelWidth,
+                color2,
+                color1,
+                face.faceLayout === 2 || face.faceLayout === 4
+            );
+
+        }
+
+
     } else if (fill.kind === "solid") {
+
         // Add border around the text box for non-lands.
+
+        // TODO: Replace with proper text box effect specific to non-land cards color scheme.
 
         const lightColor = utils.lightenColor(fill.color, 0.3);
         const darkColor = utils.darkenColor(fill.color, 0.18);
-        const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
 
         drawRectangleBevel(
             surface,
-            rect.x,
-            rect.y,
-            rect.width,
-            rect.height,
-            bevelWidth,
+            textBoxRect.x,
+            textBoxRect.y,
+            textBoxRect.width,
+            textBoxRect.height,
+            textBoxBevelWidth,
             darkColor,
             lightColor,
             face.faceLayout === 2 || face.faceLayout === 4

@@ -343,12 +343,9 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         }
 
-
     } else if (fill.kind === "solid") {
 
-        // Add border around the text box for non-lands.
-
-        // TODO: Replace with proper text box effect specific to non-land cards color scheme.
+        // Add border around the text box for non-lands. 
 
         const lightColor = utils.lightenColor(fill.color, 0.3);
         const darkColor = utils.darkenColor(fill.color, 0.18);
@@ -366,7 +363,6 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         );
 
     }
-
 
 }
 

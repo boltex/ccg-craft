@@ -181,8 +181,8 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     // Now draw a bevel inside the frame to give it some depth
     // using utils.darkenColor and utils.lightenColor. 
     // Top and right sides are lighter, while bottom and left sides are darker.
-    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.2);
-    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.2);
+    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.70);
+    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.85);
     const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
 
     drawRectangleBevel(
@@ -195,7 +195,7 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         lightColor,
         darkColor,
         face.faceLayout === 2 || face.faceLayout === 4,
-        0.33
+        0.4
     );
 
     // ctx.strokeStyle = "black";
@@ -391,8 +391,8 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene } = renderCtx;
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
 
-    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.30);
-    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.5);
+    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.70);
+    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.85);
 
     const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
 
@@ -406,7 +406,7 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
         darkColor,
         lightColor,
         face.faceLayout === 2 || face.faceLayout === 4,
-        0.5
+        0.4
     );
 }
 

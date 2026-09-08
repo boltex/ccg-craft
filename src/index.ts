@@ -12,6 +12,7 @@ import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
 import { generateConstructedDeckPdf, generateSealedDeckPdf, selectSealedCardPool } from "./deck-pdf";
+import type { Color, PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
 // Let's import the 8 possible background images for the card frames
@@ -132,8 +133,8 @@ if (lookupElement) {
                     setPreview("Failed to show card preview.");
                 }
             } else {
+                resetPageBackgroundColor();
                 previewController.clear();
-                setPreview("Please enter a card name to look up.");
                 await updateStatusSummary();
             }
         }, 300); // 300ms debounce
@@ -414,7 +415,7 @@ async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
         previewController.clear();
-        setPreview(`No card found starting with "${query}".`);
+        resetPageBackgroundColor();
         return;
     }
 
@@ -422,6 +423,7 @@ async function showCardPreview(query: string): Promise<void> {
     if (!card) {
         previewController.clear();
         setPreview(`No card found for serial: ${serial}`);
+        resetPageBackgroundColor();
         return;
     }
 
@@ -429,8 +431,29 @@ async function showCardPreview(query: string): Promise<void> {
     const faces = cardDatabase.getFaceData(serial);
 
     const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap);
+
+    // If the card has two faces, just take the first face for determining the background color.
+    const firstFace = faces[0];
+    if (firstFace) {
+        setPageDecorationColors(firstFace);
+    } else {
+        resetPageBackgroundColor();
+    }
+
     syncGeneratePdfButton();
-    setPreview(previewText);
+}
+
+// Tints the page background with the previewed card's frame color, layered as a translucent wash over the base gradient.
+function setPageDecorationColors(face: PrintableFace): void {
+    let [r, g, b] = face.faceColors.frameColor.map(channel => Math.min(255, Math.max(0, Math.round(channel))));
+    document.documentElement.style.setProperty("--page-background-color", `rgba(${r}, ${g}, ${b}, 1)`);
+    [r, g, b] = face.faceColors.tbColor.map(channel => Math.min(255, Math.max(0, Math.round(channel))));
+    document.documentElement.style.setProperty("--page-background-tb-color", `rgba(${r}, ${g}, ${b}, 1)`);
+}
+
+function resetPageBackgroundColor(): void {
+    document.documentElement.style.removeProperty("--page-background-color");
+    document.documentElement.style.removeProperty("--page-background-tb-color");
 }
 
 function syncGeneratePdfButton(): void {

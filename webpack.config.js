@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === "production";
@@ -28,7 +29,8 @@ module.exports = (env, argv) => {
                 {
                     test: /\.css$/,
                     use: [
-                        "style-loader",
+                        // Extracted into a real <link> stylesheet (instead of style-loader's JS injection) so it applies before the JS bundle loads, avoiding a flash of unstyled content.
+                        MiniCssExtractPlugin.loader,
                         // url: false leaves url(...) refs as-is, resolved against the copied public/ assets at the site root.
                         { loader: "css-loader", options: { url: false } },
                     ],
@@ -44,6 +46,10 @@ module.exports = (env, argv) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: "./src/index.html",
+            }),
+
+            new MiniCssExtractPlugin({
+                filename: "styles.[contenthash].css",
             }),
 
             new CopyWebpackPlugin({

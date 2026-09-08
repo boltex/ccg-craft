@@ -33,7 +33,24 @@ import frameGBackground from "../public/fg.png?inline";
 // @ts-expect-error 
 import frameZBackground from "../public/fz.png?inline";
 
-// Leave as string for later pdfkit conversion to image objects in pdf-exports.ts
+// @ts-expect-error
+import frameLBackground300dpiJpg from "../public/fl-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameABackground300dpiJpg from "../public/fa-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameWBackground300dpiJpg from "../public/fw-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameUBackground300dpiJpg from "../public/fu-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameBBackground300dpiJpg from "../public/fb-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameRBackground300dpiJpg from "../public/fr-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameGBackground300dpiJpg from "../public/fg-300dpi.jpg?inline";
+// @ts-expect-error 
+import frameZBackground300dpiJpg from "../public/fz-300dpi.jpg?inline";
+
+// Leave as string for later pdfkit conversion to image objects in pdf-exports.ts. normal 150 dpi for PDF & laser printer output
 const frameBackgroundsImportsStrings: Record<number, string> = {
     [constants.frame.frameL]: frameLBackground,
     [constants.frame.frameA]: frameABackground,
@@ -45,16 +62,16 @@ const frameBackgroundsImportsStrings: Record<number, string> = {
     [constants.frame.frameZ]: frameZBackground,
 };
 
-// Convert to ImageBitmap for canvas rendering
+// Convert to ImageBitmap for canvas rendering, using the 300 dpi images for better quality
 const frameBackgroundsImageBitmap: Record<number, ImageBitmap> = {
-    [constants.frame.frameL]: await createImageBitmap(await (await fetch(frameLBackground)).blob()),
-    [constants.frame.frameA]: await createImageBitmap(await (await fetch(frameABackground)).blob()),
-    [constants.frame.frameW]: await createImageBitmap(await (await fetch(frameWBackground)).blob()),
-    [constants.frame.frameU]: await createImageBitmap(await (await fetch(frameUBackground)).blob()),
-    [constants.frame.frameB]: await createImageBitmap(await (await fetch(frameBBackground)).blob()),
-    [constants.frame.frameR]: await createImageBitmap(await (await fetch(frameRBackground)).blob()),
-    [constants.frame.frameG]: await createImageBitmap(await (await fetch(frameGBackground)).blob()),
-    [constants.frame.frameZ]: await createImageBitmap(await (await fetch(frameZBackground)).blob()),
+    [constants.frame.frameL]: await createImageBitmap(await (await fetch(frameLBackground300dpiJpg)).blob()),
+    [constants.frame.frameA]: await createImageBitmap(await (await fetch(frameABackground300dpiJpg)).blob()),
+    [constants.frame.frameW]: await createImageBitmap(await (await fetch(frameWBackground300dpiJpg)).blob()),
+    [constants.frame.frameU]: await createImageBitmap(await (await fetch(frameUBackground300dpiJpg)).blob()),
+    [constants.frame.frameB]: await createImageBitmap(await (await fetch(frameBBackground300dpiJpg)).blob()),
+    [constants.frame.frameR]: await createImageBitmap(await (await fetch(frameRBackground300dpiJpg)).blob()),
+    [constants.frame.frameG]: await createImageBitmap(await (await fetch(frameGBackground300dpiJpg)).blob()),
+    [constants.frame.frameZ]: await createImageBitmap(await (await fetch(frameZBackground300dpiJpg)).blob()),
 };
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");

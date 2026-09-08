@@ -63,7 +63,8 @@ export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): 
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             renderOptions: {
                 padding: 5,
-                background: "#000000"
+                background: "#000000",
+                frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
             },
         },
         input.onProgress

@@ -240,7 +240,6 @@ button:disabled {
   border-radius: 10px 10px 0 0;
   border-bottom: none;
   background: rgb(209 209 209 / 35%);
-  /* color: var(--muted); */
   color: var(--page-background-color, var(--muted));
   transition: color 1000ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   box-shadow: none;
@@ -249,6 +248,7 @@ button:disabled {
   font-family: "Medieval", "Plantin", Georgia, serif;
   font-size: 1.5em;
   line-height: 0.9;
+  opacity: 0.6;
 }
 
 .deck-tab::before {
@@ -270,8 +270,16 @@ button:disabled {
 
 .deck-tab.active {
   color: var(--text);
-  background: var(--panel-highlight);
-  border-bottom: 1px solid var(--panel-highlight);
+  opacity: 1;
+
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--page-background-tb-color, var(--panel-highlight));
+  background-color: var(--page-background-tb-color, var(--panel-highlight));
+
+  transition:
+    background-color 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95),
+    border-bottom-color 400ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .deck-controls {

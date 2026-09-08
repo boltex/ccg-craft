@@ -11,7 +11,7 @@
   --button-top: #f6ead8;
   --button-bottom: #dcc1a1;
   --button-shadow: rgba(70, 44, 20, 0.22);
-  --shadow: 0 18px 40px rgba(76, 52, 28, 0.12);
+  --shadow: 0 18px 40px rgba(76, 52, 28, 0.22);
   --radius: 18px;
 }
 
@@ -88,8 +88,9 @@ body {
   position: absolute;
   inset: 0;
   background-color: var(--page-background-color, transparent);
-  opacity: 0.75;
-  transition: background-color 1500ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent);
+  mask-image: linear-gradient(to bottom, black 33%, transparent);
+  transition: background-color 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 h1,

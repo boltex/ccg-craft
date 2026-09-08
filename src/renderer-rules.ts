@@ -392,6 +392,11 @@ export function drawWrappedRulesText(
             }
 
             if (token.value.length > 0) {
+                // strangely important to re-apply text style before each token (For pdfkit, was ok on canvas) 
+                // because drawManaSymbol does restore the surface state. only the first token after a new line ending with a mana symbol was affected.
+                // This ensures that the text style is consistently applied for each token, even after drawing mana symbols.
+                surface.applyTextStyle(getRulesTextStyle(layout.fontSize));
+
                 surface.fillText(token.value, cursorX, cursorY);
                 cursorX += measureRulesText(surface, token.value, layout.fontSize);
             }

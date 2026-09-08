@@ -83,7 +83,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
             if (face && frameBackgroundsImportsStrings) {
                 const faceFrame = face.faceFrame;
                 if (
-                    faceFrame &&
                     !preloadedFrameBackgrounds[faceFrame] &&
                     frameBackgroundsImportsStrings[faceFrame]
                 ) {

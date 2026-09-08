@@ -43,6 +43,7 @@ function drawRectangleBevel(
     lightColor: Color,
     darkColor: Color,
     useTopLeftLight = false,
+    opacity: number | null = null,
 ): void {
     const bevelWidth = Math.min(
         Math.abs(intensity),
@@ -64,7 +65,7 @@ function drawRectangleBevel(
     const innerBottom = intensity >= 0 ? y + height - bevelWidth : y + height;
 
     if (useTopLeftLight) {
-        surface.setFillStyle(utils.toCommaRgb(...lightColor));
+        surface.setFillStyle(utils.toCommaRgb(...lightColor, opacity));
         surface.beginPath();
         surface.moveTo(outerLeft, outerTop);
         surface.lineTo(outerRight, outerTop);
@@ -75,7 +76,7 @@ function drawRectangleBevel(
         surface.closePath();
         surface.fill();
 
-        surface.setFillStyle(utils.toCommaRgb(...darkColor));
+        surface.setFillStyle(utils.toCommaRgb(...darkColor, opacity));
         surface.beginPath();
         surface.moveTo(outerRight, outerTop);
         surface.lineTo(outerRight, outerBottom);
@@ -89,7 +90,7 @@ function drawRectangleBevel(
         return;
     }
 
-    surface.setFillStyle(utils.toCommaRgb(...lightColor));
+    surface.setFillStyle(utils.toCommaRgb(...lightColor, opacity));
     surface.beginPath();
     surface.moveTo(outerLeft, outerTop);
     surface.lineTo(outerRight, outerTop);
@@ -100,7 +101,7 @@ function drawRectangleBevel(
     surface.closePath();
     surface.fill();
 
-    surface.setFillStyle(utils.toCommaRgb(...darkColor));
+    surface.setFillStyle(utils.toCommaRgb(...darkColor, opacity));
     surface.beginPath();
     surface.moveTo(outerLeft, outerTop);
     surface.lineTo(innerLeft, innerTop);
@@ -165,10 +166,10 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         // if for pdfkit, use the preloadedFrameBackgrounds to draw the background image
         // those are in the options passed in the render context. Use options.preloadedFrameBackgrounds[faceFrame] to access the preloaded image.
         const faceFrame = face.faceFrame;
-        if (faceFrame && options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame]) {
+        if (options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame]) {
             const preloadedImage = options.preloadedFrameBackgrounds[faceFrame];
             surface.drawImage(preloadedImage, bounds.x, bounds.y, bounds.width, bounds.height);
-        } else if (faceFrame && options.frameBackgroundsImageBitmap && options.frameBackgroundsImageBitmap[faceFrame]) {
+        } else if (options.frameBackgroundsImageBitmap && options.frameBackgroundsImageBitmap[faceFrame]) {
             const imageBitmap = options.frameBackgroundsImageBitmap[faceFrame];
             surface.drawImage(imageBitmap, bounds.x, bounds.y, bounds.width, bounds.height);
         }
@@ -193,7 +194,8 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         bevelWidth,
         lightColor,
         darkColor,
-        face.faceLayout === 2 || face.faceLayout === 4
+        face.faceLayout === 2 || face.faceLayout === 4,
+        0.33
     );
 
     // ctx.strokeStyle = "black";
@@ -364,20 +366,22 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         // Add border around the text box for non-lands. 
 
-        const lightColor = utils.lightenColor(fill.color, 0.3);
-        const darkColor = utils.darkenColor(fill.color, 0.18);
+        // const lightColor = utils.lightenColor(fill.color, 0.3);
+        // const darkColor = utils.darkenColor(fill.color, 0.18);
 
-        drawRectangleBevel(
-            surface,
-            textBoxRect.x,
-            textBoxRect.y,
-            textBoxRect.width,
-            textBoxRect.height,
-            textBoxBevelWidth,
-            darkColor,
-            lightColor,
-            face.faceLayout === 2 || face.faceLayout === 4
-        );
+        // drawRectangleBevel(
+        //     surface,
+        //     textBoxRect.x,
+        //     textBoxRect.y,
+        //     textBoxRect.width,
+        //     textBoxRect.height,
+        //     textBoxBevelWidth,
+        //     darkColor,
+        //     lightColor,
+        //     face.faceLayout === 2 || face.faceLayout === 4
+        // );
+
+        // TODO: Implement a real text box with a pgn with transparency.
 
     }
 
@@ -387,8 +391,8 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene } = renderCtx;
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
 
-    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.24);
-    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.24);
+    const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.30);
+    const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.5);
 
     const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
 
@@ -401,7 +405,8 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
         -bevelWidth,
         darkColor,
         lightColor,
-        face.faceLayout === 2 || face.faceLayout === 4
+        face.faceLayout === 2 || face.faceLayout === 4,
+        0.5
     );
 }
 

@@ -339,25 +339,28 @@ function applyStrokeColor(document: PdfKitDocument, color: string): void {
     document.strokeColor(normalized.color, normalized.opacity);
 }
 
-function normalizePdfKitColor(color: string): { color: string; opacity?: number } {
+// Opacity is always resolved to a concrete number (defaulting to fully opaque) because PDFKit's
+// fillColor/strokeColor only reset their internal opacity state when an explicit value is passed;
+// an omitted opacity argument leaves whatever opacity a previous rgba() color had set.
+function normalizePdfKitColor(color: string): { color: string; opacity: number } {
     const normalized = color.trim();
     const rgbMatch = normalized.match(/^rgba?\(([^)]+)\)$/i);
 
     if (!rgbMatch) {
-        return { color: normalized };
+        return { color: normalized, opacity: 1 };
     }
 
     const channels = rgbMatch[1].split(",").map(part => part.trim());
     const [rawR, rawG, rawB, rawAlpha] = channels;
 
     if (!rawR || !rawG || !rawB) {
-        return { color: normalized };
+        return { color: normalized, opacity: 1 };
     }
 
     const r = clampColorChannel(Number.parseFloat(rawR));
     const g = clampColorChannel(Number.parseFloat(rawG));
     const b = clampColorChannel(Number.parseFloat(rawB));
-    const opacity = rawAlpha === undefined ? undefined : clampOpacity(Number.parseFloat(rawAlpha));
+    const opacity = rawAlpha === undefined ? 1 : clampOpacity(Number.parseFloat(rawAlpha)) ?? 1;
 
     return {
         color: `#${toHexByte(r)}${toHexByte(g)}${toHexByte(b)}`,

@@ -23,7 +23,8 @@ export class CardPreviewController {
         card: Card,
         faces: [PrintableFace, PrintableFace | undefined],
         editions: readonly string[],
-        editionsScry: Readonly<Record<string, string[]>>
+        editionsScry: Readonly<Record<string, string[]>>,
+        frameBackgroundsImageBitmap: Record<number, ImageBitmap>
     ): Promise<string> {
         const possibleCardEditions = editionsScry[card.edition];
         if (!possibleCardEditions || possibleCardEditions.length === 0) {
@@ -45,6 +46,7 @@ export class CardPreviewController {
                 padding: 20,
                 background: "#f3ecdf",
                 artByFaceSerial: this.renderedFaceArt,
+                frameBackgroundsImageBitmap: frameBackgroundsImageBitmap
             });
         }
 

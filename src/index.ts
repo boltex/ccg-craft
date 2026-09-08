@@ -6,11 +6,56 @@ import {
     getCachedFaceArtCount,
     importCachedFaceArt
 } from "./art-cache";
+import * as constants from "./constants";
 import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
 import { generateConstructedDeckPdf, generateSealedDeckPdf, selectSealedCardPool } from "./deck-pdf";
+
+// Webpack can be configured to import images directly as inline Base64 data URIs
+// Let's import the 8 possible background images for the card frames
+
+// @ts-expect-error The imported image is treated as a module due to the '?inline' query.
+import frameLBackground from "../public/fl.png?inline";
+// @ts-expect-error 
+import frameABackground from "../public/fa.png?inline";
+// @ts-expect-error 
+import frameWBackground from "../public/fw.png?inline";
+// @ts-expect-error 
+import frameUBackground from "../public/fu.png?inline";
+// @ts-expect-error 
+import frameBBackground from "../public/fb.png?inline";
+// @ts-expect-error 
+import frameRBackground from "../public/fr.png?inline";
+// @ts-expect-error 
+import frameGBackground from "../public/fg.png?inline";
+// @ts-expect-error 
+import frameZBackground from "../public/fz.png?inline";
+
+// Leave as string for later pdfkit conversion to image objects in pdf-exports.ts
+const frameBackgroundsImportsStrings: Record<number, string> = {
+    [constants.frame.frameL]: frameLBackground,
+    [constants.frame.frameA]: frameABackground,
+    [constants.frame.frameW]: frameWBackground,
+    [constants.frame.frameU]: frameUBackground,
+    [constants.frame.frameB]: frameBBackground,
+    [constants.frame.frameR]: frameRBackground,
+    [constants.frame.frameG]: frameGBackground,
+    [constants.frame.frameZ]: frameZBackground,
+};
+
+// Convert to ImageBitmap for canvas rendering
+const frameBackgroundsImageBitmap: Record<number, ImageBitmap> = {
+    [constants.frame.frameL]: await createImageBitmap(await (await fetch(frameLBackground)).blob()),
+    [constants.frame.frameA]: await createImageBitmap(await (await fetch(frameABackground)).blob()),
+    [constants.frame.frameW]: await createImageBitmap(await (await fetch(frameWBackground)).blob()),
+    [constants.frame.frameU]: await createImageBitmap(await (await fetch(frameUBackground)).blob()),
+    [constants.frame.frameB]: await createImageBitmap(await (await fetch(frameBBackground)).blob()),
+    [constants.frame.frameR]: await createImageBitmap(await (await fetch(frameRBackground)).blob()),
+    [constants.frame.frameG]: await createImageBitmap(await (await fetch(frameGBackground)).blob()),
+    [constants.frame.frameZ]: await createImageBitmap(await (await fetch(frameZBackground)).blob()),
+};
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
@@ -282,18 +327,19 @@ async function generateSealedPDF(): Promise<void> {
             cardDatabase,
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
+            frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
         });
 
         downloadGeneratedPdf("sealed-deck", pdfBlob);
         await updateStatusSummary(`Generated PDF for sealed deck.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
+        console.error(" Error generating PDF: ", error);
         setStatus(`Failed to generate PDF: ${message}`);
     } finally {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         syncGeneratePdfButton();
-        await updateStatusSummary();
     }
 }
 
@@ -313,18 +359,19 @@ async function generateConstructedPDF(): Promise<void> {
             cardDatabase,
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
+            frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
         });
 
         downloadGeneratedPdf("constructed-deck", pdfBlob);
         await updateStatusSummary(`Generated PDF for Decklist.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
+        console.error(" Error generating PDF: ", error);
         setStatus(`Failed to generate PDF: ${message}`);
     } finally {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         syncGeneratePdfButton();
-        await updateStatusSummary();
     }
 }
 
@@ -364,7 +411,7 @@ async function showCardPreview(query: string): Promise<void> {
     // Faces are the one or two printable faces on the surface of the card; the second may be undefined.
     const faces = cardDatabase.getFaceData(serial);
 
-    const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry);
+    const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap);
     syncGeneratePdfButton();
     setPreview(previewText);
 }

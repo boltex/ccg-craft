@@ -31,6 +31,7 @@ export type PdfKitDocument = {
     moveTo(x: number, y: number): PdfKitDocument;
     lineTo(x: number, y: number): PdfKitDocument;
     closePath(): PdfKitDocument;
+    openImage(src: HTMLImageElement | HTMLCanvasElement | Uint8Array | Buffer | string): PdfKitImageSource;
     image(
         src: PdfKitImageSource,
         x: number,
@@ -160,10 +161,11 @@ export function createPdfKitRenderSurface(
         },
         drawImage(image, x, y, imageWidth, imageHeight) {
             if (!isPdfKitImageSource(image)) {
-                throw new Error("Unsupported PDF image source for PDFKit surface.");
+                // throw new Error("Unsupported PDF image source for PDFKit surface.");
+                // console.warn("Unsupported PDF image source for PDFKit surface.");
             }
 
-            document.image(image, x, y, {
+            document.image(image as any, x, y, {
                 width: imageWidth,
                 height: imageHeight,
             });

@@ -1,5 +1,6 @@
 import * as constants from "./constants";
 import PDFDocument from "pdfkit";
+
 import { toBlob } from "pdfkit/output";
 import { renderCardToSurface, type RenderCardOptions } from "./renderer";
 import {
@@ -12,27 +13,6 @@ import {
 import type { RenderImageSource } from "./renderer-surface";
 import type { Card, PrintableFace } from "./types";
 import { loadFaceArtForCard } from "./art-loader";
-
-// Webpack can be configured to import images directly as inline Base64 data URIs
-// Let's import the 8 possible background images for the card frames
-
-// @ts-expect-error The imported image is treated as a module due to the '?inline' query.
-import frameLBackground from "../public/fl.png?inline";
-// @ts-expect-error 
-import frameABackground from "../public/fa.png?inline";
-// @ts-expect-error 
-import frameWBackground from "../public/fw.png?inline";
-// @ts-expect-error 
-import frameUBackground from "../public/fu.png?inline";
-// @ts-expect-error 
-import frameBBackground from "../public/fb.png?inline";
-// @ts-expect-error 
-import frameRBackground from "../public/fr.png?inline";
-// @ts-expect-error 
-import frameGBackground from "../public/fg.png?inline";
-// @ts-expect-error 
-import frameZBackground from "../public/fz.png?inline";
-
 
 export type GenerateSingleCardPdfInput = {
     faces: Array<PrintableFace | undefined>;
@@ -92,6 +72,30 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
         font: null,
     });
 
+    const preloadedFrameBackgrounds: Record<number, RenderImageSource> = {};
+    const frameBackgroundsImportsStrings =
+        input.renderOptions?.frameBackgroundsImportsStrings;
+
+    // Build array of preloaded frame backgrounds for the PDF document. Only load the ones actually needed in cards.
+    for (const card of input.cards) {
+        const faces = input.getFaceData(card.serial);
+        for (const face of faces) {
+            if (face && frameBackgroundsImportsStrings) {
+                const faceFrame = face.faceFrame;
+                if (
+                    faceFrame &&
+                    !preloadedFrameBackgrounds[faceFrame] &&
+                    frameBackgroundsImportsStrings[faceFrame]
+                ) {
+                    preloadedFrameBackgrounds[faceFrame] =
+                        document.openImage(frameBackgroundsImportsStrings[faceFrame]);
+                }
+            }
+        }
+    }
+    console.log("Finished preloading frame backgrounds.", preloadedFrameBackgrounds);
+
+    // Ok, now all needed frame backgrounds are preloaded in preloadedFrameBackgrounds.
 
     const outputPromise = toBlob(document);
 
@@ -155,6 +159,7 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
                     ...input.renderOptions,
                     padding: input.renderOptions?.padding ?? 0,
                     artByFaceSerial: artByFaceSerial,
+                    preloadedFrameBackgrounds: preloadedFrameBackgrounds,
                 });
 
                 document.restore();

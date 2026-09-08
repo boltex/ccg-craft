@@ -154,11 +154,28 @@ export function renderFace(renderCtx: RenderFaceContext): void {
 }
 
 function drawFrameBackground(renderCtx: RenderFaceContext): void {
-    const { surface, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene, options } = renderCtx;
     const bounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
 
-    surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
-    surface.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    const useBackgroundImage = true;
+
+    if (useBackgroundImage) {
+        // Draw the background image here
+        // if canvas, use the frameBackgroundsImageBitmap to draw the background image
+        // if for pdfkit, use the preloadedFrameBackgrounds to draw the background image
+        // those are in the options passed in the render context. Use options.preloadedFrameBackgrounds[faceFrame] to access the preloaded image.
+        const faceFrame = face.faceFrame;
+        if (faceFrame && options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame]) {
+            const preloadedImage = options.preloadedFrameBackgrounds[faceFrame];
+            surface.drawImage(preloadedImage, bounds.x, bounds.y, bounds.width, bounds.height);
+        } else if (faceFrame && options.frameBackgroundsImageBitmap && options.frameBackgroundsImageBitmap[faceFrame]) {
+            const imageBitmap = options.frameBackgroundsImageBitmap[faceFrame];
+            surface.drawImage(imageBitmap, bounds.x, bounds.y, bounds.width, bounds.height);
+        }
+    } else {
+        surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
+        surface.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    }
 
     // Now draw a bevel inside the frame to give it some depth
     // using utils.darkenColor and utils.lightenColor. 

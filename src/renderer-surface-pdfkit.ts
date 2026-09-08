@@ -40,6 +40,7 @@ export type PdfKitDocument = {
     ): PdfKitDocument;
     fillColor(color: string, opacity?: number): PdfKitDocument;
     strokeColor(color: string, opacity?: number): PdfKitDocument;
+    fillOpacity(opacity: number): PdfKitDocument;
     lineWidth(width: number): PdfKitDocument;
     font(src: string): PdfKitDocument;
     fontSize(size: number): PdfKitDocument;
@@ -165,6 +166,9 @@ export function createPdfKitRenderSurface(
                 // console.warn("Unsupported PDF image source for PDFKit surface.");
             }
 
+            // Images inherit whatever fill opacity a preceding shape left set, since document.image()
+            // never touches that graphics state itself, so it must be reset before drawing.
+            document.fillOpacity(1);
             document.image(image as any, x, y, {
                 width: imageWidth,
                 height: imageHeight,

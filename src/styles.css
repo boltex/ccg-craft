@@ -35,7 +35,60 @@ body {
 
 body {
   padding: 32px 20px;
+}
+
+/* Fixed layer stack of frame backgrounds, cross-fades between the 8 frame jpgs behind the app. */
+.frame-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.frame-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.frame-bg.active {
+  opacity: 1;
+}
+
+.frame-bg[data-frame-index="0"] {
+  background-image: url("./fl-300dpi.jpg");
+}
+.frame-bg[data-frame-index="1"] {
+  background-image: url("./fa-300dpi.jpg");
+}
+.frame-bg[data-frame-index="2"] {
+  background-image: url("./fw-300dpi.jpg");
+}
+.frame-bg[data-frame-index="3"] {
+  background-image: url("./fu-300dpi.jpg");
+}
+.frame-bg[data-frame-index="4"] {
+  background-image: url("./fb-300dpi.jpg");
+}
+.frame-bg[data-frame-index="5"] {
+  background-image: url("./fr-300dpi.jpg");
+}
+.frame-bg[data-frame-index="6"] {
+  background-image: url("./fg-300dpi.jpg");
+}
+.frame-bg[data-frame-index="7"] {
+  background-image: url("./fz-300dpi.jpg");
+}
+
+/* Color wash on top of the active frame image, driven by the same vars as the panel highlights. */
+.frame-bg-tint {
+  position: absolute;
+  inset: 0;
   background-color: var(--page-background-color, transparent);
+  opacity: 0.5;
   transition: background-color 1500ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 

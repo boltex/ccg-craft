@@ -27,7 +27,11 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.css$/,
-                    use: ["style-loader", "css-loader"],
+                    use: [
+                        "style-loader",
+                        // url: false leaves url(...) refs as-is, resolved against the copied public/ assets at the site root.
+                        { loader: "css-loader", options: { url: false } },
+                    ],
                 },
                 {
                     // Detects when you append resourceQuery '?inline' to an import

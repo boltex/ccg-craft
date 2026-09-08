@@ -97,6 +97,7 @@ const deckPanels: Record<string, HTMLElement | null> = {
     sealed: document.querySelector<HTMLElement>("#deck-panel-sealed"),
 };
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
+const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
 let activeDeckTab: "constructed" | "sealed" = "constructed";
 let editionSelection: Record<string, boolean> = {};
@@ -449,11 +450,17 @@ function setPageDecorationColors(face: PrintableFace): void {
     document.documentElement.style.setProperty("--page-background-color", `rgba(${r}, ${g}, ${b}, 1)`);
     [r, g, b] = face.faceColors.tbColor.map(channel => Math.min(255, Math.max(0, Math.round(channel))));
     document.documentElement.style.setProperty("--page-background-tb-color", `rgba(${r}, ${g}, ${b}, 1)`);
+
+    // faceFrame is the same enum index (0-7) as each layer's data-frame-index, so it can be matched directly.
+    frameBgElements.forEach(element => {
+        element.classList.toggle("active", element.dataset.frameIndex === String(face.faceFrame));
+    });
 }
 
 function resetPageBackgroundColor(): void {
     document.documentElement.style.removeProperty("--page-background-color");
     document.documentElement.style.removeProperty("--page-background-tb-color");
+    frameBgElements.forEach(element => element.classList.remove("active"));
 }
 
 function syncGeneratePdfButton(): void {

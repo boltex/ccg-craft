@@ -289,6 +289,8 @@ export function fitRulesText(
     let fallbackLayout: FittedRulesLayout | null = null;
     let biggestPass = true;
 
+    // TODO : see if face.faceLayout === 3 to apply vertical centering properly for 'flip cards'. (Also think about 90 degrees face layouts 2 and 4 eventually)
+
     for (const size of candidateSizes) {
         const scaledFontSize = size * scale;
         const symbolSize = scaledFontSize;

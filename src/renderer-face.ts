@@ -214,7 +214,8 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     const artBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
     const textBoxBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 2 : 3) * scene.scale;
 
-    const isLand = !face.manaCost && !face.isACreature;
+    // Check for manacost, is creature, and if facetype is standard
+    const isLand = !face.manaCost && !face.isACreature && face.faceLayout === 0;
 
     const fill = isLand
         ? getLandTextBoxFill(face)

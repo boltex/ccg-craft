@@ -399,6 +399,7 @@ button:disabled {
 
 input[type="checkbox"] {
   accent-color: #8c6d54;
+  cursor: pointer;
 }
 
 .edition-checkboxes-toggle {

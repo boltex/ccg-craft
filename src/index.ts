@@ -518,7 +518,7 @@ async function bootstrap(): Promise<void> {
         await cardDatabase.load();
 
         if (editionCheckboxesContainer) {
-            editionSelection = buildEditionCheckboxes([...cardDatabase.editions], editionCheckboxesContainer, syncGeneratePdfButton);
+            editionSelection = buildEditionCheckboxes(cardDatabase.editionsScry, editionCheckboxesContainer, syncGeneratePdfButton);
             syncGeneratePdfButton();
         }
 

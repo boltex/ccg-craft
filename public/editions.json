@@ -1,123 +1,243 @@
 {
-    "BK": [
-        "PHPR",
-        "PDRC"
-    ],
-    "UN": [
-        "2ED"
-    ],
-    "AN": [
-        "ARN"
-    ],
-    "AQ": [
-        "ATQ"
-    ],
-    "LE": [
-        "LEG"
-    ],
-    "DK": [
-        "DRK"
-    ],
-    "FE": [
-        "FEM"
-    ],
-    "IA": [
-        "ICE"
-    ],
-    "HL": [
-        "HML"
-    ],
-    "AL": [
-        "ALL"
-    ],
-    "MI": [
-        "MIR"
-    ],
-    "VI": [
-        "VIS"
-    ],
-    "WL": [
-        "WTH"
-    ],
-    "TE": [
-        "TMP"
-    ],
-    "ST": [
-        "STH"
-    ],
-    "EX": [
-        "EXO"
-    ],
-    "UZ": [
-        "USG"
-    ],
-    "UL": [
-        "ULG"
-    ],
-    "UD": [
-        "UDS"
-    ],
-    "MM": [
-        "MMQ"
-    ],
-    "NE": [
-        "NEM"
-    ],
-    "PR": [
-        "PCY"
-    ],
-    "IN": [
-        "INV"
-    ],
-    "PS": [
-        "PLS"
-    ],
-    "AP": [
-        "APC"
-    ],
-    "OD": [
-        "ODY"
-    ],
-    "TOR": [
-        "TOR"
-    ],
-    "JUD": [
-        "JUD"
-    ],
-    "ONS": [
-        "ONS"
-    ],
-    "LGN": [
-        "LGN"
-    ],
-    "SCG": [
-        "SCG"
-    ],
-    "MRD": [
-        "MRD"
-    ],
-    "DST": [
-        "DST"
-    ],
-    "FDN": [
-        "5DN"
-    ],
-    "COK": [
-        "CHK"
-    ],
-    "BOK": [
-        "BOK"
-    ],
-    "SOK": [
-        "SOK"
-    ],
-    "PO1": [
-        "POR"
-    ],
-    "PO2": [
-        "P02"
-    ],
-    "PO3": [
-        "PTK"
-    ]
+    "BK": {
+        "scry": [
+            "PHPR",
+            "PDRC"
+        ],
+        "name": "Promo"
+    },
+    "UN": {
+        "scry": [
+            "2ED"
+        ],
+        "name": "Limited"
+    },
+    "AN": {
+        "scry": [
+            "ARN"
+        ],
+        "name": "Arabian Nights"
+    },
+    "AQ": {
+        "scry": [
+            "ATQ"
+        ],
+        "name": "Antiquities"
+    },
+    "LE": {
+        "scry": [
+            "LEG"
+        ],
+        "name": "Legends"
+    },
+    "DK": {
+        "scry": [
+            "DRK"
+        ],
+        "name": "The Dark"
+    },
+    "FE": {
+        "scry": [
+            "FEM"
+        ],
+        "name": "Fallen Empires"
+    },
+    "IA": {
+        "scry": [
+            "ICE"
+        ],
+        "name": "Ice Age"
+    },
+    "HL": {
+        "scry": [
+            "HML"
+        ],
+        "name": "Homelands"
+    },
+    "AL": {
+        "scry": [
+            "ALL"
+        ],
+        "name": "Alliances"
+    },
+    "MI": {
+        "scry": [
+            "MIR"
+        ],
+        "name": "Mirage"
+    },
+    "VI": {
+        "scry": [
+            "VIS"
+        ],
+        "name": "Visions"
+    },
+    "WL": {
+        "scry": [
+            "WTH"
+        ],
+        "name": "Weatherlight"
+    },
+    "TE": {
+        "scry": [
+            "TMP"
+        ],
+        "name": "Tempest"
+    },
+    "ST": {
+        "scry": [
+            "STH"
+        ],
+        "name": "Stronghold"
+    },
+    "EX": {
+        "scry": [
+            "EXO"
+        ],
+        "name": "Exodus"
+    },
+    "UZ": {
+        "scry": [
+            "USG"
+        ],
+        "name": "Urza's Saga"
+    },
+    "UL": {
+        "scry": [
+            "ULG"
+        ],
+        "name": "Urza's Legacy"
+    },
+    "UD": {
+        "scry": [
+            "UDS"
+        ],
+        "name": "Urza's Destiny"
+    },
+    "MM": {
+        "scry": [
+            "MMQ"
+        ],
+        "name": "Mercadian Masques"
+    },
+    "NE": {
+        "scry": [
+            "NEM"
+        ],
+        "name": "Nemesis"
+    },
+    "PR": {
+        "scry": [
+            "PCY"
+        ],
+        "name": "Prophecy"
+    },
+    "IN": {
+        "scry": [
+            "INV"
+        ],
+        "name": "Invasion"
+    },
+    "PS": {
+        "scry": [
+            "PLS"
+        ],
+        "name": "Planeshift"
+    },
+    "AP": {
+        "scry": [
+            "APC"
+        ],
+        "name": "Apocalypse"
+    },
+    "OD": {
+        "scry": [
+            "ODY"
+        ],
+        "name": "Odyssey"
+    },
+    "TOR": {
+        "scry": [
+            "TOR"
+        ],
+        "name": "Torment"
+    },
+    "JUD": {
+        "scry": [
+            "JUD"
+        ],
+        "name": "Judgment"
+    },
+    "ONS": {
+        "scry": [
+            "ONS"
+        ],
+        "name": "Onslaught"
+    },
+    "LGN": {
+        "scry": [
+            "LGN"
+        ],
+        "name": "Legions"
+    },
+    "SCG": {
+        "scry": [
+            "SCG"
+        ],
+        "name": "Scourge"
+    },
+    "MRD": {
+        "scry": [
+            "MRD"
+        ],
+        "name": "Mirrodin"
+    },
+    "DST": {
+        "scry": [
+            "DST"
+        ],
+        "name": "Darksteel"
+    },
+    "FDN": {
+        "scry": [
+            "5DN"
+        ],
+        "name": "Fifth Dawn"
+    },
+    "COK": {
+        "scry": [
+            "CHK"
+        ],
+        "name": "Champions of Kamigawa"
+    },
+    "BOK": {
+        "scry": [
+            "BOK"
+        ],
+        "name": "Betrayers of Kamigawa"
+    },
+    "SOK": {
+        "scry": [
+            "SOK"
+        ],
+        "name": "Saviors of Kamigawa"
+    },
+    "PO1": {
+        "scry": [
+            "POR"
+        ],
+        "name": "Portal"
+    },
+    "PO2": {
+        "scry": [
+            "P02"
+        ],
+        "name": "Portal Second Age"
+    },
+    "PO3": {
+        "scry": [
+            "PTK"
+        ],
+        "name": "Portal Three Kingdoms"
+    }
 }

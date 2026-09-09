@@ -128,18 +128,24 @@ Michael Whelan
 # editions.json
 		Format: Json dict of all the internal set names, with member array of scryfall possible names.
 {
-    "BK": [
-        "PHPR",
-        "PDRC"
-    ],
-    "UN": [
-        "2ED"
-    ],
-    "AN": [
-        "ARN"
-    ],
-    "AQ": [
-        "ATQ"
-    ],
+    "BK": {
+        "sry": [
+            "PHPR",
+            "PDRC"
+        ],
+        "name": "Promo"
+    },
+    "UN": {
+        "sry": [
+            "2ED"
+        ],
+        "name": "Limited"
+    },
+    "AN": {
+        "sry": [
+            "ARN"
+        ],
+        "name": "Arabian Nights"
+    },
 	...
 }

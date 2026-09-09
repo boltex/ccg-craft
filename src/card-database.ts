@@ -10,7 +10,7 @@ export type CardDatabaseStats = {
 // Loads and parses every static data file the app needs, then serves typed lookups over it.
 export class CardDatabase {
     private editionsList: string[] = [];
-    private editionsScryData: Record<string, string[]> = {};
+    private editionsScryData: Record<string, { "scry": string[], "name": string }> = {};
     private singleCardsData: Card[] = [];
 
     private allCardsIndexes: number[] = [];
@@ -29,7 +29,7 @@ export class CardDatabase {
         return this.editionsList;
     }
 
-    get editionsScry(): Readonly<Record<string, string[]>> {
+    get editionsScry(): Readonly<Record<string, { "scry": string[], "name": string }>> {
         return this.editionsScryData;
     }
 

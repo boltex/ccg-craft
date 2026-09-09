@@ -1,7 +1,10 @@
 // Builds one checkbox per edition, all checked by default, and keeps a live selection dict.
 
 export function buildEditionCheckboxes(
-    editions: string[],
+    editions: Readonly<Record<string, {
+        scry: string[];
+        name: string;
+    }>>,
     container: HTMLElement,
     onChange?: () => void
 ): Record<string, boolean> {
@@ -10,7 +13,7 @@ export function buildEditionCheckboxes(
 
     container.replaceChildren();
 
-    editions.forEach((code, index) => {
+    Object.entries(editions).forEach(([code, editionData], index) => {
         selection[code] = true;
 
         let labelCode = code;
@@ -29,8 +32,8 @@ export function buildEditionCheckboxes(
         badge.className = "exp-front";
         // Mirrors the badge character logic used when rendering the edition badge on a card face.
         if (code === "UN") {
-            labelCode = "Beta";
-            // no text content in badge for Beta edition
+            labelCode = "Limited";
+            // no text content in badge for alpha/beta limited editions
         } else {
             // add text content for other editions
             labelCode = code.toLowerCase()
@@ -41,7 +44,8 @@ export function buildEditionCheckboxes(
         const label = document.createElement("label");
         label.className = "edition-checkbox";
 
-        // Special cases for code.
+        // Add editionsData.name as a tooltip for the label.
+        label.title = editionData.name;
 
         label.append(input, document.createTextNode(labelCode), badge);
 

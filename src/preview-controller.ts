@@ -23,10 +23,10 @@ export class CardPreviewController {
         card: Card,
         faces: [PrintableFace, PrintableFace | undefined],
         editions: readonly string[],
-        editionsScry: Readonly<Record<string, string[]>>,
+        editionsScry: Readonly<Record<string, { "scry": string[], "name": string }>>,
         frameBackgroundsImageBitmap: Record<number, ImageBitmap>
     ): Promise<string> {
-        const possibleCardEditions = editionsScry[card.edition];
+        const possibleCardEditions = editionsScry[card.edition].scry;
         if (!possibleCardEditions || possibleCardEditions.length === 0) {
             throw new Error(`No editions found for card: ${card.name} (edition: ${card.edition})`);
         }

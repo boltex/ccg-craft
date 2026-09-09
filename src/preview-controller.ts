@@ -44,7 +44,8 @@ export class CardPreviewController {
         if (context) {
             renderCardPreview(context, faces, {
                 padding: 20,
-                background: "#f3ecdf",
+                // background: "#f3ecdf", // Regular card background
+                background: "#131112", // Black bordered
                 artByFaceSerial: this.renderedFaceArt,
                 frameBackgroundsImageBitmap: frameBackgroundsImageBitmap
             });

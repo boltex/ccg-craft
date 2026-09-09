@@ -123,6 +123,12 @@ if (lookupElement) {
             // Remove any quotes
             query = query.replace(/"/g, "");
 
+            // replace double slash with a single slash
+            query = query.replace(/\/\//g, "/");
+
+            // Replace slash by a vertical bar
+            query = query.replace(/\//g, "|");
+
             if (query) {
                 try {
                     await showCardPreview(query);

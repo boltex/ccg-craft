@@ -289,8 +289,6 @@ export function fitRulesText(
     let fallbackLayout: FittedRulesLayout | null = null;
     let biggestPass = true;
 
-    // TODO : see if face.faceLayout === 3 to apply vertical centering properly for 'flip cards'. (Also think about 90 degrees face layouts 2 and 4 eventually)
-
     for (const size of candidateSizes) {
         const scaledFontSize = size * scale;
         const symbolSize = scaledFontSize;
@@ -367,11 +365,14 @@ export function drawWrappedRulesText(
     }
 
     surface.save();
-    surface.translate(originX + faceLayout.xtext + layout.xAdjust, originY + faceLayout.ytext + layout.yAdjust);
+    surface.translate(originX + faceLayout.xtext, originY + faceLayout.ytext);
 
     if (faceLayout.textangle) {
         surface.rotate((faceLayout.textangle * Math.PI) / -180);
     }
+
+    // xAdjust/yAdjust are in the box's local (post-rotation) frame, so translate after rotating.
+    surface.translate(layout.xAdjust, layout.yAdjust);
 
     surface.applyTextStyle(getRulesTextStyle(layout.fontSize));
 

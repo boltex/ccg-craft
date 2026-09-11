@@ -15,9 +15,14 @@ export type RenderCardOptions = {
     padding?: number;
     background?: string;
     artByFaceSerial?: ReadonlyMap<number, RenderImageSource>;
+    // FRAME BACKGROUNDS
     frameBackgroundsImportsStrings?: Record<number, string> // from the imported image strings
     frameBackgroundsImageBitmap?: Record<number, ImageBitmap>; // For canvas, the image bitmaps
     preloadedFrameBackgrounds?: Record<number, RenderImageSource>  // For PDF export
+    // TEXT BOX BACKGROUNDS
+    textBoxImportsStrings?: Record<number, string> // from the imported image strings
+    textBoxImageBitmap?: Record<number, ImageBitmap>; // For canvas, the image bitmaps
+    preloadedTextBoxBackgrounds?: Record<number, RenderImageSource>  // For PDF export
 };
 
 export type RenderCardScene = {

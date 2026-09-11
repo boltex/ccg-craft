@@ -17,23 +17,6 @@ import type { Color, PrintableFace } from "./types";
 // Webpack can be configured to import images directly as inline Base64 data URIs
 // Let's import the 8 possible background images for the card frames
 
-// @ts-expect-error The imported image is treated as a module due to the '?inline' query.
-import frameLBackground from "../public/fl.png?inline";
-// @ts-expect-error 
-import frameABackground from "../public/fa.png?inline";
-// @ts-expect-error 
-import frameWBackground from "../public/fw.png?inline";
-// @ts-expect-error 
-import frameUBackground from "../public/fu.png?inline";
-// @ts-expect-error 
-import frameBBackground from "../public/fb.png?inline";
-// @ts-expect-error 
-import frameRBackground from "../public/fr.png?inline";
-// @ts-expect-error 
-import frameGBackground from "../public/fg.png?inline";
-// @ts-expect-error 
-import frameZBackground from "../public/fz.png?inline";
-
 // @ts-expect-error
 import frameLBackground300dpiJpg from "../public/fl-300dpi.jpg?inline";
 // @ts-expect-error 
@@ -51,19 +34,37 @@ import frameGBackground300dpiJpg from "../public/fg-300dpi.jpg?inline";
 // @ts-expect-error 
 import frameZBackground300dpiJpg from "../public/fz-300dpi.jpg?inline";
 
-// Leave as string for later pdfkit conversion to image objects in pdf-exports.ts. normal 150 dpi for PDF & laser printer output
+
+// @ts-expect-error
+import tbLBackground300dpiPng from "../public/tb300dpi-l.png?inline";
+// @ts-expect-error 
+import tbABackground300dpiPng from "../public/tb300dpi-a.png?inline";
+// @ts-expect-error 
+import tbWBackground300dpiPng from "../public/tb300dpi-w.png?inline";
+// @ts-expect-error 
+import tbUBackground300dpiPng from "../public/tb300dpi-u.png?inline";
+// @ts-expect-error 
+import tbBBackground300dpiPng from "../public/tb300dpi-b.png?inline";
+// @ts-expect-error 
+import tbRBackground300dpiPng from "../public/tb300dpi-r.png?inline";
+// @ts-expect-error 
+import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
+// @ts-expect-error 
+import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
+
+// Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
-    [constants.frame.frameL]: frameLBackground,
-    [constants.frame.frameA]: frameABackground,
-    [constants.frame.frameW]: frameWBackground,
-    [constants.frame.frameU]: frameUBackground,
-    [constants.frame.frameB]: frameBBackground,
-    [constants.frame.frameR]: frameRBackground,
-    [constants.frame.frameG]: frameGBackground,
-    [constants.frame.frameZ]: frameZBackground,
+    [constants.frame.frameL]: frameLBackground300dpiJpg,
+    [constants.frame.frameA]: frameABackground300dpiJpg,
+    [constants.frame.frameW]: frameWBackground300dpiJpg,
+    [constants.frame.frameU]: frameUBackground300dpiJpg,
+    [constants.frame.frameB]: frameBBackground300dpiJpg,
+    [constants.frame.frameR]: frameRBackground300dpiJpg,
+    [constants.frame.frameG]: frameGBackground300dpiJpg,
+    [constants.frame.frameZ]: frameZBackground300dpiJpg,
 };
 
-// Convert to ImageBitmap for canvas rendering, using the 300 dpi images for better quality
+// Convert to ImageBitmap for canvas rendering
 const frameBackgroundsImageBitmap: Record<number, ImageBitmap> = {
     [constants.frame.frameL]: await createImageBitmap(await (await fetch(frameLBackground300dpiJpg)).blob()),
     [constants.frame.frameA]: await createImageBitmap(await (await fetch(frameABackground300dpiJpg)).blob()),
@@ -73,6 +74,30 @@ const frameBackgroundsImageBitmap: Record<number, ImageBitmap> = {
     [constants.frame.frameR]: await createImageBitmap(await (await fetch(frameRBackground300dpiJpg)).blob()),
     [constants.frame.frameG]: await createImageBitmap(await (await fetch(frameGBackground300dpiJpg)).blob()),
     [constants.frame.frameZ]: await createImageBitmap(await (await fetch(frameZBackground300dpiJpg)).blob()),
+};
+
+// Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
+const textBoxImportsStrings: Record<number, string> = {
+    [constants.frame.frameL]: tbLBackground300dpiPng,
+    [constants.frame.frameA]: tbABackground300dpiPng,
+    [constants.frame.frameW]: tbWBackground300dpiPng,
+    [constants.frame.frameU]: tbUBackground300dpiPng,
+    [constants.frame.frameB]: tbBBackground300dpiPng,
+    [constants.frame.frameR]: tbRBackground300dpiPng,
+    [constants.frame.frameG]: tbGBackground300dpiPng,
+    [constants.frame.frameZ]: tbZBackground300dpiPng,
+};
+
+// Convert to ImageBitmap for canvas rendering
+const textBoxImageBitmap: Record<number, ImageBitmap> = {
+    [constants.frame.frameL]: await createImageBitmap(await (await fetch(tbLBackground300dpiPng)).blob()),
+    [constants.frame.frameA]: await createImageBitmap(await (await fetch(tbABackground300dpiPng)).blob()),
+    [constants.frame.frameW]: await createImageBitmap(await (await fetch(tbWBackground300dpiPng)).blob()),
+    [constants.frame.frameU]: await createImageBitmap(await (await fetch(tbUBackground300dpiPng)).blob()),
+    [constants.frame.frameB]: await createImageBitmap(await (await fetch(tbBBackground300dpiPng)).blob()),
+    [constants.frame.frameR]: await createImageBitmap(await (await fetch(tbRBackground300dpiPng)).blob()),
+    [constants.frame.frameG]: await createImageBitmap(await (await fetch(tbGBackground300dpiPng)).blob()),
+    [constants.frame.frameZ]: await createImageBitmap(await (await fetch(tbZBackground300dpiPng)).blob()),
 };
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
@@ -437,7 +462,7 @@ async function showCardPreview(query: string): Promise<void> {
     // Faces are the one or two printable faces on the surface of the card; the second may be undefined.
     const faces = cardDatabase.getFaceData(serial);
 
-    const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap);
+    const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap, textBoxImageBitmap);
 
     // If the card has two faces, just take the first face for determining the background color.
     const firstFace = faces[0];

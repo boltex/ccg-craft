@@ -236,7 +236,8 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
     const artBoxRect = getArtRect(layout, scene.offsetX, scene.offsetY);
     const artBevelWidth = (rotated ? 3 : 4) * scene.scale;
-    const textBoxBevelWidth = (rotated ? 2 : 3) * scene.scale;
+    // const textBoxBevelWidth = (rotated ? 2 : 3) * scene.scale;
+    const textBoxBevelWidth = (rotated ? 2 : 3) * scene.scale * 0.9;
 
     // Check for manacost, is creature, and if facetype is standard
     const isLand = !face.manaCost && !face.isACreature && face.faceLayout === 0;
@@ -289,10 +290,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     }
 
     if (isLand) {
-
+        const landDrawAlpha = 0.5; // All land text box drawing is over the grayscale texture just applied
         switch (fill.kind) {
             case "solid": {
-                surface.setFillStyle(utils.toCommaRgb(...fill.color));
+                surface.setFillStyle(utils.toCommaRgb(...fill.color, landDrawAlpha));
                 surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
                 break;
             }
@@ -305,10 +306,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                     x1: textBoxRect.x + textBoxRect.width,
                     y1: textBoxRect.y,
                     stops: [
-                        { offset: 0, color: utils.toCommaRgb(...fill.first) },
-                        { offset: 0.37, color: utils.toCommaRgb(...fill.first) },
-                        { offset: 0.63, color: utils.toCommaRgb(...fill.second) },
-                        { offset: 1, color: utils.toCommaRgb(...fill.second) },
+                        { offset: 0, color: utils.toCommaRgb(...fill.first, landDrawAlpha) },
+                        { offset: 0.37, color: utils.toCommaRgb(...fill.first, landDrawAlpha) },
+                        { offset: 0.63, color: utils.toCommaRgb(...fill.second, landDrawAlpha) },
+                        { offset: 1, color: utils.toCommaRgb(...fill.second, landDrawAlpha) },
                     ],
                 });
                 surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
@@ -365,7 +366,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         // first, lets use color2
         surface.setStrokeStyle(utils.toCommaRgb(...color2));
         // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-        surface.setLineWidth(scene.scale * 0.5);
+        surface.setLineWidth(scene.scale * 0.75);
         surface.strokeRect(faceBounds.x + cardBevelWidth, faceBounds.y + cardBevelWidth, faceBounds.width - cardBevelWidth * 2, faceBounds.height - cardBevelWidth * 2);
 
         // Next another line using color1 around artbox
@@ -428,35 +429,6 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             );
 
         }
-
-    } else if (fill.kind === "solid") {
-        // NON-LANDS
-
-
-        // // USED TO BE ONLY PLAIN COLOR FILLS AND BEVEL:
-        // surface.setFillStyle(utils.toCommaRgb(...fill.color));
-        // surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-        // surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
-        // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-        // surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-
-
-        // const lightColor = utils.lightenColor(fill.color, 0.3);
-        // const darkColor = utils.darkenColor(fill.color, 0.18);
-
-        // drawRectangleBevel(
-        //     surface,
-        //     textBoxRect.x,
-        //     textBoxRect.y,
-        //     textBoxRect.width,
-        //     textBoxRect.height,
-        //     textBoxBevelWidth,
-        //     darkColor,
-        //     lightColor,
-        //     face.faceLayout === 2 || face.faceLayout === 4
-        // );
-
-
 
     }
 

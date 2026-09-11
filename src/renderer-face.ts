@@ -9,9 +9,34 @@ import {
 import { drawWrappedRulesText, fitRulesText } from "./renderer-rules";
 import { drawStyledText, type TextStyle } from "./renderer-text";
 import { drawManaCostRow } from "./renderer-symbols";
+import type { RenderImageSource } from "./renderer-surface";
 import type { Color } from "./types";
 
 type CardTextStyleOverrides = TextStyle;
+
+// Layouts 2 (split) and 4 (aftermath) render this face sideways on the card.
+function isRotatedLayout(face: RenderFaceContext["face"]): boolean {
+    return face.faceLayout === 2 || face.faceLayout === 4;
+}
+
+// Draws an image fitted to rect, rotating the bitmap content 90° in place when rotated is true.
+function drawFittedImage(
+    surface: RenderFaceContext["surface"],
+    image: RenderImageSource,
+    rect: { x: number; y: number; width: number; height: number },
+    rotated: boolean
+): void {
+    if (!rotated) {
+        surface.drawImage(image, rect.x, rect.y, rect.width, rect.height);
+        return;
+    }
+
+    surface.save();
+    surface.translate(rect.x + rect.width / 2, rect.y + rect.height / 2);
+    surface.rotate((90 * Math.PI) / -180);
+    surface.drawImage(image, -rect.height / 2, -rect.width / 2, rect.height, rect.width);
+    surface.restore();
+}
 
 function getCardTextStyle(
     sceneScale: number,
@@ -158,31 +183,18 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene, options } = renderCtx;
     const bounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
 
-    const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
+    const rotated = isRotatedLayout(face);
 
     const useBackgroundImage = true;
 
     if (useBackgroundImage) {
-        // Draw the background image here
-        // if canvas, use the frameBackgroundsImageBitmap to draw the background image
-        // if for pdfkit, use the preloadedFrameBackgrounds to draw the background image
-        // those are in the options passed in the render context. Use options.preloadedFrameBackgrounds[faceFrame] to access the preloaded image.
-
-
+        // if canvas, use frameBackgroundsImageBitmap; if for pdfkit, use preloadedFrameBackgrounds
         const faceFrame = face.faceFrame;
         const backgroundImage = (options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame])
             || (options.frameBackgroundsImageBitmap && options.frameBackgroundsImageBitmap[faceFrame]);
 
         if (backgroundImage) {
-            if (shouldRotateArt) {
-                surface.save();
-                surface.translate(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
-                surface.rotate((90 * Math.PI) / -180);
-                surface.drawImage(backgroundImage, -bounds.height / 2, -bounds.width / 2, bounds.height, bounds.width);
-                surface.restore();
-            } else {
-                surface.drawImage(backgroundImage, bounds.x, bounds.y, bounds.width, bounds.height);
-            }
+            drawFittedImage(surface, backgroundImage, bounds, rotated);
         }
     } else {
         surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
@@ -194,7 +206,7 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     // Top and right sides are lighter, while bottom and left sides are darker.
     const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.70);
     const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.85);
-    const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
+    const bevelWidth = (rotated ? 1.5 : 2) * scene.scale;
 
     drawRectangleBevel(
         surface,
@@ -205,7 +217,7 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         bevelWidth,
         lightColor,
         darkColor,
-        face.faceLayout === 2 || face.faceLayout === 4,
+        rotated,
         0.4
     );
 
@@ -219,11 +231,12 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene, options } = renderCtx;
     const textBoxRect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
     const faceBounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
-    const cardBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
+    const rotated = isRotatedLayout(face);
+    const cardBevelWidth = (rotated ? 1.5 : 2) * scene.scale;
 
     const artBoxRect = getArtRect(layout, scene.offsetX, scene.offsetY);
-    const artBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
-    const textBoxBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 2 : 3) * scene.scale;
+    const artBevelWidth = (rotated ? 3 : 4) * scene.scale;
+    const textBoxBevelWidth = (rotated ? 2 : 3) * scene.scale;
 
     // Check for manacost, is creature, and if facetype is standard
     const isLand = !face.manaCost && !face.isACreature && face.faceLayout === 0;
@@ -329,7 +342,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 textBoxBevelWidth,
                 color1,
                 color2,
-                face.faceLayout === 2 || face.faceLayout === 4
+                rotated
             );
         } else if (fill.kind === "striped") {
 
@@ -343,7 +356,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 textBoxBevelWidth / 2,
                 color1,
                 color2,
-                face.faceLayout === 2 || face.faceLayout === 4
+                rotated
             );
             // Second one with reversed colors
             drawRectangleBevel(
@@ -355,7 +368,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 textBoxBevelWidth / 2,
                 color2,
                 color1,
-                face.faceLayout === 2 || face.faceLayout === 4
+                rotated
             );
         } else if (fill.kind === "split") {
 
@@ -369,15 +382,13 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 textBoxBevelWidth,
                 color2,
                 color1,
-                face.faceLayout === 2 || face.faceLayout === 4
+                rotated
             );
 
         }
 
     } else if (fill.kind === "solid") {
         // NON-LANDS
-
-        const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
 
         const useTextBoxImageImage = true;
 
@@ -388,15 +399,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 || (options.textBoxImageBitmap && options.textBoxImageBitmap[faceFrame]);
 
             if (textBoxImage) {
-                if (shouldRotateArt) {
-                    surface.save();
-                    surface.translate(textBoxRect.x + textBoxRect.width / 2, textBoxRect.y + textBoxRect.height / 2);
-                    surface.rotate((90 * Math.PI) / -180);
-                    surface.drawImage(textBoxImage, -textBoxRect.height / 2, -textBoxRect.width / 2, textBoxRect.height, textBoxRect.width);
-                    surface.restore();
-                } else {
-                    surface.drawImage(textBoxImage, textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-                }
+                drawFittedImage(surface, textBoxImage, textBoxRect, rotated);
             }
         } else {
             surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
@@ -440,7 +443,8 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
     const lightColor = utils.lightenColor(face.faceColors.frameColor, 0.70);
     const darkColor = utils.darkenColor(face.faceColors.frameColor, 0.85);
 
-    const bevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 3 : 4) * scene.scale;
+    const rotated = isRotatedLayout(face);
+    const bevelWidth = (rotated ? 3 : 4) * scene.scale;
 
     drawRectangleBevel(
         surface,
@@ -451,7 +455,7 @@ function drawArtOuterBevel(renderCtx: RenderFaceContext): void {
         -bevelWidth,
         darkColor,
         lightColor,
-        face.faceLayout === 2 || face.faceLayout === 4,
+        rotated,
         0.4
     );
 }
@@ -461,20 +465,12 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
 
     const rect = getArtRect(layout, scene.offsetX, scene.offsetY);
     const artImage = renderCtx.options.artByFaceSerial?.get(face.serial);
-    const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
+    const rotated = isRotatedLayout(face);
 
     drawArtOuterBevel(renderCtx);
 
     if (artImage) {
-        if (shouldRotateArt) {
-            surface.save();
-            surface.translate(rect.x + rect.width / 2, rect.y + rect.height / 2);
-            surface.rotate((90 * Math.PI) / -180);
-            surface.drawImage(artImage, -rect.height / 2, -rect.width / 2, rect.height, rect.width);
-            surface.restore();
-        } else {
-            surface.drawImage(artImage, rect.x, rect.y, rect.width, rect.height);
-        }
+        drawFittedImage(surface, artImage, rect, rotated);
 
         surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
         surface.setLineWidth(Math.max(1, scene.scale * 0.5));
@@ -585,12 +581,19 @@ function drawArtistCredit(renderCtx: RenderFaceContext): void {
     if (!face.artist) {
         return;
     }
+
+    let fontSize = 10;
+
+    if (face.artist.length > 25) {
+        fontSize = 9;
+    }
+
     drawStyledText(
         surface,
         "Illus. " + face.artist,
         layout.xartist + scene.offsetX,
         layout.yartist + scene.offsetY,
-        getCardTextStyle(scene.scale, "Plantin, serif", 10, {
+        getCardTextStyle(scene.scale, "Plantin, serif", fontSize, {
             textAlign: "left",
             rotationDegrees: layout.textangle,
         })

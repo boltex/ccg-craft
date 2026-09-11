@@ -94,7 +94,31 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
     }
     console.log("Finished preloading frame backgrounds.", preloadedFrameBackgrounds);
 
-    // Ok, now all needed frame backgrounds are preloaded in preloadedFrameBackgrounds.
+    const preloadedTextBox: Record<number, RenderImageSource> = {};
+    const textBoxImportsStrings =
+        input.renderOptions?.textBoxImportsStrings;
+
+    // Build array of preloaded text box images for the PDF document. Only load the ones actually needed in cards.
+    for (const card of input.cards) {
+        const faces = input.getFaceData(card.serial);
+        for (const face of faces) {
+            if (face && textBoxImportsStrings) {
+                // Use frame 
+                const textBox = face.faceFrame;
+                if (
+                    !preloadedTextBox[textBox] &&
+                    textBoxImportsStrings[textBox]
+                ) {
+                    preloadedTextBox[textBox] =
+                        document.openImage(textBoxImportsStrings[textBox]);
+                }
+            }
+        }
+    }
+    console.log("Finished preloading text box images.", preloadedTextBox);
+
+
+    // Ok, now all needed frame backgrounds and text box images are preloaded in preloadedFrameBackgrounds and preloadedTextBox.
 
     const outputPromise = toBlob(document);
 
@@ -159,6 +183,7 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
                     padding: input.renderOptions?.padding ?? 0,
                     artByFaceSerial: artByFaceSerial,
                     preloadedFrameBackgrounds: preloadedFrameBackgrounds,
+                    preloadedTextBox: preloadedTextBox,
                 });
 
                 document.restore();

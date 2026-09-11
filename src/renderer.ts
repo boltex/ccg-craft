@@ -22,8 +22,11 @@ export type RenderCardOptions = {
     // TEXT BOX BACKGROUNDS
     textBoxImportsStrings?: Record<number, string> // from the imported image strings
     textBoxImageBitmap?: Record<number, ImageBitmap>; // For canvas, the image bitmaps
-    preloadedTextBoxBackgrounds?: Record<number, RenderImageSource>  // For PDF export
+    preloadedTextBox?: Record<number, RenderImageSource>  // For PDF export
 };
+
+// textBoxImagesImportsStrings
+
 
 export type RenderCardScene = {
     scale: number;

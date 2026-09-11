@@ -158,6 +158,8 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene, options } = renderCtx;
     const bounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
 
+    const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
+
     const useBackgroundImage = true;
 
     if (useBackgroundImage) {
@@ -165,6 +167,11 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         // if canvas, use the frameBackgroundsImageBitmap to draw the background image
         // if for pdfkit, use the preloadedFrameBackgrounds to draw the background image
         // those are in the options passed in the render context. Use options.preloadedFrameBackgrounds[faceFrame] to access the preloaded image.
+
+
+        // TODO : this should use shouldRotateArt and rotate the background image accordingly! 
+
+
         const faceFrame = face.faceFrame;
         if (options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame]) {
             const preloadedImage = options.preloadedFrameBackgrounds[faceFrame];
@@ -205,7 +212,7 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
 }
 
 function drawTextBox(renderCtx: RenderFaceContext): void {
-    const { surface, face, layout, scene } = renderCtx;
+    const { surface, face, layout, scene, options } = renderCtx;
     const textBoxRect = getTextBoxRect(layout, scene.offsetX, scene.offsetY);
     const faceBounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
     const cardBevelWidth = (face.faceLayout === 2 || face.faceLayout === 4 ? 1.5 : 2) * scene.scale;
@@ -221,53 +228,54 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         ? getLandTextBoxFill(face)
         : getDefaultTextBoxFill(face);
 
-    switch (fill.kind) {
-        case "solid": {
-            surface.setFillStyle(utils.toCommaRgb(...fill.color));
-            surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-            break;
-        }
-
-        case "split": {
-            surface.setFillStyle({
-                kind: "linear-gradient",
-                x0: textBoxRect.x,
-                y0: textBoxRect.y,
-                x1: textBoxRect.x + textBoxRect.width,
-                y1: textBoxRect.y,
-                stops: [
-                    { offset: 0, color: utils.toCommaRgb(...fill.first) },
-                    { offset: 0.37, color: utils.toCommaRgb(...fill.first) },
-                    { offset: 0.63, color: utils.toCommaRgb(...fill.second) },
-                    { offset: 1, color: utils.toCommaRgb(...fill.second) },
-                ],
-            });
-            surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-            break;
-        }
-
-        case "striped": {
-            for (let index = 0; index < 8; index++) {
-                const inset = index * 6 * scene.scale;
-                const color = fill.colors[index % 2];
-
-                surface.setFillStyle(utils.toCommaRgb(...color));
-                surface.fillRect(
-                    textBoxRect.x + inset,
-                    textBoxRect.y + inset,
-                    textBoxRect.width - inset * 2,
-                    textBoxRect.height - inset * 2
-                );
-            }
-            break;
-        }
-    }
-
-    surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
-    surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-    surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
 
     if (isLand) {
+        // TODO : add land textbox bitmap first, then change the colors used below to have some transparency so it shows through
+
+        switch (fill.kind) {
+            case "solid": {
+                surface.setFillStyle(utils.toCommaRgb(...fill.color));
+                surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+                break;
+            }
+
+            case "split": {
+                surface.setFillStyle({
+                    kind: "linear-gradient",
+                    x0: textBoxRect.x,
+                    y0: textBoxRect.y,
+                    x1: textBoxRect.x + textBoxRect.width,
+                    y1: textBoxRect.y,
+                    stops: [
+                        { offset: 0, color: utils.toCommaRgb(...fill.first) },
+                        { offset: 0.37, color: utils.toCommaRgb(...fill.first) },
+                        { offset: 0.63, color: utils.toCommaRgb(...fill.second) },
+                        { offset: 1, color: utils.toCommaRgb(...fill.second) },
+                    ],
+                });
+                surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+                break;
+            }
+
+            case "striped": {
+                for (let index = 0; index < 8; index++) {
+                    const inset = index * 6 * scene.scale;
+                    const color = fill.colors[index % 2];
+
+                    surface.setFillStyle(utils.toCommaRgb(...color));
+                    surface.fillRect(
+                        textBoxRect.x + inset,
+                        textBoxRect.y + inset,
+                        textBoxRect.width - inset * 2,
+                        textBoxRect.height - inset * 2
+                    );
+                }
+                break;
+            }
+        }
+        surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
+        surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
 
         // Add border around text box, the art's bevel, and the card frame.
         let color1;
@@ -364,6 +372,40 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         }
 
     } else if (fill.kind === "solid") {
+        // NON-LANDS
+
+        const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
+
+        // TODO : this should use shouldRotateArt and rotate the background image accordingly!
+
+        const horizontalOffset = textBoxBevelWidth / 2;
+        const verticalOffset = textBoxBevelWidth / 2;
+
+        const useTextBoxImageImage = true;
+
+        if (useTextBoxImageImage) {
+            // those are in the options passed in the render context. Use options.preloadedTextBox[faceFrame] to access the preloaded image.
+            const faceFrame = face.faceFrame;
+            if (options.preloadedTextBox && options.preloadedTextBox[faceFrame]) {
+                const preloadedImage = options.preloadedTextBox[faceFrame];
+                surface.drawImage(preloadedImage, textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+            } else if (options.textBoxImageBitmap && options.textBoxImageBitmap[faceFrame]) {
+                const imageBitmap = options.textBoxImageBitmap[faceFrame];
+                surface.drawImage(imageBitmap, textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+            }
+        } else {
+            surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
+            surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+        }
+
+
+        // USED TO BE ONLY:
+        // surface.setFillStyle(utils.toCommaRgb(...fill.color));
+        // surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+        // surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
+        // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        // surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+
 
         // Add border around the text box for non-lands. 
 
@@ -382,7 +424,6 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         //     face.faceLayout === 2 || face.faceLayout === 4
         // );
 
-        // TODO: Implement a real text box with a pgn with transparency.
 
     }
 

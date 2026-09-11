@@ -169,7 +169,7 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         // those are in the options passed in the render context. Use options.preloadedFrameBackgrounds[faceFrame] to access the preloaded image.
 
 
-        // TODO : this should use shouldRotateArt and rotate the background image accordingly! 
+        // TODO : this should use shouldRotateArt and rotate the background image data accordingly! 
 
 
         const faceFrame = face.faceFrame;
@@ -230,7 +230,6 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
 
     if (isLand) {
-        // TODO : add land textbox bitmap first, then change the colors used below to have some transparency so it shows through
 
         switch (fill.kind) {
             case "solid": {
@@ -376,10 +375,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
 
-        // TODO : this should use shouldRotateArt and rotate the background image accordingly!
-
-        const horizontalOffset = textBoxBevelWidth / 2;
-        const verticalOffset = textBoxBevelWidth / 2;
+        // TODO : this should use shouldRotateArt and rotate the background image data accordingly!
 
         const useTextBoxImageImage = true;
 

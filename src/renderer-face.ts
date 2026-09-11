@@ -169,16 +169,20 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         // those are in the options passed in the render context. Use options.preloadedFrameBackgrounds[faceFrame] to access the preloaded image.
 
 
-        // TODO : this should use shouldRotateArt and rotate the background image data accordingly! 
-
-
         const faceFrame = face.faceFrame;
-        if (options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame]) {
-            const preloadedImage = options.preloadedFrameBackgrounds[faceFrame];
-            surface.drawImage(preloadedImage, bounds.x, bounds.y, bounds.width, bounds.height);
-        } else if (options.frameBackgroundsImageBitmap && options.frameBackgroundsImageBitmap[faceFrame]) {
-            const imageBitmap = options.frameBackgroundsImageBitmap[faceFrame];
-            surface.drawImage(imageBitmap, bounds.x, bounds.y, bounds.width, bounds.height);
+        const backgroundImage = (options.preloadedFrameBackgrounds && options.preloadedFrameBackgrounds[faceFrame])
+            || (options.frameBackgroundsImageBitmap && options.frameBackgroundsImageBitmap[faceFrame]);
+
+        if (backgroundImage) {
+            if (shouldRotateArt) {
+                surface.save();
+                surface.translate(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+                surface.rotate((90 * Math.PI) / -180);
+                surface.drawImage(backgroundImage, -bounds.height / 2, -bounds.width / 2, bounds.height, bounds.width);
+                surface.restore();
+            } else {
+                surface.drawImage(backgroundImage, bounds.x, bounds.y, bounds.width, bounds.height);
+            }
         }
     } else {
         surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
@@ -375,19 +379,24 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         const shouldRotateArt = face.faceLayout === 2 || face.faceLayout === 4;
 
-        // TODO : this should use shouldRotateArt and rotate the background image data accordingly!
-
         const useTextBoxImageImage = true;
 
         if (useTextBoxImageImage) {
             // those are in the options passed in the render context. Use options.preloadedTextBox[faceFrame] to access the preloaded image.
             const faceFrame = face.faceFrame;
-            if (options.preloadedTextBox && options.preloadedTextBox[faceFrame]) {
-                const preloadedImage = options.preloadedTextBox[faceFrame];
-                surface.drawImage(preloadedImage, textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-            } else if (options.textBoxImageBitmap && options.textBoxImageBitmap[faceFrame]) {
-                const imageBitmap = options.textBoxImageBitmap[faceFrame];
-                surface.drawImage(imageBitmap, textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+            const textBoxImage = (options.preloadedTextBox && options.preloadedTextBox[faceFrame])
+                || (options.textBoxImageBitmap && options.textBoxImageBitmap[faceFrame]);
+
+            if (textBoxImage) {
+                if (shouldRotateArt) {
+                    surface.save();
+                    surface.translate(textBoxRect.x + textBoxRect.width / 2, textBoxRect.y + textBoxRect.height / 2);
+                    surface.rotate((90 * Math.PI) / -180);
+                    surface.drawImage(textBoxImage, -textBoxRect.height / 2, -textBoxRect.width / 2, textBoxRect.height, textBoxRect.width);
+                    surface.restore();
+                } else {
+                    surface.drawImage(textBoxImage, textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+                }
             }
         } else {
             surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
@@ -395,13 +404,12 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         }
 
 
-        // USED TO BE ONLY:
+        // USED TO BE ONLY PLAIN COLOR FILLS AND BEVEL:
         // surface.setFillStyle(utils.toCommaRgb(...fill.color));
         // surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
         // surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
         // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
         // surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-
 
         // Add border around the text box for non-lands. 
 

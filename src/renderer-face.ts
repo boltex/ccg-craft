@@ -250,8 +250,19 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     const useTextBoxImageImage = true;
 
     // The textbox image has transparent margins around it so we need to stretch it by some amount.
-    const horizontalStretch = 25 * scene.scale;
-    const verticalStretch = 24 * scene.scale;
+    let horizontalStretch = 25 * scene.scale;
+    let verticalStretch = 24 * scene.scale;
+
+    if (face.faceLayout === 2 || face.faceLayout === 4) {
+        horizontalStretch = 11 * scene.scale;
+        verticalStretch = 15 * scene.scale;
+    }
+
+    if (face.faceLayout === 1 || face.faceLayout === 3) {
+        horizontalStretch = 25 * scene.scale;
+        verticalStretch = 11 * scene.scale;
+    }
+
     const bitmapRect = {
         x: textBoxRect.x,
         y: textBoxRect.y,
@@ -601,6 +612,12 @@ function drawArtistCredit(renderCtx: RenderFaceContext): void {
 
     if (face.artist.length > 25) {
         fontSize = 9;
+    }
+    if (face.artist.length > 30) {
+        fontSize = 8;
+    }
+    if (face.artist.length > 35) {
+        fontSize = 7;
     }
 
     drawStyledText(

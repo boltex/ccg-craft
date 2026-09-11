@@ -44,7 +44,7 @@ export type GenerateSealedDeckPdfInput = {
     paperSize?: string;
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
-
+    textBoxImportsStrings: Record<string, string>;
 };
 
 export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): Promise<Blob> {
@@ -65,6 +65,7 @@ export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): 
                 padding: 5,
                 background: "#000000",
                 frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
+                textBoxImportsStrings: input.textBoxImportsStrings,
             },
         },
         input.onProgress
@@ -77,6 +78,7 @@ export type GenerateConstructedDeckPdfInput = {
     paperSize?: string;
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
+    textBoxImportsStrings: Record<string, string>;
 };
 
 export async function generateConstructedDeckPdf(input: GenerateConstructedDeckPdfInput): Promise<Blob> {
@@ -111,6 +113,7 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
                 padding: 5,
                 background: "#000000",
                 frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
+                textBoxImportsStrings: input.textBoxImportsStrings,
             },
         },
         input.onProgress

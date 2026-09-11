@@ -378,6 +378,7 @@ async function generateSealedPDF(): Promise<void> {
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+            textBoxImportsStrings: textBoxImportsStrings
         });
 
         downloadGeneratedPdf("sealed-deck", pdfBlob);
@@ -410,6 +411,7 @@ async function generateConstructedPDF(): Promise<void> {
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+            textBoxImportsStrings: textBoxImportsStrings
         });
 
         downloadGeneratedPdf("constructed-deck", pdfBlob);
@@ -463,6 +465,8 @@ async function showCardPreview(query: string): Promise<void> {
     const faces = cardDatabase.getFaceData(serial);
 
     const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap, textBoxImageBitmap);
+
+    setPreview(previewText); // Show the card data.
 
     // If the card has two faces, just take the first face for determining the background color.
     const firstFace = faces[0];

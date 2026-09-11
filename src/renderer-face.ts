@@ -245,6 +245,37 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         ? getLandTextBoxFill(face)
         : getDefaultTextBoxFill(face);
 
+    // --- BITMAP IMAGE ---
+
+    const useTextBoxImageImage = true;
+
+    // The textbox image has transparent margins around it so we need to stretch it by some amount.
+    const horizontalStretch = 25 * scene.scale;
+    const verticalStretch = 24 * scene.scale;
+    const bitmapRect = {
+        x: textBoxRect.x,
+        y: textBoxRect.y,
+        width: textBoxRect.width,
+        height: textBoxRect.height,
+    };
+    bitmapRect.x -= horizontalStretch / 2;
+    bitmapRect.y -= verticalStretch / 2;
+    bitmapRect.width += horizontalStretch;
+    bitmapRect.height += verticalStretch;
+
+    if (useTextBoxImageImage) {
+        // those are in the options passed in the render context. Use options.preloadedTextBox[faceFrame] to access the preloaded image.
+        const faceFrame = face.faceFrame;
+        const textBoxImage = (options.preloadedTextBox && options.preloadedTextBox[faceFrame])
+            || (options.textBoxImageBitmap && options.textBoxImageBitmap[faceFrame]);
+
+        if (textBoxImage) {
+            drawFittedImage(surface, textBoxImage, bitmapRect, rotated);
+        }
+    } else {
+        surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
+        surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+    }
 
     if (isLand) {
 
@@ -390,31 +421,14 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     } else if (fill.kind === "solid") {
         // NON-LANDS
 
-        const useTextBoxImageImage = true;
 
-        if (useTextBoxImageImage) {
-            // those are in the options passed in the render context. Use options.preloadedTextBox[faceFrame] to access the preloaded image.
-            const faceFrame = face.faceFrame;
-            const textBoxImage = (options.preloadedTextBox && options.preloadedTextBox[faceFrame])
-                || (options.textBoxImageBitmap && options.textBoxImageBitmap[faceFrame]);
-
-            if (textBoxImage) {
-                drawFittedImage(surface, textBoxImage, textBoxRect, rotated);
-            }
-        } else {
-            surface.setFillStyle(utils.toCommaRgb(...face.faceColors.frameColor));
-            surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
-        }
-
-
-        // USED TO BE ONLY PLAIN COLOR FILLS AND BEVEL:
+        // // USED TO BE ONLY PLAIN COLOR FILLS AND BEVEL:
         // surface.setFillStyle(utils.toCommaRgb(...fill.color));
         // surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
         // surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
         // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
         // surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
 
-        // Add border around the text box for non-lands. 
 
         // const lightColor = utils.lightenColor(fill.color, 0.3);
         // const darkColor = utils.darkenColor(fill.color, 0.18);
@@ -430,6 +444,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         //     lightColor,
         //     face.faceLayout === 2 || face.faceLayout === 4
         // );
+
 
 
     }

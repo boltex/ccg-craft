@@ -121,7 +121,7 @@ export const FaceLayouts: { [key: number]: FaceLayout } = {
         ytext: 204,
         textangle: 0,
         xtb: 18,
-        ytb: 200,
+        ytb: 201,
         tbwidth: 196,
         tbheight: 106,
         xart: 17,

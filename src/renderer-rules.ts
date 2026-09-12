@@ -390,6 +390,8 @@ export function drawWrappedRulesText(
     layout.lines.forEach((line) => {
         let cursorX = 0;
 
+        let cancelFlavorOverrideToggle = false;
+
         for (const token of line.tokens) {
             if (token.kind === "mana") {
                 const symbol = manaTokenToSymbol(token.value);
@@ -402,13 +404,40 @@ export function drawWrappedRulesText(
                 continue;
             }
             if (token.value.length > 0) {
+
+                let justToggled = false;
+
+                // If at least one asterisk is present in a flavor token, toggle the cancelFlavorOverride flag.
+                if (!cancelFlavorOverrideToggle && token.kind === "flavor" && token.value.includes("*")) {
+                    cancelFlavorOverrideToggle = !cancelFlavorOverrideToggle; // toggle on BEFORE the current flavor token
+                    justToggled = true;
+                }
+
+                const isFlavor = token.kind === "flavor" && !cancelFlavorOverrideToggle;
+
+                let text = token.value;
+                // Remove any * from the text
+                text = text.replace(/\*/g, '');
+
                 // strangely important to re-apply text style before each token (For pdfkit, was ok on canvas) 
                 // because drawManaSymbol does restore the surface state. only the first token after a new line ending with a mana symbol was affected.
                 // This ensures that the text style is consistently applied for each token, even after drawing mana symbols.
-                surface.applyTextStyle(getRulesTextStyle(layout.fontSize, token.kind === "flavor"));
+                surface.applyTextStyle(getRulesTextStyle(layout.fontSize, isFlavor));
 
-                surface.fillText(token.value, cursorX, cursorY);
-                cursorX += measureRulesText(surface, token.value, layout.fontSize, token.kind === "flavor");
+                surface.fillText(text, cursorX, cursorY);
+                cursorX += measureRulesText(surface, text, layout.fontSize, isFlavor);
+
+                if (!justToggled && cancelFlavorOverrideToggle && token.kind === "flavor" && token.value.includes("*")) {
+                    cancelFlavorOverrideToggle = !cancelFlavorOverrideToggle; // toggle off AFTER the current flavor token
+                }
+
+
+                // Now turn off the flavor override if the token value has more than one asterisk.
+                if (justToggled && token.kind === "flavor" && (token.value.match(/\*/g) || []).length > 1) {
+                    cancelFlavorOverrideToggle = !cancelFlavorOverrideToggle;
+                }
+                // Otherwise the flavor override will be toggled back off when encountering the next flavor token with an asterisk.
+
             }
         }
 

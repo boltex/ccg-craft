@@ -5,6 +5,7 @@ export type Card = {
     face1: number;
     face2: number;
     url: string; // URL to the card's artwork
+    flavor: number; // Index of the flavor text in the flavor texts array
     artist: number; // Index of the artist in the artists array
 }
 
@@ -32,6 +33,7 @@ export type PrintableFace = {
     isACreature: boolean;
     powerToughness: string; // either empty or has two elements: [power, toughness]
     textLines: string[]; // array of text lines indexes
+    flavorLines: string[]; // The flavor text line associated with this card face
     artist: string; // Name of the artist
 
     colorState: number;

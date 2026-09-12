@@ -592,12 +592,18 @@ function drawArtistCredit(renderCtx: RenderFaceContext): void {
         fontSize = 7;
     }
 
+    let font = "Plantin, serif";
+    // If artist name contains non-latin letter such as Chinese, Japanese, or Korean, use a pdfkit standard serif font.
+    if (/[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af]/.test(face.artist)) {
+        font = "Times-Roman, serif";
+    }
+
     drawStyledText(
         surface,
         "Illus. " + face.artist,
         layout.xartist + scene.offsetX,
         layout.yartist + scene.offsetY,
-        getCardTextStyle(scene.scale, "Plantin, serif", fontSize, {
+        getCardTextStyle(scene.scale, font, fontSize, {
             textAlign: "left",
             rotationDegrees: layout.textangle,
         })

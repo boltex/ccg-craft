@@ -1,0 +1,127 @@
+
+import fs from 'node:fs';
+import readline from 'node:readline';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Note: Set, Expansion and Edition are used interchangeably in this context.
+
+// Open default-cards-20260904210528.jsonl and reduce its contents as needed
+// Were going to keep only the cards is the expansion (set) matches the ones we care about,
+// and only the first occurrence if more than one card per expansion (no repeats by if card has many alternate arts per set)
+
+// We want to build a reduced set of cards that only includes the first occurrence of each expansion from the validExpansions list.
+// And the data we care about and keep is only the card name, the set, and the flavor text.
+
+// It's jsonl so each line is a separate JSON object.
+
+const validExpansions = [
+    "PHPR",
+    "PDRC",
+    "2ED",
+    "ARN",
+    "ATQ",
+    "LEG",
+    "DRK",
+    "FEM",
+    "ICE",
+    "HML",
+    "ALL",
+    "MIR",
+    "VIS",
+    "WTH",
+    "TMP",
+    "STH",
+    "EXO",
+    "USG",
+    "ULG",
+    "UDS",
+    "MMQ",
+    "NEM",
+    "PCY",
+    "INV",
+    "PLS",
+    "APC",
+    "ODY",
+    "TOR",
+    "JUD",
+    "ONS",
+    "LGN",
+    "SCG",
+    "MRD",
+    "DST",
+    "5DN",
+    "CHK",
+    "BOK",
+    "SOK",
+    "POR",
+    "P02",
+    "PTK"
+];
+
+const validSet = new Set(validExpansions.map(e => e.toUpperCase()));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const inputPath = path.join(__dirname, 'default-cards-20260904210528.jsonl');
+
+async function processCards() {
+    const fileStream = fs.createReadStream(inputPath);
+    const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+    });
+
+    const results = {};
+    let totalLines = 0;
+
+    for await (const line of rl) {
+        totalLines++;
+        if (!line.trim()) continue;
+
+        // At every 250 lines, log progress
+        if (totalLines % 250 === 0) {
+            console.log(`Processed ${totalLines} lines so far...`);
+        }
+
+        try {
+            const card = JSON.parse(line);
+            const cardSetUpper = (card.set || '').toUpperCase();
+
+            if (!validSet.has(cardSetUpper)) {
+                continue;
+            }
+
+            const cardName = card.name;
+            let key = `${cardSetUpper}:${cardName}`;
+            if (['CHK', 'BOK', 'SOK'].includes(cardSetUpper)) {
+                // Trim all after, and including  " //"
+                key = key.split(" //")[0];
+            }
+
+            if (results[key]) {
+                continue;
+            }
+
+            const flavorText = card.flavor_text || card.card_faces?.[0]?.flavor_text || null;
+
+            results[key] = {
+                f: flavorText
+            };
+        } catch (err) {
+            console.error(`Error parsing line ${totalLines}:`, err);
+        }
+    }
+
+    const uniqueCount = Object.keys(results).length;
+    console.log(`Processed ${totalLines} lines. Extracted ${uniqueCount} unique card entries.`);
+
+    const outputPath = path.join(__dirname, 'reduced-default-cards-flavor.json');
+    fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
+    console.log(`Saved output to ${outputPath}`);
+}
+
+processCards();
+
+
+

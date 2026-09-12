@@ -87,6 +87,7 @@ function formatPreviewText(
         const faceTypeLine = face.typeLine || "Unknown";
         const facePowerToughness = face.isACreature ? `${face.powerToughness}` : "N/A";
         const faceTextLines = face.textLines.join("\n");
+        const faceFlavorLines = face.flavorLines?.length ? face.flavorLines.join("\n") : "";
 
         previewText += `
             ---------------
@@ -97,7 +98,9 @@ function formatPreviewText(
             Edition: ${faceEdition}  
             Power/Toughness: ${facePowerToughness}
             Text:
-            ${faceTextLines}`;
+            ${faceTextLines}
+            Flavor:
+            ${faceFlavorLines}`;
     }
     return previewText.replace(/^\s+/gm, ''); // Remove spaces before newlines for better formatting
 }

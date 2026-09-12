@@ -21,6 +21,7 @@ export class CardDatabase {
     private manaCostData: string[] = [];
     private typeData: string[] = [];
     private textData: string[] = [];
+    private flavorTextsData: string[] = [];
     private artistsData: string[] = [];
 
     private restrictedSubsetsData: Record<string, string[]> = {};
@@ -55,6 +56,7 @@ export class CardDatabase {
         this.typeData.push(...parseTextData(await fetchText("face-type-lines.txt")));
         this.textData.push(...parseTextData(await fetchText("face-text-lines.txt")));
         this.artistsData.push(...parseTextData(await fetchText("artists.txt")));
+        this.flavorTextsData.push(...parseTextData(await fetchText("flavor.txt")));
 
         Object.assign(this.editionsScryData, JSON.parse(await fetchText("editions.json")));
         for (const key in this.editionsScryData) {
@@ -116,16 +118,16 @@ export class CardDatabase {
         const card = this.getCardBySerial(cardSerial);
         const artist = this.artistsData[card.artist];
 
-        const face1 = this.getPrintableFace(card.face1, undefined, artist);
+        const face1 = this.getPrintableFace(card.face1, undefined, artist, card.flavor > 0 ? this.flavorTextsData[card.flavor - 1] : undefined);
         if (!card.face2 || card.face2 === 0) {
             return [face1, undefined];
         }
-        const face2 = this.getPrintableFace(card.face2, face1, artist); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
+        const face2 = this.getPrintableFace(card.face2, face1, artist, card.flavor > 0 ? this.flavorTextsData[card.flavor - 1] : undefined); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
 
         return [face1, face2];
     }
 
-    private getPrintableFace(faceSerial: number, otherFace: PrintableFace | undefined, artist: string): PrintableFace {
+    private getPrintableFace(faceSerial: number, otherFace: PrintableFace | undefined, artist: string, flavorString: string | undefined): PrintableFace {
         const face = this.faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
         // About FaceFrame
@@ -232,6 +234,7 @@ export class CardDatabase {
             colorState: colorState,
             faceFrame: faceFrame,
             faceColors: faceColors,
+            flavorLines: flavorString ? JSON.parse(flavorString).split("\n") : [],
             artist: artist,
         };
     }
@@ -275,9 +278,11 @@ function parseSingleCards(rawText: string): Card[] {
             break;
         }
         // lines look like this:
-        // 4174, 4174, 0, IN, Greg Staples, d/5/d5eef49c-a80f-4622-ba77-999f9151c841.jpg?1783945666, Artifact Mutation
+
+        // 4174, 4174, 0, IN, 181, d/5/d5eef49c-a80f-4622-ba77-999f9151c841.jpg?1783945666, 2646, Artifact Mutation
+
         const parts = lines[i].split(",");
-        if (parts.length < 5) {
+        if (parts.length < 8) {
             throw new Error(`Malformed line in single-cards.txt: ${lines[i]}`);
         }
         const serial = parseInt(parts[0].trim(), 10);
@@ -286,9 +291,10 @@ function parseSingleCards(rawText: string): Card[] {
         const edition = parts[3].trim();
         const artist = parseInt(parts[4].trim(), 10);
         const url = parts[5].trim();
-        const name = parts.slice(6).join(",").trim();
+        const flavor = parseInt(parts[6].trim(), 10);
+        const name = parts.slice(7).join(",").trim();
 
-        result.push({ serial, face1, face2, edition, name, artist, url });
+        result.push({ serial, face1, face2, edition, name, artist, url, flavor });
     }
 
     return result;

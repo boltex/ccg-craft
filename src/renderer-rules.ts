@@ -44,11 +44,11 @@ function getRulesTextStyle(fontSize: number, flavor?: boolean): TextStyle {
     };
 }
 
-function measureRulesText(surface: RenderSurface, text: string, fontSize: number): number {
+function measureRulesText(surface: RenderSurface, text: string, fontSize: number, isFlavor?: boolean): number {
     if (!text) {
         return 0;
     }
-    return surface.measureText(text, getRulesTextStyle(fontSize, false));
+    return surface.measureText(text, getRulesTextStyle(fontSize, isFlavor));
 }
 
 function measureRulesToken(
@@ -60,7 +60,7 @@ function measureRulesToken(
     if (token.kind === "mana") {
         return measureManaSymbol(symbolSize);
     }
-    return measureRulesText(surface, token.value, fontSize);
+    return measureRulesText(surface, token.value, fontSize, token.kind === "flavor");
 }
 
 function measureRulesLine(
@@ -229,8 +229,10 @@ export function wrapRulesParagraph(
     symbolSize: number
 ): WrappedRulesLine[] {
     const units = splitParagraphIntoUnits(surface, paragraph, fontSize, symbolSize);
+    const isFlavor = paragraph.length > 0 && paragraph[0].kind === "flavor";
     const spaceToken: RulesToken = { kind: "text", value: " " };
-    const spaceWidth = measureRulesText(surface, " ", fontSize);
+    const flavorSpaceToken: RulesToken = { kind: "flavor", value: " " };
+    const spaceWidth = measureRulesText(surface, " ", fontSize, isFlavor);
     const lines: WrappedRulesLine[] = [];
     let currentTokens: RulesToken[] = [];
     let currentWidth = 0;
@@ -258,7 +260,7 @@ export function wrapRulesParagraph(
         }
 
         if (currentTokens.length > 0) {
-            currentTokens.push(spaceToken);
+            currentTokens.push(isFlavor ? flavorSpaceToken : spaceToken);
             currentWidth += spaceWidth;
         }
 
@@ -399,7 +401,6 @@ export function drawWrappedRulesText(
 
                 continue;
             }
-
             if (token.value.length > 0) {
                 // strangely important to re-apply text style before each token (For pdfkit, was ok on canvas) 
                 // because drawManaSymbol does restore the surface state. only the first token after a new line ending with a mana symbol was affected.
@@ -407,7 +408,7 @@ export function drawWrappedRulesText(
                 surface.applyTextStyle(getRulesTextStyle(layout.fontSize, token.kind === "flavor"));
 
                 surface.fillText(token.value, cursorX, cursorY);
-                cursorX += measureRulesText(surface, token.value, layout.fontSize);
+                cursorX += measureRulesText(surface, token.value, layout.fontSize, token.kind === "flavor");
             }
         }
 

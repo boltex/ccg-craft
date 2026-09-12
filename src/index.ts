@@ -171,6 +171,26 @@ if (lookupElement) {
             }
         }, 300); // 300ms debounce
     });
+    // React also on enter press in the lookup input field
+    lookupElement.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const currentCard = previewController.currentCard;
+            if (!currentCard || !decklistTextArea) {
+                return;
+            }
+
+            const existingText = decklistTextArea.value;
+            const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
+            decklistTextArea.value = `${existingText}${separator}${currentCard.name}\n`;
+            syncGeneratePdfButton();
+            // Now also clear the input
+            lookupElement.value = "";
+            resetPageBackgroundColor();
+            previewController.clear();
+            updateStatusSummary();
+        }
+    });
 }
 
 if (generatePdfButton) {

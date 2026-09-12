@@ -18,6 +18,11 @@
   "author": {
     "name": "Félix Malboeuf"
   },
+  "contributors": [
+    {
+      "name": "Olivier Malboeuf"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/pdfkit": "^0.17.6",

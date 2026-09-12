@@ -12,7 +12,10 @@ plantin.ttf
 	Type Line
 	Text Box
 	Power/Toughness	
-	
+
+plantin-italic
+	flavor text
+
 expansions-b.ttf
 expansions-f.ttf
 	Expansion badge background and foreground

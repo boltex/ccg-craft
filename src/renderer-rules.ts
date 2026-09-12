@@ -4,8 +4,9 @@ import type { PrintableFace, FaceLayout } from "./types";
 import { drawManaSymbol, manaTokenToSymbol, measureManaSymbol } from "./renderer-symbols";
 
 export type RulesToken =
-    | { kind: "text"; value: string }
-    | { kind: "mana"; value: string };
+    | { kind: "text"; value: string } // Normal text
+    | { kind: "flavor"; value: string } // Italicized flavor text
+    | { kind: "mana"; value: string }; // Mana symbols
 
 export type WrappedRulesLine = {
     tokens: RulesToken[];
@@ -27,12 +28,13 @@ type RulesUnit = {
 };
 
 const RULES_FONT_FAMILY = "Plantin, serif";
+const RULES_FLAVOR_FONT_FAMILY = "Plantin-Italic, serif";
 const MIN_RULES_FONT_SIZE = 8;
 const MAX_RULES_FONT_SIZE = 13;
 
-function getRulesTextStyle(fontSize: number): TextStyle {
+function getRulesTextStyle(fontSize: number, flavor?: boolean): TextStyle {
     return {
-        fontFamily: RULES_FONT_FAMILY,
+        fontFamily: flavor ? RULES_FLAVOR_FONT_FAMILY : RULES_FONT_FAMILY,
         fontSize,
         fillStyle: "black",
         textAlign: "left",
@@ -46,8 +48,7 @@ function measureRulesText(surface: RenderSurface, text: string, fontSize: number
     if (!text) {
         return 0;
     }
-
-    return surface.measureText(text, getRulesTextStyle(fontSize));
+    return surface.measureText(text, getRulesTextStyle(fontSize, false));
 }
 
 function measureRulesToken(
@@ -59,7 +60,6 @@ function measureRulesToken(
     if (token.kind === "mana") {
         return measureManaSymbol(symbolSize);
     }
-
     return measureRulesText(surface, token.value, fontSize);
 }
 
@@ -109,7 +109,7 @@ function splitParagraphIntoUnits(
                 continue;
             }
 
-            currentUnit.push({ kind: "text", value: part });
+            currentUnit.push({ kind: token.kind, value: part });
         }
     }
 
@@ -209,11 +209,17 @@ export function tokenizeRulesText(text: string): RulesToken[] {
 
     return tokens;
 }
-export function tokenizeRulesParagraphs(lines: string[]): RulesToken[][] {
+export function tokenizeRulesParagraphs(lines: string[], flavorLines: string[]): RulesToken[][] {
     return lines
         .map(line => line.trim())
         .filter(line => line.length > 0)
-        .map(tokenizeRulesText);
+        .map(tokenizeRulesText)
+        .concat(
+            flavorLines
+                .map(line => line.trim())
+                .filter(line => line.length > 0)
+                .map(line => [{ kind: "flavor", value: line }])
+        );
 }
 export function wrapRulesParagraph(
     surface: RenderSurface,
@@ -270,7 +276,7 @@ export function fitRulesText(
     layout: FaceLayout,
     scale: number
 ): FittedRulesLayout {
-    const paragraphs = tokenizeRulesParagraphs(face.textLines);
+    const paragraphs = tokenizeRulesParagraphs(face.textLines, face.flavorLines);
 
     if (paragraphs.length === 0) {
         return {
@@ -398,7 +404,7 @@ export function drawWrappedRulesText(
                 // strangely important to re-apply text style before each token (For pdfkit, was ok on canvas) 
                 // because drawManaSymbol does restore the surface state. only the first token after a new line ending with a mana symbol was affected.
                 // This ensures that the text style is consistently applied for each token, even after drawing mana symbols.
-                surface.applyTextStyle(getRulesTextStyle(layout.fontSize));
+                surface.applyTextStyle(getRulesTextStyle(layout.fontSize, token.kind === "flavor"));
 
                 surface.fillText(token.value, cursorX, cursorY);
                 cursorX += measureRulesText(surface, token.value, layout.fontSize);

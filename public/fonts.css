@@ -7,6 +7,23 @@
 }
 
 @font-face {
+  font-family: "Plantin";
+  src: url("./plantin-italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Same as the previous @font-face for "Plantin-Italic", except with font-style: normal for specific use cases */
+@font-face {
+  font-family: "Plantin-Italic";
+  src: url("./plantin-italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Medieval";
   src: url("./medieval.ttf") format("truetype");
   font-weight: 400;

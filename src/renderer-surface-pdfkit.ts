@@ -8,6 +8,7 @@ import type {
 export type PdfKitFontRegistry = {
     regularText: string;
     titleText: string;
+    flavorText: string;
     manaSymbols: string;
     expansionFront: string;
     expansionBack: string;
@@ -67,6 +68,7 @@ type PdfKitFill = string | PdfKitGradientHandle;
 const FALLBACK_PDF_FONT_REGISTRY: PdfKitFontRegistry = {
     regularText: "Times-Roman",
     titleText: "Times-Bold",
+    flavorText: "Times-Italic",
     manaSymbols: "Symbol",
     expansionFront: "Helvetica",
     expansionBack: "Helvetica-Bold",
@@ -292,6 +294,8 @@ function resolvePdfKitFontName(fontFamily: string, fonts: PdfKitFontRegistry): s
             return fonts.titleText;
         case "Plantin":
             return fonts.regularText;
+        case "Plantin-Italic":
+            return fonts.flavorText;
         case "Symbols":
             return fonts.manaSymbols;
         case "ExpFront":

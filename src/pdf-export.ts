@@ -42,6 +42,7 @@ export type GenerateDeckPdfInput = {
 const PDF_FONT_ALIASES: PdfKitFontRegistry = {
     regularText: "PlantinPdf",
     titleText: "MedievalPdf",
+    flavorText: "PlantinItalicPdf",
     manaSymbols: "SymbolsPdf",
     expansionFront: "ExpFrontPdf",
     expansionBack: "ExpBackPdf",
@@ -50,6 +51,7 @@ const PDF_FONT_ALIASES: PdfKitFontRegistry = {
 const PDF_FONT_FILES: Array<{ alias: keyof PdfKitFontRegistry; path: string }> = [
     { alias: "regularText", path: "plantin.ttf" },
     { alias: "titleText", path: "medieval.ttf" },
+    { alias: "flavorText", path: "plantin-Italic.ttf" },
     { alias: "manaSymbols", path: "symbols.ttf" },
     { alias: "expansionFront", path: "expansions-f.ttf" },
     { alias: "expansionBack", path: "expansions-b.ttf" },

@@ -582,25 +582,35 @@ function drawArtistCredit(renderCtx: RenderFaceContext): void {
 
     let fontSize = 10;
 
-    if (face.artist.length > 25) {
-        fontSize = 9;
-    }
-    if (face.artist.length > 30) {
-        fontSize = 8;
-    }
-    if (face.artist.length > 35) {
-        fontSize = 7;
-    }
+    let artistString = face.artist;
 
     let font = "Plantin, serif";
-    // If artist name contains non-latin letter such as Chinese, Japanese, or Korean, use a pdfkit standard serif font.
-    if (/[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af]/.test(face.artist)) {
-        font = "Times-Roman, serif";
+
+    // If split card, check for & in artist name. 
+    if (face.faceLayout === 2) {
+        if (artistString.includes("&")) {
+            artistString = artistString.split("&")[0].trim();
+        }
+    }
+    if (face.faceLayout === 4) {
+        if (artistString.includes("&")) {
+            artistString = artistString.split("&")[1].trim();
+        }
+    }
+
+    if (artistString.length > 25) {
+        fontSize = 9;
+    }
+    if (artistString.length > 30) {
+        fontSize = 8;
+    }
+    if (artistString.length > 35) {
+        fontSize = 7;
     }
 
     drawStyledText(
         surface,
-        "Illus. " + face.artist,
+        "Illus. " + artistString,
         layout.xartist + scene.offsetX,
         layout.yartist + scene.offsetY,
         getCardTextStyle(scene.scale, font, fontSize, {

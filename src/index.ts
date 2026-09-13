@@ -167,6 +167,9 @@ if (lookupElement) {
             } else {
                 resetPageBackgroundColor();
                 previewController.clear();
+                if (addToDecklistButton) {
+                    addToDecklistButton.disabled = previewController.currentCard === null;
+                }
                 await updateStatusSummary();
             }
         }, 300); // 300ms debounce
@@ -188,6 +191,9 @@ if (lookupElement) {
             lookupElement.value = "";
             resetPageBackgroundColor();
             previewController.clear();
+            if (addToDecklistButton) {
+                addToDecklistButton.disabled = previewController.currentCard === null;
+            }
             updateStatusSummary();
         }
     });

@@ -338,7 +338,6 @@ export function fitRulesText(
                 verticalAdjustment = candidateLayout.lineHeight * 0.25;
             }
 
-            console.log("Using candidate layout.", candidateLayout.fontSize, candidateLayout.lineHeight);
             return {
                 ...candidateLayout,
                 xAdjust: shouldCenter ? Math.max(0, (limits.width - usedWidth) / 2) : 0,
@@ -351,12 +350,7 @@ export function fitRulesText(
     // If we reached this place and the total paragraphs is more than 5, Make sure the 'busted' flag is set.
     if (paragraphs.length > 5) {
         fallbackLayout.busted = true;
-        console.log("Busted!");
-    } else {
-        console.log("ok, only a few paragraphs", paragraphs.length);
     }
-
-    console.log("No suitable layout found, using fallback.", fallbackLayout.fontSize, fallbackLayout.lineHeight);
     return fallbackLayout;
 
 }

@@ -94,7 +94,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
             }
         }
     }
-    console.log("Finished preloading frame backgrounds.", preloadedFrameBackgrounds);
 
     const preloadedTextBox: Record<number, RenderImageSource> = {};
     const textBoxImportsStrings =
@@ -117,7 +116,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
             }
         }
     }
-    console.log("Finished preloading text box images.", preloadedTextBox);
 
 
     // Ok, now all needed frame backgrounds and text box images are preloaded in preloadedFrameBackgrounds and preloadedTextBox.

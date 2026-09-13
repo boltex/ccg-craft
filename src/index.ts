@@ -385,7 +385,10 @@ async function generateSealedPDF(): Promise<void> {
         .map(([code]) => code);
 
     const cardPool = selectSealedCardPool(cardDatabase, selectedEditions);
-    console.log(`Total unique available cards without basic lands: ${cardPool.length}`);
+
+    // TODO : Move this information to the main screen UI instead of logging to the console.
+    // TODO: also show this when checking/unchecking editions instead of when generating the sealed deck itself!
+    // console.log(`Total unique available cards without basic lands: ${cardPool.length}`);
 
     if (cardPool.length === 0 || !generatePdfButton) {
         setStatus("No cards are available for the selected editions.");
@@ -397,7 +400,6 @@ async function generateSealedPDF(): Promise<void> {
     generatePdfButton.textContent = "Generating PDF...";
 
     try {
-        console.log("Generating PDF for sealed deck...");
         const pdfBlob = await generateSealedDeckPdf({
             cardPool,
             cardDatabase,
@@ -430,7 +432,6 @@ async function generateConstructedPDF(): Promise<void> {
     generatePdfButton.textContent = "Generating PDF...";
 
     try {
-        console.log("Generating PDF for constructed deck...");
         const pdfBlob = await generateConstructedDeckPdf({
             decklistText: decklistTextArea?.value ?? "",
             cardDatabase,

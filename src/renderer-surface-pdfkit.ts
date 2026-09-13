@@ -189,10 +189,6 @@ export function createPdfKitRenderSurface(
             applyTextStyle(style);
         },
         fillText(text, x, y, maxWidth) {
-            if (!pdfKitVerticalTextOffset) {
-                console.log("pdfKitVerticalTextOffset is not set.");
-            }
-
             document.text(text, x, y - pdfKitVerticalTextOffset, {
                 lineBreak: false,
                 width: maxWidth,
@@ -226,19 +222,12 @@ export function createPdfKitRenderSurface(
                     shadowOffsetY: undefined,
                 });
 
-                if (!pdfKitVerticalTextOffset) {
-                    console.log("pdfKitVerticalTextOffset is not set.");
-                }
-
                 document.text(text, style.shadowOffsetX ?? 0, (style.shadowOffsetY ?? 0) - pdfKitVerticalTextOffset, {
                     lineBreak: false,
                     width: style.maxWidth,
                     align: align,
                 });
                 document.restore();
-            }
-            if (!pdfKitVerticalTextOffset) {
-                console.log("pdfKitVerticalTextOffset is not set.");
             }
 
             document.text(text, 0, 0 - pdfKitVerticalTextOffset, {

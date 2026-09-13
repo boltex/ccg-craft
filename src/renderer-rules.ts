@@ -20,6 +20,7 @@ export type FittedRulesLayout = {
     lines: WrappedRulesLine[];
     xAdjust: number;
     yAdjust: number;
+    busted?: boolean;
 };
 
 type RulesUnit = {
@@ -173,8 +174,8 @@ function buildWrappedLines(
     return lines;
 }
 
-function getParagraphGap(lineHeight: number): number {
-    return lineHeight * 0.4;
+function getParagraphGap(lineHeight: number, busted?: boolean): number {
+    return busted ? lineHeight * 0.1 : lineHeight * 0.4;
 }
 
 function getRulesHeight(lines: WrappedRulesLine[], lineHeight: number): number {
@@ -292,9 +293,7 @@ export function fitRulesText(
 
     const limits = getScaledRuleLimits(face.faceLayout, scale);
     const candidateSizes = getCandidateFontSizes(face.faceLayout);
-    const defaultFontSize = candidateSizes[candidateSizes.length - 1] * scale;
-    const defaultLineHeight = getLineHeightForFontSize(candidateSizes[candidateSizes.length - 1], scale);
-    let fallbackLayout: FittedRulesLayout | null = null;
+    let fallbackLayout!: FittedRulesLayout;
     let biggestPass = true;
 
     for (const size of candidateSizes) {
@@ -339,6 +338,7 @@ export function fitRulesText(
                 verticalAdjustment = candidateLayout.lineHeight * 0.25;
             }
 
+            console.log("Using candidate layout.", candidateLayout.fontSize, candidateLayout.lineHeight);
             return {
                 ...candidateLayout,
                 xAdjust: shouldCenter ? Math.max(0, (limits.width - usedWidth) / 2) : 0,
@@ -348,17 +348,17 @@ export function fitRulesText(
         biggestPass = false;
     }
 
-    if (fallbackLayout) {
-        return fallbackLayout;
+    // If we reached this place and the total paragraphs is more than 5, Make sure the 'busted' flag is set.
+    if (paragraphs.length > 5) {
+        fallbackLayout.busted = true;
+        console.log("Busted!");
+    } else {
+        console.log("ok, only a few paragraphs", paragraphs.length);
     }
 
-    return {
-        fontSize: defaultFontSize,
-        lineHeight: defaultLineHeight,
-        lines: [],
-        xAdjust: 0,
-        yAdjust: 0
-    };
+    console.log("No suitable layout found, using fallback.", fallbackLayout.fontSize, fallbackLayout.lineHeight);
+    return fallbackLayout;
+
 }
 
 export function drawWrappedRulesText(
@@ -444,7 +444,7 @@ export function drawWrappedRulesText(
         cursorY += layout.lineHeight;
 
         if (line.paragraphBreakAfter) {
-            cursorY += getParagraphGap(layout.lineHeight);
+            cursorY += getParagraphGap(layout.lineHeight, layout.busted);
         }
     });
 

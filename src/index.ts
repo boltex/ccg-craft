@@ -6,13 +6,14 @@ import {
     getCachedFaceArtCount,
     importCachedFaceArt
 } from "./art-cache";
+import * as utils from "./utils";
 import * as constants from "./constants";
 import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
 import { generateConstructedDeckPdf, generateSealedDeckPdf, selectSealedCardPool } from "./deck-pdf";
-import type { Color, PrintableFace } from "./types";
+import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
 // Let's import the 8 possible background images for the card frames
@@ -322,6 +323,9 @@ if (addP9ToDecklistButton) {
             "Mox Sapphire",
         ];
         decklistTextArea.value = `${existingText}${separator}${power9Cards.join("\n")}\n`;
+
+        utils.trackEvent("add_power_9_to_decklist");
+
         syncGeneratePdfButton();
     });
 }
@@ -336,6 +340,9 @@ if (clearArtCacheButton) {
         try {
             await clearCachedFaceArt();
             await updateStatusSummary("Art cache cleared.");
+
+            utils.trackEvent("clear_art_cache");
+
         } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             setStatus(`Failed to clear art cache: ${message}`);
@@ -349,6 +356,9 @@ if (exportArtCacheButton) {
             const exportBlob = await exportCachedFaceArt();
             downloadArtCacheExport(exportBlob);
             await updateStatusSummary("Art cache exported.");
+
+            utils.trackEvent("export_art_cache");
+
         } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             setStatus(`Failed to export art cache: ${message}`);
@@ -372,6 +382,9 @@ if (importArtCacheButton && importArtCacheFileInput) {
         try {
             const result = await importCachedFaceArt(file);
             await updateStatusSummary(`Imported ${result.importedCount} art images.`);
+
+            utils.trackEvent("import_art_cache");
+
         } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             setStatus(`Failed to import art cache: ${message}`);
@@ -409,6 +422,8 @@ async function generateSealedPDF(): Promise<void> {
             textBoxImportsStrings: textBoxImportsStrings
         });
 
+        utils.trackEvent("generate_sealed_pdf", { selectedEditions });
+
         downloadGeneratedPdf("sealed-deck", pdfBlob);
         await updateStatusSummary(`Generated PDF for sealed deck.`);
     } catch (error) {
@@ -440,6 +455,8 @@ async function generateConstructedPDF(): Promise<void> {
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
             textBoxImportsStrings: textBoxImportsStrings
         });
+
+        utils.trackEvent("generate_constructed_pdf");
 
         downloadGeneratedPdf("constructed-deck", pdfBlob);
         await updateStatusSummary(`Generated PDF for Decklist.`);

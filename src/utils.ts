@@ -190,3 +190,9 @@ function linearToSrgb(channel: number): number {
 function toRgbChannel(channel: number): number {
     return Math.round(Math.min(Math.max(channel, 0), 255));
 }
+// Helper function (safe to call even if gtag is not loaded in dev)
+export function trackEvent(eventName: string, params?: Record<string, any>) {
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", eventName, params);
+    }
+}

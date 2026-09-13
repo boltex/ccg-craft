@@ -19,3 +19,5 @@ declare module "pdfkit/output" {
         off(event: string, listener: (...args: unknown[]) => void): unknown;
     }): Promise<Uint8Array>;
 }
+
+declare function gtag(...args: any[]): void;

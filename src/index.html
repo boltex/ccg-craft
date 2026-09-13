@@ -48,9 +48,9 @@
             <h2>Status</h2>
             <p id="status">Booting...</p>
             <p>
-                <button type="button" id="clear-art-cache">Clear DB</button>
-                <button type="button" id="export-art-cache">Export DB</button>
-                <button type="button" id="import-art-cache">Import DB</button>
+                <button type="button" id="clear-art-cache" title="Clear Local Art Database">Clear DB</button>
+                <button type="button" id="export-art-cache" title="Export Local Art Database">Export DB</button>
+                <button type="button" id="import-art-cache" title="Import Local Art Database">Import DB</button>
                 <input type="file" id="import-art-cache-file" accept="application/zip" hidden />
             </p>
         </section>
@@ -58,7 +58,7 @@
         <section class="panel">
             <nav class="deck-nav">
                 <div class="deck-controls">
-                    <select id="decklist-paper-size">
+                    <select id="decklist-paper-size" title="Select the paper size for the exported PDF">
                         <!-- Single and double page of 3x3 cards in imperial sizes-->
                         <option value="letter">Letter (8.5" x 11")</option>
                         <option value="ledger">Ledger (17" x 11")</option>
@@ -67,12 +67,14 @@
                         <option value="a4">A4 (210 x 297 mm)</option>
                         <option value="a3">A3 (420 x 297 mm)</option>
                     </select>
-                    <button type="button" id="generate-deck-pdf" disabled>Generate PDF</button>
+                    <button type="button" id="generate-deck-pdf" title="Generate printable PDF" disabled>Generate
+                        PDF</button>
                 </div>
                 <div class="deck-tabs">
                     <button type="button" class="deck-tab active" id="tab-constructed"
-                        data-deck-tab="constructed">Constructed</button>
-                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed">Sealed</button>
+                        title="Switch to Constructed Deck Tab" data-deck-tab="constructed">Constructed</button>
+                    <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed"
+                        title="Switch to Sealed Deck Tab">Sealed</button>
                 </div>
             </nav>
 
@@ -89,10 +91,13 @@
                             (200 card max).
                         </p>
                         <p class="mb-0 text-center">
-                            <button type="button" id="load-decklist">Load Decklist</button>
-                            <button type="button" id="save-decklist">Save Decklist</button>
-                            <button type="button" id="clear-decklist">Clear</button>
-                            <button type="button" id="add-p9-to-decklist">Power 9</button>
+                            <button type="button" id="load-decklist" title="Load decklist from a file">Load
+                                Decklist</button>
+                            <button type="button" id="save-decklist" title="Save current decklist to a file">Save
+                                Decklist</button>
+                            <button type="button" id="clear-decklist" title="Clear the current decklist">Clear</button>
+                            <button type="button" id="add-p9-to-decklist"
+                                title="Add the Power 9 cards to the decklist">Power 9</button>
                             <input type="file" id="load-decklist-file" accept="text/plain" hidden />
                         </p>
                     </div>
@@ -112,8 +117,10 @@
         <section class="panel overflow-x-hidden">
             <h2>Card Lookup</h2>
             <p class="text-center mb-0">
-                <input type="text" id="card-lookup" class="mb-20" placeholder="Enter card name..." />
-                <button type="button" id="add-to-decklist" class="mb-20" disabled>Add to Decklist</button>
+                <input type="text" id="card-lookup" class="mb-20" placeholder="Enter card name..."
+                    title="Type here to search for a card" />
+                <button type="button" id="add-to-decklist" class="mb-20" disabled
+                    title="Add the selected card to the decklist">Add to Decklist</button>
             </p>
             <canvas id="card-preview" width="575" height="800"></canvas>
         </section>

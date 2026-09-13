@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === "production";
+    const googleTagId = isProduction ? (process.env.GOOGLE_TAG_ID || "") : "";
 
     return {
         entry: "./src/index.ts",
@@ -46,6 +47,9 @@ module.exports = (env, argv) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: "./src/index.html",
+                templateParameters: {
+                    googleTagId,
+                },
             }),
 
             new MiniCssExtractPlugin({

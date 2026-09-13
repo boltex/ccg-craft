@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
 
     steps:
       - name: Checkout
@@ -36,6 +38,8 @@ jobs:
         run: npm ci
 
       - name: Build site
+        env:
+          GOOGLE_TAG_ID: ${{ vars.GOOGLE_TAG_ID }}
         run: npm run build
 
       - name: Upload Pages artifact

@@ -133,6 +133,10 @@ const previewController = new CardPreviewController(canvasElement);
 const previewHistory: string[] = []; // Contains the cards previously previewed (can use up/down arrow keys to navigate)
 let previewHistoryIndex = -1; // Tracks the current position in the preview history
 
+const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
+const PREVIEW_HISTORY_MAX = 200;
+let previewHistorySaveTimeout: number | undefined;
+
 let isDebug = false;
 
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
@@ -149,6 +153,7 @@ if (lookupElement) {
                 lookupElement.value = previousCard;
                 // Now trigger the input event to update the preview
                 lookupElement.dispatchEvent(new Event("input"));
+                schedulePreviewHistorySave();
             }
         } else if (event.key === "ArrowDown") {
             if (previewHistoryIndex < previewHistory.length - 1) {
@@ -158,6 +163,7 @@ if (lookupElement) {
                 lookupElement.value = nextCard;
                 // Now trigger the input event to update the preview
                 lookupElement.dispatchEvent(new Event("input"));
+                schedulePreviewHistorySave();
             }
         }
     });
@@ -518,6 +524,67 @@ function setPreview(message: string): void {
     console.log(message);
 }
 
+// Adds a card to the preview history, truncating any forward history and capping the total size.
+function pushPreviewHistory(cardName: string): void {
+    const existingIndex = previewHistory.indexOf(cardName);
+    if (existingIndex !== -1) {
+        return;
+    }
+
+    if (previewHistoryIndex < previewHistory.length - 1) {
+        previewHistory.splice(previewHistoryIndex + 1);
+    }
+    previewHistory.push(cardName);
+    previewHistoryIndex = previewHistory.length - 1;
+
+    if (previewHistory.length > PREVIEW_HISTORY_MAX) {
+        const overflow = previewHistory.length - PREVIEW_HISTORY_MAX;
+        previewHistory.splice(0, overflow);
+        previewHistoryIndex = Math.max(0, previewHistoryIndex - overflow);
+    }
+
+    schedulePreviewHistorySave();
+}
+
+function schedulePreviewHistorySave(): void {
+    if (previewHistorySaveTimeout) {
+        clearTimeout(previewHistorySaveTimeout);
+    }
+    previewHistorySaveTimeout = window.setTimeout(savePreviewHistory, 300);
+}
+
+function savePreviewHistory(): void {
+    try {
+        const payload = JSON.stringify({ history: previewHistory, index: previewHistoryIndex });
+        window.localStorage.setItem(PREVIEW_HISTORY_STORAGE_KEY, payload);
+    } catch (error) {
+        console.error("Failed to save preview history:", error);
+    }
+}
+
+// Best-effort restore; any missing/invalid data simply leaves the history empty.
+function restorePreviewHistory(): void {
+    try {
+        const raw = window.localStorage.getItem(PREVIEW_HISTORY_STORAGE_KEY);
+        if (!raw) {
+            return;
+        }
+
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed?.history) || !parsed.history.every((entry: unknown) => typeof entry === "string")) {
+            return;
+        }
+
+        const history: string[] = parsed.history.slice(-PREVIEW_HISTORY_MAX);
+        const index = typeof parsed.index === "number" ? parsed.index : history.length - 1;
+
+        previewHistory.splice(0, previewHistory.length, ...history);
+        previewHistoryIndex = Math.min(Math.max(index, -1), previewHistory.length - 1);
+    } catch (error) {
+        console.error("Failed to restore preview history:", error);
+    }
+}
+
 async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
@@ -543,15 +610,7 @@ async function showCardPreview(query: string): Promise<void> {
     // We've found and shown the card preview, 
     // If not already in history: add it at current position in history and delete forward history beyond the current index.
     // If already in history, ignore this as the user is simply looking and brwosing with up/down keys.
-    const existingIndex = previewHistory.indexOf(card.name);
-    if (existingIndex === -1) {
-        // If the card is not already in history, add it at the current position and remove forward history.
-        if (previewHistoryIndex < previewHistory.length - 1) {
-            previewHistory.splice(previewHistoryIndex + 1);
-        }
-        previewHistory.push(card.name);
-        previewHistoryIndex = previewHistory.length - 1;
-    }
+    pushPreviewHistory(card.name);
 
     // If needed, uncomment to display the preview text in the preview area.
     if (isDebug) {
@@ -627,6 +686,8 @@ function toDownloadSlug(value: string): string {
 }
 
 async function bootstrap(): Promise<void> {
+    restorePreviewHistory();
+
     if (lookupElement) {
         requestAnimationFrame(() => {
             lookupElement.focus();

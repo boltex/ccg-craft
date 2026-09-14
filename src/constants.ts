@@ -20,12 +20,12 @@ export const colors: { [key: string]: Color } = {
     // Average Frame Colors for PROXY FRAMES
     FL: [161, 137, 116],
     FR: [181, 85, 46],
-    FZ: [181, 175, 84],
+    FZ: [166, 161, 99],
     FW: [216, 203, 175],
     FA: [104, 74, 44],
     FC: [18, 109, 103],
     FG: [65, 110, 65],
-    FB: [39, 44, 38],
+    FB: [53, 56, 52],
     FU: [70, 163, 199],
 
     // Average TextBoxes Land
@@ -38,7 +38,7 @@ export const colors: { [key: string]: Color } = {
 
     // Average TextBoxes  Spells	
     TBR: [207, 150, 126],
-    TBZ: [210, 189, 185],
+    TBZ: [217, 202, 199],
     TBW: [248, 245, 238],
     TBA: [241, 236, 224],
     TBC: [164, 165, 163],

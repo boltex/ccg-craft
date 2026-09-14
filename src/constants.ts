@@ -78,7 +78,7 @@ export const LandBorderColorByEdition: { [key: number]: Color } = {
     0: [49, 54, 77], // BK (only one: "Arena")
     2: [232, 190, 63], // AN
     3: [184, 96, 33], // AQ
-    4: [179, 158, 77], // LE
+    4: [191, 168, 74], // LE
     5: [71, 47, 57], // DK
     6: [143, 81, 78], // FE
     7: [117, 129, 180], // IA

@@ -131,6 +131,8 @@ let editionSelection: Record<string, boolean> = {};
 const cardDatabase = new CardDatabase();
 const previewController = new CardPreviewController(canvasElement);
 
+let isDebug = false;
+
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
     let debounceTimeout: number | undefined;
@@ -510,7 +512,10 @@ async function showCardPreview(query: string): Promise<void> {
 
     const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap, textBoxImageBitmap);
 
-    setPreview(previewText); // Show the card data.
+    // If needed, uncomment to display the preview text in the preview area.
+    if (isDebug) {
+        setPreview(previewText); // Show the card data.
+    }
 
     // If the card has two faces, just take the first face for determining the background color.
     const firstFace = faces[0];

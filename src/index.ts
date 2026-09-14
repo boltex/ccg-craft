@@ -134,7 +134,7 @@ const previewHistory: string[] = []; // Contains the cards previously previewed 
 let previewHistoryIndex = -1; // Tracks the current position in the preview history
 
 const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
-const PREVIEW_HISTORY_MAX = 200;
+const PREVIEW_HISTORY_MAX = 99;
 let previewHistorySaveTimeout: number | undefined;
 
 let isDebug = false;
@@ -588,7 +588,6 @@ function restorePreviewHistory(): void {
 async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
-        console.log("No card found for query:", query);
         previewController.clear();
         resetPageBackgroundColor();
         return;

@@ -363,18 +363,31 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         color1 = utils.darkenColor(color1, 0.2);
         color2 = utils.darkenColor(color2, 0.2);
 
-        // first, lets use color2
-        surface.setStrokeStyle(utils.toCommaRgb(...color2));
-        // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-        surface.setLineWidth(scene.scale * 0.75);
-        surface.strokeRect(faceBounds.x + cardBevelWidth, faceBounds.y + cardBevelWidth, faceBounds.width - cardBevelWidth * 2, faceBounds.height - cardBevelWidth * 2);
 
-        // Next another line using color1 around artbox
-        surface.setStrokeStyle(utils.toCommaRgb(...color1));
-        // surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-        surface.setLineWidth(scene.scale * 1);
-        surface.strokeRect(artBoxRect.x - artBevelWidth, artBoxRect.y - artBevelWidth, artBoxRect.width + artBevelWidth * 2, artBoxRect.height + artBevelWidth * 2);
+        // Draw the two thin lines that lands have around the art box and the card face.
+        let isLegendsSet = false; // Todo, detect if its the special case.
+        if (isLegendsSet) {
+            // todo: special case
+            console.log("Special case for legends set");
+        } else {
+            console.log("Regular case for drawing borders");
+            // regular case
+            // first, lets use color2 around the card face
+            surface.setStrokeStyle(utils.toCommaRgb(...color2));
 
+            // Draw the first border around the card face using color2
+            surface.setLineWidth(scene.scale * 0.75);
+            surface.strokeRect(faceBounds.x + cardBevelWidth, faceBounds.y + cardBevelWidth, faceBounds.width - cardBevelWidth * 2, faceBounds.height - cardBevelWidth * 2);
+
+            // Next another line using color1 around artbox
+            surface.setStrokeStyle(utils.toCommaRgb(...color1));
+
+            // Draw the second border around the art box using color1
+            surface.setLineWidth(scene.scale * 1);
+            surface.strokeRect(artBoxRect.x - artBevelWidth, artBoxRect.y - artBevelWidth, artBoxRect.width + artBevelWidth * 2, artBoxRect.height + artBevelWidth * 2);
+        }
+
+        // Draw the rectangle for the text box based on the fill kind
         if (fill.kind === "solid") {
             drawRectangleBevel(
                 surface,
@@ -423,7 +436,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 textBoxRect.width,
                 textBoxRect.height,
                 textBoxBevelWidth,
-                color2,
+                color2, // Inverted compared to the 'solid' fill
                 color1,
                 rotated
             );

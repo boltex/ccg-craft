@@ -64,7 +64,7 @@ export const LandColorByEdition: { [key: number]: Color } = {
     0: [141, 166, 150], // BK (only one: "Arena")
     2: [254, 216, 179], // AN
     3: [224, 183, 169], // AQ
-    4: [249, 223, 192], // LE
+    4: [249, 223, 182], // LE
     5: [214, 206, 215], // DK
     6: [202, 165, 166], // FE
     7: [231, 241, 247], // IA
@@ -72,6 +72,20 @@ export const LandColorByEdition: { [key: number]: Color } = {
     9: [198, 207, 225], // AL
     10: [149, 179, 160], // MI
     11: [159, 180, 168], // VI
+};
+
+export const LandBorderColorByEdition: { [key: number]: Color } = {
+    0: [27, 31, 49], // BK (only one: "Arena")
+    2: [222, 186, 80], // AN
+    3: [156, 103, 51], // AQ
+    4: [179, 158, 77], // LE
+    5: [70, 60, 64], // DK
+    6: [143, 81, 78], // FE
+    7: [117, 129, 180], // IA
+    8: [40, 61, 46], // HL
+    9: [116, 91, 147], // AL
+    10: [59, 79, 36], // MI
+    11: [75, 93, 48], // VI
 };
 
 export const maxCardsInDeck = 200;

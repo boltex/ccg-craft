@@ -374,20 +374,20 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         // Draw the two thin lines that lands have around the art box and the card face.
         let isLegendsSet = false; // face.edition === 4; 
         if (isLegendsSet) {
-            // todo: special case // 4: [249, 223, 182], // LE
-            console.log("Special case for legends set");
+
+            console.log("Special case for legends land set");
             // This should use new 'surface' drawing methods to set a 'golden-metal' gradient of a couple yellow and brown colors, and draw those rectangles around the art box and card face.
 
             /*
             Documentation about gradients:
 
-             on canvas, gradients are created using createLinearGradient or createRadialGradient methods.
+             1- on canvas, gradients are created using createLinearGradient or createRadialGradient methods.
              const gradient = ctx.createLinearGradient(50, 100, 350, 100);
                     gradient.addColorStop(0, "red");
                     gradient.addColorStop(0.5, "yellow");
                     gradient.addColorStop(1, "blue");
 
-             in pdfkit, gradients are created using the linearGradient or radialGradient methods, and color stops are added using the stop method.
+             2 - In pdfkit, gradients are created using the linearGradient or radialGradient methods, and color stops are added using the stop method.
 
              const gradient = doc.linearGradient(x1, y1, x2, y2);
 

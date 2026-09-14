@@ -130,13 +130,44 @@ let editionSelection: Record<string, boolean> = {};
 
 const cardDatabase = new CardDatabase();
 const previewController = new CardPreviewController(canvasElement);
+const previewHistory: string[] = []; // Contains the cards previously previewed (can use up/down arrow keys to navigate)
+let previewHistoryIndex = -1; // Tracks the current position in the preview history
 
 let isDebug = false;
 
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
     let debounceTimeout: number | undefined;
+
+    // Handle up/down arrow keys to navigate the preview history.
+    lookupElement.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowUp") {
+            console.log("ArrowUp pressed, current previewHistoryIndex:", previewHistoryIndex);
+            if (previewHistoryIndex > 0) {
+                previewHistoryIndex--;
+                const previousCard = previewHistory[previewHistoryIndex];
+                // replace text in input field with the previous card
+                lookupElement.value = previousCard;
+                // Now trigger the input event to update the preview
+                lookupElement.dispatchEvent(new Event("input"));
+            }
+        } else if (event.key === "ArrowDown") {
+            console.log("ArrowDown pressed, current previewHistoryIndex:", previewHistoryIndex);
+            if (previewHistoryIndex < previewHistory.length - 1) {
+                previewHistoryIndex++;
+                const nextCard = previewHistory[previewHistoryIndex];
+                console.log("Navigating to next card in preview history:", nextCard);
+                // replace text in input field with the next card
+                lookupElement.value = nextCard;
+                // Now trigger the input event to update the preview
+                lookupElement.dispatchEvent(new Event("input"));
+            }
+        }
+    });
+
+
     lookupElement.addEventListener("input", () => {
+        console.log("Input event triggered, current lookup value:", lookupElement.value);
         if (cardDatabase.stats.totalFaces === 0 || cardDatabase.stats.totalCards === 0) {
             return;
         }
@@ -492,8 +523,10 @@ function setPreview(message: string): void {
 }
 
 async function showCardPreview(query: string): Promise<void> {
+    console.log("Showing card preview for query:", query);
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
+        console.log("No card found for query:", query);
         previewController.clear();
         resetPageBackgroundColor();
         return;
@@ -511,6 +544,19 @@ async function showCardPreview(query: string): Promise<void> {
     const faces = cardDatabase.getFaceData(serial);
 
     const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap, textBoxImageBitmap);
+
+    // We've found and shown the card preview, 
+    // If not already in history: add it at current position in history and delete forward history beyond the current index.
+    // If already in history, ignore this as the user is simply looking and brwosing with up/down keys.
+    const existingIndex = previewHistory.indexOf(card.name);
+    if (existingIndex === -1) {
+        // If the card is not already in history, add it at the current position and remove forward history.
+        if (previewHistoryIndex < previewHistory.length - 1) {
+            previewHistory.splice(previewHistoryIndex + 1);
+        }
+        previewHistory.push(card.name);
+        previewHistoryIndex = previewHistory.length - 1;
+    }
 
     // If needed, uncomment to display the preview text in the preview area.
     if (isDebug) {

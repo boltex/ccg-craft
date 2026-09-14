@@ -142,7 +142,6 @@ if (lookupElement) {
     // Handle up/down arrow keys to navigate the preview history.
     lookupElement.addEventListener("keydown", (event) => {
         if (event.key === "ArrowUp") {
-            console.log("ArrowUp pressed, current previewHistoryIndex:", previewHistoryIndex);
             if (previewHistoryIndex > 0) {
                 previewHistoryIndex--;
                 const previousCard = previewHistory[previewHistoryIndex];
@@ -152,11 +151,9 @@ if (lookupElement) {
                 lookupElement.dispatchEvent(new Event("input"));
             }
         } else if (event.key === "ArrowDown") {
-            console.log("ArrowDown pressed, current previewHistoryIndex:", previewHistoryIndex);
             if (previewHistoryIndex < previewHistory.length - 1) {
                 previewHistoryIndex++;
                 const nextCard = previewHistory[previewHistoryIndex];
-                console.log("Navigating to next card in preview history:", nextCard);
                 // replace text in input field with the next card
                 lookupElement.value = nextCard;
                 // Now trigger the input event to update the preview
@@ -167,7 +164,6 @@ if (lookupElement) {
 
 
     lookupElement.addEventListener("input", () => {
-        console.log("Input event triggered, current lookup value:", lookupElement.value);
         if (cardDatabase.stats.totalFaces === 0 || cardDatabase.stats.totalCards === 0) {
             return;
         }
@@ -523,7 +519,6 @@ function setPreview(message: string): void {
 }
 
 async function showCardPreview(query: string): Promise<void> {
-    console.log("Showing card preview for query:", query);
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
         console.log("No card found for query:", query);

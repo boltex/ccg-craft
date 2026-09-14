@@ -147,3 +147,7 @@ export function getLandTextBoxFill(face: PrintableFace): TextBoxFill {
         color: constants.LandColorByEdition[face.edition] ?? constants.colors.TBLZ,
     };
 }
+
+export function getLandBorderColorByEdition(edition: number): Color | undefined {
+    return constants.LandBorderColorByEdition[edition];
+}

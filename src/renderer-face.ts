@@ -1,5 +1,5 @@
 import * as utils from "./utils";
-import { getLandTextBoxFill, getDefaultTextBoxFill } from "./frame-colors";
+import { getLandTextBoxFill, getDefaultTextBoxFill, getLandBorderColorByEdition } from "./frame-colors";
 import type { RenderFaceContext } from "./renderer";
 import {
     getFaceBounds,
@@ -362,6 +362,13 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         // Darken a bit the colors for the border effect
         color1 = utils.darkenColor(color1, 0.2);
         color2 = utils.darkenColor(color2, 0.2);
+
+        // If solid and edition/set in LandBorderColorByEdition
+        const landBorderColor = getLandBorderColorByEdition(face.edition);
+        if (fill.kind === "solid" && landBorderColor) {
+            color1 = landBorderColor;
+            color2 = landBorderColor;
+        }
 
 
         // Draw the two thin lines that lands have around the art box and the card face.

@@ -75,6 +75,8 @@
                         title="Switch to Constructed Deck Tab" data-deck-tab="constructed">Constructed</button>
                     <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed"
                         title="Switch to Sealed Deck Tab">Sealed</button>
+                    <button type="button" class="deck-tab" id="tab-sheet" data-deck-tab="sheet"
+                        title="Switch to Uncut-Sheet Tab">Sheet</button>
                 </div>
             </nav>
 
@@ -113,6 +115,19 @@
                     <span id="edition-checkboxes" class="edition-checkboxes"></span>
                 </p>
             </div>
+
+            <div class="deck-panel" id="deck-panel-sheet" hidden>
+                <p class="user-instructions">
+                    Uncut Sheets of Cards
+                </p>
+                <p class="mb-0 text-center">
+                    <!-- Button to generate an uncut sheet of cards ONLY ONE AVAILABLE FOR NOW -->
+                    <button type="button" id="generate-sheet" title="Generate an uncut sheet of cards">
+                        Limited Rare
+                    </button>
+                </p>
+            </div>
+
         </section>
 
         <section class="panel overflow-x-hidden">

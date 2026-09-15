@@ -118,6 +118,7 @@ const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-de
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
+const sheetRaritySelect = document.querySelector<HTMLSelectElement>("#sheet-rarity-select");
 const generateSheetButton = document.querySelector<HTMLButtonElement>("#generate-sheet");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
 const deckPanels: Record<string, HTMLElement | null> = {
@@ -278,9 +279,8 @@ if (deckTabButtons.length > 0) {
 }
 
 if (generateSheetButton) {
-    generateSheetButton.addEventListener("click", () => {
-        console.log("Generate Limited Rare uncut sheet clicked");
-        generateLimitedRareSheetPdf();
+    generateSheetButton.addEventListener("click", async () => {
+        await generateSelectedSheetPdf();
     });
 }
 
@@ -517,35 +517,45 @@ async function generateConstructedPDF(): Promise<void> {
     }
 }
 
-async function generateLimitedRareSheetPdf(): Promise<void> {
-    console.log("Generating Limited Rare Sheet PDF...");
+const sheetRarities: Record<string, { name: string; cards: string[] }> = {
+    rare: { name: "limited-rare", cards: uncutSheets[0] },
+    uncommon: { name: "limited-uncommon", cards: uncutSheets[1] },
+    common: { name: "limited-common", cards: uncutSheets[2] },
+};
 
-    // Note the uncutSheets are :
-    /*
-        export const uncutSheets = [
-            limitedRareSheet,
-            limitedUncommonSheet,
-            limitedCommonSheet,
-        ]
-    */
+async function generateSelectedSheetPdf(): Promise<void> {
+    if (!generateSheetButton) {
+        return;
+    }
 
-    generateSheetPdf({
-        decklistText: decklistTextArea?.value ?? "",
-        cardDatabase: cardDatabase,
-        paperSize: 'sheet',
-        onProgress: setStatus,
-        frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
-        textBoxImportsStrings: textBoxImportsStrings,
-    }, uncutSheets[0]).then(blob => {
-        // Handle the generated PDF blob, e.g., download it
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "limited_rare_sheet.pdf";
-        a.click();
-        URL.revokeObjectURL(url);
-    });
+    const selectedRarityKey = sheetRaritySelect?.value ?? "rare";
+    const sheetInfo = sheetRarities[selectedRarityKey] ?? sheetRarities["rare"];
 
+    const originalLabel = generateSheetButton.textContent;
+    generateSheetButton.disabled = true;
+    generateSheetButton.textContent = "Generating Sheet...";
+
+    try {
+        const pdfBlob = await generateSheetPdf({
+            cardDatabase: cardDatabase,
+            paperSize: "sheet",
+            onProgress: setStatus,
+            frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+            textBoxImportsStrings: textBoxImportsStrings,
+        }, sheetInfo.cards);
+
+        utils.trackEvent("generate_sheet_pdf", { rarity: selectedRarityKey });
+
+        downloadGeneratedPdf(`${sheetInfo.name}-sheet`, pdfBlob);
+        await updateStatusSummary(`Generated PDF for ${sheetInfo.name} sheet.`);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error("Error generating sheet PDF: ", error);
+        setStatus(`Failed to generate sheet PDF: ${message}`);
+    } finally {
+        generateSheetButton.disabled = false;
+        generateSheetButton.textContent = originalLabel;
+    }
 }
 
 
@@ -709,11 +719,19 @@ function syncGeneratePdfButton(): void {
     }
 }
 
+function getLocalDateString(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
 function downloadArtCacheExport(exportBlob: Blob): void {
     const downloadUrl = URL.createObjectURL(exportBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.zip`;
+    link.download = `ccg-craft-art-cache-${getLocalDateString()}.zip`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }
@@ -722,7 +740,7 @@ function downloadGeneratedPdf(title: string, pdfBlob: Blob): void {
     const downloadUrl = URL.createObjectURL(pdfBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `${toDownloadSlug(title)}-${new Date().toISOString().slice(0, 10)}.pdf`;
+    link.download = `${toDownloadSlug(title)}-${getLocalDateString()}.pdf`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }

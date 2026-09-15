@@ -120,7 +120,15 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
     );
 }
 
-export async function generateSheetPdf(input: GenerateConstructedDeckPdfInput, cardNames: string[]): Promise<Blob> {
+export type UncutSheetDeckPdfInput = {
+    cardDatabase: CardDatabase;
+    paperSize?: string;
+    onProgress?: (message: string) => void;
+    frameBackgroundsImportsStrings: Record<string, string>;
+    textBoxImportsStrings: Record<string, string>;
+};
+
+export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardNames: string[]): Promise<Blob> {
 
     const sheetCards: Card[] = [];
     for (const cardName of cardNames) {
@@ -133,6 +141,8 @@ export async function generateSheetPdf(input: GenerateConstructedDeckPdfInput, c
         const card = input.cardDatabase.getCardBySerial(serial);
         sheetCards.push(card);
     }
+
+    await preloadCardArtForCards(sheetCards, input.cardDatabase, input.onProgress);
 
     return generateDeckPdf(
         {

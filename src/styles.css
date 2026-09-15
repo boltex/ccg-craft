@@ -126,6 +126,10 @@ h2,
   margin-bottom: 20px;
 }
 
+.mr-6 {
+  margin-right: 6px;
+}
+
 .overflow-x-hidden {
   overflow-x: hidden;
 }

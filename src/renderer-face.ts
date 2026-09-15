@@ -268,7 +268,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     const useTextBoxImageImage = true;
 
     // The textbox image has transparent margins around it so we need to stretch it by some amount.
-    let horizontalStretch = 25 * scene.scale;
+    let horizontalStretch = 26 * scene.scale;
     let verticalStretch = 24 * scene.scale;
 
     if (face.faceLayout === 2 || face.faceLayout === 4) {

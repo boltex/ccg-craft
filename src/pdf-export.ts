@@ -187,11 +187,24 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
                 });
 
                 document.restore();
-                drawCropMarksForGrid(document, input.renderOptions?.background ?? null, gridOriginX, gridOriginY, gridWidth, gridHeight, maxSheetColumns, maxSheetRows);
+
+                if (input.renderOptions?.background) {
+                    document.fillColor(input.renderOptions.background);
+                    const cardRight = cellOriginX + constants.PdfCardWidth;
+                    const cardBottom = cellOriginY + constants.PdfCardHeight;
+
+                    // Bands covering the gap between the card edges and where the marks start, corners included.
+                    document.rect(cellOriginX - CROP_MARK_GAP, cellOriginY - CROP_MARK_GAP, constants.PdfCardWidth + CROP_MARK_GAP * 2, CROP_MARK_GAP).fill();
+                    document.rect(cellOriginX - CROP_MARK_GAP, cardBottom, constants.PdfCardWidth + CROP_MARK_GAP * 2, CROP_MARK_GAP).fill();
+                    document.rect(cellOriginX - CROP_MARK_GAP, cellOriginY, CROP_MARK_GAP, constants.PdfCardHeight).fill();
+                    document.rect(cardRight, cellOriginY, CROP_MARK_GAP, constants.PdfCardHeight).fill();
+                }
 
                 cardPointer++;
             }
         }
+
+        drawCropMarksForGrid(document, gridOriginX, gridOriginY, gridWidth, gridHeight, maxSheetColumns, maxSheetRows);
 
         // Add page if needed
         if (cardPointer < input.cards.length) {
@@ -212,7 +225,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
 
 function drawCropMarksForGrid(
     document: PdfKitDocument,
-    paddingColor: string | null,
     gridOriginX: number,
     gridOriginY: number,
     gridWidth: number,
@@ -226,16 +238,6 @@ function drawCropMarksForGrid(
     const gridBottom = gridOriginY + gridHeight;
     const cardWidth = gridWidth / columns;
     const cardHeight = gridHeight / rows;
-
-    if (paddingColor) {
-        document.fillColor(paddingColor);
-
-        // Bands covering the gap between the card edges and where the marks start, corners included.
-        document.rect(gridOriginX - CROP_MARK_GAP, gridOriginY - CROP_MARK_GAP, gridWidth + CROP_MARK_GAP * 2, CROP_MARK_GAP).fill();
-        document.rect(gridOriginX - CROP_MARK_GAP, gridBottom, gridWidth + CROP_MARK_GAP * 2, CROP_MARK_GAP).fill();
-        document.rect(gridOriginX - CROP_MARK_GAP, gridOriginY, CROP_MARK_GAP, gridHeight).fill();
-        document.rect(gridRight, gridOriginY, CROP_MARK_GAP, gridHeight).fill();
-    }
 
     document.strokeColor(CROP_MARK_COLOR);
     document.lineWidth(CROP_MARK_LINE_WIDTH);

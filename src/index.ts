@@ -522,7 +522,7 @@ async function generateLimitedRareSheetPdf(): Promise<void> {
     generateSheetPdf({
         decklistText: decklistTextArea?.value ?? "",
         cardDatabase: cardDatabase,
-        paperSize: decklistPaperSizeSelect?.value,
+        paperSize: 'sheet',
         onProgress: setStatus,
         frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
         textBoxImportsStrings: textBoxImportsStrings,

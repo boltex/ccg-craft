@@ -52,6 +52,7 @@ import tbRBackground300dpiPng from "../public/tb300dpi-r.png?inline";
 import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 // @ts-expect-error 
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
+import { uncutSheets } from "./uncut-sheets";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -519,6 +520,15 @@ async function generateConstructedPDF(): Promise<void> {
 async function generateLimitedRareSheetPdf(): Promise<void> {
     console.log("Generating Limited Rare Sheet PDF...");
 
+    // Note the uncutSheets are :
+    /*
+        export const uncutSheets = [
+            limitedRareSheet,
+            limitedUncommonSheet,
+            limitedCommonSheet,
+        ]
+    */
+
     generateSheetPdf({
         decklistText: decklistTextArea?.value ?? "",
         cardDatabase: cardDatabase,
@@ -526,7 +536,7 @@ async function generateLimitedRareSheetPdf(): Promise<void> {
         onProgress: setStatus,
         frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
         textBoxImportsStrings: textBoxImportsStrings,
-    }, ["dark ritual", "time walk", "assault | battery"]).then(blob => {
+    }, uncutSheets[0]).then(blob => {
         // Handle the generated PDF blob, e.g., download it
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");

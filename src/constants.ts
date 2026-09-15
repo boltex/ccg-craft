@@ -30,11 +30,11 @@ export const colors: { [key: string]: Color } = {
 
     // Average TextBoxes Land
     TBLZ: [230, 178, 100], // Default multicolor land text box color
-    TBLB: [171, 166, 157],
-    TBLU: [202, 213, 214],
-    TBLR: [251, 210, 183],
-    TBLG: [212, 222, 148],
-    TBLW: [245, 220, 164],
+    TBLB: [97, 102, 99],
+    TBLU: [96, 142, 174],
+    TBLR: [203, 97, 81],
+    TBLG: [158, 169, 79],
+    TBLW: [252, 221, 155],
 
     // Average TextBoxes  Spells	
     TBR: [207, 150, 126],

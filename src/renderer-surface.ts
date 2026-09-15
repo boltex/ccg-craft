@@ -52,7 +52,7 @@ export interface RenderSurface {
     fill(): void;
     drawImage(image: RenderImageSource, x: number, y: number, width: number, height: number): void;
     setFillStyle(fillStyle: FillStyle): void;
-    setStrokeStyle(strokeStyle: string): void;
+    setStrokeStyle(strokeStyle: FillStyle): void;
     setLineWidth(width: number): void;
     applyTextStyle(style: TextStyle): void;
     fillText(text: string, x: number, y: number, maxWidth?: number): void;
@@ -81,6 +81,25 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
         ctx.shadowColor = style.shadowColor ?? "transparent";
         ctx.shadowOffsetX = style.shadowOffsetX ?? 0;
         ctx.shadowOffsetY = style.shadowOffsetY ?? 0;
+    }
+
+    function toCanvasFillStyle(fillStyle: FillStyle): string | CanvasGradient {
+        if (typeof fillStyle === "string") {
+            return fillStyle;
+        }
+
+        const gradient = ctx.createLinearGradient(
+            fillStyle.x0,
+            fillStyle.y0,
+            fillStyle.x1,
+            fillStyle.y1
+        );
+
+        fillStyle.stops.forEach(stop => {
+            gradient.addColorStop(stop.offset, stop.color);
+        });
+
+        return gradient;
     }
 
     return {
@@ -126,26 +145,10 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
             ctx.drawImage(assertCanvasImageSource(image), x, y, width, height);
         },
         setFillStyle(fillStyle) {
-            if (typeof fillStyle === "string") {
-                ctx.fillStyle = fillStyle;
-                return;
-            }
-
-            const gradient = ctx.createLinearGradient(
-                fillStyle.x0,
-                fillStyle.y0,
-                fillStyle.x1,
-                fillStyle.y1
-            );
-
-            fillStyle.stops.forEach(stop => {
-                gradient.addColorStop(stop.offset, stop.color);
-            });
-
-            ctx.fillStyle = gradient;
+            ctx.fillStyle = toCanvasFillStyle(fillStyle);
         },
         setStrokeStyle(strokeStyle) {
-            ctx.strokeStyle = strokeStyle;
+            ctx.strokeStyle = toCanvasFillStyle(strokeStyle);
         },
         setLineWidth(width) {
             ctx.lineWidth = width;

@@ -18,7 +18,7 @@ export type PdfKitImageSource = ArrayBuffer | Uint8Array | string;
 
 export type PdfKitGradient = {
     stop(offset: number, color: string, opacity?: number): PdfKitGradient;
-    apply(): void;
+    apply(stroke?: boolean): void;
 };
 
 export type PdfKitDocument = {
@@ -93,6 +93,7 @@ export function createPdfKitRenderSurface(
     };
 
     let currentFill: PdfKitFill = "black";
+    let currentStroke: PdfKitFill = "black";
 
     function applyTextStyle(style: TextStyle): void {
 
@@ -121,6 +122,15 @@ export function createPdfKitRenderSurface(
         currentFill.value.apply();
     }
 
+    function applyCurrentStroke(): void {
+        if (typeof currentStroke === "string") {
+            applyStrokeColor(document, currentStroke);
+            return;
+        }
+
+        currentStroke.value.apply(true);
+    }
+
     return {
         width,
         height,
@@ -132,6 +142,7 @@ export function createPdfKitRenderSurface(
             document.rect(x, y, rectWidth, rectHeight).fill();
         },
         strokeRect(x, y, rectWidth, rectHeight) {
+            applyCurrentStroke();
             document.rect(x, y, rectWidth, rectHeight).stroke();
         },
         save() {
@@ -180,7 +191,7 @@ export function createPdfKitRenderSurface(
             currentFill = toPdfKitFill(document, fillStyle);
         },
         setStrokeStyle(strokeStyle) {
-            applyStrokeColor(document, strokeStyle);
+            currentStroke = toPdfKitFill(document, strokeStyle);
         },
         setLineWidth(lineWidth) {
             document.lineWidth(lineWidth);

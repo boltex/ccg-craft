@@ -9,7 +9,7 @@ import {
 import { drawWrappedRulesText, fitRulesText } from "./renderer-rules";
 import { drawStyledText, type TextStyle } from "./renderer-text";
 import { drawManaCostRow } from "./renderer-symbols";
-import type { RenderImageSource } from "./renderer-surface";
+import type { FillStyle, RenderImageSource } from "./renderer-surface";
 import type { Color } from "./types";
 
 type CardTextStyleOverrides = TextStyle;
@@ -55,6 +55,23 @@ function getCardTextStyle(
         textAlign: "left",
         textBaseline: "hanging",
         ...overrides,
+    };
+}
+
+function createLegendsBorderGradient(x: number, width: number): FillStyle {
+    return {
+        kind: "linear-gradient",
+        x0: x,
+        y0: 0,
+        x1: x + width,
+        y1: 0,
+        stops: [
+            { offset: 0, color: "#6B481C" },
+            { offset: 0.25, color: "#C4972D" },
+            { offset: 0.5, color: "#FFE59A" },
+            { offset: 0.75, color: "#C4972D" },
+            { offset: 1, color: "#6B481C" },
+        ],
     };
 }
 
@@ -374,29 +391,23 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         // Draw the two thin lines that lands have around the art box and the card face.
         let isLegendsSet = false; // face.edition === 4; 
         if (isLegendsSet) {
+            const cardBorderX = faceBounds.x + cardBevelWidth;
+            const cardBorderY = faceBounds.y + cardBevelWidth;
+            const cardBorderWidth = faceBounds.width - cardBevelWidth * 2;
+            const cardBorderHeight = faceBounds.height - cardBevelWidth * 2;
 
-            console.log("Special case for legends land set");
-            // This should use new 'surface' drawing methods to set a 'golden-metal' gradient of a couple yellow and brown colors, and draw those rectangles around the art box and card face.
+            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderWidth));
+            surface.setLineWidth(scene.scale * 0.75);
+            surface.strokeRect(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight);
 
-            /*
-            Documentation about gradients:
+            const artBorderX = artBoxRect.x - artBevelWidth;
+            const artBorderY = artBoxRect.y - artBevelWidth;
+            const artBorderWidth = artBoxRect.width + artBevelWidth * 2;
+            const artBorderHeight = artBoxRect.height + artBevelWidth * 2;
 
-             1- on canvas, gradients are created using createLinearGradient or createRadialGradient methods.
-             const gradient = ctx.createLinearGradient(50, 100, 350, 100);
-                    gradient.addColorStop(0, "red");
-                    gradient.addColorStop(0.5, "yellow");
-                    gradient.addColorStop(1, "blue");
-
-             2 - In pdfkit, gradients are created using the linearGradient or radialGradient methods, and color stops are added using the stop method.
-
-             const gradient = doc.linearGradient(x1, y1, x2, y2);
-
-             gradient.stop(0, "red");
-             gradient.stop(0.5, "yellow");
-             gradient.stop(1, "blue");
-
-            */
-
+            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderWidth));
+            surface.setLineWidth(scene.scale);
+            surface.strokeRect(artBorderX, artBorderY, artBorderWidth, artBorderHeight);
         } else {
             // regular case
             // first, lets use color2 around the card face

@@ -31,7 +31,6 @@ type PdfKitDocumentWithOutput = PdfKitDocument & {
 
 let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
 
-// export async generateDeckPdf
 export type GenerateDeckPdfInput = {
     cards: Card[];
     getFaceData: (cardSerial: number) => [PrintableFace, PrintableFace | undefined];
@@ -131,7 +130,9 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
     registerPdfFonts(document, fontBytes);
 
     let cardPointer = 0; // Pointer to keep track of the current card being processed in the deck.
-    // we either are going to do 3 x 3 or 6 x 3.
+
+
+
     const maxSheetRows = SHEET_ROWS;
     let maxSheetColumns = SHEET_COLUMNS;
     if (input.paperSize === "ledger" || input.paperSize === "a3") {

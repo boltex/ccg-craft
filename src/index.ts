@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, selectSealedCardPool } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -279,6 +279,7 @@ if (deckTabButtons.length > 0) {
 if (generateSheetButton) {
     generateSheetButton.addEventListener("click", () => {
         console.log("Generate Limited Rare uncut sheet clicked");
+        generateLimitedRareSheetPdf();
     });
 }
 
@@ -514,6 +515,29 @@ async function generateConstructedPDF(): Promise<void> {
         syncGeneratePdfButton();
     }
 }
+
+async function generateLimitedRareSheetPdf(): Promise<void> {
+    console.log("Generating Limited Rare Sheet PDF...");
+
+    generateSheetPdf({
+        decklistText: decklistTextArea?.value ?? "",
+        cardDatabase: cardDatabase,
+        paperSize: decklistPaperSizeSelect?.value,
+        onProgress: setStatus,
+        frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+        textBoxImportsStrings: textBoxImportsStrings,
+    }, ["dark ritual", "time walk", "assault | battery"]).then(blob => {
+        // Handle the generated PDF blob, e.g., download it
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "limited_rare_sheet.pdf";
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+}
+
 
 function setStatus(message: string): void {
     if (statusElement) {

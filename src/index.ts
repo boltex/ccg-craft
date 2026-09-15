@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, selectSealedCardPool } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -52,6 +52,7 @@ import tbRBackground300dpiPng from "../public/tb300dpi-r.png?inline";
 import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 // @ts-expect-error 
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
+import { uncutSheets } from "./uncut-sheets";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -117,15 +118,18 @@ const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-de
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
+const sheetRaritySelect = document.querySelector<HTMLSelectElement>("#sheet-rarity-select");
+const generateSheetButton = document.querySelector<HTMLButtonElement>("#generate-sheet");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
 const deckPanels: Record<string, HTMLElement | null> = {
     constructed: document.querySelector<HTMLElement>("#deck-panel-constructed"),
     sealed: document.querySelector<HTMLElement>("#deck-panel-sealed"),
+    sheet: document.querySelector<HTMLElement>("#deck-panel-sheet"),
 };
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
-let activeDeckTab: "constructed" | "sealed" = "constructed";
+let activeDeckTab: "constructed" | "sealed" | "sheet" = "constructed";
 let editionSelection: Record<string, boolean> = {};
 
 const cardDatabase = new CardDatabase();
@@ -239,11 +243,11 @@ if (lookupElement) {
 if (generatePdfButton) {
     generatePdfButton.addEventListener("click", async () => {
 
-        // Two modes of this app: Sealed deck and constructed deck PDF generation
+        // Modes of this app: Sealed deck and constructed deck PDF generation
 
         if (activeDeckTab === "sealed") {
             await generateSealedPDF();
-        } else {
+        } else if (activeDeckTab === "constructed") {
             await generateConstructedPDF();
         }
 
@@ -254,7 +258,7 @@ if (deckTabButtons.length > 0) {
     deckTabButtons.forEach(tabButton => {
         tabButton.addEventListener("click", () => {
             const tab = tabButton.dataset.deckTab;
-            if (tab !== "constructed" && tab !== "sealed") {
+            if (tab !== "constructed" && tab !== "sealed" && tab !== "sheet") {
                 return;
             }
             activeDeckTab = tab;
@@ -271,6 +275,12 @@ if (deckTabButtons.length > 0) {
 
             syncGeneratePdfButton();
         });
+    });
+}
+
+if (generateSheetButton) {
+    generateSheetButton.addEventListener("click", async () => {
+        await generateSelectedSheetPdf();
     });
 }
 
@@ -507,6 +517,48 @@ async function generateConstructedPDF(): Promise<void> {
     }
 }
 
+const sheetRarities: Record<string, { name: string; cards: string[] }> = {
+    rare: { name: "limited-rare", cards: uncutSheets[0] },
+    uncommon: { name: "limited-uncommon", cards: uncutSheets[1] },
+    common: { name: "limited-common", cards: uncutSheets[2] },
+};
+
+async function generateSelectedSheetPdf(): Promise<void> {
+    if (!generateSheetButton) {
+        return;
+    }
+
+    const selectedRarityKey = sheetRaritySelect?.value ?? "rare";
+    const sheetInfo = sheetRarities[selectedRarityKey] ?? sheetRarities["rare"];
+
+    const originalLabel = generateSheetButton.textContent;
+    generateSheetButton.disabled = true;
+    generateSheetButton.textContent = "Generating Sheet...";
+
+    try {
+        const pdfBlob = await generateSheetPdf({
+            cardDatabase: cardDatabase,
+            paperSize: "sheet",
+            onProgress: setStatus,
+            frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+            textBoxImportsStrings: textBoxImportsStrings,
+        }, sheetInfo.cards);
+
+        utils.trackEvent("generate_sheet_pdf", { rarity: selectedRarityKey });
+
+        downloadGeneratedPdf(`${sheetInfo.name}-sheet`, pdfBlob);
+        await updateStatusSummary(`Generated PDF for ${sheetInfo.name} sheet.`);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error("Error generating sheet PDF: ", error);
+        setStatus(`Failed to generate sheet PDF: ${message}`);
+    } finally {
+        generateSheetButton.disabled = false;
+        generateSheetButton.textContent = originalLabel;
+    }
+}
+
+
 function setStatus(message: string): void {
     if (statusElement) {
         statusElement.textContent = message;
@@ -648,10 +700,18 @@ function resetPageBackgroundColor(): void {
 }
 
 function syncGeneratePdfButton(): void {
+    if (decklistPaperSizeSelect) {
+        decklistPaperSizeSelect.disabled = activeDeckTab === "sheet";
+    }
+
     if (generatePdfButton) {
-        generatePdfButton.disabled = activeDeckTab === "sealed"
-            ? !Object.values(editionSelection).some(Boolean)
-            : (decklistTextArea?.value.trim() ?? "") === "";
+        if (activeDeckTab === "sheet") {
+            generatePdfButton.disabled = true;
+        } else if (activeDeckTab === "sealed") {
+            generatePdfButton.disabled = !Object.values(editionSelection).some(Boolean);
+        } else {
+            generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
+        }
     }
 
     if (addToDecklistButton) {
@@ -659,11 +719,19 @@ function syncGeneratePdfButton(): void {
     }
 }
 
+function getLocalDateString(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
 function downloadArtCacheExport(exportBlob: Blob): void {
     const downloadUrl = URL.createObjectURL(exportBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `ccg-craft-art-cache-${new Date().toISOString().slice(0, 10)}.zip`;
+    link.download = `ccg-craft-art-cache-${getLocalDateString()}.zip`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }
@@ -672,7 +740,7 @@ function downloadGeneratedPdf(title: string, pdfBlob: Blob): void {
     const downloadUrl = URL.createObjectURL(pdfBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `${toDownloadSlug(title)}-${new Date().toISOString().slice(0, 10)}.pdf`;
+    link.download = `${toDownloadSlug(title)}-${getLocalDateString()}.pdf`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }

@@ -119,3 +119,43 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
         input.onProgress
     );
 }
+
+export type UncutSheetDeckPdfInput = {
+    cardDatabase: CardDatabase;
+    paperSize?: string;
+    onProgress?: (message: string) => void;
+    frameBackgroundsImportsStrings: Record<string, string>;
+    textBoxImportsStrings: Record<string, string>;
+};
+
+export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardNames: string[]): Promise<Blob> {
+
+    const sheetCards: Card[] = [];
+    for (const cardName of cardNames) {
+        const serial = input.cardDatabase.findCardSerialByNamePrefix(cardName);
+        if (serial === undefined) {
+            console.log(`No card found starting with "${cardName}".`);
+            continue;
+        }
+
+        const card = input.cardDatabase.getCardBySerial(serial);
+        sheetCards.push(card);
+    }
+
+    await preloadCardArtForCards(sheetCards, input.cardDatabase, input.onProgress);
+
+    return generateDeckPdf(
+        {
+            cards: sheetCards, // Replace with the actual cards for the sheet
+            getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
+            paperSize: input.paperSize,
+            renderOptions: {
+                padding: 5,
+                background: "#000000",
+                frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
+                textBoxImportsStrings: input.textBoxImportsStrings,
+            },
+        },
+        input.onProgress
+    );
+}

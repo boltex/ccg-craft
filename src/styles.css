@@ -126,6 +126,10 @@ h2,
   margin-bottom: 20px;
 }
 
+.mr-6 {
+  margin-right: 6px;
+}
+
 .overflow-x-hidden {
   overflow-x: hidden;
 }
@@ -261,6 +265,7 @@ button:focus-visible {
     0 6px 14px rgba(70, 44, 20, 0.24);
 }
 
+select:disabled,
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;

@@ -112,6 +112,7 @@ export const SpecificPageSizes: { [key: string]: [number, number] } = {
     ledger: [17 * PointsPerInch, 11 * PointsPerInch], // Landscape, fits 6 x 3 cards
     a4: [210 / 25.4 * PointsPerInch, 297 / 25.4 * PointsPerInch], // portrait, fits 3 x 3 cards
     a3: [420 / 25.4 * PointsPerInch, 297 / 25.4 * PointsPerInch], // landscape, fits 6 x 3 cards
+    sheet: [28.5 * PointsPerInch, 40 * PointsPerInch], //  28.25" x 40" portrait, fits 11 x 11 cards
 };
 
 // FaceLayouts: 0=normal, 1=flipA, 2=splitA, 3=flipB, 4=splitB

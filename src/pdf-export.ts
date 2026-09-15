@@ -31,7 +31,6 @@ type PdfKitDocumentWithOutput = PdfKitDocument & {
 
 let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
 
-// export async generateDeckPdf
 export type GenerateDeckPdfInput = {
     cards: Card[];
     getFaceData: (cardSerial: number) => [PrintableFace, PrintableFace | undefined];
@@ -57,8 +56,6 @@ const PDF_FONT_FILES: Array<{ alias: keyof PdfKitFontRegistry; path: string }> =
     { alias: "expansionBack", path: "expansions-b.ttf" },
 ];
 
-const SHEET_COLUMNS = 3;
-const SHEET_ROWS = 3;
 const CROP_MARK_GAP = 4;
 const CROP_MARK_LENGTH = 10;
 const CROP_MARK_LINE_WIDTH = 0.5;
@@ -131,16 +128,21 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
     registerPdfFonts(document, fontBytes);
 
     let cardPointer = 0; // Pointer to keep track of the current card being processed in the deck.
-    // we either are going to do 3 x 3 or 6 x 3.
-    const maxSheetRows = SHEET_ROWS;
-    let maxSheetColumns = SHEET_COLUMNS;
-    if (input.paperSize === "ledger" || input.paperSize === "a3") {
-        maxSheetColumns = maxSheetColumns * 2; // 6 columns for ledger or a3 paper size.
-    }
+
+
+
+    let maxSheetColumns;
+    let maxSheetRows;
+
+    const [pageWidth, pageHeight] = constants.SpecificPageSizes[input.paperSize ?? "letter"];
+
+    maxSheetColumns = Math.floor(pageWidth / constants.PdfCardWidth);
+    maxSheetRows = Math.floor(pageHeight / constants.PdfCardHeight);
+
+    console.log(`Max sheet columns: ${maxSheetColumns}, Max sheet rows: ${maxSheetRows}`);
 
     const gridWidth = constants.PdfCardWidth * maxSheetColumns;
     const gridHeight = constants.PdfCardHeight * maxSheetRows;
-    const [pageWidth, pageHeight] = constants.SpecificPageSizes[input.paperSize ?? "letter"];
     const gridOriginX = (pageWidth - gridWidth) / 2;
     const gridOriginY = (pageHeight - gridHeight) / 2;
 

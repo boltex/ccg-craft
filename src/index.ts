@@ -223,13 +223,14 @@ if (lookupElement) {
             const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
             decklistTextArea.value = `${existingText}${separator}${currentCard.name}\n`;
             syncGeneratePdfButton();
-            // Now also clear the input
-            lookupElement.value = "";
-            resetPageBackgroundColor();
-            previewController.clear();
-            if (addToDecklistButton) {
-                addToDecklistButton.disabled = previewController.currentCard === null;
-            }
+            // * Let's leave the input as-is - commented off code below was clearing it.
+            // // Now also clear the input
+            // lookupElement.value = "";
+            // resetPageBackgroundColor();
+            // previewController.clear();
+            // if (addToDecklistButton) {
+            //     addToDecklistButton.disabled = previewController.currentCard === null;
+            // }
             updateStatusSummary();
         }
     });

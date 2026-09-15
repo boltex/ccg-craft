@@ -117,15 +117,17 @@ const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-de
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
+const generateSheetButton = document.querySelector<HTMLButtonElement>("#generate-sheet");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
 const deckPanels: Record<string, HTMLElement | null> = {
     constructed: document.querySelector<HTMLElement>("#deck-panel-constructed"),
     sealed: document.querySelector<HTMLElement>("#deck-panel-sealed"),
+    sheet: document.querySelector<HTMLElement>("#deck-panel-sheet"),
 };
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
-let activeDeckTab: "constructed" | "sealed" = "constructed";
+let activeDeckTab: "constructed" | "sealed" | "sheet" = "constructed";
 let editionSelection: Record<string, boolean> = {};
 
 const cardDatabase = new CardDatabase();
@@ -239,11 +241,11 @@ if (lookupElement) {
 if (generatePdfButton) {
     generatePdfButton.addEventListener("click", async () => {
 
-        // Two modes of this app: Sealed deck and constructed deck PDF generation
+        // Modes of this app: Sealed deck and constructed deck PDF generation
 
         if (activeDeckTab === "sealed") {
             await generateSealedPDF();
-        } else {
+        } else if (activeDeckTab === "constructed") {
             await generateConstructedPDF();
         }
 
@@ -254,7 +256,7 @@ if (deckTabButtons.length > 0) {
     deckTabButtons.forEach(tabButton => {
         tabButton.addEventListener("click", () => {
             const tab = tabButton.dataset.deckTab;
-            if (tab !== "constructed" && tab !== "sealed") {
+            if (tab !== "constructed" && tab !== "sealed" && tab !== "sheet") {
                 return;
             }
             activeDeckTab = tab;
@@ -271,6 +273,12 @@ if (deckTabButtons.length > 0) {
 
             syncGeneratePdfButton();
         });
+    });
+}
+
+if (generateSheetButton) {
+    generateSheetButton.addEventListener("click", () => {
+        console.log("Generate Limited Rare uncut sheet clicked");
     });
 }
 
@@ -648,10 +656,18 @@ function resetPageBackgroundColor(): void {
 }
 
 function syncGeneratePdfButton(): void {
+    if (decklistPaperSizeSelect) {
+        decklistPaperSizeSelect.disabled = activeDeckTab === "sheet";
+    }
+
     if (generatePdfButton) {
-        generatePdfButton.disabled = activeDeckTab === "sealed"
-            ? !Object.values(editionSelection).some(Boolean)
-            : (decklistTextArea?.value.trim() ?? "") === "";
+        if (activeDeckTab === "sheet") {
+            generatePdfButton.disabled = true;
+        } else if (activeDeckTab === "sealed") {
+            generatePdfButton.disabled = !Object.values(editionSelection).some(Boolean);
+        } else {
+            generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
+        }
     }
 
     if (addToDecklistButton) {

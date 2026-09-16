@@ -119,7 +119,6 @@ const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-de
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
 const sheetRaritySelect = document.querySelector<HTMLSelectElement>("#sheet-rarity-select");
-const generateSheetButton = document.querySelector<HTMLButtonElement>("#generate-sheet");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
 const deckPanels: Record<string, HTMLElement | null> = {
     constructed: document.querySelector<HTMLElement>("#deck-panel-constructed"),
@@ -249,6 +248,8 @@ if (generatePdfButton) {
             await generateSealedPDF();
         } else if (activeDeckTab === "constructed") {
             await generateConstructedPDF();
+        } else if (activeDeckTab === "sheet") {
+            await generateSelectedSheetPdf();
         }
 
     });
@@ -275,12 +276,6 @@ if (deckTabButtons.length > 0) {
 
             syncGeneratePdfButton();
         });
-    });
-}
-
-if (generateSheetButton) {
-    generateSheetButton.addEventListener("click", async () => {
-        await generateSelectedSheetPdf();
     });
 }
 
@@ -524,16 +519,16 @@ const sheetRarities: Record<string, { name: string; cards: string[] }> = {
 };
 
 async function generateSelectedSheetPdf(): Promise<void> {
-    if (!generateSheetButton) {
+    if (!generatePdfButton) {
         return;
     }
 
     const selectedRarityKey = sheetRaritySelect?.value ?? "rare";
     const sheetInfo = sheetRarities[selectedRarityKey] ?? sheetRarities["rare"];
 
-    const originalLabel = generateSheetButton.textContent;
-    generateSheetButton.disabled = true;
-    generateSheetButton.textContent = "Generating Sheet...";
+    const originalLabel = generatePdfButton.textContent;
+    generatePdfButton.disabled = true;
+    generatePdfButton.textContent = "Generating Sheet...";
 
     try {
         const pdfBlob = await generateSheetPdf({
@@ -553,8 +548,9 @@ async function generateSelectedSheetPdf(): Promise<void> {
         console.error("Error generating sheet PDF: ", error);
         setStatus(`Failed to generate sheet PDF: ${message}`);
     } finally {
-        generateSheetButton.disabled = false;
-        generateSheetButton.textContent = originalLabel;
+        generatePdfButton.disabled = false;
+        generatePdfButton.textContent = originalLabel;
+        syncGeneratePdfButton();
     }
 }
 
@@ -706,10 +702,11 @@ function syncGeneratePdfButton(): void {
 
     if (generatePdfButton) {
         if (activeDeckTab === "sheet") {
-            generatePdfButton.disabled = true;
+            generatePdfButton.disabled = false;
         } else if (activeDeckTab === "sealed") {
             generatePdfButton.disabled = !Object.values(editionSelection).some(Boolean);
         } else {
+            // Last choice: constructed deck tab
             generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
         }
     }

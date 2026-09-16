@@ -11,7 +11,6 @@ export type Card = {
 
 export type CardFace = {
     faceSerial: number;
-    parentCard: number;
     faceType: number;
     edition: number; // Edition number, not abbreviation.
     nameIndex: number;

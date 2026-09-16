@@ -1,4 +1,4 @@
-7425
+7435
 2294, abandon hope
 4778, abandoned outpost
 1366, abbey gargoyles
@@ -7424,3 +7424,13 @@
 1362, zuran enchanter
 1363, zuran orb
 1364, zuran spellcaster
+7789, Forest2
+7790, Forest3
+7791, Island2
+7792, Island3
+7793, Mountain2
+7794, Mountain3
+7795, Plains2
+7796, Plains3
+7797, Swamp2
+7798, Swamp3

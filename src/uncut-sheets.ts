@@ -11,6 +11,7 @@ const limitedRareSheet = [
     "tundra",
     "sleight of mind",
     "chaos orb",
+    //
     "lifelace",
     "savannah",
     "righteousness",
@@ -22,6 +23,7 @@ const limitedRareSheet = [
     "fungusaur",
     "northern paladin",
     "magical hack",
+    //
     "cockatrice",
     "mox ruby",
     "blaze of glory",
@@ -33,6 +35,7 @@ const limitedRareSheet = [
     "crusade",
     "mana short",
     "birds of paradise",
+    //
     "cyclopean tomb",
     "contract from below",
     "badlands",
@@ -44,6 +47,7 @@ const limitedRareSheet = [
     "vesuvan doppelganger",
     "word of command",
     "forcefield",
+    //
     "chaoslace",
     "the hive",
     "lord of atlantis",
@@ -55,6 +59,7 @@ const limitedRareSheet = [
     "volcanic island",
     "volcanic eruption",
     "island",
+    //
     "lich",
     "zombie master",
     "ankh of mishra",
@@ -66,6 +71,7 @@ const limitedRareSheet = [
     "balance",
     "pirate ship",
     "island sanctuary",
+    //
     "gauntlet of might",
     "demonic attorney",
     "howling mine",
@@ -77,6 +83,7 @@ const limitedRareSheet = [
     "personal incarnation",
     "thoughtlace",
     "mox jet",
+    //
     "mana vault",
     "demonic hordes",
     "scrubland",
@@ -88,6 +95,7 @@ const limitedRareSheet = [
     "copy artifact",
     "clockwork beast",
     "sedge troll",
+    //
     "jayemdae tome",
     "island",
     "nevinyrral's disk",
@@ -99,6 +107,7 @@ const limitedRareSheet = [
     "reverse damage",
     "drain power",
     "island",
+    //
     "will-o'-the-wisp",
     "shivan dragon",
     "kudzu",
@@ -110,6 +119,7 @@ const limitedRareSheet = [
     "veteran bodyguard",
     "braingeyser",
     "stasis",
+    //
     "mind twist",
     "power surge",
     "web",
@@ -135,6 +145,7 @@ const limitedUncommonSheet = [
     "library of leng",
     "white knight",
     "black ward",
+    // 
     "control magic",
     "feedback",
     "throne of bone",
@@ -146,6 +157,7 @@ const limitedUncommonSheet = [
     "living wall",
     "mountain",
     "keldon warlord",
+    //
     "instill energy",
     "thicket basilisk",
     "forest",
@@ -157,6 +169,7 @@ const limitedUncommonSheet = [
     "island",
     "steal artifact",
     "counterspell",
+    //
     "swamp",
     "sengir vampire",
     "evil presence",
@@ -168,6 +181,7 @@ const limitedUncommonSheet = [
     "hurricane",
     "tsunami",
     "forest",
+    //
     "lure",
     "obsianus golem",
     "white ward",
@@ -179,6 +193,7 @@ const limitedUncommonSheet = [
     "swamp",
     "bog wraith",
     "simulacrum",
+    //
     "orcish artillery",
     "flashfires",
     "basalt monolith",
@@ -190,6 +205,7 @@ const limitedUncommonSheet = [
     "plains",
     "consecrate land",
     "sol ring",
+    //
     "air elemental",
     "island",
     "wall of air",
@@ -201,6 +217,7 @@ const limitedUncommonSheet = [
     "wall of fire",
     "fire elemental",
     "mountain",
+    //
     "forest",
     "ley druid",
     "regrowth",
@@ -212,6 +229,7 @@ const limitedUncommonSheet = [
     "wall of water",
     "glasses of urza",
     "uthden troll",
+    //
     "tunnel",
     "mountain",
     "dragon whelp",
@@ -223,6 +241,7 @@ const limitedUncommonSheet = [
     "celestial prism",
     "wall of swords",
     "resurrection",
+    //
     "red ward",
     "siren's call",
     "phantom monster",
@@ -234,6 +253,7 @@ const limitedUncommonSheet = [
     "dwarven demolition team",
     "mountain",
     "goblin balloon brigade",
+    //
     "camouflage",
     "channel",
     "forest",
@@ -259,6 +279,7 @@ const limitedCommonSheet = [
     "unsummon",
     "island",
     "sea serpent",
+    //
     "sinkhole",
     "swamp",
     "frozen shade",
@@ -270,6 +291,7 @@ const limitedCommonSheet = [
     "wall of wood",
     "forest",
     "giant growth",
+    //
     "mountain",
     "circle of protection: black",
     "benalish hero",
@@ -281,6 +303,7 @@ const limitedCommonSheet = [
     "swamp",
     "plague rats",
     "dark ritual",
+    //
     "false orders",
     "mountain",
     "red elemental blast",
@@ -292,6 +315,7 @@ const limitedCommonSheet = [
     "guardian angel",
     "circle of protection: blue",
     "plains",
+    //
     "power leak",
     "prodigal sorcerer",
     "island",
@@ -303,6 +327,7 @@ const limitedCommonSheet = [
     "mons's goblin raiders",
     "fireball",
     "mountain",
+    //
     "tranquility",
     "ironroot treefolk",
     "forest",
@@ -314,6 +339,7 @@ const limitedCommonSheet = [
     "island",
     "island",
     "creature bond",
+    //
     "paralyze",
     "terror",
     "swamp",
@@ -325,6 +351,7 @@ const limitedCommonSheet = [
     "stream of life",
     "grizzly bears",
     "forest",
+    //
     "holy armor",
     "plains",
     "mesa pegasus",
@@ -336,6 +363,7 @@ const limitedCommonSheet = [
     "pestilence",
     "swamp",
     "raise dead",
+    //
     "mountain",
     "hurloon minotaur",
     "disintegrate",
@@ -347,6 +375,7 @@ const limitedCommonSheet = [
     "plains",
     "disenchant",
     "holy strength",
+    //
     "island",
     "phantasmal terrain",
     "blue elemental blast",
@@ -358,6 +387,7 @@ const limitedCommonSheet = [
     "mountain",
     "gray ogre",
     "stone rain",
+    //
     "fog",
     "forest",
     "craw wurm",

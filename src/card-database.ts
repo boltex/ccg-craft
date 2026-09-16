@@ -79,9 +79,10 @@ export class CardDatabase {
 
         this.singleCardsData.push(...parseSingleCards(await fetchText("single-cards.txt")));
 
-        const totalFaces = this.singleCardsData[this.singleCardsData.length - 1].face2
-            || this.singleCardsData[this.singleCardsData.length - 1].face1;
-        // Assuming the last card has the highest face number. face 2 is often 0 if the card has only one face, so we take face1 if face2 is 0.
+        let totalFaces = 0;
+        for (const card of this.singleCardsData) {
+            totalFaces = Math.max(totalFaces, card.face1, card.face2);
+        }
 
         const faceIndexResponse = await fetch("face-index.dat");
         if (!faceIndexResponse.ok) {

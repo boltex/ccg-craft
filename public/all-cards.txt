@@ -1,4 +1,4 @@
-7425
+7426
 2294, abandon hope
 4778, abandoned outpost
 1366, abbey gargoyles
@@ -7424,3 +7424,4 @@
 1362, zuran enchanter
 1363, zuran orb
 1364, zuran spellcaster
+7789, island2

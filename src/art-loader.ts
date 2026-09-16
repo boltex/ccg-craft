@@ -65,7 +65,18 @@ export async function loadFaceArtForCard(
             continue;
         }
 
-        const cachedArt = await getCachedFaceArt(face.serial);
+        // Workaround for alternate art cards: if the card name ends with a number character, add 8192 to the face serial.
+        let faceIndex = face.serial;
+        if (/\d$/.test(input.card.name)) {
+            // Capture digits at end   
+            const match = input.card.name.match(/\d$/);
+            const digit = match ? parseInt(match[0], 10) : 0;
+
+            faceIndex = 8192 + (face.serial * 4) + digit; // There may be up to 3 other alternate art versions for this face.
+            console.log(`Adjusted face index for alternate art: ${input.card.name}, new face index: ${faceIndex}`);
+        }
+
+        const cachedArt = await getCachedFaceArt(faceIndex);
         if (cachedArt) {
             artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));
             continue;
@@ -75,11 +86,13 @@ export async function loadFaceArtForCard(
     }
 
     if (missingFaces.length === 0) {
+        console.log(`All face art for card ${input.card.name} is already cached.`);
         return artByFaceSerial;
     }
 
     const artCropUrl = "https://cards.scryfall.io/art_crop/front/" + input.card.url;
     if (!artCropUrl) {
+        console.log(`Failed to construct art crop URL for card ${input.card.name}.`);
         return artByFaceSerial;
     }
 
@@ -88,12 +101,23 @@ export async function loadFaceArtForCard(
 
     try {
         for (const face of missingFaces) {
+            let faceIndex = face.serial;
+            if (/\d$/.test(input.card.name)) {
+                // Capture digits at end   
+                const match = input.card.name.match(/\d$/);
+                const digit = match ? parseInt(match[0], 10) : 0;
+
+                faceIndex = 8192 + (face.serial * 4) + digit; // There may be up to 3 other alternate art versions for this face.
+                console.log(`Adjusted face index for alternate art: ${input.card.name}, new face index: ${faceIndex}`);
+            }
+
             const normalizedArt = await normalizeFaceArtBitmap(sourceBitmap, face);
             const cachedArt = await putCachedFaceArt({
-                faceSerial: face.serial,
+                faceSerial: faceIndex,
                 blob: normalizedArt.blob,
             });
 
+            // Set as original face.serial, not as modified faceIndex for alternate art.
             artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));
         }
     } finally {

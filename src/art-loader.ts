@@ -70,10 +70,13 @@ export async function loadFaceArtForCard(
         if (/\d$/.test(input.card.name)) {
             // Capture digits at end   
             const match = input.card.name.match(/\d$/);
-            const digit = match ? parseInt(match[0], 10) : 0;
 
-            faceIndex = 8192 + (face.serial * 4) + digit; // There may be up to 3 other alternate art versions for this face.
-            console.log(`Adjusted face index for alternate art: ${input.card.name}, new face index: ${faceIndex}`);
+            // So if zero or 1, it will be treated as 1.
+            const digit = match ? parseInt(match[0], 10) : 2;
+
+            if (digit > 1) {
+                faceIndex = 8192 + (face.serial * 4) + digit - 2; // There may be up to 3 other alternate art versions for this face.
+            }
         }
 
         const cachedArt = await getCachedFaceArt(faceIndex);
@@ -101,14 +104,19 @@ export async function loadFaceArtForCard(
 
     try {
         for (const face of missingFaces) {
+
             let faceIndex = face.serial;
             if (/\d$/.test(input.card.name)) {
                 // Capture digits at end   
                 const match = input.card.name.match(/\d$/);
-                const digit = match ? parseInt(match[0], 10) : 0;
 
-                faceIndex = 8192 + (face.serial * 4) + digit; // There may be up to 3 other alternate art versions for this face.
-                console.log(`Adjusted face index for alternate art: ${input.card.name}, new face index: ${faceIndex}`);
+                // So if zero or 1, it will be treated as 1.
+                const digit = match ? parseInt(match[0], 10) : 2;
+
+                if (digit > 1) {
+                    faceIndex = 8192 + (face.serial * 4) + digit - 2; // There may be up to 3 other alternate art versions for this face.
+                }
+
             }
 
             const normalizedArt = await normalizeFaceArtBitmap(sourceBitmap, face);

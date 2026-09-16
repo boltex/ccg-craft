@@ -306,8 +306,8 @@ function parseFaceIndexBuffer(arrayBuffer: ArrayBuffer, totalFaces: number): Car
     for (let i = 0; i < totalFaces; i++) {
         const faceSerial = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
         pointer += 4;
-        const parentCard = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
-        pointer += 4;
+        // Skip parentCard (unused)
+        pointer += 4;  // parentCard
         const faceType = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
         pointer += 4;
         const edition = new DataView(arrayBuffer, pointer, 4).getUint32(0, true);
@@ -339,7 +339,7 @@ function parseFaceIndexBuffer(arrayBuffer: ArrayBuffer, totalFaces: number): Car
 
         faces.push({
             faceSerial,
-            parentCard,
+            // parentCard, unused
             faceType,
             edition,
             nameIndex,

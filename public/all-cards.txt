@@ -1,4 +1,4 @@
-7435
+7450
 2294, abandon hope
 4778, abandoned outpost
 1366, abbey gargoyles
@@ -7424,13 +7424,28 @@
 1362, zuran enchanter
 1363, zuran orb
 1364, zuran spellcaster
-7789, Forest2
-7790, Forest3
-7791, Island2
-7792, Island3
-7793, Mountain2
-7794, Mountain3
-7795, Plains2
-7796, Plains3
-7797, Swamp2
-7798, Swamp3
+7789, forest2
+7790, forest3
+7791, island2
+7792, island3
+7793, mountain2
+7794, mountain3
+7795, plains2
+7796, plains3
+7797, swamp2
+7798, swamp3
+7799, mishra's factory2
+7800, mishra's factory3
+7801, mishra's factory4
+7802, strip mine2
+7803, strip mine3
+7804, strip mine4
+7805, urza's mine2
+7806, urza's mine3
+7807, urza's mine4
+7808, urza's power plant2
+7809, urza's power plant3
+7810, urza's power plant4
+7811, urza's tower2
+7812, urza's tower3
+7813, urza's tower4

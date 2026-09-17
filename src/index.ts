@@ -570,6 +570,13 @@ function setPreview(message: string): void {
 
 // Adds a card to the preview history, truncating any forward history and capping the total size.
 function pushPreviewHistory(cardName: string): void {
+
+    // If same already at the current index, do nothing.
+    if (previewHistory[previewHistoryIndex] === cardName) {
+        return;
+    }
+
+
     if (previewHistoryIndex < previewHistory.length - 1) {
         previewHistory.splice(previewHistoryIndex + 1);
     }

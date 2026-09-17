@@ -1,4 +1,4 @@
-7450
+7535
 2294, abandon hope
 4778, abandoned outpost
 1366, abbey gargoyles
@@ -7449,3 +7449,88 @@
 7811, urza's tower2
 7812, urza's tower3
 7813, urza's tower4
+7814, Combat Medic2
+7815, Combat Medic3
+7816, Combat Medic4
+7817, Farrel's Zealot2
+7818, Farrel's Zealot3
+7819, Icatian Infantry2
+7820, Icatian Infantry3
+7821, Icatian Infantry4
+7822, Icatian Javelineers2
+7823, Icatian Javelineers3
+7824, Icatian Moneychanger2
+7825, Icatian Moneychanger3
+7826, Icatian Scout2
+7827, Icatian Scout3
+7828, Icatian Scout4
+7829, Order of Leitbur2
+7830, Order of Leitbur3
+7831, High Tide2
+7832, High Tide3
+7833, Homarid2
+7834, Homarid3
+7835, Homarid4
+7836, Homarid Warrior2
+7837, Homarid Warrior3
+7838, Merseine2
+7839, Merseine3
+7840, Merseine4
+7841, Tidal Flats2
+7842, Tidal Flats3
+7843, Vodalian Mage2
+7844, Vodalian Mage3
+7845, Vodalian Soldiers2
+7846, Vodalian Soldiers3
+7847, Vodalian Soldiers4
+7848, Armor Thrull2
+7849, Armor Thrull3
+7850, Armor Thrull4
+7851, Basal Thrull2
+7852, Basal Thrull3
+7853, Basal Thrull4
+7854, Hymn to Tourach2
+7855, Hymn to Tourach3
+7856, Hymn to Tourach4
+7857, Initiates of the Ebon Hand2
+7858, Initiates of the Ebon Hand3
+7859, Mindstab Thrull2
+7860, Mindstab Thrull3
+7861, Necrite2
+7862, Necrite3
+7863, Order of the Ebon Hand2
+7864, Order of the Ebon Hand3
+7865, Brassclaw Orcs2
+7866, Brassclaw Orcs3
+7867, Brassclaw Orcs4
+7868, Dwarven Soldier2
+7869, Dwarven Soldier3
+7870, Goblin Chirurgeon2
+7871, Goblin Chirurgeon3
+7872, Goblin Grenade2
+7873, Goblin Grenade3
+7874, Goblin War Drums2
+7875, Goblin War Drums3
+7876, Goblin War Drums4
+7877, Orcish Spy2
+7878, Orcish Spy3
+7879, Orcish Veteran2
+7880, Orcish Veteran3
+7881, Orcish Veteran4
+7882, Elven Fortress2
+7883, Elven Fortress3
+7884, Elven Fortress4
+7885, Elvish Hunter2
+7886, Elvish Hunter3
+7887, Elvish Scout2
+7888, Elvish Scout3
+7889, Night soil2
+7890, Night soil3
+7891, Spore Cloud2
+7892, Spore Cloud3
+7893, Thallid2
+7894, Thallid3
+7895, Thallid4
+7896, Thorn Thallid2
+7897, Thorn Thallid3
+7898, Thorn Thallid4

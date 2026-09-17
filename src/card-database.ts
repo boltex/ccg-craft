@@ -119,16 +119,16 @@ export class CardDatabase {
         const card = this.getCardBySerial(cardSerial);
         const artist = this.artistsData[card.artist];
 
-        const face1 = this.getPrintableFace(card.face1, undefined, artist, card.flavor > 0 ? this.flavorTextsData[card.flavor - 1] : undefined);
+        const face1 = this.getPrintableFace(card.face1, undefined, card.edition, artist, card.flavor > 0 ? this.flavorTextsData[card.flavor - 1] : undefined);
         if (!card.face2 || card.face2 === 0) {
             return [face1, undefined];
         }
-        const face2 = this.getPrintableFace(card.face2, face1, artist, card.flavor > 0 ? this.flavorTextsData[card.flavor - 1] : undefined); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
+        const face2 = this.getPrintableFace(card.face2, face1, card.edition, artist, card.flavor > 0 ? this.flavorTextsData[card.flavor - 1] : undefined); // pass face 1 in case its flip cards and other side needs color info. (no casting cost on flip side, so we need to know the color from the other side.)
 
         return [face1, face2];
     }
 
-    private getPrintableFace(faceSerial: number, otherFace: PrintableFace | undefined, artist: string, flavorString: string | undefined): PrintableFace {
+    private getPrintableFace(faceSerial: number, otherFace: PrintableFace | undefined, edition: string, artist: string, flavorString: string | undefined): PrintableFace {
         const face = this.faceData[faceSerial - 1]; // Why do I have to subtract 1? Because serials are 1-based, but array indexes are 0-based.
 
         // About FaceFrame
@@ -221,6 +221,11 @@ export class CardDatabase {
             colorState = otherFace.colorState;
         }
 
+        let editionNumber: number;
+        // edition is a key in editionsScryData, find its position to get the edition number.
+        const allEditionsScryDataKeys = Object.keys(this.editionsScryData);
+        editionNumber = allEditionsScryDataKeys.findIndex(key => key === edition); // zero based
+
         return {
             serial: faceSerial,
             faceLayout: face.faceType,
@@ -228,7 +233,7 @@ export class CardDatabase {
             name: this.nameData[face.nameIndex - 1],
             manaCost: this.manaCostData[face.manaCostIndex - 1],
             typeLine: this.typeData[face.typeLineIndex - 1],
-            edition: face.edition,
+            edition: editionNumber,
             isACreature: face.isACreature,
             powerToughness: face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "",
             textLines: face.textLines.map(index => this.textData[index - 1]?.replaceAll('<this>', this.nameData[face.nameIndex - 1]) || "").filter(line => line !== ""),

@@ -7796,3 +7796,18 @@
 7796, 195, 0, UN, 7, e/e/ee7cfabc-902f-46f7-b1de-fa0a88c8f852.jpg?1783948526, 0, Plains3
 7797, 246, 0, UN, 7, c/b/cba6da22-2366-4f16-84ce-47f84ea14523.jpg?1783948525, 0, Swamp2
 7798, 246, 0, UN, 7, c/7/c78bad70-2aec-4580-a777-483d72db8d90.jpg?1783948526, 0, Swamp3
+7799, 420, 0, AQ, 37, a/6/a696c5b6-f216-454d-8029-74e84bbd1428.jpg?1783948355, 0, Mishra's Factory2
+7800, 420, 0, AQ, 37, c/4/c44669b2-bf9a-41c3-91c7-d845b0061fbf.jpg?1783948354, 0, Mishra's Factory3
+7801, 420, 0, AQ, 37, a/c/ac09a506-427f-4636-bcfd-b40f8d511905.jpg?1783948355, 0, Mishra's Factory4
+7802, 440, 0, AQ, 18, e/7/e7880157-7f27-4f1b-9cdc-ab36a6252376.jpg?1783948354, 141, Strip Mine2
+7803, 440, 0, AQ, 18, a/4/a48bd745-5e9f-4807-97b0-29222a5b838d.jpg?1783948353, 141, Strip Mine3
+7804, 440, 0, AQ, 18, e/0/e0f6a92f-edd8-4cb6-be91-f3ec229b20a6.jpg?1783948353, 141, Strip Mine4
+7805, 454, 0, AQ, 5, d/a/da68a5c0-84fe-4a8f-93b2-790eca3cc95c.jpg?1783948352, 149, Urza's Mine2
+7806, 454, 0, AQ, 5, 2/7/27886da1-9161-4bed-81b5-06da21a25f91.jpg?1783948352, 149, Urza's Mine3
+7807, 454, 0, AQ, 5, c/d/cd8617d2-a0e9-4fb4-85da-2c7e385be3f6.jpg?1783948352, 149, Urza's Mine4
+7808, 455, 0, AQ, 2, 9/4/94896e0b-859c-47e4-bf27-35ed37b841e0.jpg?1783948352, 150, Urza's Power Plant2
+7809, 455, 0, AQ, 2, e/2/e237d921-6d84-402e-b5e3-6bbdb3028f57.jpg?1783948352, 150, Urza's Power Plant3
+7810, 455, 0, AQ, 2, b/0/b0bbe643-3e07-4541-a2e6-45c63a5133cf.jpg?1783948351, 150, Urza's Power Plant4
+7811, 456, 0, AQ, 7, 8/e/8ed85655-fc59-4a57-bcf9-75e1899dff78.jpg?1783948351, 151, Urza's Tower2
+7812, 456, 0, AQ, 7, 6/a/6aba1f0f-73b0-4898-8d07-43322e43d74e.jpg?1783948351, 151, Urza's Tower3
+7813, 456, 0, AQ, 7, c/c/cc78f2e5-c02b-4f58-8510-660ca27d9a71.jpg?1783948350, 151, Urza's Tower4

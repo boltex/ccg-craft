@@ -226,14 +226,9 @@ if (lookupElement) {
             const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
             decklistTextArea.value = `${existingText}${separator}${currentCard.name}\n`;
             syncGeneratePdfButton();
-            // * Let's leave the input as-is - commented off code below was clearing it.
-            // // Now also clear the input
-            // lookupElement.value = "";
-            // resetPageBackgroundColor();
-            // previewController.clear();
-            // if (addToDecklistButton) {
-            //     addToDecklistButton.disabled = previewController.currentCard === null;
-            // }
+
+            lookupElement.value = currentCard.name;
+
             updateStatusSummary();
         }
     });
@@ -575,11 +570,6 @@ function setPreview(message: string): void {
 
 // Adds a card to the preview history, truncating any forward history and capping the total size.
 function pushPreviewHistory(cardName: string): void {
-    const existingIndex = previewHistory.indexOf(cardName);
-    if (existingIndex !== -1) {
-        return;
-    }
-
     if (previewHistoryIndex < previewHistory.length - 1) {
         previewHistory.splice(previewHistoryIndex + 1);
     }

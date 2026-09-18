@@ -111,6 +111,10 @@ export class CardDatabase {
 
     // Case-insensitive prefix search over the lowercased card-name index; returns the matching card's serial.
     findCardSerialByNamePrefix(query: string): number | undefined {
+        // if query ends with specifically '1' or '0', remove that character
+        if (query.endsWith("1") || query.endsWith("0")) {
+            query = query.slice(0, -1);
+        }
         const matchedIndex = this.allCardsNames.findIndex(name => name.startsWith(query));
         return matchedIndex === -1 ? undefined : this.allCardsIndexes[matchedIndex];
     }

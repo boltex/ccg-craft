@@ -7802,8 +7802,8 @@
 7802, 440, 0, AQ, 18, e/7/e7880157-7f27-4f1b-9cdc-ab36a6252376.jpg?1783948354, 141, Strip Mine2
 7803, 440, 0, AQ, 18, a/4/a48bd745-5e9f-4807-97b0-29222a5b838d.jpg?1783948353, 141, Strip Mine3
 7804, 440, 0, AQ, 18, e/0/e0f6a92f-edd8-4cb6-be91-f3ec229b20a6.jpg?1783948353, 141, Strip Mine4
-7805, 454, 0, AQ, 5, d/a/da68a5c0-84fe-4a8f-93b2-790eca3cc95c.jpg?1783948352, 149, Urza's Mine2
-7806, 454, 0, AQ, 5, 2/7/27886da1-9161-4bed-81b5-06da21a25f91.jpg?1783948352, 149, Urza's Mine3
+7805, 454, 0, AQ, 5, d/d/ddf85792-470b-4b42-99ac-9cb43a575523.jpg?1783948353, 149, Urza's Mine2
+7806, 454, 0, AQ, 5, d/a/da68a5c0-84fe-4a8f-93b2-790eca3cc95c.jpg?1783948352, 149, Urza's Mine3
 7807, 454, 0, AQ, 5, c/d/cd8617d2-a0e9-4fb4-85da-2c7e385be3f6.jpg?1783948352, 149, Urza's Mine4
 7808, 455, 0, AQ, 2, 9/4/94896e0b-859c-47e4-bf27-35ed37b841e0.jpg?1783948352, 150, Urza's Power Plant2
 7809, 455, 0, AQ, 2, e/2/e237d921-6d84-402e-b5e3-6bbdb3028f57.jpg?1783948352, 150, Urza's Power Plant3
@@ -7863,7 +7863,7 @@
 7863, 959, 0, FE, 26, 9/e/9e51f5d8-a7cc-4720-8af5-e002bcfd78a0.jpg?1783947899, 4839, Order of the Ebon Hand2
 7864, 959, 0, FE, 26, 6/0/60ffbb40-13c1-4d01-9421-95b2410d0d3b.jpg?1783947899, 4840, Order of the Ebon Hand3
 7865, 896, 0, FE, 43, f/c/fc0cb8f6-6ba7-402c-9829-251f7443e871.jpg?1783947897, 4841, Brassclaw Orcs2
-7866, 896, 0, FE, 43, a/c/ac9d0354-9ddd-4fe1-8174-9d48406ca564c.jpg?1783947897, 4842, Brassclaw Orcs3
+7866, 896, 0, FE, 43, a/c/ac9d0354-9ddd-4fe1-8174-9d3686ca564c.jpg?1783947897, 4842, Brassclaw Orcs3
 7867, 896, 0, FE, 43, a/2/a2c1e461-f74e-436c-a9df-aff197cf48e1.jpg?1783947897, 4843, Brassclaw Orcs4
 7868, 910, 0, FE, 0, e/a/ea7e4c52-dfe1-4b15-a0d6-4f26c294426d.jpg?1783947895, 4844, Dwarven Soldier2
 7869, 910, 0, FE, 0, 8/7/872c5601-f356-4873-adf9-9a39536e7d4a.jpg?1783947896, 4845, Dwarven Soldier3

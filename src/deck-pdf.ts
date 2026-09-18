@@ -142,6 +142,39 @@ export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardNames:
         sheetCards.push(card);
     }
 
+    console.log('Sheet card serials', sheetCards.map(card => card.serial));
+
+    await preloadCardArtForCards(sheetCards, input.cardDatabase, input.onProgress);
+
+    return generateDeckPdf(
+        {
+            cards: sheetCards, // Replace with the actual cards for the sheet
+            getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
+            paperSize: input.paperSize,
+            renderOptions: {
+                padding: 5,
+                background: "#000000",
+                frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
+                textBoxImportsStrings: input.textBoxImportsStrings,
+            },
+        },
+        input.onProgress
+    );
+}
+
+export async function generateSheetPdf2(input: UncutSheetDeckPdfInput, cardSerials: number[]): Promise<Blob> {
+
+    const sheetCards: Card[] = [];
+    for (const serial of cardSerials) {
+        if (serial == null) {
+            console.log(`No card found for serial "${serial}".`);
+            continue;
+        }
+
+        const card = input.cardDatabase.getCardBySerial(serial);
+        sheetCards.push(card);
+    }
+
     await preloadCardArtForCards(sheetCards, input.cardDatabase, input.onProgress);
 
     return generateDeckPdf(

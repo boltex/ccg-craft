@@ -89,7 +89,6 @@ export async function loadFaceArtForCard(
     }
 
     if (missingFaces.length === 0) {
-        console.log(`All face art for card ${input.card.name} is already cached.`);
         return artByFaceSerial;
     }
 

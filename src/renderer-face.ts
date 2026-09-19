@@ -11,6 +11,7 @@ import { drawStyledText, type TextStyle } from "./renderer-text";
 import { drawManaCostRow } from "./renderer-symbols";
 import type { FillStyle, RenderImageSource } from "./renderer-surface";
 import type { Color } from "./types";
+import * as constants from "./constants";
 
 type CardTextStyleOverrides = TextStyle;
 
@@ -382,7 +383,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         // If solid and edition/set in LandBorderColorByEdition
         const landBorderColor = getLandBorderColorByEdition(face.edition);
-        if (fill.kind === "solid" && landBorderColor) {
+        if (fill.kind === "solid" && landBorderColor && !constants.BasicLandNames.includes(face.name)) {
             color1 = landBorderColor;
             color2 = landBorderColor;
         }

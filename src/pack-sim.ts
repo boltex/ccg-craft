@@ -45,26 +45,25 @@ export const packData = [
         label: "Booster Arabian Nights",
         generation: [
             {
-                sheet: "arabianNightsUncommon",
+                sheet: "arnUncommon",
                 count: 2
             },
             {
-                sheet: "arabianNightsCommon",
+                sheet: "arnCommon",
                 count: 6
             },
         ]
-
     },
     {
         key: "boosterAntiquities",
         label: "Booster Antiquities",
         generation: [
             {
-                sheet: "antiquitiesUncommon",
+                sheet: "atqUncommon",
                 count: 2
             },
             {
-                sheet: "antiquitiesCommon",
+                sheet: "atqCommon",
                 count: 6
             },
         ]
@@ -74,12 +73,16 @@ export const packData = [
         label: "Booster Legends",
         generation: [
             {
-                sheet: "legendsUncommon",
-                count: 2
+                sheet: "lgnUncommon",
+                count: 3
             },
             {
-                sheet: "legendsCommon",
-                count: 6
+                sheet: "lgnRare",
+                count: 1
+            },
+            {
+                sheet: "lgnCommon",
+                count: 11
             },
         ]
     },
@@ -88,11 +91,11 @@ export const packData = [
         label: "Booster The Dark",
         generation: [
             {
-                sheet: "theDarkUncommon",
+                sheet: "drkUncommon",
                 count: 2
             },
             {
-                sheet: "theDarkCommon",
+                sheet: "drkCommon",
                 count: 6
             },
         ]
@@ -102,11 +105,11 @@ export const packData = [
         label: "Booster Fallen Empires",
         generation: [
             {
-                sheet: "fallenEmpiresUncommon",
+                sheet: "femUncommon",
                 count: 2
             },
             {
-                sheet: "fallenEmpiresCommon",
+                sheet: "femCommon",
                 count: 6
             },
         ]

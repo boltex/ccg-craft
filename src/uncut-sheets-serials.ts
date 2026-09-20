@@ -647,7 +647,7 @@ const arnUncommon: number[] = [
     340,
     321
 ];
-const atqCommons: number[] = [
+const atqCommon: number[] = [
     403,
     454,
     426,
@@ -770,7 +770,7 @@ const atqCommons: number[] = [
     439,
     436
 ];
-const atqUncommons: number[] = [
+const atqUncommon: number[] = [
     432,
     401,
     435,
@@ -1777,18 +1777,18 @@ export const uncutSheets = {
         name: "Arabian Nights Common",
         cards: arnCommon,
     },
-    arnUncommons: {
+    arnUncommon: {
         name: "Arabian Nights Uncommon",
         cards: arnUncommon,
     },
     // Antiquities
-    atqCommons: {
+    atqCommon: {
         name: "Antiquities Common",
-        cards: atqCommons,
+        cards: atqCommon,
     },
-    atqUncommons: {
+    atqUncommon: {
         name: "Antiquities Uncommon",
-        cards: atqUncommons,
+        cards: atqUncommon,
     },
     // Legends
     lgnCommon: {

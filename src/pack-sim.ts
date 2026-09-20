@@ -2,6 +2,119 @@
 // Should be serialazable to save in local storage and be restored later.
 // One per rarity-sheet of each set of cards.
 
+// Seven possible packs. Only limited has 'rare' cards.
+export const packData = [
+    {
+        key: "starterLimited",
+        label: "Starter Limited",
+        generation: [
+            {
+                sheet: "limitedUncommon",
+                count: 13
+            },
+            {
+                sheet: "limitedRare",
+                count: 2
+            },
+            {
+                sheet: "limitedCommon",
+                count: 45
+            },
+        ]
+    },
+    {
+        key: "boosterLimited",
+        label: "Booster Limited",
+        generation: [
+            {
+                sheet: "limitedCommon",
+                count: 11
+            },
+            {
+                sheet: "limitedUncommon",
+                count: 3
+            },
+            {
+                sheet: "limitedRare",
+                count: 1
+            },
+        ]
+    },
+    {
+        key: "boosterArabianNights",
+        label: "Booster Arabian Nights",
+        generation: [
+            {
+                sheet: "arabianNightsUncommon",
+                count: 2
+            },
+            {
+                sheet: "arabianNightsCommon",
+                count: 6
+            },
+        ]
+
+    },
+    {
+        key: "boosterAntiquities",
+        label: "Booster Antiquities",
+        generation: [
+            {
+                sheet: "antiquitiesUncommon",
+                count: 2
+            },
+            {
+                sheet: "antiquitiesCommon",
+                count: 6
+            },
+        ]
+    },
+    {
+        key: "boosterLegends",
+        label: "Booster Legends",
+        generation: [
+            {
+                sheet: "legendsUncommon",
+                count: 2
+            },
+            {
+                sheet: "legendsCommon",
+                count: 6
+            },
+        ]
+    },
+    {
+        key: "boosterTheDark",
+        label: "Booster The Dark",
+        generation: [
+            {
+                sheet: "theDarkUncommon",
+                count: 2
+            },
+            {
+                sheet: "theDarkCommon",
+                count: 6
+            },
+        ]
+    },
+    {
+        key: "boosterFallenEmpires",
+        label: "Booster Fallen Empires",
+        generation: [
+            {
+                sheet: "fallenEmpiresUncommon",
+                count: 2
+            },
+            {
+                sheet: "fallenEmpiresCommon",
+                count: 6
+            },
+        ]
+    }
+
+];
+
+
 export class PackSimController {
 
     // strip heights sequence, wraps around.

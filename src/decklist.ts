@@ -11,8 +11,7 @@ export function parseDecklistText(rawText: string): DecklistEntry[] {
         .map(line => line.replace(/"/g, ""))
         .map(line => line.trim().replace(/^[\s,]+|[\s,]+$/g, ""))
         // also replace accented letters with their non-accented counterparts
-        .map(line => line.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
-        // also lowercase the line for consistency
+        .map(line => line.normalize("NFD").replace(/\p{M}/gu, ""))
         .map(line => line.toLowerCase())
         .filter(line => line.length > 0);
 

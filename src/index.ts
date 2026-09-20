@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdfFromStrings, generateSheetPdf, selectSealedCardPool } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -52,7 +52,7 @@ import tbRBackground300dpiPng from "../public/tb300dpi-r.png?inline";
 import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 // @ts-expect-error 
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
-import { uncutSheets } from "./uncut-sheets";
+import { uncutSheets } from "./uncut-sheets-serials";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -180,10 +180,11 @@ if (lookupElement) {
             clearTimeout(debounceTimeout);
         }
         debounceTimeout = window.setTimeout(async () => {
-            let query = lookupElement.value.trim().toLowerCase();
+            let query = lookupElement.value.trim();
 
-            // replace accented letters by their plain lowercase version
-            query = query.normalize("NFD").replace(/\p{M}/gu, "");
+            // Convert accented letters to their plain lowercase version
+            query = query.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+
             // Remove any quotes
             query = query.replace(/"/g, "");
 
@@ -507,19 +508,13 @@ async function generateConstructedPDF(): Promise<void> {
     }
 }
 
-const sheetRarities: Record<string, { name: string; cards: string[] }> = {
-    rare: { name: "limited-rare", cards: uncutSheets[0] },
-    uncommon: { name: "limited-uncommon", cards: uncutSheets[1] },
-    common: { name: "limited-common", cards: uncutSheets[2] },
-};
-
 async function generateSelectedSheetPdf(): Promise<void> {
     if (!generatePdfButton) {
         return;
     }
 
-    const selectedRarityKey = sheetRaritySelect?.value ?? "rare";
-    const sheetInfo = sheetRarities[selectedRarityKey] ?? sheetRarities["rare"];
+    const selectedSheetKey = sheetRaritySelect?.value ?? "limitedRare";
+    const sheetInfo = uncutSheets[selectedSheetKey as keyof typeof uncutSheets] ?? uncutSheets.limitedRare;
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
@@ -534,9 +529,9 @@ async function generateSelectedSheetPdf(): Promise<void> {
             textBoxImportsStrings: textBoxImportsStrings,
         }, sheetInfo.cards);
 
-        utils.trackEvent("generate_sheet_pdf", { rarity: selectedRarityKey });
+        utils.trackEvent("generate_sheet_pdf", { sheet: selectedSheetKey });
 
-        downloadGeneratedPdf(`${sheetInfo.name}-sheet`, pdfBlob);
+        downloadGeneratedPdf(`${sheetInfo.name}-sheet`, pdfBlob, true); // 'omitDate' because those are uncut sheets which do not change over time.
         await updateStatusSummary(`Generated PDF for ${sheetInfo.name} sheet.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -730,11 +725,11 @@ function downloadArtCacheExport(exportBlob: Blob): void {
     URL.revokeObjectURL(downloadUrl);
 }
 
-function downloadGeneratedPdf(title: string, pdfBlob: Blob): void {
+function downloadGeneratedPdf(title: string, pdfBlob: Blob, omitDate?: boolean): void {
     const downloadUrl = URL.createObjectURL(pdfBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = `${toDownloadSlug(title)}-${getLocalDateString()}.pdf`;
+    link.download = `${toDownloadSlug(title)}${omitDate ? "" : `-${getLocalDateString()}`}.pdf`;
     link.click();
     URL.revokeObjectURL(downloadUrl);
 }
@@ -747,8 +742,25 @@ function toDownloadSlug(value: string): string {
         .replace(/^-+|-+$/g, "") || "decklist";
 }
 
+// Fills the sheet-rarity select with one option per uncut sheet, keyed by its uncutSheets property name.
+function populateSheetRaritySelect(): void {
+    if (!sheetRaritySelect) {
+        return;
+    }
+
+    sheetRaritySelect.replaceChildren(); // This just clears any existing options before populating new ones.
+
+    for (const [key, sheetInfo] of Object.entries(uncutSheets)) {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = sheetInfo.name;
+        sheetRaritySelect.append(option);
+    }
+}
+
 async function bootstrap(): Promise<void> {
     restorePreviewHistory();
+    populateSheetRaritySelect();
 
     if (lookupElement) {
         requestAnimationFrame(() => {

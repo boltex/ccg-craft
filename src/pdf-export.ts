@@ -139,8 +139,6 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
     maxSheetColumns = Math.floor(pageWidth / constants.PdfCardWidth);
     maxSheetRows = Math.floor(pageHeight / constants.PdfCardHeight);
 
-    console.log(`Max sheet columns: ${maxSheetColumns}, Max sheet rows: ${maxSheetRows}`);
-
     const gridWidth = constants.PdfCardWidth * maxSheetColumns;
     const gridHeight = constants.PdfCardHeight * maxSheetRows;
     const gridOriginX = (pageWidth - gridWidth) / 2;

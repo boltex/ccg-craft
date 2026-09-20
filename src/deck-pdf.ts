@@ -24,7 +24,8 @@ async function preloadCardArtForCards(
 // Builds the deduplicated pool of cards eligible for a sealed pack from the selected editions.
 export function selectSealedCardPool(cardDatabase: CardDatabase, selectedEditions: string[]): Card[] {
     const availableCards = cardDatabase.singleCards.filter(
-        card => selectedEditions.includes(card.edition) && !constants.BasicLandNames.includes(card.name)
+        // Also check for BasicLandNames card name without the last possible 'digit' character of alternate art cards.
+        card => selectedEditions.includes(card.edition) && !constants.BasicLandNames.includes(card.name) && !constants.BasicLandNames.includes(card.name.slice(0, -1))
     );
 
     // Keep the first occurrence of each card name for easy lookup.
@@ -128,12 +129,18 @@ export type UncutSheetDeckPdfInput = {
     textBoxImportsStrings: Record<string, string>;
 };
 
-export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardNames: string[]): Promise<Blob> {
+// Unused - kept as reference or for potential future use
+export async function generateSheetPdfFromStrings(input: UncutSheetDeckPdfInput, cardNames: string[]): Promise<Blob> {
 
     const sheetCards: Card[] = [];
     for (const cardName of cardNames) {
-        const serial = input.cardDatabase.findCardSerialByNamePrefix(cardName);
-        if (serial === undefined) {
+        const cleanedCardName = cardName
+            .normalize("NFD")
+            .replace(/\p{M}/gu, "")
+            .toLowerCase();
+
+        const serial = input.cardDatabase.findCardSerialByNamePrefix(cleanedCardName);
+        if (serial == null) {
             console.log(`No card found starting with "${cardName}".`);
             continue;
         }
@@ -162,7 +169,7 @@ export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardNames:
     );
 }
 
-export async function generateSheetPdf2(input: UncutSheetDeckPdfInput, cardSerials: number[]): Promise<Blob> {
+export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardSerials: number[]): Promise<Blob> {
 
     const sheetCards: Card[] = [];
     for (const serial of cardSerials) {

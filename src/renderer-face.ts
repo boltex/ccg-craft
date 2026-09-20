@@ -308,21 +308,31 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
     }
 
     if (isLand) {
+        const adjustedTextBoxRect = { ...textBoxRect }; // Land text box is going to need to be slightly adjusted
+
+        // Perform adjustments for land text box
+        const landTextBoxHorizontalAdjustment = -0.45 * scene.scale;
+        const landTextBoxVerticalAdjustment = -0.05 * scene.scale;
+        adjustedTextBoxRect.x += landTextBoxHorizontalAdjustment;
+        adjustedTextBoxRect.y += landTextBoxVerticalAdjustment;
+        adjustedTextBoxRect.width -= 2 * landTextBoxHorizontalAdjustment;
+        adjustedTextBoxRect.height -= 2 * landTextBoxVerticalAdjustment;
+
         const landDrawAlpha = 0.5; // All land text box drawing is over the grayscale texture just applied
         switch (fill.kind) {
             case "solid": {
                 surface.setFillStyle(utils.toCommaRgb(...fill.color, landDrawAlpha));
-                surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+                surface.fillRect(adjustedTextBoxRect.x, adjustedTextBoxRect.y, adjustedTextBoxRect.width, adjustedTextBoxRect.height);
                 break;
             }
 
             case "split": {
                 surface.setFillStyle({
                     kind: "linear-gradient",
-                    x0: textBoxRect.x,
-                    y0: textBoxRect.y,
-                    x1: textBoxRect.x + textBoxRect.width,
-                    y1: textBoxRect.y,
+                    x0: adjustedTextBoxRect.x,
+                    y0: adjustedTextBoxRect.y,
+                    x1: adjustedTextBoxRect.x + adjustedTextBoxRect.width,
+                    y1: adjustedTextBoxRect.y,
                     stops: [
                         { offset: 0, color: utils.toCommaRgb(...fill.first, landDrawAlpha) },
                         { offset: 0.37, color: utils.toCommaRgb(...fill.first, landDrawAlpha) },
@@ -330,7 +340,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                         { offset: 1, color: utils.toCommaRgb(...fill.second, landDrawAlpha) },
                     ],
                 });
-                surface.fillRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+                surface.fillRect(adjustedTextBoxRect.x, adjustedTextBoxRect.y, adjustedTextBoxRect.width, adjustedTextBoxRect.height);
                 break;
             }
 
@@ -341,10 +351,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
                     surface.setFillStyle(utils.toCommaRgb(...color));
                     surface.fillRect(
-                        textBoxRect.x + inset,
-                        textBoxRect.y + inset,
-                        textBoxRect.width - inset * 2,
-                        textBoxRect.height - inset * 2
+                        adjustedTextBoxRect.x + inset,
+                        adjustedTextBoxRect.y + inset,
+                        adjustedTextBoxRect.width - inset * 2,
+                        adjustedTextBoxRect.height - inset * 2
                     );
                 }
                 break;
@@ -352,7 +362,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         }
         surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
         surface.setLineWidth(Math.max(1, scene.scale * 0.5));
-        surface.strokeRect(textBoxRect.x, textBoxRect.y, textBoxRect.width, textBoxRect.height);
+        surface.strokeRect(adjustedTextBoxRect.x, adjustedTextBoxRect.y, adjustedTextBoxRect.width, adjustedTextBoxRect.height);
 
         // Add border around text box, the art's bevel, and the card frame.
         let color1;
@@ -430,10 +440,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         if (fill.kind === "solid") {
             drawRectangleBevel(
                 surface,
-                textBoxRect.x,
-                textBoxRect.y,
-                textBoxRect.width,
-                textBoxRect.height,
+                adjustedTextBoxRect.x,
+                adjustedTextBoxRect.y,
+                adjustedTextBoxRect.width,
+                adjustedTextBoxRect.height,
                 textBoxBevelWidth,
                 color1,
                 color2,
@@ -444,10 +454,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             // Finally, the two bevels in the textbox
             drawRectangleBevel(
                 surface,
-                textBoxRect.x,
-                textBoxRect.y,
-                textBoxRect.width,
-                textBoxRect.height,
+                adjustedTextBoxRect.x,
+                adjustedTextBoxRect.y,
+                adjustedTextBoxRect.width,
+                adjustedTextBoxRect.height,
                 textBoxBevelWidth / 2,
                 color1,
                 color2,
@@ -456,10 +466,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             // Second one with reversed colors
             drawRectangleBevel(
                 surface,
-                textBoxRect.x + textBoxBevelWidth / 2,
-                textBoxRect.y + textBoxBevelWidth / 2,
-                textBoxRect.width - textBoxBevelWidth,
-                textBoxRect.height - textBoxBevelWidth,
+                adjustedTextBoxRect.x + textBoxBevelWidth / 2,
+                adjustedTextBoxRect.y + textBoxBevelWidth / 2,
+                adjustedTextBoxRect.width - textBoxBevelWidth,
+                adjustedTextBoxRect.height - textBoxBevelWidth,
                 textBoxBevelWidth / 2,
                 color2,
                 color1,
@@ -470,10 +480,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             // Handle gradient fill for the text box
             drawRectangleBevel(
                 surface,
-                textBoxRect.x,
-                textBoxRect.y,
-                textBoxRect.width,
-                textBoxRect.height,
+                adjustedTextBoxRect.x,
+                adjustedTextBoxRect.y,
+                adjustedTextBoxRect.width,
+                adjustedTextBoxRect.height,
                 textBoxBevelWidth,
                 color2, // Inverted compared to the 'solid' fill
                 color1,

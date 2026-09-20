@@ -53,6 +53,26 @@ export class PackSimController {
                     and place y at the bottom of the new strip which is at the top of the old strip. (wraps around vertically)
 
         */
+        const stripHeight = this._stripHeights[this._currentStripIndex];
+
+        if (this._currentY - this._stripy > 0) {
+            // Move up within the strip
+            this._currentY--;
+        } else {
+            if (this._currentX > 0) {
+                // Move x left to the previous column and change y down to the bottom of the current strip
+                this._currentX--;
+                this._currentY = this._stripy + stripHeight - 1;
+            } else {
+                // Move x to the complete right, and start a new strip of height chosen from the sequence of strip heights.
+                this._currentX = this._sheetWidth - 1;
+                this._currentStripIndex = (this._currentStripIndex + 1) % this._stripHeights.length;
+                const newStripHeight = this._stripHeights[this._currentStripIndex];
+                this._stripy = (this._stripy + stripHeight) % this._sheetHeight;
+                this._currentY = this._stripy + newStripHeight - 1;
+            }
+        }
+
 
         // For now just return the current position.
 

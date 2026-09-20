@@ -119,6 +119,7 @@ const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-de
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
 const sheetRaritySelect = document.querySelector<HTMLSelectElement>("#sheet-rarity-select");
+const deckTabsContainer = document.querySelector<HTMLDivElement>("#deck-tabs");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
 const deckPanels: Record<string, HTMLElement | null> = {
     constructed: document.querySelector<HTMLElement>("#deck-panel-constructed"),
@@ -453,6 +454,7 @@ async function generateSealedPDF(): Promise<void> {
     generatePdfButton.textContent = "Generating PDF...";
 
     try {
+        disableDeckTabs();
         const pdfBlob = await generateSealedDeckPdf({
             cardPool,
             cardDatabase,
@@ -473,6 +475,7 @@ async function generateSealedPDF(): Promise<void> {
     } finally {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
+        enableDeckTabs();
         syncGeneratePdfButton();
     }
 }
@@ -487,6 +490,7 @@ async function generateConstructedPDF(): Promise<void> {
     generatePdfButton.textContent = "Generating PDF...";
 
     try {
+        disableDeckTabs();
         const pdfBlob = await generateConstructedDeckPdf({
             decklistText: decklistTextArea?.value ?? "",
             cardDatabase,
@@ -507,6 +511,7 @@ async function generateConstructedPDF(): Promise<void> {
     } finally {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
+        enableDeckTabs();
         syncGeneratePdfButton();
     }
 }
@@ -524,6 +529,7 @@ async function generateSelectedSheetPdf(): Promise<void> {
     generatePdfButton.textContent = "Generating Sheet...";
 
     try {
+        disableDeckTabs();
         const pdfBlob = await generateSheetPdf({
             cardDatabase: cardDatabase,
             paperSize: "sheet",
@@ -543,8 +549,17 @@ async function generateSelectedSheetPdf(): Promise<void> {
     } finally {
         generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
+        enableDeckTabs();
         syncGeneratePdfButton();
     }
+}
+
+function disableDeckTabs(): void {
+    deckTabsContainer?.classList.add("disabled");
+}
+
+function enableDeckTabs(): void {
+    deckTabsContainer?.classList.remove("disabled");
 }
 
 

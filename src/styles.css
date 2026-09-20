@@ -403,7 +403,7 @@ button:disabled {
   border-bottom: 2px solid var(--page-background-color, var(--border));
 }
 
-.deck-tabs {
+#deck-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 0px;
@@ -427,6 +427,15 @@ button:disabled {
   font-family: "Medieval", "Plantin", Georgia, serif;
   font-size: 1.5em;
   line-height: 0.9;
+  /* opacity: 0.6; */
+}
+
+#deck-tabs.disabled {
+  cursor: not-allowed;
+}
+
+#deck-tabs.disabled .deck-tab {
+  pointer-events: none;
   /* opacity: 0.6; */
 }
 

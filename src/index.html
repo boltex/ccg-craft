@@ -56,17 +56,6 @@
         </div> -->
 
         <section class="panel">
-            <h2>Status</h2>
-            <p id="status">Booting...</p>
-            <p>
-                <button type="button" id="clear-art-cache" title="Clear Local Art Database">Clear DB</button>
-                <button type="button" id="export-art-cache" title="Export Local Art Database">Export DB</button>
-                <button type="button" id="import-art-cache" title="Import Local Art Database">Import DB</button>
-                <input type="file" id="import-art-cache-file" accept="application/zip" hidden />
-            </p>
-        </section>
-
-        <section class="panel">
             <nav class="deck-nav">
                 <div class="deck-controls">
                     <select id="decklist-paper-size" title="Select the paper size for the exported PDF">
@@ -83,19 +72,21 @@
                 </div>
                 <div class="deck-tabs">
                     <button type="button" class="deck-tab active" id="tab-constructed"
-                        title="Switch to Constructed Deck Tab" data-deck-tab="constructed">Constructed</button>
+                        title="Switch to Constructed Deck Tab" data-deck-tab="constructed">Cards</button>
                     <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed"
                         title="Switch to Sealed Deck Tab">Sealed</button>
                     <button type="button" class="deck-tab" id="tab-sheet" data-deck-tab="sheet"
                         title="Switch to Uncut-Sheet Tab">Sheet</button>
+                    <button type="button" class="deck-tab" id="tab-db" data-deck-tab="db"
+                        title="Switch to Database Tab">DB</button>
                 </div>
             </nav>
 
             <div class="deck-panel" id="deck-panel-constructed">
                 <div class="row">
                     <div class="col">
-                        <p class="mb-0">
-                            <textarea id="decklist-text" rows="10" placeholder="One card per line..."
+                        <p class="mb-0 mt-6">
+                            <textarea id="decklist-text" rows="9" placeholder="One card or pack per line..."
                                 title="Type your decklist here."></textarea>
                         </p>
                     </div>
@@ -133,6 +124,16 @@
                 </p>
                 <p class="mb-0 text-center">
                     <select id="sheet-rarity-select" title="Select uncut sheet rarity" class="mr-6"></select>
+                </p>
+            </div>
+
+            <div class="deck-panel" id="deck-panel-db" hidden>
+                <p id="status">Booting...</p>
+                <p>
+                    <button type="button" id="clear-art-cache" title="Clear Local Art Database">Clear DB</button>
+                    <button type="button" id="export-art-cache" title="Export Local Art Database">Export DB</button>
+                    <button type="button" id="import-art-cache" title="Import Local Art Database">Import DB</button>
+                    <input type="file" id="import-art-cache-file" accept="application/zip" hidden />
                 </p>
             </div>
 

@@ -242,6 +242,10 @@ h2,
   margin-bottom: 20px;
 }
 
+.mt-6 {
+  margin-top: 6px;
+}
+
 .mr-6 {
   margin-right: 6px;
 }
@@ -577,7 +581,8 @@ select {
 }
 
 textarea {
-  width: 100%;
+  min-width: 225px;
+  min-height: 75px;
   padding: 12px 14px;
   resize: both;
 }

@@ -896,12 +896,16 @@ async function bootstrap(): Promise<void> {
         // Then the next one is 3 rows of 11 cards, (33 cards)
         // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
         // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
+        // And looking at more than 242 cards, let's say 245, would wrap around top of some sheets.
 
         console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
 
-        for (let i = 0; i < 56; i++) {
+        for (let i = 0; i < 245; i++) {
             if (i && (i + 1) % 11 === 0) {
                 console.log(`passed 11 cards at iteration ${i}`);
+            }
+            if (i && (i + 1) % 121 === 0) {
+                console.log(`passed 121 cards at iteration ${i}`);
             }
             const position = testController.nextCardPosition();
             console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);

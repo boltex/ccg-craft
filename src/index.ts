@@ -146,6 +146,8 @@ let previewHistorySaveTimeout: number | undefined;
 
 let isDebug = false;
 
+const packSimControllers: Record<string, PackSimController> = {};
+
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
     let debounceTimeout: number | undefined;
@@ -248,6 +250,7 @@ if (generatePdfButton) {
             await generateSealedPDF();
         } else if (activeDeckTab === "constructed") {
             await generateConstructedPDF();
+            savePackSimState(); // The packs may have changed, so save their state.
         } else if (activeDeckTab === "sheet") {
             await generateSelectedSheetPdf();
         }
@@ -646,11 +649,46 @@ function restorePreviewHistory(): void {
     }
 }
 
-// Look for existing pack sim state in localStorage and restore it if available.
+// Look for existing pack sim state in localStorage and restore it if available. Create them otherwise.
 function restorePackSimState(): void {
     // There needs to be a pack sim state for each sheet in the pack simulation.
     // The uncutSheets object imported from ./uncut-sheets-serials has keys corresponding to each sheet in the pack simulation.
 
+    for (const sheetKey in uncutSheets) {
+        const raw = window.localStorage.getItem(`packSimState_${sheetKey}`);
+        if (!raw) {
+            // No existing state, create a new PackSimController with default values.
+            packSimControllers[sheetKey] = new PackSimController();
+        } else {
+
+            try {
+                const parsed = JSON.parse(raw);
+                if (!parsed) {
+                    continue;
+                }
+
+                const stripIndex = typeof parsed.stripIndex === "number" ? parsed.stripIndex : 0;
+                const stripy = typeof parsed.stripy === "number" ? parsed.stripy : undefined;
+                const currentX = typeof parsed.currentX === "number" ? parsed.currentX : undefined;
+                const currentY = typeof parsed.currentY === "number" ? parsed.currentY : undefined;
+
+                packSimControllers[sheetKey] = new PackSimController(stripIndex, stripy, currentX, currentY);
+            } catch (error) {
+                console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
+                packSimControllers[sheetKey] = new PackSimController(); // Fallback to default state if restoration fails.
+
+            }
+        }
+
+    }
+}
+
+function savePackSimState(): void {
+    for (const sheetKey in packSimControllers) {
+        const controller = packSimControllers[sheetKey];
+        const state = controller.serialize();
+        window.localStorage.setItem(`packSimState_${sheetKey}`, JSON.stringify(state));
+    }
 }
 
 async function showCardPreview(query: string): Promise<void> {
@@ -820,8 +858,10 @@ function populatePackSelect(): void {
 }
 
 async function bootstrap(): Promise<void> {
+
     restorePreviewHistory();
     restorePackSimState();
+
     populateSheetRaritySelect();
     populatePackSelect();
 

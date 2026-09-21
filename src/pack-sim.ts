@@ -150,18 +150,25 @@ export class PackSimController {
 
     constructor(stripIndex?: number, stripy?: number, currentX?: number, currentY?: number) {
         this._currentStripIndex = stripIndex ?? 0;
+        if (!Number.isInteger(this._currentStripIndex) || this._currentStripIndex < 0 || this._currentStripIndex >= this._stripHeights.length) {
+            throw new Error("stripIndex is out of range.");
+        }
+
         const stripHeight = this._stripHeights[this._currentStripIndex];
 
         // The y is calculated modulo 11 so it wraps around the sheet height if it exceeds the sheet height.
         this._stripy = stripy ?? this._sheetHeight - 1; // default to the bottom of the sheet
+        this._validateSheetCoordinate(this._stripy, "stripy");
 
         // Current x is anywhere within the sheet width.
         this._currentX = currentX ?? this._sheetWidth - 1; // given or default to the rightmost column
+        this._validateSheetCoordinate(this._currentX, "currentX");
         // Current y is anywhere within the current strip being processed.
-        this._currentY = currentY ?? this._stripy + stripHeight - 1; // default to the bottom of the current strip
+        this._currentY = currentY ?? this._normalizeSheetCoordinate(this._stripy + stripHeight - 1); // default to the bottom of the current strip
+        this._validateSheetCoordinate(this._currentY, "currentY");
 
         // Maybe currentY was given as an argument and is not in the range of the current strip. (given we also wrap around vertically) error out if so.
-        if ((this._currentY - this._stripy + this._sheetHeight) % this._sheetHeight >= stripHeight) {
+        if (this._verticalDistanceFromStripTop() >= stripHeight) {
             throw new Error("currentY is out of the range of the current strip.");
         }
 
@@ -195,21 +202,21 @@ export class PackSimController {
         */
         const stripHeight = this._stripHeights[this._currentStripIndex];
 
-        if (this._currentY - this._stripy > 0) {
+        if (this._verticalDistanceFromStripTop() > 0) {
             // Move up within the strip
-            this._currentY--;
+            this._currentY = this._normalizeSheetCoordinate(this._currentY - 1);
         } else {
             if (this._currentX > 0) {
                 // Move x left to the previous column and change y down to the bottom of the current strip
                 this._currentX--;
-                this._currentY = this._stripy + stripHeight - 1;
+                this._currentY = this._normalizeSheetCoordinate(this._stripy + stripHeight - 1);
             } else {
                 // Move x to the complete right, and start a new strip of height chosen from the sequence of strip heights.
                 this._currentX = this._sheetWidth - 1;
-                this._currentStripIndex = (this._currentStripIndex + 1) % this._stripHeights.length;
+                this._currentStripIndex = (this._currentStripIndex + 1) % this._stripHeights.length; // Increment to the next strip index
                 const newStripHeight = this._stripHeights[this._currentStripIndex];
-                this._stripy = (this._stripy + stripHeight) % this._sheetHeight;
-                this._currentY = this._stripy + newStripHeight - 1;
+                this._stripy = this._normalizeSheetCoordinate(this._stripy + stripHeight);
+                this._currentY = this._normalizeSheetCoordinate(this._stripy + newStripHeight - 1);
             }
         }
 
@@ -217,5 +224,19 @@ export class PackSimController {
         // For now just return the current position.
 
         return { x: this._currentX, y: this._currentY };
+    }
+
+    private _normalizeSheetCoordinate(coordinate: number): number {
+        return ((coordinate % this._sheetHeight) + this._sheetHeight) % this._sheetHeight;
+    }
+
+    private _validateSheetCoordinate(coordinate: number, name: string): void {
+        if (!Number.isInteger(coordinate) || coordinate < 0 || coordinate >= this._sheetHeight) {
+            throw new Error(`${name} is out of range.`);
+        }
+    }
+
+    private _verticalDistanceFromStripTop(): number {
+        return this._normalizeSheetCoordinate(this._currentY - this._stripy);
     }
 };

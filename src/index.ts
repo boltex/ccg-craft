@@ -663,8 +663,8 @@ function restorePackSimState(): void {
 
             try {
                 const parsed = JSON.parse(raw);
-                if (!parsed) {
-                    continue;
+                if (!parsed || typeof parsed !== "object") {
+                    throw new Error("Pack sim state must be an object.");
                 }
 
                 const stripIndex = typeof parsed.stripIndex === "number" ? parsed.stripIndex : 0;
@@ -686,8 +686,12 @@ function restorePackSimState(): void {
 function savePackSimState(): void {
     for (const sheetKey in packSimControllers) {
         const controller = packSimControllers[sheetKey];
-        const state = controller.serialize();
-        window.localStorage.setItem(`packSimState_${sheetKey}`, JSON.stringify(state));
+        try {
+            const state = controller.serialize();
+            window.localStorage.setItem(`packSimState_${sheetKey}`, JSON.stringify(state));
+        } catch (error) {
+            console.error(`Failed to save pack sim state for sheet ${sheetKey}:`, error);
+        }
     }
 }
 

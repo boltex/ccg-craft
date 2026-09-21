@@ -215,7 +215,7 @@ export class PackSimController {
                 this._currentX = this._sheetWidth - 1;
                 this._currentStripIndex = (this._currentStripIndex + 1) % this._stripHeights.length; // Increment to the next strip index
                 const newStripHeight = this._stripHeights[this._currentStripIndex];
-                this._stripy = this._normalizeSheetCoordinate(this._stripy + stripHeight);
+                this._stripy = this._normalizeSheetCoordinate(this._stripy - newStripHeight);
                 this._currentY = this._normalizeSheetCoordinate(this._stripy + newStripHeight - 1);
             }
         }

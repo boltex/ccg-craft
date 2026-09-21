@@ -6,7 +6,9 @@
 export const packData = [
     {
         key: "starterLimited",
-        label: "Starter Limited",
+        label: "Starter Pack",
+        deckEntry: "Starter Limited",
+        image: "starter-limited.webp",
         generation: [
             {
                 sheet: "limitedUncommon",
@@ -24,7 +26,9 @@ export const packData = [
     },
     {
         key: "boosterLimited",
-        label: "Booster Limited",
+        label: "Booster Pack",
+        deckEntry: "Booster Limited",
+        image: "booster-limited.webp",
         generation: [
             {
                 sheet: "limitedCommon",
@@ -42,7 +46,9 @@ export const packData = [
     },
     {
         key: "boosterArabianNights",
-        label: "Booster Arabian Nights",
+        label: "Arabian Nights",
+        deckEntry: "Booster Arabian Nights",
+        image: "booster-arabian-nights.webp",
         generation: [
             {
                 sheet: "arnUncommon",
@@ -56,7 +62,9 @@ export const packData = [
     },
     {
         key: "boosterAntiquities",
-        label: "Booster Antiquities",
+        label: "Antiquities",
+        deckEntry: "Booster Antiquities",
+        image: "booster-antiquities.webp",
         generation: [
             {
                 sheet: "atqUncommon",
@@ -70,7 +78,9 @@ export const packData = [
     },
     {
         key: "boosterLegends",
-        label: "Booster Legends",
+        label: "Legends",
+        deckEntry: "Booster Legends",
+        image: "booster-legends.webp",
         generation: [
             {
                 sheet: "lgnUncommon",
@@ -88,7 +98,9 @@ export const packData = [
     },
     {
         key: "boosterTheDark",
-        label: "Booster The Dark",
+        label: "The Dark",
+        deckEntry: "Booster The Dark",
+        image: "booster-the-dark.webp",
         generation: [
             {
                 sheet: "drkUncommon",
@@ -102,7 +114,9 @@ export const packData = [
     },
     {
         key: "boosterFallenEmpires",
-        label: "Booster Fallen Empires",
+        label: "Fallen Empires",
+        deckEntry: "Booster Fallen Empires",
+        image: "booster-fallen-empires.webp",
         generation: [
             {
                 sheet: "femUncommon",
@@ -135,16 +149,16 @@ export class PackSimController {
     private _currentY: number; // Current y position within the strip. This is relative to the sheet, not the strip itself.
 
     constructor(stripIndex?: number, stripy?: number, currentX?: number, currentY?: number) {
-        this._currentStripIndex = stripIndex ?? Math.floor(Math.random() * this._stripHeights.length);
+        this._currentStripIndex = stripIndex ?? 0;
         const stripHeight = this._stripHeights[this._currentStripIndex];
 
         // The y is calculated modulo 11 so it wraps around the sheet height if it exceeds the sheet height.
-        this._stripy = stripy ?? Math.floor(Math.random() * this._sheetHeight);
+        this._stripy = stripy ?? this._sheetHeight - 1; // default to the bottom of the sheet
 
         // Current x is anywhere within the sheet width.
-        this._currentX = currentX ?? Math.floor(Math.random() * this._sheetWidth);
+        this._currentX = currentX ?? this._sheetWidth - 1; // given or default to the rightmost column
         // Current y is anywhere within the current strip being processed.
-        this._currentY = currentY ?? Math.floor(Math.random() * (stripHeight)) + this._stripy;
+        this._currentY = currentY ?? this._stripy + stripHeight - 1; // default to the bottom of the current strip
 
         // Maybe currentY was given as an argument and is not in the range of the current strip. (given we also wrap around vertically) error out if so.
         if ((this._currentY - this._stripy + this._sheetHeight) % this._sheetHeight >= stripHeight) {
@@ -152,6 +166,16 @@ export class PackSimController {
         }
 
         console.log(`Initialized PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
+    }
+
+    public serialize(): { stripIndex: number, stripy: number, currentX: number, currentY: number } {
+        // could be used to store in localStorage and be recreated with the constructor later.
+        return {
+            stripIndex: this._currentStripIndex,
+            stripy: this._stripy,
+            currentX: this._currentX,
+            currentY: this._currentY,
+        };
     }
 
     public nextCardPosition(): { x: number, y: number } {

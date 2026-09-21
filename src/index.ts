@@ -53,6 +53,7 @@ import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 // @ts-expect-error 
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
 import { uncutSheets } from "./uncut-sheets-serials";
+import { packData, PackSimController } from "./pack-sim";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -118,6 +119,7 @@ const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-de
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
+const addPacksButtonsContainer = document.querySelector<HTMLDivElement>("#add-packs-buttons");
 const sheetRaritySelect = document.querySelector<HTMLSelectElement>("#sheet-rarity-select");
 const deckTabsContainer = document.querySelector<HTMLDivElement>("#deck-tabs");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
@@ -644,6 +646,13 @@ function restorePreviewHistory(): void {
     }
 }
 
+// Look for existing pack sim state in localStorage and restore it if available.
+function restorePackSimState(): void {
+    // There needs to be a pack sim state for each sheet in the pack simulation.
+    // The uncutSheets object imported from ./uncut-sheets-serials has keys corresponding to each sheet in the pack simulation.
+
+}
+
 async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
@@ -776,9 +785,45 @@ function populateSheetRaritySelect(): void {
     }
 }
 
+// Use packData to populate #add-packs-buttons div with  buttons with an image, which add the string 'Label' to the decklist, similar to the 'power 9' button which adds the 'Power 9' to the decklist.
+function populatePackSelect(): void {
+
+    if (!addPacksButtonsContainer) {
+        return;
+    }
+
+    addPacksButtonsContainer.replaceChildren(); // Clear existing buttons
+
+    for (const pack of packData) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.title = pack.label;
+        button.classList.add("pack-image");
+
+        const img = document.createElement("img");
+        img.src = pack.image;
+        img.alt = pack.label;
+        img.width = 72; // Set a fixed width for the pack images, adjust as needed.
+        img.height = 96; // Set a fixed height for the pack images, adjust as needed.
+
+        button.appendChild(img);
+
+        button.addEventListener("click", () => {
+            if (decklistTextArea) {
+                decklistTextArea.value += `${pack.deckEntry}\n`;
+                syncGeneratePdfButton();
+            }
+        });
+
+        addPacksButtonsContainer.appendChild(button);
+    }
+}
+
 async function bootstrap(): Promise<void> {
     restorePreviewHistory();
+    restorePackSimState();
     populateSheetRaritySelect();
+    populatePackSelect();
 
     if (lookupElement) {
         requestAnimationFrame(() => {

@@ -4,6 +4,7 @@ import { parseDecklistText } from "./decklist";
 import { prepareFaceArtForCard } from "./art-loader";
 import { generateDeckPdf } from "./pdf-export";
 import type { Card } from "./types";
+import { packData } from "./pack-sim";
 
 async function preloadCardArtForCards(
     cards: Card[],
@@ -87,9 +88,29 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
 
     const decklistCards: Card[] = [];
     for (const { quantity, cardName } of decklistEntries) {
+        // 1 - todo: First, if we match a booster pack or starter pack name,
+        //     then generate the card serials and push them to decklistCards (also honor quantity)
+        let packMatched = false;
+        for (const pack of packData) {
+            if (cardName === pack.deckEntry) {
+                for (let i = 0; i < quantity; i++) {
+
+                    // Todo: call function to generate card serials for the pack and push them to decklistCards
+                }
+                packMatched = true;
+                break; // no need to check other packs if we found a match
+            }
+        }
+
+        if (packMatched) {
+            continue; // No need to try matching by name prefix if we matched a pack
+        }
+
+        // 2- else, try to match a card by name prefix
         const serial = input.cardDatabase.findCardSerialByNamePrefix(cardName);
         if (serial === undefined) {
             console.log(`No card found starting with "${cardName}".`);
+            // The line was neither a pack nor a card match
             continue;
         }
 

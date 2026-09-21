@@ -157,7 +157,7 @@ export class PackSimController {
         const stripHeight = this._stripHeights[this._currentStripIndex];
 
         // The y is calculated modulo 11 so it wraps around the sheet height if it exceeds the sheet height.
-        this._stripy = stripy ?? this._sheetHeight - 1; // default to the bottom of the sheet
+        this._stripy = stripy ?? (this._sheetHeight - stripHeight); // Given, or place the strip at the bottom of the sheet.
         this._validateSheetCoordinate(this._stripy, "stripy");
 
         // Current x is anywhere within the sheet width.
@@ -219,10 +219,6 @@ export class PackSimController {
                 this._currentY = this._normalizeSheetCoordinate(this._stripy + newStripHeight - 1);
             }
         }
-
-
-        // For now just return the current position.
-
         return { x: this._currentX, y: this._currentY };
     }
 

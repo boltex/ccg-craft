@@ -659,6 +659,7 @@ function restorePackSimState(): void {
         if (!raw) {
             // No existing state, create a new PackSimController with default values.
             packSimControllers[sheetKey] = new PackSimController();
+            console.log(`Created new PackSimController for sheet ${sheetKey} with default state.`);
         } else {
 
             try {
@@ -673,6 +674,7 @@ function restorePackSimState(): void {
                 const currentY = typeof parsed.currentY === "number" ? parsed.currentY : undefined;
 
                 packSimControllers[sheetKey] = new PackSimController(stripIndex, stripy, currentX, currentY);
+                console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
             } catch (error) {
                 console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
                 packSimControllers[sheetKey] = new PackSimController(); // Fallback to default state if restoration fails.
@@ -884,6 +886,31 @@ async function bootstrap(): Promise<void> {
         }
 
         await updateStatusSummary();
+
+        // -----------------------------------------------------------------------------------
+        // Test the PackSimController by generating the next card positions for a couple iterations
+        // -----------------------------------------------------------------------------------
+        const testController = new PackSimController();
+
+        // The first strip is 2 rows of 11 cards, (22 cards)
+        // Then the next one is 3 rows of 11 cards, (33 cards)
+        // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
+        // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
+
+        console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
+
+        for (let i = 0; i < 56; i++) {
+            if (i && (i + 1) % 11 === 0) {
+                console.log(`passed 11 cards at iteration ${i}`);
+            }
+            const position = testController.nextCardPosition();
+            console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);
+        }
+        // -----------------------------------------------------------------------------------
+        // End of PackSimController test.
+        // -----------------------------------------------------------------------------------
+
+
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         setStatus("Fetch failed.");

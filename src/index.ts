@@ -245,12 +245,12 @@ if (generatePdfButton) {
         // Modes of this app: Sealed deck and constructed deck PDF generation
 
         if (activeDeckTab === "sealed") {
-            await generateSealedPDF();
+            await generateSealedPDF(); // Does not use pack simulation
         } else if (activeDeckTab === "constructed") {
             await generateConstructedPDF();
-            savePackSimState(); // The packs may have changed, so save their state.
+            savePackSimState(); // The packs may have changed, so save their state. (Uses PackSimController)
         } else if (activeDeckTab === "sheet") {
-            await generateSelectedSheetPdf();
+            await generateSelectedSheetPdf(); // Does not use pack simulation
         }
 
     });
@@ -647,52 +647,56 @@ function restorePreviewHistory(): void {
     }
 }
 
-// Look for existing pack sim state in localStorage and restore it if available. Create them otherwise.
+// Look for existing pack sim state in localStorage and restore it if available.
 function restorePackSimState(): void {
-    // There needs to be a pack sim state for each sheet in the pack simulation.
-    // The uncutSheets object imported from ./uncut-sheets-serials has keys corresponding to each sheet in the pack simulation.
+    // There needs to be a pack sim state for each sheet of each of the packData entries
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            const sheetKey = generationEntry.sheet;
+            const raw = window.localStorage.getItem(`packSimState_${pack.key}_${sheetKey}`);
+            if (!raw) {
+                generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+            } else {
+                try {
+                    const parsed = JSON.parse(raw);
+                    if (!parsed || typeof parsed !== "object") {
+                        throw new Error("Pack sim state must be an object.");
+                    }
 
-    // for (const sheetKey in uncutSheets) {
-    //     const raw = window.localStorage.getItem(`packSimState_${sheetKey}`);
-    //     if (!raw) {
-    //         // No existing state, create a new PackSimController with default values.
-    //         packSimControllers[sheetKey] = new PackSimController();
-    //         console.log(`Created new PackSimController for sheet ${sheetKey} with default state.`);
-    //     } else {
+                    const stripIndex = Number.isInteger(parsed.stripIndex) ? parsed.stripIndex : 0;
+                    const stripy = Number.isInteger(parsed.stripy) ? parsed.stripy : undefined;
+                    const currentX = Number.isInteger(parsed.currentX) ? parsed.currentX : undefined;
+                    const currentY = Number.isInteger(parsed.currentY) ? parsed.currentY : undefined;
 
-    //         try {
-    //             const parsed = JSON.parse(raw);
-    //             if (!parsed || typeof parsed !== "object") {
-    //                 throw new Error("Pack sim state must be an object.");
-    //             }
+                    const stripSequence =
+                        Array.isArray(parsed.stripSequence) &&
+                            parsed.stripSequence.every((height: unknown) => Number.isInteger(height) && (height as number) > 0)
+                            ? parsed.stripSequence
+                            : pack.stripSequence;
 
-    //             const stripIndex = typeof parsed.stripIndex === "number" ? parsed.stripIndex : 0;
-    //             const stripy = typeof parsed.stripy === "number" ? parsed.stripy : undefined;
-    //             const currentX = typeof parsed.currentX === "number" ? parsed.currentX : undefined;
-    //             const currentY = typeof parsed.currentY === "number" ? parsed.currentY : undefined;
-
-    //             packSimControllers[sheetKey] = new PackSimController(stripIndex, stripy, currentX, currentY);
-    //             console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
-    //         } catch (error) {
-    //             console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
-    //             packSimControllers[sheetKey] = new PackSimController(); // Fallback to default state if restoration fails.
-
-    //         }
-    //     }
-
-    // }
+                    generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
+                    console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
+                } catch (error) {
+                    console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
+                    generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+                }
+            }
+        }
+    }
 }
 
 function savePackSimState(): void {
-    // for (const sheetKey in packSimControllers) {
-    //     const controller = packSimControllers[sheetKey];
-    //     try {
-    //         const state = controller.serialize();
-    //         window.localStorage.setItem(`packSimState_${sheetKey}`, JSON.stringify(state));
-    //     } catch (error) {
-    //         console.error(`Failed to save pack sim state for sheet ${sheetKey}:`, error);
-    //     }
-    // }
+    // Mirror the logic from restorePackSimState to save each pack sim controller's state.
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            if (!generationEntry.packSimController) {
+                continue; // Skip if there's no pack sim controller for this generation entry.
+            }
+            const sheetKey = generationEntry.sheet;
+            const state = generationEntry.packSimController.serialize();
+            window.localStorage.setItem(`packSimState_${pack.key}_${sheetKey}`, JSON.stringify(state));
+        }
+    }
 }
 
 async function showCardPreview(query: string): Promise<void> {
@@ -889,7 +893,7 @@ async function bootstrap(): Promise<void> {
             // -----------------------------------------------------------------------------------
             // Test the PackSimController by generating the next card positions for a couple iterations
             // -----------------------------------------------------------------------------------
-            const testController = new PackSimController();
+            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
 
             // The first strip is 2 rows of 11 cards, (22 cards)
             // Then the next one is 3 rows of 11 cards, (33 cards)

@@ -88,7 +88,7 @@ export const LandBorderColorByEdition: { [key: number]: Color } = {
     11: [75, 93, 48], // VI
 };
 
-export const maxCardsInDeck = 200;
+export const maxCardsInDeck = 300;
 export const sealedDeckSize = 81;
 
 export const CardWidth = 232;

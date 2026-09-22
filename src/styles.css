@@ -346,6 +346,7 @@ button {
   -webkit-user-select: none;
   user-select: none;
   transition:
+    scale 120ms ease,
     transform 120ms ease,
     box-shadow 120ms ease,
     border-color 120ms ease,
@@ -501,6 +502,26 @@ button:disabled {
 .col button {
   margin-bottom: 10px;
   margin-right: 8px;
+}
+
+.pack-image {
+  padding: 0;
+  background: unset;
+  border: none;
+  box-shadow: none;
+}
+.pack-image:before {
+  content: none;
+}
+.pack-image:hover {
+  box-shadow: none;
+  transform: translateY(3px) scale(1.5);
+  z-index: 10;
+}
+.pack-image:active {
+  box-shadow: none;
+  transform: translateY(3px) scale(1.75);
+  z-index: 10;
 }
 
 .edition-checkboxes {

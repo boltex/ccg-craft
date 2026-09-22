@@ -92,7 +92,7 @@
                     </div>
                     <div class="col">
                         <p class="user-instructions">
-                            You can use a prefix like '2x Dark Ritual' for multiples.
+                            You can use a prefix like '2x Dark Ritual' for multiples. (Max 300 cards)
                         </p>
                         <p class="mb-6 text-center">
                             <button type="button" id="load-decklist" title="Load decklist from a file">Load
@@ -104,11 +104,7 @@
                                 title="Add the Power 9 cards to the decklist">Power 9</button>
                             <input type="file" id="load-decklist-file" accept="text/plain" hidden />
                         </p>
-                        <p class="mb-0 text-center" id="add-packs-buttons">
-                            <!-- TODO : 7 buttons for limited starter, limited booster, and the five other old-school sets boosters. -->
-
-
-                        </p>
+                        <p class="mb-0 text-center" id="add-packs-buttons"></p>
                     </div>
                 </div>
             </div>
@@ -138,6 +134,9 @@
                     <button type="button" id="export-art-cache" title="Export Local Art Database">Export DB</button>
                     <button type="button" id="import-art-cache" title="Import Local Art Database">Import DB</button>
                     <input type="file" id="import-art-cache-file" accept="application/zip" hidden />
+
+                    <button type="button" id="randomize-packs" title="Randomize Packs">Randomize Packs</button>
+                    <button type="button" id="reset-packs-collation" title="Reset Packs Collation">Reset Packs</button>
                 </p>
             </div>
 

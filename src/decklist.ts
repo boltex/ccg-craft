@@ -15,10 +15,21 @@ export function parseDecklistText(rawText: string): DecklistEntry[] {
         .map(line => line.toLowerCase())
         .filter(line => line.length > 0);
 
+    // clip cleanedLines to a maximum of 300 entries
+    if (cleanedLines.length > 300) {
+        cleanedLines.length = 300;
+    }
+
     return cleanedLines.map(line => {
         const match = line.match(/^(\d+)x\s*(.*)$/i);
         if (match) {
-            return { quantity: parseInt(match[1], 10), cardName: match[2] };
+            let quantity = parseInt(match[1], 10);
+            const cardName = match[2];
+            if (quantity > 99) {
+                quantity = 99;
+            }
+
+            return { quantity, cardName };
         }
         return { quantity: 1, cardName: line };
     });

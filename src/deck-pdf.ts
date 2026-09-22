@@ -4,6 +4,8 @@ import { parseDecklistText } from "./decklist";
 import { prepareFaceArtForCard } from "./art-loader";
 import { generateDeckPdf } from "./pdf-export";
 import type { Card } from "./types";
+import { packData } from "./pack-sim";
+import { uncutSheets } from "./uncut-sheets-serials";
 
 async function preloadCardArtForCards(
     cards: Card[],
@@ -87,15 +89,54 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
 
     const decklistCards: Card[] = [];
     for (const { quantity, cardName } of decklistEntries) {
+        // 1 - todo: First, if we match a booster pack or starter pack name,
+        //     then generate the card serials and push them to decklistCards (also honor quantity)
+        let packMatched = false;
+        for (const pack of packData) {
+            if (cardName.toLowerCase() === pack.deckEntry.toLowerCase()) {
+                for (let i = 0; i < quantity; i++) {
+
+                    for (const rarity of pack.generation) {
+                        if (!rarity.packSimController) {
+                            throw new Error("PackSimController is not initialized for this rarity.");
+                        }
+
+                        // For rarity.count, generate that many cards from the pack
+                        for (let i = 0; i < rarity.count; i++) {
+                            const position = rarity.packSimController.nextCardPosition();
+                            const serial = uncutSheets[rarity.sheet].cards[position.y * 11 + position.x];
+                            const card = input.cardDatabase.getCardBySerial(serial);
+                            decklistCards.push(card);
+                            if (decklistCards.length > constants.maxCardsInDeck) {
+                                throw new Error(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
+                            }
+                        }
+                    }
+
+                }
+                packMatched = true;
+                break; // no need to check other packs if we found a match
+            }
+        }
+
+        if (packMatched) {
+            continue; // No need to try matching by name prefix if we matched a pack
+        }
+
+        // 2- else, try to match a card by name prefix
         const serial = input.cardDatabase.findCardSerialByNamePrefix(cardName);
         if (serial === undefined) {
             console.log(`No card found starting with "${cardName}".`);
+            // The line was neither a pack nor a card match
             continue;
         }
 
         const card = input.cardDatabase.getCardBySerial(serial);
         for (let i = 0; i < quantity; i++) {
             decklistCards.push(card);
+            if (decklistCards.length > constants.maxCardsInDeck) {
+                throw new Error(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
+            }
         }
     }
 

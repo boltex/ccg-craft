@@ -53,6 +53,7 @@ import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 // @ts-expect-error 
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
 import { uncutSheets } from "./uncut-sheets-serials";
+import { packData, PackSimController } from "./pack-sim";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -107,6 +108,8 @@ const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
+const randomizePacksButton = document.querySelector<HTMLButtonElement>("#randomize-packs");
+const resetPacksCollationButton = document.querySelector<HTMLButtonElement>("#reset-packs-collation");
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
@@ -118,6 +121,7 @@ const clearDecklistButton = document.querySelector<HTMLButtonElement>("#clear-de
 const loadDecklistFileInput = document.querySelector<HTMLInputElement>("#load-decklist-file");
 const addToDecklistButton = document.querySelector<HTMLButtonElement>("#add-to-decklist");
 const addP9ToDecklistButton = document.querySelector<HTMLButtonElement>("#add-p9-to-decklist");
+const addPacksButtonsContainer = document.querySelector<HTMLDivElement>("#add-packs-buttons");
 const sheetRaritySelect = document.querySelector<HTMLSelectElement>("#sheet-rarity-select");
 const deckTabsContainer = document.querySelector<HTMLDivElement>("#deck-tabs");
 const deckTabButtons = document.querySelectorAll<HTMLButtonElement>(".deck-tab");
@@ -243,11 +247,12 @@ if (generatePdfButton) {
         // Modes of this app: Sealed deck and constructed deck PDF generation
 
         if (activeDeckTab === "sealed") {
-            await generateSealedPDF();
+            await generateSealedPDF(); // Does not use pack simulation
         } else if (activeDeckTab === "constructed") {
             await generateConstructedPDF();
+            savePackSimState(); // The packs may have changed, so save their state. (Uses PackSimController)
         } else if (activeDeckTab === "sheet") {
-            await generateSelectedSheetPdf();
+            await generateSelectedSheetPdf(); // Does not use pack simulation
         }
 
     });
@@ -394,6 +399,12 @@ if (clearArtCacheButton) {
 if (exportArtCacheButton) {
     exportArtCacheButton.addEventListener("click", async () => {
         try {
+
+            // ask first
+            if (!window.confirm("Export all cached art images to a zip archive?")) {
+                return;
+            }
+
             const exportBlob = await exportCachedFaceArt();
             downloadArtCacheExport(exportBlob);
             await updateStatusSummary("Art cache exported.");
@@ -433,6 +444,19 @@ if (importArtCacheButton && importArtCacheFileInput) {
     });
 }
 
+if (randomizePacksButton) {
+    randomizePacksButton.addEventListener("click", () => {
+        // randomizePacks();
+        window.alert("Todo: Implement randomize packs functionality.");
+    });
+}
+
+if (resetPacksCollationButton) {
+    resetPacksCollationButton.addEventListener("click", () => {
+        resetPacksCollationHandler();
+    });
+}
+
 async function generateSealedPDF(): Promise<void> {
     const selectedEditions = Object.entries(editionSelection)
         .filter(([, checked]) => checked)
@@ -444,10 +468,12 @@ async function generateSealedPDF(): Promise<void> {
     // TODO: also show this when checking/unchecking editions instead of when generating the sealed deck itself!
     // console.log(`Total unique available cards without basic lands: ${cardPool.length}`);
 
-    if (cardPool.length === 0 || !generatePdfButton) {
+    if (cardPool.length === 0 || !generatePdfButton || !decklistPaperSizeSelect) {
         setStatus("No cards are available for the selected editions.");
         return;
     }
+
+    decklistPaperSizeSelect.disabled = true;
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
@@ -481,9 +507,10 @@ async function generateSealedPDF(): Promise<void> {
 }
 
 async function generateConstructedPDF(): Promise<void> {
-    if (!generatePdfButton) {
+    if (!generatePdfButton || !decklistPaperSizeSelect) {
         return;
     }
+    decklistPaperSizeSelect.disabled = true;
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
@@ -644,6 +671,85 @@ function restorePreviewHistory(): void {
     }
 }
 
+// Look for existing pack sim state in localStorage and restore it if available.
+function restorePackSimState(): void {
+    // There needs to be a pack sim state for each sheet of each of the packData entries
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            const sheetKey = generationEntry.sheet;
+            const raw = window.localStorage.getItem(`packSimState_${pack.key}_${sheetKey}`);
+            if (!raw) {
+                generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+                // console.log(`Initialized new PackSimController of pack ${pack.key} for sheet ${sheetKey} with default state.`);
+            } else {
+                try {
+                    const parsed = JSON.parse(raw);
+                    if (!parsed || typeof parsed !== "object") {
+                        throw new Error("Pack sim state must be an object.");
+                    }
+
+                    const stripIndex = Number.isInteger(parsed.stripIndex) ? parsed.stripIndex : 0;
+                    const stripy = Number.isInteger(parsed.stripy) ? parsed.stripy : undefined;
+                    const currentX = Number.isInteger(parsed.currentX) ? parsed.currentX : undefined;
+                    const currentY = Number.isInteger(parsed.currentY) ? parsed.currentY : undefined;
+
+                    const stripSequence =
+                        Array.isArray(parsed.stripSequence) &&
+                            parsed.stripSequence.every((height: unknown) => Number.isInteger(height) && (height as number) > 0)
+                            ? parsed.stripSequence
+                            : pack.stripSequence;
+
+                    generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
+                    // console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
+                } catch (error) {
+                    console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
+                    generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+                }
+            }
+        }
+    }
+}
+
+function savePackSimState(): void {
+    // Mirror the logic from restorePackSimState to save each pack sim controller's state.
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            if (!generationEntry.packSimController) {
+                continue; // Skip if there's no pack sim controller for this generation entry.
+            }
+            const sheetKey = generationEntry.sheet;
+            const state = generationEntry.packSimController.serialize();
+            window.localStorage.setItem(`packSimState_${pack.key}_${sheetKey}`, JSON.stringify(state));
+        }
+    }
+}
+
+function clearPackSimState(): void {
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            if (!generationEntry.packSimController) {
+                continue; // Skip if there's no pack sim controller for this generation entry.
+            }
+            const sheetKey = generationEntry.sheet;
+            window.localStorage.removeItem(`packSimState_${pack.key}_${sheetKey}`);
+        }
+    }
+}
+
+function resetPacksCollationHandler(): void {
+    if (!window.confirm("Reset all packs collation?")) {
+        return;
+    }
+    clearPackSimState();
+    //Reset any in-memory state related to pack collation here.
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+        }
+    }
+}
+
+
 async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
     if (serial === undefined) {
@@ -776,9 +882,47 @@ function populateSheetRaritySelect(): void {
     }
 }
 
+// Use packData to populate #add-packs-buttons div with  buttons with an image, which add the string 'Label' to the decklist, similar to the 'power 9' button which adds the 'Power 9' to the decklist.
+function populatePackSelect(): void {
+
+    if (!addPacksButtonsContainer) {
+        return;
+    }
+
+    addPacksButtonsContainer.replaceChildren(); // Clear existing buttons
+
+    for (const pack of packData) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.title = pack.label;
+        button.classList.add("pack-image");
+
+        const img = document.createElement("img");
+        img.src = pack.image;
+        img.alt = pack.label;
+        img.width = 72; // Set a fixed width for the pack images, adjust as needed.
+        img.height = 96; // Set a fixed height for the pack images, adjust as needed.
+
+        button.appendChild(img);
+
+        button.addEventListener("click", () => {
+            if (decklistTextArea) {
+                decklistTextArea.value += `${pack.deckEntry}\n`;
+                syncGeneratePdfButton();
+            }
+        });
+
+        addPacksButtonsContainer.appendChild(button);
+    }
+}
+
 async function bootstrap(): Promise<void> {
+
     restorePreviewHistory();
+    restorePackSimState();
+
     populateSheetRaritySelect();
+    populatePackSelect();
 
     if (lookupElement) {
         requestAnimationFrame(() => {
@@ -795,6 +939,54 @@ async function bootstrap(): Promise<void> {
         }
 
         await updateStatusSummary();
+
+        if (isDebug) {
+            // -----------------------------------------------------------------------------------
+            // Test the PackSimController by generating the next card positions for a couple iterations
+            // -----------------------------------------------------------------------------------
+            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
+
+            // The first strip is 2 rows of 11 cards, (22 cards)
+            // Then the next one is 3 rows of 11 cards, (33 cards)
+            // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
+            // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
+            // And looking at more than 242 cards, let's say 245, would wrap around top of some sheets.
+
+            console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
+
+            for (let i = 0; i < 245; i++) {
+                if (i && (i + 1) % 11 === 0) {
+                    console.log(`passed 11 cards at iteration ${i}`);
+                }
+                if (i && (i + 1) % 121 === 0) {
+                    console.log(`passed 121 cards at iteration ${i}`);
+                }
+                const position = testController.nextCardPosition();
+                console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);
+            }
+            // -----------------------------------------------------------------------------------
+            // End of PackSimController test.
+            // -----------------------------------------------------------------------------------
+
+
+        }
+
+        if (isDebug) {
+            // first change one of the pack sim states
+            packData[0].generation[0].packSimController?.nextCardPosition();
+
+            // second, save the current state
+            savePackSimState();
+
+            // Last, restore and compare
+            restorePackSimState();
+            console.log("Restored PackSimState for all packs and sheets.");
+        }
+        if (isDebug) {
+            console.log("Clearing PackSimState for all packs and sheets.");
+            clearPackSimState();
+        }
+
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         setStatus("Fetch failed.");

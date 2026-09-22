@@ -2,141 +2,11 @@
 // Should be serialazable to save in local storage and be restored later.
 // One per rarity-sheet of each set of cards.
 
-// Seven possible packs. Only limited has 'rare' cards.
-export const packData = [
-    {
-        key: "starterLimited",
-        label: "Starter Pack",
-        deckEntry: "Starter Limited",
-        image: "starter-limited.webp",
-        generation: [
-            {
-                sheet: "limitedUncommon",
-                count: 13
-            },
-            {
-                sheet: "limitedRare",
-                count: 2
-            },
-            {
-                sheet: "limitedCommon",
-                count: 45
-            },
-        ]
-    },
-    {
-        key: "boosterLimited",
-        label: "Booster Pack",
-        deckEntry: "Booster Limited",
-        image: "booster-limited.webp",
-        generation: [
-            {
-                sheet: "limitedCommon",
-                count: 11
-            },
-            {
-                sheet: "limitedUncommon",
-                count: 3
-            },
-            {
-                sheet: "limitedRare",
-                count: 1
-            },
-        ]
-    },
-    {
-        key: "boosterArabianNights",
-        label: "Arabian Nights",
-        deckEntry: "Booster Arabian Nights",
-        image: "booster-arabian-nights.webp",
-        generation: [
-            {
-                sheet: "arnUncommon",
-                count: 2
-            },
-            {
-                sheet: "arnCommon",
-                count: 6
-            },
-        ]
-    },
-    {
-        key: "boosterAntiquities",
-        label: "Antiquities",
-        deckEntry: "Booster Antiquities",
-        image: "booster-antiquities.webp",
-        generation: [
-            {
-                sheet: "atqUncommon",
-                count: 2
-            },
-            {
-                sheet: "atqCommon",
-                count: 6
-            },
-        ]
-    },
-    {
-        key: "boosterLegends",
-        label: "Legends",
-        deckEntry: "Booster Legends",
-        image: "booster-legends.webp",
-        generation: [
-            {
-                sheet: "lgnUncommon",
-                count: 3
-            },
-            {
-                sheet: "lgnRare",
-                count: 1
-            },
-            {
-                sheet: "lgnCommon",
-                count: 11
-            },
-        ]
-    },
-    {
-        key: "boosterTheDark",
-        label: "The Dark",
-        deckEntry: "Booster The Dark",
-        image: "booster-the-dark.webp",
-        generation: [
-            {
-                sheet: "drkUncommon",
-                count: 2
-            },
-            {
-                sheet: "drkCommon",
-                count: 6
-            },
-        ]
-    },
-    {
-        key: "boosterFallenEmpires",
-        label: "Fallen Empires",
-        deckEntry: "Booster Fallen Empires",
-        image: "booster-fallen-empires.webp",
-        generation: [
-            {
-                sheet: "femUncommon",
-                count: 2
-            },
-            {
-                sheet: "femCommon",
-                count: 6
-            },
-        ]
-    }
-
-];
-
-
 export class PackSimController {
 
     // strip heights sequence, wraps around.
-    private _stripHeights: number[] = [2, 3, 4, 4, 3, 5];
-    private _currentStripIndex: number = 0;
+    private _stripHeights: number[];
+    private _currentStripIndex: number;
 
     // Sheets are 11 by 11. Total of 121 cards per sheet.
     // strip width is implied of 11 cards.
@@ -148,9 +18,12 @@ export class PackSimController {
     private _currentX: number; // Current x position within the strip. This is relative to the sheet, not the strip itself.
     private _currentY: number; // Current y position within the strip. This is relative to the sheet, not the strip itself.
 
-    constructor(stripIndex?: number, stripy?: number, currentX?: number, currentY?: number) {
+    constructor(stripIndex?: number, stripy?: number, currentX?: number, currentY?: number, stripSequence?: number[],) {
+
+        this._stripHeights = stripSequence ?? [2, 3, 4, 4, 3, 5]; // Default to the standard strip sequence.
         this._currentStripIndex = stripIndex ?? 0;
-        if (!Number.isInteger(this._currentStripIndex) || this._currentStripIndex < 0 || this._currentStripIndex >= this._stripHeights.length) {
+
+        if (!Number.isInteger(this._currentStripIndex) || this._currentStripIndex < 0 || this._currentStripIndex >= (stripSequence?.length ?? this._stripHeights.length)) {
             throw new Error("stripIndex is out of range.");
         }
 
@@ -175,13 +48,48 @@ export class PackSimController {
         console.log(`Initialized PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
     }
 
-    public serialize(): { stripIndex: number, stripy: number, currentX: number, currentY: number } {
+    public set(stripIndex?: number, stripy?: number, currentX?: number, currentY?: number, stripSequence?: number[],) {
+        if (stripSequence) {
+            this._stripHeights = stripSequence;
+        }
+        if (stripIndex !== undefined) {
+            this._currentStripIndex = stripIndex;
+        }
+        if (stripy !== undefined) {
+            this._stripy = stripy;
+        }
+        if (currentX !== undefined) {
+            this._currentX = currentX;
+        }
+        if (currentY !== undefined) {
+            this._currentY = currentY;
+        }
+
+        this._validateSheetCoordinate(this._stripy, "stripy");
+        this._validateSheetCoordinate(this._currentX, "currentX");
+        this._validateSheetCoordinate(this._currentY, "currentY");
+
+        if (!Number.isInteger(this._currentStripIndex) || this._currentStripIndex < 0 || this._currentStripIndex >= (stripSequence?.length ?? this._stripHeights.length)) {
+            throw new Error("stripIndex is out of range.");
+        }
+
+        const stripHeight = this._stripHeights[this._currentStripIndex];
+        if (this._verticalDistanceFromStripTop() >= stripHeight) {
+            throw new Error("currentY is out of the range of the current strip.");
+        }
+
+        console.log(`Set PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
+
+    }
+
+    public serialize(): { stripIndex: number, stripy: number, currentX: number, currentY: number, stripSequence: number[], } {
         // could be used to store in localStorage and be recreated with the constructor later.
         return {
             stripIndex: this._currentStripIndex,
             stripy: this._stripy,
             currentX: this._currentX,
             currentY: this._currentY,
+            stripSequence: this._stripHeights,
         };
     }
 
@@ -236,3 +144,138 @@ export class PackSimController {
         return this._normalizeSheetCoordinate(this._currentY - this._stripy);
     }
 };
+
+// Seven possible packs. Only Limited and Legends have 'rare' cards.
+export const packData = [
+    {
+        key: "starterLimited",
+        label: "Starter Pack",
+        deckEntry: "Starter Limited",
+        image: "starter-limited.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5],
+        generation: [
+            {
+                sheet: "limitedUncommon",
+                count: 13
+            },
+            {
+                sheet: "limitedRare",
+                count: 2
+            },
+            {
+                sheet: "limitedCommon",
+                count: 45
+            },
+        ]
+    },
+    {
+        key: "boosterLimited",
+        label: "Booster Pack",
+        deckEntry: "Booster Limited",
+        image: "booster-limited.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5],
+        generation: [
+            {
+                sheet: "limitedCommon",
+                count: 11
+            },
+            {
+                sheet: "limitedUncommon",
+                count: 3
+            },
+            {
+                sheet: "limitedRare",
+                count: 1
+            },
+        ]
+    },
+    {
+        key: "boosterArabianNights",
+        label: "Arabian Nights",
+        deckEntry: "Booster Arabian Nights",
+        image: "booster-arabian-nights.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+        generation: [
+            {
+                sheet: "arnUncommon",
+                count: 2
+            },
+            {
+                sheet: "arnCommon",
+                count: 6
+            },
+        ]
+    },
+    {
+        key: "boosterAntiquities",
+        label: "Antiquities",
+        deckEntry: "Booster Antiquities",
+        image: "booster-antiquities.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+        generation: [
+            {
+                sheet: "atqUncommon",
+                count: 2
+            },
+            {
+                sheet: "atqCommon",
+                count: 6
+            },
+        ]
+    },
+    {
+        key: "boosterLegends",
+        label: "Legends",
+        deckEntry: "Booster Legends",
+        image: "booster-legends.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+        generation: [
+            {
+                sheet: "lgnUncommon",
+                count: 3
+            },
+            {
+                sheet: "lgnRare",
+                count: 1
+            },
+            {
+                sheet: "lgnCommon",
+                count: 11
+            },
+        ]
+    },
+    {
+        key: "boosterTheDark",
+        label: "The Dark",
+        deckEntry: "Booster The Dark",
+        image: "booster-the-dark.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+        generation: [
+            {
+                sheet: "drkUncommon",
+                count: 2
+            },
+            {
+                sheet: "drkCommon",
+                count: 6
+            },
+        ]
+    },
+    {
+        key: "boosterFallenEmpires",
+        label: "Fallen Empires",
+        deckEntry: "Booster Fallen Empires",
+        image: "booster-fallen-empires.webp",
+        stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+        generation: [
+            {
+                sheet: "femUncommon",
+                count: 2
+            },
+            {
+                sheet: "femCommon",
+                count: 6
+            },
+        ]
+    }
+];

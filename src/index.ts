@@ -146,8 +146,6 @@ let previewHistorySaveTimeout: number | undefined;
 
 let isDebug = false;
 
-const packSimControllers: Record<string, PackSimController> = {};
-
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
     let debounceTimeout: number | undefined;
@@ -654,47 +652,47 @@ function restorePackSimState(): void {
     // There needs to be a pack sim state for each sheet in the pack simulation.
     // The uncutSheets object imported from ./uncut-sheets-serials has keys corresponding to each sheet in the pack simulation.
 
-    for (const sheetKey in uncutSheets) {
-        const raw = window.localStorage.getItem(`packSimState_${sheetKey}`);
-        if (!raw) {
-            // No existing state, create a new PackSimController with default values.
-            packSimControllers[sheetKey] = new PackSimController();
-            console.log(`Created new PackSimController for sheet ${sheetKey} with default state.`);
-        } else {
+    // for (const sheetKey in uncutSheets) {
+    //     const raw = window.localStorage.getItem(`packSimState_${sheetKey}`);
+    //     if (!raw) {
+    //         // No existing state, create a new PackSimController with default values.
+    //         packSimControllers[sheetKey] = new PackSimController();
+    //         console.log(`Created new PackSimController for sheet ${sheetKey} with default state.`);
+    //     } else {
 
-            try {
-                const parsed = JSON.parse(raw);
-                if (!parsed || typeof parsed !== "object") {
-                    throw new Error("Pack sim state must be an object.");
-                }
+    //         try {
+    //             const parsed = JSON.parse(raw);
+    //             if (!parsed || typeof parsed !== "object") {
+    //                 throw new Error("Pack sim state must be an object.");
+    //             }
 
-                const stripIndex = typeof parsed.stripIndex === "number" ? parsed.stripIndex : 0;
-                const stripy = typeof parsed.stripy === "number" ? parsed.stripy : undefined;
-                const currentX = typeof parsed.currentX === "number" ? parsed.currentX : undefined;
-                const currentY = typeof parsed.currentY === "number" ? parsed.currentY : undefined;
+    //             const stripIndex = typeof parsed.stripIndex === "number" ? parsed.stripIndex : 0;
+    //             const stripy = typeof parsed.stripy === "number" ? parsed.stripy : undefined;
+    //             const currentX = typeof parsed.currentX === "number" ? parsed.currentX : undefined;
+    //             const currentY = typeof parsed.currentY === "number" ? parsed.currentY : undefined;
 
-                packSimControllers[sheetKey] = new PackSimController(stripIndex, stripy, currentX, currentY);
-                console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
-            } catch (error) {
-                console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
-                packSimControllers[sheetKey] = new PackSimController(); // Fallback to default state if restoration fails.
+    //             packSimControllers[sheetKey] = new PackSimController(stripIndex, stripy, currentX, currentY);
+    //             console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
+    //         } catch (error) {
+    //             console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
+    //             packSimControllers[sheetKey] = new PackSimController(); // Fallback to default state if restoration fails.
 
-            }
-        }
+    //         }
+    //     }
 
-    }
+    // }
 }
 
 function savePackSimState(): void {
-    for (const sheetKey in packSimControllers) {
-        const controller = packSimControllers[sheetKey];
-        try {
-            const state = controller.serialize();
-            window.localStorage.setItem(`packSimState_${sheetKey}`, JSON.stringify(state));
-        } catch (error) {
-            console.error(`Failed to save pack sim state for sheet ${sheetKey}:`, error);
-        }
-    }
+    // for (const sheetKey in packSimControllers) {
+    //     const controller = packSimControllers[sheetKey];
+    //     try {
+    //         const state = controller.serialize();
+    //         window.localStorage.setItem(`packSimState_${sheetKey}`, JSON.stringify(state));
+    //     } catch (error) {
+    //         console.error(`Failed to save pack sim state for sheet ${sheetKey}:`, error);
+    //     }
+    // }
 }
 
 async function showCardPreview(query: string): Promise<void> {
@@ -887,33 +885,34 @@ async function bootstrap(): Promise<void> {
 
         await updateStatusSummary();
 
-        // -----------------------------------------------------------------------------------
-        // Test the PackSimController by generating the next card positions for a couple iterations
-        // -----------------------------------------------------------------------------------
-        const testController = new PackSimController();
+        if (isDebug) {
+            // -----------------------------------------------------------------------------------
+            // Test the PackSimController by generating the next card positions for a couple iterations
+            // -----------------------------------------------------------------------------------
+            const testController = new PackSimController();
 
-        // The first strip is 2 rows of 11 cards, (22 cards)
-        // Then the next one is 3 rows of 11 cards, (33 cards)
-        // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
-        // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
-        // And looking at more than 242 cards, let's say 245, would wrap around top of some sheets.
+            // The first strip is 2 rows of 11 cards, (22 cards)
+            // Then the next one is 3 rows of 11 cards, (33 cards)
+            // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
+            // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
+            // And looking at more than 242 cards, let's say 245, would wrap around top of some sheets.
 
-        console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
+            console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
 
-        for (let i = 0; i < 245; i++) {
-            if (i && (i + 1) % 11 === 0) {
-                console.log(`passed 11 cards at iteration ${i}`);
+            for (let i = 0; i < 245; i++) {
+                if (i && (i + 1) % 11 === 0) {
+                    console.log(`passed 11 cards at iteration ${i}`);
+                }
+                if (i && (i + 1) % 121 === 0) {
+                    console.log(`passed 121 cards at iteration ${i}`);
+                }
+                const position = testController.nextCardPosition();
+                console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);
             }
-            if (i && (i + 1) % 121 === 0) {
-                console.log(`passed 121 cards at iteration ${i}`);
-            }
-            const position = testController.nextCardPosition();
-            console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);
+            // -----------------------------------------------------------------------------------
+            // End of PackSimController test.
+            // -----------------------------------------------------------------------------------
         }
-        // -----------------------------------------------------------------------------------
-        // End of PackSimController test.
-        // -----------------------------------------------------------------------------------
-
 
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);

@@ -108,6 +108,8 @@ const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
 const importArtCacheButton = document.querySelector<HTMLButtonElement>("#import-art-cache")
+const randomizePacksButton = document.querySelector<HTMLButtonElement>("#randomize-packs");
+const resetPacksCollationButton = document.querySelector<HTMLButtonElement>("#reset-packs-collation");
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
@@ -397,6 +399,12 @@ if (clearArtCacheButton) {
 if (exportArtCacheButton) {
     exportArtCacheButton.addEventListener("click", async () => {
         try {
+
+            // ask first
+            if (!window.confirm("Export all cached art images to a zip archive?")) {
+                return;
+            }
+
             const exportBlob = await exportCachedFaceArt();
             downloadArtCacheExport(exportBlob);
             await updateStatusSummary("Art cache exported.");
@@ -433,6 +441,19 @@ if (importArtCacheButton && importArtCacheFileInput) {
             const message = error instanceof Error ? error.message : String(error);
             setStatus(`Failed to import art cache: ${message}`);
         }
+    });
+}
+
+if (randomizePacksButton) {
+    randomizePacksButton.addEventListener("click", () => {
+        // randomizePacks();
+        window.alert("Todo: Implement randomize packs functionality.");
+    });
+}
+
+if (resetPacksCollationButton) {
+    resetPacksCollationButton.addEventListener("click", () => {
+        resetPacksCollationHandler();
     });
 }
 
@@ -656,6 +677,7 @@ function restorePackSimState(): void {
             const raw = window.localStorage.getItem(`packSimState_${pack.key}_${sheetKey}`);
             if (!raw) {
                 generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+                // console.log(`Initialized new PackSimController of pack ${pack.key} for sheet ${sheetKey} with default state.`);
             } else {
                 try {
                     const parsed = JSON.parse(raw);
@@ -675,7 +697,7 @@ function restorePackSimState(): void {
                             : pack.stripSequence;
 
                     generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
-                    console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
+                    // console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
                 } catch (error) {
                     console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
                     generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
@@ -698,6 +720,32 @@ function savePackSimState(): void {
         }
     }
 }
+
+function clearPackSimState(): void {
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            if (!generationEntry.packSimController) {
+                continue; // Skip if there's no pack sim controller for this generation entry.
+            }
+            const sheetKey = generationEntry.sheet;
+            window.localStorage.removeItem(`packSimState_${pack.key}_${sheetKey}`);
+        }
+    }
+}
+
+function resetPacksCollationHandler(): void {
+    if (!window.confirm("Reset all packs collation?")) {
+        return;
+    }
+    clearPackSimState();
+    //Reset any in-memory state related to pack collation here.
+    for (const pack of packData) {
+        for (const generationEntry of pack.generation) {
+            generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+        }
+    }
+}
+
 
 async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
@@ -916,6 +964,24 @@ async function bootstrap(): Promise<void> {
             // -----------------------------------------------------------------------------------
             // End of PackSimController test.
             // -----------------------------------------------------------------------------------
+
+
+        }
+
+        if (isDebug) {
+            // first change one of the pack sim states
+            packData[0].generation[0].packSimController?.nextCardPosition();
+
+            // second, save the current state
+            savePackSimState();
+
+            // Last, restore and compare
+            restorePackSimState();
+            console.log("Restored PackSimState for all packs and sheets.");
+        }
+        if (isDebug) {
+            console.log("Clearing PackSimState for all packs and sheets.");
+            clearPackSimState();
         }
 
     } catch (error) {

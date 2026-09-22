@@ -2,6 +2,8 @@
 // Should be serialazable to save in local storage and be restored later.
 // One per rarity-sheet of each set of cards.
 
+import { uncutSheets } from "./uncut-sheets-serials";
+
 export class PackSimController {
 
     // strip heights sequence, wraps around.
@@ -45,7 +47,7 @@ export class PackSimController {
             throw new Error("currentY is out of the range of the current strip.");
         }
 
-        console.log(`Initialized PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
+        // console.log(`Initialized PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
     }
 
     public setState(stripIndex?: number, stripy?: number, currentX?: number, currentY?: number, stripSequence?: number[],) {
@@ -94,7 +96,8 @@ export class PackSimController {
     }
 
     public nextCardPosition(): { x: number, y: number } {
-        // Give the next position calculated from the specific collation algorithm.
+        // Returns the position before moving to the next card
+        const oldPosition = { x: this._currentX, y: this._currentY };
 
         // As per Tavis King, as seen in this video https://www.youtube.com/watch?v=vFGQ0qIGsWc
         /*  
@@ -109,7 +112,6 @@ export class PackSimController {
 
         */
         const stripHeight = this._stripHeights[this._currentStripIndex];
-
         if (this._verticalDistanceFromStripTop() > 0) {
             // Move up within the strip
             this._currentY = this._normalizeSheetCoordinate(this._currentY - 1);
@@ -127,7 +129,7 @@ export class PackSimController {
                 this._currentY = this._normalizeSheetCoordinate(this._stripy + newStripHeight - 1);
             }
         }
-        return { x: this._currentX, y: this._currentY };
+        return oldPosition;
     }
 
     private _normalizeSheetCoordinate(coordinate: number): number {
@@ -154,7 +156,7 @@ export const packData: {
     stripSequence: number[];
     generation: {
         packSimController: PackSimController | undefined;
-        sheet: string;
+        sheet: keyof typeof uncutSheets;
         count: number;
     }[];
 }[] = [

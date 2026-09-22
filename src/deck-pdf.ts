@@ -5,6 +5,7 @@ import { prepareFaceArtForCard } from "./art-loader";
 import { generateDeckPdf } from "./pdf-export";
 import type { Card } from "./types";
 import { packData } from "./pack-sim";
+import { uncutSheets } from "./uncut-sheets-serials";
 
 async function preloadCardArtForCards(
     cards: Card[],
@@ -92,10 +93,26 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
         //     then generate the card serials and push them to decklistCards (also honor quantity)
         let packMatched = false;
         for (const pack of packData) {
-            if (cardName === pack.deckEntry) {
+            if (cardName.toLowerCase() === pack.deckEntry.toLowerCase()) {
                 for (let i = 0; i < quantity; i++) {
 
-                    // Todo: call function to generate card serials for the pack and push them to decklistCards
+                    for (const rarity of pack.generation) {
+                        if (!rarity.packSimController) {
+                            throw new Error("PackSimController is not initialized for this rarity.");
+                        }
+
+                        // For rarity.count, generate that many cards from the pack
+                        for (let i = 0; i < rarity.count; i++) {
+                            const position = rarity.packSimController.nextCardPosition();
+                            const serial = uncutSheets[rarity.sheet].cards[position.y * 11 + position.x];
+                            const card = input.cardDatabase.getCardBySerial(serial);
+                            decklistCards.push(card);
+                            if (decklistCards.length > constants.maxCardsInDeck) {
+                                throw new Error(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
+                            }
+                        }
+                    }
+
                 }
                 packMatched = true;
                 break; // no need to check other packs if we found a match
@@ -117,6 +134,9 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
         const card = input.cardDatabase.getCardBySerial(serial);
         for (let i = 0; i < quantity; i++) {
             decklistCards.push(card);
+            if (decklistCards.length > constants.maxCardsInDeck) {
+                throw new Error(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
+            }
         }
     }
 

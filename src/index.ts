@@ -445,9 +445,8 @@ if (importArtCacheButton && importArtCacheFileInput) {
 }
 
 if (randomizePacksButton) {
-    randomizePacksButton.addEventListener("click", () => {
-        // randomizePacks();
-        window.alert("Todo: Implement randomize packs functionality.");
+    randomizePacksButton.addEventListener("click", async () => {
+        await randomizePacks();
     });
 }
 
@@ -492,14 +491,13 @@ async function generateSealedPDF(): Promise<void> {
 
         utils.trackEvent("generate_sealed_pdf", { selectedEditions });
 
-        downloadGeneratedPdf("sealed-deck", pdfBlob);
+        downloadGeneratedPdf("sealed", pdfBlob);
         await updateStatusSummary(`Generated PDF for sealed deck.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.error(" Error generating PDF: ", error);
         setStatus(`Failed to generate PDF: ${message}`);
     } finally {
-        generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         enableDeckTabs();
         syncGeneratePdfButton();
@@ -529,14 +527,13 @@ async function generateConstructedPDF(): Promise<void> {
 
         utils.trackEvent("generate_constructed_pdf");
 
-        downloadGeneratedPdf("constructed-deck", pdfBlob);
+        downloadGeneratedPdf("cards", pdfBlob);
         await updateStatusSummary(`Generated PDF for Decklist.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.error(" Error generating PDF: ", error);
         setStatus(`Failed to generate PDF: ${message}`);
     } finally {
-        generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         enableDeckTabs();
         syncGeneratePdfButton();
@@ -574,7 +571,6 @@ async function generateSelectedSheetPdf(): Promise<void> {
         console.error("Error generating sheet PDF: ", error);
         setStatus(`Failed to generate sheet PDF: ${message}`);
     } finally {
-        generatePdfButton.disabled = false;
         generatePdfButton.textContent = originalLabel;
         enableDeckTabs();
         syncGeneratePdfButton();
@@ -740,15 +736,43 @@ function resetPacksCollationHandler(): void {
     if (!window.confirm("Reset all packs collation?")) {
         return;
     }
-    clearPackSimState();
-    //Reset any in-memory state related to pack collation here.
+    //Reset any in-memory state related to pack collation.
     for (const pack of packData) {
         for (const generationEntry of pack.generation) {
             generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
         }
     }
+    savePackSimState();
 }
 
+async function randomizePacks(): Promise<void> {
+    if (!generatePdfButton || !window.confirm("Randomize all packs collation?")) {
+        return;
+    }
+    generatePdfButton.disabled = true;
+    disableDeckTabs();
+
+    for (const pack of packData) {
+        // Randomize by burning up packs through the pack sim controller.
+        const maxBurnCount = 121 * 4300; // 1 second on a 3.4 GHz CPU
+
+        const randomBurnCount = Math.floor(Math.random() * maxBurnCount);
+
+        for (const generationEntry of pack.generation) {
+            // Randomize by burning packs through the pack sim controller.
+            for (let i = 0; i < (randomBurnCount * generationEntry.count); i++) {
+                generationEntry.packSimController?.nextCardPosition();
+            }
+        }
+        console.log(`Randomized pack: ${pack.key} with burn count: ${randomBurnCount}`);
+        await new Promise<void>(resolve => window.setTimeout(resolve, 0));
+    }
+
+    savePackSimState();
+
+    enableDeckTabs();
+    syncGeneratePdfButton();
+}
 
 async function showCardPreview(query: string): Promise<void> {
     const serial = cardDatabase.findCardSerialByNamePrefix(query);
@@ -821,9 +845,10 @@ function syncGeneratePdfButton(): void {
             generatePdfButton.disabled = false;
         } else if (activeDeckTab === "sealed") {
             generatePdfButton.disabled = !Object.values(editionSelection).some(Boolean);
-        } else {
-            // Last choice: constructed deck tab
+        } else if (activeDeckTab === "constructed") {
             generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
+        } else if (activeDeckTab === "db") {
+            generatePdfButton.disabled = true;
         }
     }
 
@@ -941,6 +966,24 @@ async function bootstrap(): Promise<void> {
         await updateStatusSummary();
 
         if (isDebug) {
+            // test time to loop nextCardPosition for the PackSimController: start with a fresh controller and get a timestamp.
+            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
+            // GEt precise timestamp for debugging purposes.
+            const startTime = performance.now();
+            for (let i = 0; i < 25000; i++) {
+                testController.nextCardPosition();
+            }
+            const endTime = performance.now();
+            console.log(`Pack sim test start time: ${startTime}`);
+            console.log(`Pack sim test end time: ${endTime}`);
+            console.log(`Pack sim test duration: ${endTime - startTime} ms`);
+            const stateAfter = testController.serialize();
+            console.log(`Pack sim test x: ${stateAfter.currentX}, y: ${stateAfter.currentY}`);
+
+
+        }
+
+        if (isDebug) {
             // -----------------------------------------------------------------------------------
             // Test the PackSimController by generating the next card positions for a couple iterations
             // -----------------------------------------------------------------------------------
@@ -967,8 +1010,6 @@ async function bootstrap(): Promise<void> {
             // -----------------------------------------------------------------------------------
             // End of PackSimController test.
             // -----------------------------------------------------------------------------------
-
-
         }
 
         if (isDebug) {

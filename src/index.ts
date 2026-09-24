@@ -104,6 +104,7 @@ const textBoxImageBitmap: Record<number, ImageBitmap> = {
 };
 
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
+const statisticsElement = document.querySelector<HTMLParagraphElement>("#statistics");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
 const clearArtCacheButton = document.querySelector<HTMLButtonElement>("#clear-art-cache");
 const exportArtCacheButton = document.querySelector<HTMLButtonElement>("#export-art-cache");
@@ -203,7 +204,7 @@ if (lookupElement) {
             if (query) {
                 try {
                     await showCardPreview(query);
-                    await updateStatusSummary();
+                    await updateStatistics();
                 } catch (error) {
                     const message = error instanceof Error ? error.message : String(error);
                     setStatus(`Failed to show card preview: ${message}`);
@@ -216,7 +217,7 @@ if (lookupElement) {
                 if (addToDecklistButton) {
                     addToDecklistButton.disabled = previewController.currentCard === null;
                 }
-                await updateStatusSummary();
+                await updateStatistics();
             }
         }, 300); // 300ms debounce
     });
@@ -236,7 +237,7 @@ if (lookupElement) {
 
             lookupElement.value = currentCard.name;
 
-            updateStatusSummary();
+            updateStatistics();
         }
     });
 }
@@ -330,7 +331,7 @@ if (clearDecklistButton) {
         if (decklistTextArea) {
             decklistTextArea.value = "";
             syncGeneratePdfButton();
-            updateStatusSummary();
+            updateStatistics();
         }
     });
 }
@@ -385,7 +386,7 @@ if (clearArtCacheButton) {
 
         try {
             await clearCachedFaceArt();
-            await updateStatusSummary("Art cache cleared.");
+            await updateStatistics("Art cache cleared.");
 
             utils.trackEvent("clear_art_cache");
 
@@ -407,7 +408,7 @@ if (exportArtCacheButton) {
 
             const exportBlob = await exportCachedFaceArt();
             downloadArtCacheExport(exportBlob);
-            await updateStatusSummary("Art cache exported.");
+            await updateStatistics("Art cache exported.");
 
             utils.trackEvent("export_art_cache");
 
@@ -433,7 +434,7 @@ if (importArtCacheButton && importArtCacheFileInput) {
 
         try {
             const result = await importCachedFaceArt(file);
-            await updateStatusSummary(`Imported ${result.importedCount} art images.`);
+            await updateStatistics(`Imported ${result.importedCount} art images.`);
 
             utils.trackEvent("import_art_cache");
 
@@ -492,7 +493,7 @@ async function generateSealedPDF(): Promise<void> {
         utils.trackEvent("generate_sealed_pdf", { selectedEditions });
 
         downloadGeneratedPdf("sealed", pdfBlob);
-        await updateStatusSummary(`Generated PDF for sealed deck.`);
+        await updateStatistics(`Generated PDF for sealed deck.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.error(" Error generating PDF: ", error);
@@ -528,7 +529,7 @@ async function generateConstructedPDF(): Promise<void> {
         utils.trackEvent("generate_constructed_pdf");
 
         downloadGeneratedPdf("cards", pdfBlob);
-        await updateStatusSummary(`Generated PDF for Decklist.`);
+        await updateStatistics(`Generated PDF for Decklist.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.error(" Error generating PDF: ", error);
@@ -565,7 +566,7 @@ async function generateSelectedSheetPdf(): Promise<void> {
         utils.trackEvent("generate_sheet_pdf", { sheet: selectedSheetKey });
 
         downloadGeneratedPdf(`${sheetInfo.name}-sheet`, pdfBlob, true); // 'omitDate' because those are uncut sheets which do not change over time.
-        await updateStatusSummary(`Generated PDF for ${sheetInfo.name} sheet.`);
+        await updateStatistics(`Generated PDF for ${sheetInfo.name} sheet.`);
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.error("Error generating sheet PDF: ", error);
@@ -592,11 +593,20 @@ function setStatus(message: string): void {
     }
 }
 
-async function updateStatusSummary(note?: string): Promise<void> {
+function setStatistics(message: string): void {
+    if (statisticsElement) {
+        statisticsElement.textContent = message;
+    }
+}
+
+async function updateStatistics(note?: string): Promise<void> {
     const cachedArtCount = await getCachedFaceArtCount();
     const { totalCards, totalCardNames, totalFaces } = cardDatabase.stats;
     const summary = `Total cards: ${totalCards}, Card names: ${totalCardNames}, Total faces: ${totalFaces}, Cached art: ${cachedArtCount}`;
-    setStatus(note ? `${summary}. ${note}` : summary);
+    if (note) {
+        setStatus(note);
+    }
+    setStatistics(summary);
 }
 
 function setPreview(message: string): void {
@@ -963,7 +973,7 @@ async function bootstrap(): Promise<void> {
             syncGeneratePdfButton();
         }
 
-        await updateStatusSummary();
+        await updateStatistics();
 
         if (isDebug) {
             // test time to loop nextCardPosition for the PackSimController: start with a fresh controller and get a timestamp.
@@ -1027,6 +1037,8 @@ async function bootstrap(): Promise<void> {
             console.log("Clearing PackSimState for all packs and sheets.");
             clearPackSimState();
         }
+
+        setStatus("Ready.");
 
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);

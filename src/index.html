@@ -39,9 +39,10 @@
         <header class="hero">
             <p class="eyebrow">Félix's</p>
             <h1>CCG Craft</h1>
-            <p class="tagline">Collectible card game print-sheet generator.</p>
+            <p class="tagline">Simulated packs, random sealed decks, and uncut sheets!</p>
             <!-- Assures fonts get preloaded for proper rendering. -->
             <span class="symbol"> </span><span class="exp-front"> </span><span class="exp-back"> </span>
+            <p id="status">Booting...</p>
         </header>
 
         <!-- Test for background decoration element: -->
@@ -128,7 +129,7 @@
             </div>
 
             <div class="deck-panel" id="deck-panel-db" hidden>
-                <p id="status">Booting...</p>
+                <p id="statistics"></p>
                 <p>
                     <button type="button" id="clear-art-cache" title="Clear Local Art Database">Clear DB</button>
                     <button type="button" id="export-art-cache" title="Export Local Art Database">Export DB</button>

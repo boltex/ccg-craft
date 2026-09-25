@@ -76,7 +76,7 @@ body {
 
   box-shadow:
     0 0 0 3px #000000,
-    0 0 0 8px #6b4e94;
+    0 0 0 7px #6b4e94;
 }
 
 .bg-inner-1 {
@@ -88,19 +88,76 @@ body {
   border-width: 3px;
 }
 .bg-inner-2 {
+  position: relative;
+
   display: block;
   height: 100%;
 
   border-color: #ffffff60 #ffffff60 #00000060 #00000060;
   border-style: solid;
   border-width: 3px;
-  padding: 16px;
+  padding: 14px;
+}
 
+.bg-orange-ball {
+  border-radius: 50%;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  /* Let's make the ball with gradient background for better visibility. */
+
+  border-radius: 50%;
   background:
-    url("./orange-ball.webp") left 0px top 0px / 32px 32px no-repeat,
-    url("./orange-ball.webp") right 0px top 0px / 32px 32px no-repeat,
-    url("./orange-ball.webp") left 0px bottom 0px / 32px 32px no-repeat,
-    url("./orange-ball.webp") right 0px bottom 0px / 32px 32px no-repeat;
+        /* CENTER ORANGE BALL */
+    radial-gradient(
+      circle at 56% 44%,
+      #d05914 0%,
+      #d05914 42%,
+      #d0591400 61%,
+      #d0591400 100%
+    ),
+    /* TOP RIGHT HIGHLIGHT */
+    radial-gradient(
+        circle at 100% 0%,
+        #fff9f5 0%,
+        #fff9f5 20%,
+        #ffdec700 45%,
+        #ffdec700 100%
+      ),
+    radial-gradient(
+      circle at 100% 0%,
+      #ffb783 0%,
+      #ffb27a 35%,
+      #ffb27a00 75%,
+      #ffb27a00 100%
+    ),
+    /* FOR BOTTOM LEFT SHADOW */
+    radial-gradient(
+        circle at 57% 43%,
+        #643612 0%,
+        #643612 63%,
+        #64361200 75%,
+        #64361200 100%
+      ),
+    /* BACKGROUND */
+    radial-gradient(circle at 50% 50%, #8c613e 0%, #8c613e 100%);
+}
+
+.top-left-corner {
+  top: 4px;
+  left: 4px;
+}
+.top-right-corner {
+  top: 4px;
+  right: 4px;
+}
+.bottom-left-corner {
+  bottom: 4px;
+  left: 4px;
+}
+.bottom-right-corner {
+  bottom: 4px;
+  right: 4px;
 }
 
 .bg-deco-oval {
@@ -114,8 +171,8 @@ body {
   background-position: center;
 
   box-shadow:
-    0 0 0 6px #6b4e94,
-    0 0 0 9px #000000;
+    0 0 0 4px #6b4e94,
+    0 0 0 7px #000000;
 }
 
 /* .bg-deco-text {

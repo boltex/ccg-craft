@@ -88,6 +88,7 @@ body {
 }
 .bg-inner-2 {
   position: relative;
+  text-align: center;
 
   display: block;
   height: 100%;
@@ -187,13 +188,18 @@ body {
     0 0 0 5px #000000;
 }
 
-.bg-deco-text {
-  padding-left: 3px;
+.text-wrap {
   position: relative;
   display: inline-block;
-
   font-size: 8rem;
   font-weight: bold;
+}
+
+/* textured top text */
+.text-wrap > span {
+  position: relative;
+  z-index: 3;
+  padding-left: 2px;
 
   background-image: url("./blue-marble.jpg");
   background-repeat: repeat;
@@ -204,6 +210,32 @@ body {
 
   color: transparent;
   -webkit-text-fill-color: transparent;
+}
+
+/* first outline */
+.text-wrap::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding-left: 2px;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 6px #e62712;
+}
+
+/* outer outline */
+.text-wrap::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding-left: 2px;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 10px #000;
 }
 
 /* Fixed layer stack of frame backgrounds, cross-fades between the 8 frame jpgs behind the app. */

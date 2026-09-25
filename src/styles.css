@@ -50,12 +50,12 @@ body {
 }
 
 .bg-deco-rectangle {
-  border-color: #ffffff60 #ffffff60 #00000060 #00000060;
+  border-color: #ffeba369 #ffeba369 #00000065 #00000065;
   border-style: solid;
-  border-width: 8px;
+  border-width: 5px;
 
   display: block;
-  padding: 20px;
+  padding: 9px;
   height: 100%;
   width: 100%;
   background:
@@ -71,16 +71,17 @@ body {
 
   box-shadow:
     0 0 0 3px #000000,
-    0 0 0 7px #6b4e94;
+    0 0 0 7px #6b4e94,
+    0 0 0 8px #00000080;
 }
 
 .bg-inner-1 {
   display: block;
   height: 100%;
 
-  border-color: #00000060 #00000060 #ffffff60 #ffffff60;
+  border-color: #00000065 #00000065 #ffeba369 #ffeba369;
   border-style: solid;
-  border-width: 3px;
+  border-width: 2px;
 }
 .bg-inner-2 {
   position: relative;
@@ -88,10 +89,10 @@ body {
   display: block;
   height: 100%;
 
-  border-color: #ffffff60 #ffffff60 #00000060 #00000060;
+  border-color: #ffeba369 #ffeba369 #00000065 #00000065;
   border-style: solid;
-  border-width: 3px;
-  padding: 14px;
+  border-width: 2px;
+  padding: 9px;
 }
 
 .bg-orange-ball {
@@ -147,20 +148,20 @@ body {
 }
 
 .top-left-corner {
-  top: 4px;
-  left: 4px;
+  top: 2px;
+  left: 2px;
 }
 .top-right-corner {
-  top: 4px;
-  right: 4px;
+  top: 2px;
+  right: 2px;
 }
 .bottom-left-corner {
-  bottom: 4px;
-  left: 4px;
+  bottom: 2px;
+  left: 2px;
 }
 .bottom-right-corner {
-  bottom: 4px;
-  right: 4px;
+  bottom: 2px;
+  right: 2px;
 }
 
 .bg-deco-oval {
@@ -174,8 +175,8 @@ body {
   background-position: center;
 
   box-shadow:
-    0 0 0 4px #6b4e94,
-    0 0 0 7px #000000;
+    0 0 0 3px #6b4e94,
+    0 0 0 5px #000000;
 }
 
 /* .bg-deco-text {

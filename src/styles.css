@@ -43,18 +43,13 @@ body {
   position: relative;
   padding: 20px;
   min-height: 250px;
-  /* background-color: rgb(56, 22, 7); */
+
   background: url("./dark-brown.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .bg-deco-rectangle {
-  /* outline: 2px solid #6b4e94;
-  border: 2px solid #000000; */
-
-  /* position: relative; */
-
   border-color: #ffffff60 #ffffff60 #00000060 #00000060;
   border-style: solid;
   border-width: 8px;
@@ -108,39 +103,47 @@ body {
 
   border-radius: 50%;
   background:
-        /* CENTER ORANGE BALL */
+    /* BRIGHT SPOT */
     radial-gradient(
-      circle at 56% 44%,
-      #d05914 0%,
-      #d05914 42%,
-      #d0591400 61%,
-      #d0591400 100%
+      circle at 70% 30%,
+      #f13729 0%,
+      #e62712 10%,
+      #fff6f500 15%,
+      #fff6f500 100%
     ),
+    /* CENTER ORANGE BALL */
+    radial-gradient(
+        circle at 55% 45%,
+        #e62712 0%,
+        #d2210e 41%,
+        #d03a1400 67%,
+        #d03a1400 100%
+      ),
     /* TOP RIGHT HIGHLIGHT */
     radial-gradient(
         circle at 100% 0%,
-        #fff9f5 0%,
-        #fff9f5 20%,
-        #ffdec700 45%,
-        #ffdec700 100%
+        #fff6f5 0%,
+        #fff6f5 20%,
+        #fff6f500 45%,
+        #fff6f500 100%
       ),
     radial-gradient(
       circle at 100% 0%,
-      #ffb783 0%,
-      #ffb27a 35%,
-      #ffb27a00 75%,
-      #ffb27a00 100%
+      #ff8c7a 0%,
+      #ff8c7a 15%,
+      #ff957a00 67%,
+      #ff957a00 100%
     ),
     /* FOR BOTTOM LEFT SHADOW */
     radial-gradient(
         circle at 57% 43%,
-        #643612 0%,
-        #643612 63%,
-        #64361200 75%,
-        #64361200 100%
+        #51160d 0%,
+        #641d12 61%,
+        #51160d00 70%,
+        #51160d00 100%
       ),
     /* BACKGROUND */
-    radial-gradient(circle at 50% 50%, #8c613e 0%, #8c613e 100%);
+    radial-gradient(circle at 50% 50%, #894438 0%, #894438 100%);
 }
 
 .top-left-corner {

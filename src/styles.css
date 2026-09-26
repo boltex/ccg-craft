@@ -2,11 +2,11 @@
   color-scheme: light;
   --bg: #f4efe7;
   --bg-accent: #e4d5c2;
-  --panel: rgba(255, 252, 247, 0.9);
+  --panel: #efd9cce2;
   --panel-highlight: #fffaf2;
   --text: #2a2118;
   --muted: #c3a988;
-  --border: #cfb89a;
+  --border: #c4aa88;
   --border-strong: #9a7b52;
   --button-top: #f6ead8;
   --button-bottom: #dcc1a1;
@@ -23,9 +23,7 @@ html {
   background: url("./dark-brown.jpg");
   background-size: cover;
   background-position: center;
-  /* background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 35%),
-    linear-gradient(180deg, var(--bg-accent), var(--bg)); */
+  background-attachment: fixed;
 }
 
 html,
@@ -39,17 +37,6 @@ body {
 body {
   padding: 32px 20px;
 }
-
-/* Background decoration element */
-/* .bg-deco-container {
-  display: block;
-  position: relative;
-  padding: 20px;
-  min-height: 250px;
-  background: url("./dark-brown.jpg");
-  background-size: cover;
-  background-position: center;
-} */
 
 .bg-deco-rectangle {
   position: relative;
@@ -106,7 +93,6 @@ body {
   position: absolute;
   width: 16px;
   height: 16px;
-  /* Let's make the ball with gradient background for better visibility. */
 
   border-radius: 50%;
   background:

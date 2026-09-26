@@ -20,9 +20,12 @@
 }
 
 html {
-  background:
+  background: url("./dark-brown.jpg");
+  background-size: cover;
+  background-position: center;
+  /* background:
     radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 35%),
-    linear-gradient(180deg, var(--bg-accent), var(--bg));
+    linear-gradient(180deg, var(--bg-accent), var(--bg)); */
 }
 
 html,
@@ -38,16 +41,15 @@ body {
 }
 
 /* Background decoration element */
-.bg-deco-container {
+/* .bg-deco-container {
   display: block;
   position: relative;
   padding: 20px;
   min-height: 250px;
-
   background: url("./dark-brown.jpg");
   background-size: cover;
   background-position: center;
-}
+} */
 
 .bg-deco-rectangle {
   position: relative;

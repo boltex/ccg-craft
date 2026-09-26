@@ -301,6 +301,10 @@ h2,
   line-height: 1;
 }
 
+.carolingia {
+  font-family: "Carolingia", "Plantin", Georgia, serif;
+}
+
 .symbol {
   font-family: "Symbols", Courier, "Courier New", monospace;
 }

@@ -88,6 +88,9 @@ export const LandBorderColorByEdition: { [key: number]: Color } = {
     11: [75, 93, 48], // VI
 };
 
+export const normalizedFaceArtWidth = 200;
+export const normalizedFaceArtHeight = 160;
+
 export const maxCardsInDeck = 300;
 export const sealedDeckSize = 81;
 
@@ -95,12 +98,17 @@ export const CardWidth = 232;
 export const CardHeight = 330;
 export const MCWidth = 12;
 
-export const PointsPerInch = 72;
 export const PdfPageWidthInches = 8.5;
 export const PdfPageHeightInches = 11;
-export const PdfCardWidthInches = 2.5;
-export const PdfCardHeightInches = 3.5;
 
+export const PdfCardWidthMM = 63;
+export const PdfCardHeightMM = 88;
+
+export const PdfCardWidthInches = PdfCardWidthMM / 25.4;
+export const PdfCardHeightInches = PdfCardHeightMM / 25.4;
+
+// In Postcript and PDF, measurements are in points (1 inch = 72 points)
+const PointsPerInch = 72;
 export const PdfPageWidth = PdfPageWidthInches * PointsPerInch;
 export const PdfPageHeight = PdfPageHeightInches * PointsPerInch;
 export const PdfCardWidth = PdfCardWidthInches * PointsPerInch;

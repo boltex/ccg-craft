@@ -1,8 +1,6 @@
 import { stripWebPMetadata } from "./stripWebPMetadata";
 import type { PrintableFace } from "./types";
-
-export const normalizedFaceArtWidth = 200;
-export const normalizedFaceArtHeight = 160;
+import { normalizedFaceArtWidth, normalizedFaceArtHeight } from "./constants";
 
 export type NormalizedFaceArt = {
     blob: Blob;
@@ -48,7 +46,7 @@ export async function normalizeFaceArtBitmap(
     }
     // Apply a native blur to blend the halftone dot patterns together
     // Close to 1px is ideal for a ~550px source image
-    offContext.filter = "blur(0.75px)"; //  0.75 is sufficient for moiré removal. A full pixel made the result a bit too soft.
+    // offContext.filter = "blur(0.75px)"; //  0.75 is sufficient for moiré removal. A full pixel made the result a bit too soft.
     offContext.drawImage(sourceBitmap, 0, 0);
     // Reset filter
     offContext.filter = "none";
@@ -70,6 +68,12 @@ export async function normalizeFaceArtBitmap(
     if (!context) {
         throw new Error("Could not create a 2D context for art normalization.");
     }
+
+    // console.log('offcanvas size:', offCanvas.width, offCanvas.height);
+
+    // console.log('sourceBitmap size:', sourceBitmap.width, sourceBitmap.height);
+
+    // console.log('target size:', targetWidth, targetHeight);
 
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = "high";

@@ -20,9 +20,12 @@
 }
 
 html {
-  background:
+  background: url("./dark-brown.jpg");
+  background-size: cover;
+  background-position: center;
+  /* background:
     radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 35%),
-    linear-gradient(180deg, var(--bg-accent), var(--bg));
+    linear-gradient(180deg, var(--bg-accent), var(--bg)); */
 }
 
 html,
@@ -38,24 +41,24 @@ body {
 }
 
 /* Background decoration element */
-.bg-deco-container {
+/* .bg-deco-container {
   display: block;
+  position: relative;
   padding: 20px;
   min-height: 250px;
-  /* background-color: rgb(56, 22, 7); */
   background: url("./dark-brown.jpg");
   background-size: cover;
   background-position: center;
-}
+} */
 
 .bg-deco-rectangle {
-  outline: 2px solid #6b4e94;
-  border: 2px solid #000000;
-
   position: relative;
+  border-color: #ffeba369 #ffeba369 #00000065 #00000065;
+  border-style: solid;
+  border-width: 5px;
 
   display: block;
-  padding: 20px;
+  padding: 9px;
   height: 100%;
   width: 100%;
   background:
@@ -68,65 +71,138 @@ body {
     url("./medium-brown.jpg");
   background-size: cover;
   background-position: center;
+
+  box-shadow:
+    0 0 0 3px #000000,
+    0 0 0 7px #6b4e94,
+    0 0 0 8px #00000080;
 }
 
-.bg-deco-rectangle::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 4px solid;
-  border-top-color: #ddd;
-  border-left-color: #ddd;
-  border-bottom-color: #666;
-  border-right-color: #666;
-  pointer-events: none;
+.bg-inner-1 {
+  position: relative;
+
+  display: block;
+  height: 100%;
+
+  border-color: #00000065 #00000065 #ffeba369 #ffeba369;
+  border-style: solid;
+  border-width: 2px;
 }
-.bg-deco-rectangle::before {
-  content: "";
+.bg-inner-2 {
+  position: relative;
+  text-align: center;
+
+  display: block;
+  height: 100%;
+
+  border-color: #ffeba369 #ffeba369 #00000065 #00000065;
+  border-style: solid;
+  border-width: 2px;
+  padding: 9px;
+}
+
+.bg-orange-ball {
+  border-radius: 50%;
   position: absolute;
-  inset: 8px;
-  border-width: 4px;
-  border-style: groove;
-  border-color: #80808080 #80808080 #80808080 #80808080;
-  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  /* Let's make the ball with gradient background for better visibility. */
+
+  border-radius: 50%;
+  background:
+    /* BRIGHT SPOT */
+    radial-gradient(
+      circle at 70% 30%,
+      #f13729 0%,
+      #e62712 10%,
+      #fff6f500 15%,
+      #fff6f500 100%
+    ),
+    /* CENTER ORANGE BALL */
+    radial-gradient(
+        circle at 55% 45%,
+        #e62712 0%,
+        #d2210e 41%,
+        #d03a1400 67%,
+        #d03a1400 100%
+      ),
+    /* TOP RIGHT HIGHLIGHT */
+    radial-gradient(
+        circle at 100% 0%,
+        #fff6f5 0%,
+        #fff6f5 20%,
+        #fff6f500 45%,
+        #fff6f500 100%
+      ),
+    radial-gradient(
+      circle at 100% 0%,
+      #ff8c7a 0%,
+      #ff8c7a 15%,
+      #ff957a00 67%,
+      #ff957a00 100%
+    ),
+    /* FOR BOTTOM LEFT SHADOW */
+    radial-gradient(
+        circle at 57% 43%,
+        #51160d 0%,
+        #641d12 61%,
+        #51160d00 70%,
+        #51160d00 100%
+      ),
+    /* BACKGROUND */
+    radial-gradient(circle at 50% 50%, #894438 0%, #894438 100%);
+}
+
+.top-left-corner {
+  top: 2px;
+  left: 2px;
+}
+.top-right-corner {
+  top: 2px;
+  right: 2px;
+}
+.bottom-left-corner {
+  bottom: 2px;
+  left: 2px;
+}
+.bottom-right-corner {
+  bottom: 2px;
+  right: 2px;
 }
 
 .bg-deco-oval {
-  border: 2px solid #6b4e94;
+  /* border: 2px solid #6b4e94; */
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  bottom: 9px;
+  right: 9px;
+
   display: block;
   border-radius: 50%;
-  height: 100%;
-  width: 100%;
+
   background: url("./light-brown.jpg");
   background-size: cover;
   background-position: center;
+
+  box-shadow:
+    0 0 0 3px #6b4e94,
+    0 0 0 5px #000000;
 }
 
-/* .bg-deco-text {
-  text-shadow:
-    -1px -1px 0 #a00,
-    1px -1px 0 #a00,
-    -1px 1px 0 #a00,
-    1px 1px 0 #a00;
-  font-size: 8rem;
-  font-weight: bold;
-  background-image: url("./blue-marble.jpg");
-  background-repeat: repeat;
-  background-size: 300px 300px;
-
-  background-clip: text;
-  -webkit-background-clip: text;
-
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-} */
-
-.bg-deco-text {
+.text-wrap {
   position: relative;
   display: inline-block;
-
   font-size: 8rem;
   font-weight: bold;
+  margin-top: -14px;
+}
+
+/* textured top text */
+.text-wrap > span {
+  position: relative;
+  z-index: 3;
+  padding-left: 2px;
 
   background-image: url("./blue-marble.jpg");
   background-repeat: repeat;
@@ -137,20 +213,96 @@ body {
 
   color: transparent;
   -webkit-text-fill-color: transparent;
-
-  z-index: 0;
 }
 
-.bg-deco-text::before {
+/* first outline */
+.text-wrap::before {
   content: attr(data-text);
-
   position: absolute;
   inset: 0;
+  z-index: 2;
+  padding-left: 2px;
 
   color: transparent;
-  -webkit-text-stroke: 1px #750000;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 6px #e62712;
+}
 
-  z-index: -1;
+/* outer outline */
+.text-wrap::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding-left: 2px;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 10px #000;
+}
+
+.eyebrow {
+  position: relative;
+  text-align: left;
+  padding-left: 25%;
+  font-family: "BelweStd-Bold", "Plantin", Georgia, serif;
+  font-size: 2.5rem;
+  margin: 0;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* 1. Bottom Layer: Only handles the thick outline */
+  -webkit-text-stroke: 4px #000;
+}
+
+.eyebrow::after {
+  content: attr(data-text);
+  padding-left: 25%;
+
+  /* 3. Top Layer: Perfectly aligned over the bottom layer */
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  /* 4. Fill Color: Paints over the interior stroke overlap */
+  background: linear-gradient(
+    to top,
+    #40bdeb 0%,
+    #40bdeb 40%,
+    #e5f5f4 75%,
+    #f4eee3 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 0; /* Clears the stroke on the top layer */
+}
+
+.tagline {
+  display: inline-block;
+  border-color: #ffeba369 #ffeba369 #00000065 #00000065;
+  border-style: solid;
+  border-width: 5px;
+  box-shadow: 0 0 0 2px #000000;
+  color: #000;
+  position: relative;
+  margin: 0 0 12px 0;
+  font-size: 2rem;
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      #ecd40032 0%,
+      #ecd4001a 75%,
+      #00000000 100%
+    ),
+    url("./fu-300dpi.jpg");
+  background-size: 110%;
+  background-position: 10%;
+}
+
+.tagline-inner {
+  padding: 0 5px 0 5px;
+  border: 1px solid #000;
 }
 
 /* Fixed layer stack of frame backgrounds, cross-fades between the 8 frame jpgs behind the app. */
@@ -216,6 +368,25 @@ h2,
   line-height: 1;
 }
 
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.belwe {
+  font-family: "BelweStd-Bold", "Plantin", Georgia, serif;
+}
+
+.carolingia {
+  font-family: "Carolingia", "Plantin", Georgia, serif;
+}
+
 .symbol {
   font-family: "Symbols", Courier, "Courier New", monospace;
 }
@@ -261,51 +432,14 @@ h2,
   gap: 20px;
 }
 
-.hero,
 .panel {
   border: 1px solid var(--page-background-color, var(--border));
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   background-color: var(--page-background-tb-color, var(--panel));
   transition: background-color 800ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-
-.hero {
-  padding: 28px;
-}
-
-.panel {
   padding: 20px;
   padding-right: 18px;
-}
-
-.eyebrow {
-  margin: 0 0 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.8rem;
-  filter: grayscale(35%);
-  color: var(--page-background-color, var(--muted));
-  transition: color 700ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-
-h1,
-h2,
-p {
-  margin-top: 0;
-}
-
-h1 {
-  margin-bottom: 10px;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-}
-
-.tagline {
-  margin-bottom: 0;
-  font-size: 1.05rem;
-  filter: grayscale(35%);
-  color: var(--page-background-color, var(--muted));
-  transition: color 900ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .user-instructions {
@@ -317,8 +451,9 @@ h1 {
 }
 
 #status {
+  position: relative;
   font-weight: 700;
-  margin-bottom: 0;
+  margin-bottom: 12px;
   margin-top: 12px;
 }
 

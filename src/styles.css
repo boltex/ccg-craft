@@ -5,7 +5,7 @@
   --panel: #efd9cce2;
   --panel-highlight: #fffaf2;
   --text: #2a2118;
-  --muted: #c3a988;
+  --muted: #b49976;
   --border: #c4aa88;
   --border-strong: #9a7b52;
   --button-top: #f6ead8;
@@ -388,6 +388,10 @@ h1 {
   text-align: center;
 }
 
+.p-0 {
+  padding: 0 !important;
+}
+
 .mb-0 {
   margin-bottom: 0;
 }
@@ -632,13 +636,17 @@ button:disabled {
   background: unset;
   border: none;
   box-shadow: none;
+  margin-right: -1px !important;
+}
+.pack-image:first-child {
+  margin-right: 6px !important;
 }
 .pack-image:before {
   content: none;
 }
 .pack-image:hover {
   box-shadow: none;
-  transform: translateY(3px) scale(1.5);
+  transform: translateY(3px) scale(1.75);
   z-index: 10;
 }
 .pack-image:active {

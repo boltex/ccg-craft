@@ -6,10 +6,12 @@ import { generateDeckPdf } from "./pdf-export";
 import type { Card } from "./types";
 import { packData } from "./pack-sim";
 import { uncutSheets } from "./uncut-sheets-serials";
+import type { ArtLoadingOptions } from "./art-settings";
 
 async function preloadCardArtForCards(
     cards: Card[],
     cardDatabase: CardDatabase,
+    artLoadingOptions: ArtLoadingOptions,
     logFunction?: (message: string) => void
 ): Promise<void> {
     let cardCounter = 0;
@@ -19,7 +21,7 @@ async function preloadCardArtForCards(
         }
 
         const faces = cardDatabase.getFaceData(card.serial);
-        await prepareFaceArtForCard({ card, faces });
+        await prepareFaceArtForCard({ card, faces, artLoadingOptions });
     }
 }
 
@@ -44,6 +46,7 @@ export function selectSealedCardPool(cardDatabase: CardDatabase, selectedEdition
 export type GenerateSealedDeckPdfInput = {
     cardPool: Card[];
     cardDatabase: CardDatabase;
+    artLoadingOptions: ArtLoadingOptions;
     paperSize?: string;
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
@@ -57,11 +60,14 @@ export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): 
         sealedDeckCards.push(input.cardPool[randomIndex]);
     }
 
-    await preloadCardArtForCards(sealedDeckCards, input.cardDatabase, input.onProgress);
+    if (input.artLoadingOptions.useDatabase) {
+        await preloadCardArtForCards(sealedDeckCards, input.cardDatabase, input.artLoadingOptions, input.onProgress);
+    }
 
     return generateDeckPdf(
         {
             cards: sealedDeckCards,
+            artLoadingOptions: input.artLoadingOptions,
             paperSize: input.paperSize,
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             renderOptions: {
@@ -78,6 +84,7 @@ export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): 
 export type GenerateConstructedDeckPdfInput = {
     decklistText: string;
     cardDatabase: CardDatabase;
+    artLoadingOptions: ArtLoadingOptions;
     paperSize?: string;
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
@@ -144,11 +151,14 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
         throw new Error(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
     }
 
-    await preloadCardArtForCards(decklistCards, input.cardDatabase, input.onProgress);
+    if (input.artLoadingOptions.useDatabase) {
+        await preloadCardArtForCards(decklistCards, input.cardDatabase, input.artLoadingOptions, input.onProgress);
+    }
 
     return generateDeckPdf(
         {
             cards: decklistCards,
+            artLoadingOptions: input.artLoadingOptions,
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             paperSize: input.paperSize,
             renderOptions: {
@@ -164,6 +174,7 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
 
 export type UncutSheetDeckPdfInput = {
     cardDatabase: CardDatabase;
+    artLoadingOptions: ArtLoadingOptions;
     paperSize?: string;
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
@@ -192,11 +203,14 @@ export async function generateSheetPdfFromStrings(input: UncutSheetDeckPdfInput,
 
     console.log('Sheet card serials', sheetCards.map(card => card.serial));
 
-    await preloadCardArtForCards(sheetCards, input.cardDatabase, input.onProgress);
+    if (input.artLoadingOptions.useDatabase) {
+        await preloadCardArtForCards(sheetCards, input.cardDatabase, input.artLoadingOptions, input.onProgress);
+    }
 
     return generateDeckPdf(
         {
             cards: sheetCards, // Replace with the actual cards for the sheet
+            artLoadingOptions: input.artLoadingOptions,
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             paperSize: input.paperSize,
             renderOptions: {
@@ -223,11 +237,14 @@ export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardSerial
         sheetCards.push(card);
     }
 
-    await preloadCardArtForCards(sheetCards, input.cardDatabase, input.onProgress);
+    if (input.artLoadingOptions.useDatabase) {
+        await preloadCardArtForCards(sheetCards, input.cardDatabase, input.artLoadingOptions, input.onProgress);
+    }
 
     return generateDeckPdf(
         {
             cards: sheetCards, // Replace with the actual cards for the sheet
+            artLoadingOptions: input.artLoadingOptions,
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             paperSize: input.paperSize,
             renderOptions: {

@@ -88,7 +88,6 @@ export const LandBorderColorByEdition: { [key: number]: Color } = {
     11: [75, 93, 48], // VI
 };
 
-// TODO : use the high resolution sizes if option for high-resolution is checked
 export const normalizedFaceArtWidth = 200;
 export const normalizedFaceArtHeight = 160;
 export const normalizedHighResolutionFaceArtWidth = 346;

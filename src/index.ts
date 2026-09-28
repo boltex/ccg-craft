@@ -54,6 +54,7 @@ import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
 import { uncutSheets } from "./uncut-sheets-serials";
 import { packData, PackSimController } from "./pack-sim";
+import { getArtLoadingOptions, setArtLoadingOptions } from "./art-settings";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -194,16 +195,7 @@ if (lookupElement) {
             let query = lookupElement.value.trim();
 
             // Convert accented letters to their plain lowercase version
-            query = query.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
-
-            // Remove any quotes
-            query = query.replace(/"/g, "");
-
-            // replace double slash with a single slash
-            query = query.replace(/\/\//g, "/");
-
-            // Replace slash by a vertical bar
-            query = query.replace(/\//g, "|");
+            query = fixQueryString(query);
 
             if (query) {
                 try {
@@ -488,6 +480,7 @@ async function generateSealedPDF(): Promise<void> {
         const pdfBlob = await generateSealedDeckPdf({
             cardPool,
             cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
@@ -524,6 +517,7 @@ async function generateConstructedPDF(): Promise<void> {
         const pdfBlob = await generateConstructedDeckPdf({
             decklistText: decklistTextArea?.value ?? "",
             cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
@@ -561,6 +555,7 @@ async function generateSelectedSheetPdf(): Promise<void> {
         disableDeckTabs();
         const pdfBlob = await generateSheetPdf({
             cardDatabase: cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
             paperSize: "sheet",
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
@@ -681,16 +676,121 @@ function restorePreviewHistory(): void {
     }
 }
 
-function initializePreferenceCheckbox(checkbox: HTMLInputElement | null, storageKey: string): void {
-    if (!checkbox) {
+function initializeArtPreferences(): void {
+    if (!highResolutionArtCheckbox || !useLocalArtDatabaseCheckbox) {
         return;
     }
 
-    checkbox.checked = window.localStorage.getItem(storageKey) === "true";
-    checkbox.addEventListener("change", () => {
-        window.localStorage.setItem(storageKey, String(checkbox.checked));
+    highResolutionArtCheckbox.checked = window.localStorage.getItem(HIGH_RESOLUTION_ART_STORAGE_KEY) === "true";
+    useLocalArtDatabaseCheckbox.checked = window.localStorage.getItem(USE_LOCAL_ART_DATABASE_STORAGE_KEY) === "true";
+    setArtLoadingOptions({
+        highResolution: highResolutionArtCheckbox.checked,
+        useDatabase: useLocalArtDatabaseCheckbox.checked,
     });
+
+    highResolutionArtCheckbox.addEventListener("change", () => {
+        void handleHighResolutionArtChange();
+    });
+    useLocalArtDatabaseCheckbox.addEventListener("change", handleLocalArtDatabaseChange);
 }
+
+async function handleHighResolutionArtChange(): Promise<void> {
+    if (!highResolutionArtCheckbox || !useLocalArtDatabaseCheckbox) {
+        return;
+    }
+
+    const previousOptions = getArtLoadingOptions();
+    const nextHighResolution = highResolutionArtCheckbox.checked;
+    if (nextHighResolution === previousOptions.highResolution) {
+        return;
+    }
+
+    if (!window.confirm("Changing art resolution will clear all cached art images. Continue?")) {
+        highResolutionArtCheckbox.checked = previousOptions.highResolution;
+        return;
+    }
+
+    highResolutionArtCheckbox.disabled = true;
+    useLocalArtDatabaseCheckbox.disabled = true;
+    try {
+        await clearCachedFaceArt();
+        window.localStorage.setItem(HIGH_RESOLUTION_ART_STORAGE_KEY, String(nextHighResolution));
+    } catch (error) {
+        highResolutionArtCheckbox.checked = previousOptions.highResolution;
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to change art resolution: ${message}`);
+        return;
+    } finally {
+        highResolutionArtCheckbox.disabled = false;
+        useLocalArtDatabaseCheckbox.disabled = false;
+    }
+
+    setArtLoadingOptions({
+        highResolution: nextHighResolution,
+        useDatabase: previousOptions.useDatabase,
+    });
+    setStatus("Art resolution changed; cached art cleared.");
+    await refreshCurrentPreview();
+}
+
+function handleLocalArtDatabaseChange(): void {
+    if (!useLocalArtDatabaseCheckbox) {
+        return;
+    }
+
+    const previousOptions = getArtLoadingOptions();
+    const nextUseDatabase = useLocalArtDatabaseCheckbox.checked;
+    try {
+        window.localStorage.setItem(USE_LOCAL_ART_DATABASE_STORAGE_KEY, String(nextUseDatabase));
+    } catch (error) {
+        useLocalArtDatabaseCheckbox.checked = previousOptions.useDatabase;
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to save art database preference: ${message}`);
+        return;
+    }
+
+    setArtLoadingOptions({
+        highResolution: previousOptions.highResolution,
+        useDatabase: nextUseDatabase,
+    });
+    void refreshCurrentPreview();
+}
+
+async function refreshCurrentPreview(): Promise<void> {
+    const currentCard = previewController.currentCard;
+    if (!currentCard) {
+        console.log("No current card to preview.", previewController.currentCard);
+        return;
+    }
+
+    console.log("current art.", previewController.currentCard);
+
+    const query = fixQueryString(currentCard.name);
+
+
+    try {
+        await showCardPreview(query);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to refresh card preview: ${message}`);
+    }
+}
+
+function fixQueryString(query: string): string {
+    // Convert accented letters to their plain lowercase version
+    query = query.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+
+    // Remove any quotes
+    query = query.replace(/"/g, "");
+
+    // replace double slash with a single slash
+    query = query.replace(/\/\//g, "/");
+
+    // Replace slash by a vertical bar
+    query = query.replace(/\//g, "|");
+    return query;
+}
+
 
 // Look for existing pack sim state in localStorage and restore it if available.
 function restorePackSimState(): void {
@@ -818,7 +918,15 @@ async function showCardPreview(query: string): Promise<void> {
     // Faces are the one or two printable faces on the surface of the card; the second may be undefined.
     const faces = cardDatabase.getFaceData(serial);
 
-    const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap, textBoxImageBitmap);
+    const previewText = await previewController.showCard(
+        card,
+        faces,
+        cardDatabase.editions,
+        cardDatabase.editionsScry,
+        frameBackgroundsImageBitmap,
+        textBoxImageBitmap,
+        getArtLoadingOptions()
+    );
 
     // We've found and shown the card preview, 
     // If not already in history: add it at current position in history and delete forward history beyond the current index.
@@ -968,8 +1076,7 @@ function populatePackSelect(): void {
 
 async function bootstrap(): Promise<void> {
 
-    initializePreferenceCheckbox(highResolutionArtCheckbox, HIGH_RESOLUTION_ART_STORAGE_KEY);
-    initializePreferenceCheckbox(useLocalArtDatabaseCheckbox, USE_LOCAL_ART_DATABASE_STORAGE_KEY);
+    initializeArtPreferences();
 
     restorePreviewHistory();
     restorePackSimState();

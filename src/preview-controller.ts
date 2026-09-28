@@ -1,5 +1,6 @@
 import { loadFaceArtForCard } from "./art-loader";
 import { renderCardPreview } from "./renderer";
+import type { ArtLoadingOptions } from "./art-settings";
 import type { Card, PrintableFace } from "./types";
 import * as utils from "./utils";
 
@@ -25,7 +26,8 @@ export class CardPreviewController {
         editions: readonly string[],
         editionsScry: Readonly<Record<string, { "scry": string[], "name": string }>>,
         frameBackgroundsImageBitmap: Record<number, ImageBitmap>,
-        textBoxImageBitmap: Record<number, ImageBitmap>
+        textBoxImageBitmap: Record<number, ImageBitmap>,
+        artLoadingOptions: ArtLoadingOptions
     ): Promise<string> {
         const possibleCardEditions = editionsScry[card.edition].scry;
         if (!possibleCardEditions || possibleCardEditions.length === 0) {
@@ -35,7 +37,7 @@ export class CardPreviewController {
         this.releaseRenderedFaceArt();
 
         try {
-            this.renderedFaceArt = await loadFaceArtForCard({ card, faces });
+            this.renderedFaceArt = await loadFaceArtForCard({ card, faces, artLoadingOptions });
         } catch (error) {
             console.error(`Error fetching card data for ${card.name}:`, error);
             throw error;

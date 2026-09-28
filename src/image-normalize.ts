@@ -45,8 +45,12 @@ export async function normalizeFaceArtBitmap(
         throw new Error("Could not create a 2D context for moiré removal.");
     }
     // Apply a native blur to blend the halftone dot patterns together
-    // Close to 1px is ideal for a ~550px source image
-    // offContext.filter = "blur(0.75px)"; //  0.75 is sufficient for moiré removal. A full pixel made the result a bit too soft.
+
+    // 0.75 for width of 200 and less, 0.45 for over 200.
+    const blurRadius = (options.targetWidth && options.targetWidth <= 200) ? 0.75 : 0.45;
+
+    offContext.filter = `blur(${blurRadius}px)`; //  0.75 is sufficient for moiré removal. A full pixel made the result a bit too soft.
+
     offContext.drawImage(sourceBitmap, 0, 0);
     // Reset filter
     offContext.filter = "none";
@@ -54,7 +58,6 @@ export async function normalizeFaceArtBitmap(
     // Now use the offscreen canvas as the source for further processing
     sourceBitmap = await createSourceArtBitmap(await canvasToBlob(offCanvas, "image/webp", 1.0));
 
-    // Todo: Allow for high resolution normalization by using normalizedHighResolutionFaceArtWidth and normalizedHighResolutionFaceArtHeight.
     const targetWidth = options.targetWidth ?? normalizedFaceArtWidth;
     const targetHeight = options.targetHeight ?? normalizedFaceArtHeight;
 
@@ -70,12 +73,6 @@ export async function normalizeFaceArtBitmap(
     if (!context) {
         throw new Error("Could not create a 2D context for art normalization.");
     }
-
-    // console.log('offcanvas size:', offCanvas.width, offCanvas.height);
-
-    // console.log('sourceBitmap size:', sourceBitmap.width, sourceBitmap.height);
-
-    // console.log('target size:', targetWidth, targetHeight);
 
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = "high";

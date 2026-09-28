@@ -289,6 +289,8 @@ body {
 .tagline-inner {
   padding: 0 5px 0 5px;
   border: 1px solid #000;
+  line-height: 0.8;
+  padding-top: 5px;
 }
 
 /* Fixed layer stack of frame backgrounds, cross-fades between the 8 frame jpgs behind the app. */

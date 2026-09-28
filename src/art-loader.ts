@@ -118,14 +118,17 @@ export async function loadFaceArtForCard(
 
             }
 
+
             const normalizedArt = await normalizeFaceArtBitmap(sourceBitmap, face);
-            const cachedArt = await putCachedFaceArt({
+
+            // TODO only cache if 'use DB' option is checked
+            await putCachedFaceArt({
                 faceSerial: faceIndex,
                 blob: normalizedArt.blob,
             });
 
             // Set as original face.serial, not as modified faceIndex for alternate art.
-            artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));
+            artByFaceSerial.set(face.serial, await createImageBitmap(normalizedArt.blob));
         }
     } finally {
         sourceBitmap.close();

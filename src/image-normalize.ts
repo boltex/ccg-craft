@@ -54,8 +54,10 @@ export async function normalizeFaceArtBitmap(
     // Now use the offscreen canvas as the source for further processing
     sourceBitmap = await createSourceArtBitmap(await canvasToBlob(offCanvas, "image/webp", 1.0));
 
+    // Todo: Allow for high resolution normalization by using normalizedHighResolutionFaceArtWidth and normalizedHighResolutionFaceArtHeight.
     const targetWidth = options.targetWidth ?? normalizedFaceArtWidth;
     const targetHeight = options.targetHeight ?? normalizedFaceArtHeight;
+
     const mimeType = options.mimeType ?? "image/webp";
     const quality = options.quality ?? 1.0; // Full quality no loss by default
 

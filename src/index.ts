@@ -676,13 +676,21 @@ function restorePreviewHistory(): void {
     }
 }
 
-function initializeArtPreferences(): void {
+async function initializeArtPreferences(): Promise<void> {
     if (!highResolutionArtCheckbox || !useLocalArtDatabaseCheckbox) {
         return;
     }
 
-    highResolutionArtCheckbox.checked = window.localStorage.getItem(HIGH_RESOLUTION_ART_STORAGE_KEY) === "true";
+    const savedHighResolution = window.localStorage.getItem(HIGH_RESOLUTION_ART_STORAGE_KEY);
+    highResolutionArtCheckbox.checked = savedHighResolution === null || savedHighResolution === "true";
     useLocalArtDatabaseCheckbox.checked = window.localStorage.getItem(USE_LOCAL_ART_DATABASE_STORAGE_KEY) === "true";
+
+    if (savedHighResolution === null) {
+        // Had no saved preference, default to high resolution. also clear DB because low-resolution art might be incompatible.
+        await clearCachedFaceArt();
+        await updateStatistics();
+    }
+
     setArtLoadingOptions({
         highResolution: highResolutionArtCheckbox.checked,
         useDatabase: useLocalArtDatabaseCheckbox.checked,
@@ -1076,7 +1084,7 @@ function populatePackSelect(): void {
 
 async function bootstrap(): Promise<void> {
 
-    initializeArtPreferences();
+    await initializeArtPreferences();
 
     restorePreviewHistory();
     restorePackSimState();

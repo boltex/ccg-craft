@@ -688,6 +688,22 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+.app-preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+
+.app-preference {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .edition-checkboxes-toggle {
   padding: 4px 12px;
   font-size: 0.8rem;

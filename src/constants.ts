@@ -90,6 +90,8 @@ export const LandBorderColorByEdition: { [key: number]: Color } = {
 
 export const normalizedFaceArtWidth = 200;
 export const normalizedFaceArtHeight = 160;
+export const normalizedHighResolutionFaceArtWidth = 346;
+export const normalizedHighResolutionFaceArtHeight = 277;
 
 export const maxCardsInDeck = 300;
 export const sealedDeckSize = 81;

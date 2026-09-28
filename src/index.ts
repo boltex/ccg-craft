@@ -113,6 +113,8 @@ const randomizePacksButton = document.querySelector<HTMLButtonElement>("#randomi
 const resetPacksCollationButton = document.querySelector<HTMLButtonElement>("#reset-packs-collation");
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
+const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
+const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
 const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size");
@@ -144,6 +146,8 @@ const previewHistory: string[] = []; // Contains the cards previously previewed 
 let previewHistoryIndex = -1; // Tracks the current position in the preview history
 
 const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
+const HIGH_RESOLUTION_ART_STORAGE_KEY = "ccg-craft:high-resolution-art";
+const USE_LOCAL_ART_DATABASE_STORAGE_KEY = "ccg-craft:use-local-art-database";
 const PREVIEW_HISTORY_MAX = 99;
 let previewHistorySaveTimeout: number | undefined;
 
@@ -677,6 +681,17 @@ function restorePreviewHistory(): void {
     }
 }
 
+function initializePreferenceCheckbox(checkbox: HTMLInputElement | null, storageKey: string): void {
+    if (!checkbox) {
+        return;
+    }
+
+    checkbox.checked = window.localStorage.getItem(storageKey) === "true";
+    checkbox.addEventListener("change", () => {
+        window.localStorage.setItem(storageKey, String(checkbox.checked));
+    });
+}
+
 // Look for existing pack sim state in localStorage and restore it if available.
 function restorePackSimState(): void {
     // There needs to be a pack sim state for each sheet of each of the packData entries
@@ -952,6 +967,9 @@ function populatePackSelect(): void {
 }
 
 async function bootstrap(): Promise<void> {
+
+    initializePreferenceCheckbox(highResolutionArtCheckbox, HIGH_RESOLUTION_ART_STORAGE_KEY);
+    initializePreferenceCheckbox(useLocalArtDatabaseCheckbox, USE_LOCAL_ART_DATABASE_STORAGE_KEY);
 
     restorePreviewHistory();
     restorePackSimState();

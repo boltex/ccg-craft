@@ -257,3 +257,20 @@ export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardSerial
         input.onProgress
     );
 }
+
+export async function generateOldSchoolCache(input: UncutSheetDeckPdfInput, cardSerials: number[]): Promise<void> {
+    // Loop all possible uncut sheets from Arabian Nights to Fallen Empires and cache their art.
+    // Use preloadCardArtForCards to cache the art but dont call generateDeckPdf itself.
+    const sheetCards: Card[] = [];
+    for (const serial of cardSerials) {
+        if (serial == null) {
+            console.log(`No card found for serial "${serial}".`);
+            continue;
+        }
+
+        const card = input.cardDatabase.getCardBySerial(serial);
+        sheetCards.push(card);
+    }
+
+    await preloadCardArtForCards(sheetCards, input.cardDatabase, input.artLoadingOptions, input.onProgress);
+}

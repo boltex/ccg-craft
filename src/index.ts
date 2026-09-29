@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdfFromStrings, generateSheetPdf, selectSealedCardPool } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool, generateOldSchoolCache } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -114,6 +114,7 @@ const randomizePacksButton = document.querySelector<HTMLButtonElement>("#randomi
 const resetPacksCollationButton = document.querySelector<HTMLButtonElement>("#reset-packs-collation");
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
+const cacheOldSchoolButton = document.querySelector<HTMLButtonElement>("#cache-old-school");
 const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
 const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
@@ -441,6 +442,36 @@ if (importArtCacheButton && importArtCacheFileInput) {
     });
 }
 
+if (cacheOldSchoolButton) {
+    cacheOldSchoolButton.addEventListener("click", async () => {
+        if (!window.confirm("Cache art from limited and sets from Arabian Nights to Fallen Empires?")) {
+            return;
+        }
+
+        const allSerials: number[] = [];
+        let counter = 0;
+        for (const key in uncutSheets) {
+            const cardSerials = uncutSheets[key as keyof typeof uncutSheets];
+            allSerials.push(...cardSerials.cards);
+            counter++;
+            if (counter === 2) {
+                // stop for testing purposes after 2 sets
+                break;
+            }
+        }
+        await generateOldSchoolCache({
+            cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
+            frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+            textBoxImportsStrings: textBoxImportsStrings,
+            onProgress: setStatus,
+        }, allSerials);
+
+        setStatus("Finished caching old school sets.");
+
+    });
+}
+
 if (randomizePacksButton) {
     randomizePacksButton.addEventListener("click", async () => {
         await randomizePacks();
@@ -696,10 +727,18 @@ async function initializeArtPreferences(): Promise<void> {
         useDatabase: useLocalArtDatabaseCheckbox.checked,
     });
 
+    syncCacheOldSchoolButton();
+
     highResolutionArtCheckbox.addEventListener("change", () => {
         void handleHighResolutionArtChange();
     });
     useLocalArtDatabaseCheckbox.addEventListener("change", handleLocalArtDatabaseChange);
+}
+
+function syncCacheOldSchoolButton(): void {
+    if (cacheOldSchoolButton) {
+        cacheOldSchoolButton.disabled = !useLocalArtDatabaseCheckbox?.checked;
+    }
 }
 
 async function handleHighResolutionArtChange(): Promise<void> {
@@ -761,20 +800,17 @@ function handleLocalArtDatabaseChange(): void {
         highResolution: previousOptions.highResolution,
         useDatabase: nextUseDatabase,
     });
+    syncCacheOldSchoolButton();
     void refreshCurrentPreview();
 }
 
 async function refreshCurrentPreview(): Promise<void> {
     const currentCard = previewController.currentCard;
     if (!currentCard) {
-        console.log("No current card to preview.", previewController.currentCard);
         return;
     }
 
-    console.log("current art.", previewController.currentCard);
-
     const query = fixQueryString(currentCard.name);
-
 
     try {
         await showCardPreview(query);
@@ -897,7 +933,7 @@ async function randomizePacks(): Promise<void> {
                 generationEntry.packSimController?.nextCardPosition();
             }
         }
-        console.log(`Randomized pack: ${pack.key} with burn count: ${randomBurnCount}`);
+        // console.log(`Randomized pack: ${pack.key} with burn count: ${randomBurnCount}`);
         await new Promise<void>(resolve => window.setTimeout(resolve, 0));
     }
 

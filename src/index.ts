@@ -644,7 +644,7 @@ function setPreview(message: string): void {
     console.log(message);
 }
 
-// Adds a card to the preview history, truncating any forward history and capping the total size.
+// Adds a card to the preview history, capping the total size.
 function pushPreviewHistory(cardName: string): void {
 
     // If same already at the current index, do nothing.
@@ -652,12 +652,9 @@ function pushPreviewHistory(cardName: string): void {
         return;
     }
 
-
-    if (previewHistoryIndex < previewHistory.length - 1) {
-        previewHistory.splice(previewHistoryIndex + 1);
-    }
-    previewHistory.push(cardName);
-    previewHistoryIndex = previewHistory.length - 1;
+    // Insert right after the current position without discarding any forward history.
+    previewHistory.splice(previewHistoryIndex + 1, 0, cardName);
+    previewHistoryIndex++;
 
     if (previewHistory.length > PREVIEW_HISTORY_MAX) {
         const overflow = previewHistory.length - PREVIEW_HISTORY_MAX;

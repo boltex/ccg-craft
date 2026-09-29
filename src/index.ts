@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdfFromStrings, generateSheetPdf, selectSealedCardPool } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool, generateOldSchoolCache } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -54,6 +54,7 @@ import tbGBackground300dpiPng from "../public/tb300dpi-g.png?inline";
 import tbZBackground300dpiPng from "../public/tb300dpi-z.png?inline";
 import { uncutSheets } from "./uncut-sheets-serials";
 import { packData, PackSimController } from "./pack-sim";
+import { getArtLoadingOptions, setArtLoadingOptions } from "./art-settings";
 
 // Leave as string for later pdfkit conversion to image objects in pdf-exports.ts.
 const frameBackgroundsImportsStrings: Record<number, string> = {
@@ -113,6 +114,9 @@ const randomizePacksButton = document.querySelector<HTMLButtonElement>("#randomi
 const resetPacksCollationButton = document.querySelector<HTMLButtonElement>("#reset-packs-collation");
 const generatePdfButton = document.querySelector<HTMLButtonElement>("#generate-deck-pdf");
 const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#import-art-cache-file");
+const cacheOldSchoolButton = document.querySelector<HTMLButtonElement>("#cache-old-school");
+const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
+const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
 const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size");
@@ -144,6 +148,8 @@ const previewHistory: string[] = []; // Contains the cards previously previewed 
 let previewHistoryIndex = -1; // Tracks the current position in the preview history
 
 const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
+const HIGH_RESOLUTION_ART_STORAGE_KEY = "ccg-craft:high-resolution-art";
+const USE_LOCAL_ART_DATABASE_STORAGE_KEY = "ccg-craft:use-local-art-database";
 const PREVIEW_HISTORY_MAX = 99;
 let previewHistorySaveTimeout: number | undefined;
 
@@ -190,16 +196,7 @@ if (lookupElement) {
             let query = lookupElement.value.trim();
 
             // Convert accented letters to their plain lowercase version
-            query = query.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
-
-            // Remove any quotes
-            query = query.replace(/"/g, "");
-
-            // replace double slash with a single slash
-            query = query.replace(/\/\//g, "/");
-
-            // Replace slash by a vertical bar
-            query = query.replace(/\//g, "|");
+            query = fixQueryString(query);
 
             if (query) {
                 try {
@@ -445,6 +442,36 @@ if (importArtCacheButton && importArtCacheFileInput) {
     });
 }
 
+if (cacheOldSchoolButton) {
+    cacheOldSchoolButton.addEventListener("click", async () => {
+        if (!window.confirm("Cache art from limited and sets from Arabian Nights to Fallen Empires?")) {
+            return;
+        }
+
+        const allSerials: number[] = [];
+        let counter = 0;
+        for (const key in uncutSheets) {
+            const cardSerials = uncutSheets[key as keyof typeof uncutSheets];
+            allSerials.push(...cardSerials.cards);
+            counter++;
+            if (counter === 2) {
+                // stop for testing purposes after 2 sets
+                break;
+            }
+        }
+        await generateOldSchoolCache({
+            cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
+            frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
+            textBoxImportsStrings: textBoxImportsStrings,
+            onProgress: setStatus,
+        }, allSerials);
+
+        setStatus("Finished caching old school sets.");
+
+    });
+}
+
 if (randomizePacksButton) {
     randomizePacksButton.addEventListener("click", async () => {
         await randomizePacks();
@@ -484,6 +511,7 @@ async function generateSealedPDF(): Promise<void> {
         const pdfBlob = await generateSealedDeckPdf({
             cardPool,
             cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
@@ -520,6 +548,7 @@ async function generateConstructedPDF(): Promise<void> {
         const pdfBlob = await generateConstructedDeckPdf({
             decklistText: decklistTextArea?.value ?? "",
             cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
@@ -557,6 +586,7 @@ async function generateSelectedSheetPdf(): Promise<void> {
         disableDeckTabs();
         const pdfBlob = await generateSheetPdf({
             cardDatabase: cardDatabase,
+            artLoadingOptions: getArtLoadingOptions(),
             paperSize: "sheet",
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
@@ -614,7 +644,7 @@ function setPreview(message: string): void {
     console.log(message);
 }
 
-// Adds a card to the preview history, truncating any forward history and capping the total size.
+// Adds a card to the preview history, capping the total size.
 function pushPreviewHistory(cardName: string): void {
 
     // If same already at the current index, do nothing.
@@ -622,12 +652,9 @@ function pushPreviewHistory(cardName: string): void {
         return;
     }
 
-
-    if (previewHistoryIndex < previewHistory.length - 1) {
-        previewHistory.splice(previewHistoryIndex + 1);
-    }
-    previewHistory.push(cardName);
-    previewHistoryIndex = previewHistory.length - 1;
+    // Insert right after the current position without discarding any forward history.
+    previewHistory.splice(previewHistoryIndex + 1, 0, cardName);
+    previewHistoryIndex++;
 
     if (previewHistory.length > PREVIEW_HISTORY_MAX) {
         const overflow = previewHistory.length - PREVIEW_HISTORY_MAX;
@@ -676,6 +703,135 @@ function restorePreviewHistory(): void {
         console.error("Failed to restore preview history:", error);
     }
 }
+
+async function initializeArtPreferences(): Promise<void> {
+    if (!highResolutionArtCheckbox || !useLocalArtDatabaseCheckbox) {
+        return;
+    }
+
+    const savedHighResolution = window.localStorage.getItem(HIGH_RESOLUTION_ART_STORAGE_KEY);
+    highResolutionArtCheckbox.checked = savedHighResolution === null || savedHighResolution === "true";
+    useLocalArtDatabaseCheckbox.checked = window.localStorage.getItem(USE_LOCAL_ART_DATABASE_STORAGE_KEY) === "true";
+
+    if (savedHighResolution === null) {
+        // Had no saved preference, default to high resolution. also clear DB because low-resolution art might be incompatible.
+        await clearCachedFaceArt();
+        await updateStatistics();
+    }
+
+    setArtLoadingOptions({
+        highResolution: highResolutionArtCheckbox.checked,
+        useDatabase: useLocalArtDatabaseCheckbox.checked,
+    });
+
+    syncCacheOldSchoolButton();
+
+    highResolutionArtCheckbox.addEventListener("change", () => {
+        void handleHighResolutionArtChange();
+    });
+    useLocalArtDatabaseCheckbox.addEventListener("change", handleLocalArtDatabaseChange);
+}
+
+function syncCacheOldSchoolButton(): void {
+    if (cacheOldSchoolButton) {
+        cacheOldSchoolButton.disabled = !useLocalArtDatabaseCheckbox?.checked;
+    }
+}
+
+async function handleHighResolutionArtChange(): Promise<void> {
+    if (!highResolutionArtCheckbox || !useLocalArtDatabaseCheckbox) {
+        return;
+    }
+
+    const previousOptions = getArtLoadingOptions();
+    const nextHighResolution = highResolutionArtCheckbox.checked;
+    if (nextHighResolution === previousOptions.highResolution) {
+        return;
+    }
+
+    if (!window.confirm("Changing art resolution will clear all cached art images. Continue?")) {
+        highResolutionArtCheckbox.checked = previousOptions.highResolution;
+        return;
+    }
+
+    highResolutionArtCheckbox.disabled = true;
+    useLocalArtDatabaseCheckbox.disabled = true;
+    try {
+        await clearCachedFaceArt();
+        window.localStorage.setItem(HIGH_RESOLUTION_ART_STORAGE_KEY, String(nextHighResolution));
+    } catch (error) {
+        highResolutionArtCheckbox.checked = previousOptions.highResolution;
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to change art resolution: ${message}`);
+        return;
+    } finally {
+        highResolutionArtCheckbox.disabled = false;
+        useLocalArtDatabaseCheckbox.disabled = false;
+    }
+
+    setArtLoadingOptions({
+        highResolution: nextHighResolution,
+        useDatabase: previousOptions.useDatabase,
+    });
+    setStatus("Art resolution changed; cached art cleared.");
+    await refreshCurrentPreview();
+}
+
+function handleLocalArtDatabaseChange(): void {
+    if (!useLocalArtDatabaseCheckbox) {
+        return;
+    }
+
+    const previousOptions = getArtLoadingOptions();
+    const nextUseDatabase = useLocalArtDatabaseCheckbox.checked;
+    try {
+        window.localStorage.setItem(USE_LOCAL_ART_DATABASE_STORAGE_KEY, String(nextUseDatabase));
+    } catch (error) {
+        useLocalArtDatabaseCheckbox.checked = previousOptions.useDatabase;
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to save art database preference: ${message}`);
+        return;
+    }
+
+    setArtLoadingOptions({
+        highResolution: previousOptions.highResolution,
+        useDatabase: nextUseDatabase,
+    });
+    syncCacheOldSchoolButton();
+    void refreshCurrentPreview();
+}
+
+async function refreshCurrentPreview(): Promise<void> {
+    const currentCard = previewController.currentCard;
+    if (!currentCard) {
+        return;
+    }
+
+    const query = fixQueryString(currentCard.name);
+
+    try {
+        await showCardPreview(query);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setStatus(`Failed to refresh card preview: ${message}`);
+    }
+}
+
+function fixQueryString(query: string): string {
+    // Convert accented letters to their plain lowercase version
+    query = query.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+
+    // Remove any quotes
+    query = query.replace(/"/g, "");
+
+    // replace double slash with a single slash
+    query = query.replace(/\/\//g, "/");
+
+    // Replace slash by a vertical bar
+    query = query.replace(/\//g, "|");
+    return query;
+}
+
 
 // Look for existing pack sim state in localStorage and restore it if available.
 function restorePackSimState(): void {
@@ -774,7 +930,7 @@ async function randomizePacks(): Promise<void> {
                 generationEntry.packSimController?.nextCardPosition();
             }
         }
-        console.log(`Randomized pack: ${pack.key} with burn count: ${randomBurnCount}`);
+        // console.log(`Randomized pack: ${pack.key} with burn count: ${randomBurnCount}`);
         await new Promise<void>(resolve => window.setTimeout(resolve, 0));
     }
 
@@ -803,7 +959,15 @@ async function showCardPreview(query: string): Promise<void> {
     // Faces are the one or two printable faces on the surface of the card; the second may be undefined.
     const faces = cardDatabase.getFaceData(serial);
 
-    const previewText = await previewController.showCard(card, faces, cardDatabase.editions, cardDatabase.editionsScry, frameBackgroundsImageBitmap, textBoxImageBitmap);
+    const previewText = await previewController.showCard(
+        card,
+        faces,
+        cardDatabase.editions,
+        cardDatabase.editionsScry,
+        frameBackgroundsImageBitmap,
+        textBoxImageBitmap,
+        getArtLoadingOptions()
+    );
 
     // We've found and shown the card preview, 
     // If not already in history: add it at current position in history and delete forward history beyond the current index.
@@ -952,6 +1116,8 @@ function populatePackSelect(): void {
 }
 
 async function bootstrap(): Promise<void> {
+
+    await initializeArtPreferences();
 
     restorePreviewHistory();
     restorePackSimState();

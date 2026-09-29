@@ -289,6 +289,8 @@ body {
 .tagline-inner {
   padding: 0 5px 0 5px;
   border: 1px solid #000;
+  line-height: 0.8;
+  padding-top: 5px;
 }
 
 /* Fixed layer stack of frame backgrounds, cross-fades between the 8 frame jpgs behind the app. */
@@ -686,6 +688,22 @@ button:disabled {
 input[type="checkbox"] {
   accent-color: #8c6d54;
   cursor: pointer;
+}
+
+.app-preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+
+.app-preference {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .edition-checkboxes-toggle {

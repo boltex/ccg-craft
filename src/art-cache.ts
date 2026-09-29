@@ -1,5 +1,5 @@
 import { Unzip, UnzipInflate, zipSync, type UnzipFile, type Zippable } from "fflate";
-import type { CachedFaceArt, CachedFaceArtInput } from "./types";
+import type { CachedFaceArt } from "./types";
 
 const ART_CACHE_DB_NAME = "ccg-craft-art";
 const ART_CACHE_DB_VERSION = 2;
@@ -61,7 +61,7 @@ function openArtCacheDatabase(): Promise<IDBDatabase> {
     });
 }
 
-function normalizeCachedFaceArt(input: CachedFaceArtInput): CachedFaceArt {
+function normalizeCachedFaceArt(input: CachedFaceArt): CachedFaceArt {
     return {
         faceSerial: input.faceSerial,
         blob: input.blob,
@@ -77,7 +77,7 @@ function migrateFaceArtStore(store: IDBObjectStore): void {
             return;
         }
 
-        const normalizedRecord = normalizeCachedFaceArt(cursor.value as CachedFaceArtInput);
+        const normalizedRecord = normalizeCachedFaceArt(cursor.value as CachedFaceArt);
         cursor.update(normalizedRecord);
         cursor.continue();
     };
@@ -139,7 +139,7 @@ export async function getCachedFaceArt(faceSerial: number): Promise<CachedFaceAr
     return record;
 }
 
-export async function putCachedFaceArt(input: CachedFaceArtInput): Promise<CachedFaceArt> {
+export async function putCachedFaceArt(input: CachedFaceArt): Promise<CachedFaceArt> {
     const database = await getArtCacheDatabase();
     const transaction = database.transaction(FACE_ART_STORE_NAME, "readwrite");
     const store = transaction.objectStore(FACE_ART_STORE_NAME);
@@ -199,7 +199,7 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
     const database = await getArtCacheDatabase();
 
     let importedCount = 0;
-    let batch: CachedFaceArtInput[] = [];
+    let batch: CachedFaceArt[] = [];
     let pendingWrite = Promise.resolve();
 
     const flushBatch = (): void => {
@@ -268,7 +268,7 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
     };
 }
 
-async function writeCachedFaceArtBatch(database: IDBDatabase, records: CachedFaceArtInput[]): Promise<void> {
+async function writeCachedFaceArtBatch(database: IDBDatabase, records: CachedFaceArt[]): Promise<void> {
     const transaction = database.transaction(FACE_ART_STORE_NAME, "readwrite");
     const store = transaction.objectStore(FACE_ART_STORE_NAME);
 

@@ -3,6 +3,13 @@ import {
     createSourceArtBitmap,
     normalizeFaceArtBitmap,
 } from "./image-normalize";
+import { canUseLocalArtDatabase, type ArtLoadingOptions } from "./art-settings";
+import {
+    normalizedFaceArtHeight,
+    normalizedFaceArtWidth,
+    normalizedHighResolutionFaceArtHeight,
+    normalizedHighResolutionFaceArtWidth,
+} from "./constants";
 import type { Card, PrintableFace } from "./types";
 import * as utils from "./utils";
 
@@ -35,6 +42,7 @@ async function fetchWithRetry(url: string, delay: number): Promise<Response> {
 export type LoadFaceArtForCardInput = {
     card: Card;
     faces: Array<PrintableFace | undefined>;
+    artLoadingOptions: ArtLoadingOptions;
 };
 
 
@@ -79,10 +87,12 @@ export async function loadFaceArtForCard(
             }
         }
 
-        const cachedArt = await getCachedFaceArt(faceIndex);
-        if (cachedArt) {
-            artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));
-            continue;
+        if (canUseLocalArtDatabase(input.artLoadingOptions)) {
+            const cachedArt = await getCachedFaceArt(faceIndex);
+            if (cachedArt) {
+                artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));
+                continue;
+            }
         }
 
         missingFaces.push(face);
@@ -118,14 +128,25 @@ export async function loadFaceArtForCard(
 
             }
 
-            const normalizedArt = await normalizeFaceArtBitmap(sourceBitmap, face);
-            const cachedArt = await putCachedFaceArt({
-                faceSerial: faceIndex,
-                blob: normalizedArt.blob,
+
+            const normalizedArt = await normalizeFaceArtBitmap(sourceBitmap, face, {
+                targetWidth: input.artLoadingOptions.highResolution
+                    ? normalizedHighResolutionFaceArtWidth
+                    : normalizedFaceArtWidth,
+                targetHeight: input.artLoadingOptions.highResolution
+                    ? normalizedHighResolutionFaceArtHeight
+                    : normalizedFaceArtHeight,
             });
 
+            if (canUseLocalArtDatabase(input.artLoadingOptions)) {
+                await putCachedFaceArt({
+                    faceSerial: faceIndex,
+                    blob: normalizedArt.blob,
+                });
+            }
+
             // Set as original face.serial, not as modified faceIndex for alternate art.
-            artByFaceSerial.set(face.serial, await createImageBitmap(cachedArt.blob));
+            artByFaceSerial.set(face.serial, await createImageBitmap(normalizedArt.blob));
         }
     } finally {
         sourceBitmap.close();

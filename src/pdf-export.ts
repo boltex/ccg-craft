@@ -13,6 +13,7 @@ import {
 import type { RenderImageSource } from "./renderer-surface";
 import type { Card, PrintableFace } from "./types";
 import { loadFaceArtForCard } from "./art-loader";
+import type { ArtLoadingOptions } from "./art-settings";
 
 export type GenerateSingleCardPdfInput = {
     faces: Array<PrintableFace | undefined>;
@@ -33,6 +34,7 @@ let pdfFontsPromise: Promise<PdfFontBytes> | undefined;
 
 export type GenerateDeckPdfInput = {
     cards: Card[];
+    artLoadingOptions: ArtLoadingOptions;
     getFaceData: (cardSerial: number) => [PrintableFace, PrintableFace | undefined];
     paperSize?: string;
     renderOptions?: Omit<RenderCardOptions, "artByFaceSerial">;
@@ -162,7 +164,11 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
                 const card = input.cards[cardPointer];
                 const faces = input.getFaceData(card.serial);
 
-                const rawArtByFaceSerial = await loadFaceArtForCard({ card, faces });
+                const rawArtByFaceSerial = await loadFaceArtForCard({
+                    card,
+                    faces,
+                    artLoadingOptions: input.artLoadingOptions,
+                });
                 const artByFaceSerial = await normalizeArtMapForPdf(rawArtByFaceSerial);
 
                 const cellOriginX = gridOriginX + column * constants.PdfCardWidth;

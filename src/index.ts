@@ -104,6 +104,7 @@ const textBoxImageBitmap: Record<number, ImageBitmap> = {
     [constants.frame.frameZ]: await createImageBitmap(await (await fetch(tbZBackground300dpiPng)).blob()),
 };
 
+const bgDecoRectangle = document.querySelector<HTMLDivElement>("#bg-deco-rectangle");
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const statisticsElement = document.querySelector<HTMLParagraphElement>("#statistics");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
@@ -239,6 +240,52 @@ if (lookupElement) {
             updateStatistics();
         }
     });
+}
+
+if (bgDecoRectangle) {
+
+    const clamp = (value: number, min: number, max: number) =>
+        Math.min(Math.max(value, min), max);
+
+    document.addEventListener("mousemove", (event) => {
+        const rect = bgDecoRectangle.getBoundingClientRect();
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const dx = event.clientX - centerX;
+        const dy = event.clientY - centerY;
+
+        const rotateY = clamp(dx * 0.01, -5, 5);
+        const rotateX = clamp(-dy * 0.01, -5, 5);
+
+        bgDecoRectangle.style.transform =
+            `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    // // You can now manipulate the bgDecoRectangle element as needed
+    // bgDecoRectangle.addEventListener("mousemove", (event) => {
+    //     const rect = bgDecoRectangle.getBoundingClientRect();
+
+    //     const x = (event.clientX - rect.left) / rect.width;
+    //     const y = (event.clientY - rect.top) / rect.height;
+
+    //     const rotateY = (x - 0.5) * 8;
+    //     const rotateX = (0.5 - y) * 8;
+
+    //     //     bgDecoRectangle.style.transform = `
+    //     //     perspective(800px)
+    //     //     translateY(-3px)
+    //     //     rotateX(${rotateX}deg)
+    //     //     rotateY(${rotateY}deg)
+    //     // `;
+    //     bgDecoRectangle.style.transform =
+    //         `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    // });
+
+    // bgDecoRectangle.addEventListener("mouseleave", () => {
+    //     bgDecoRectangle.style.transform = "";
+    // });
 }
 
 if (generatePdfButton) {

@@ -405,7 +405,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
 
         // * Draw the two thin lines that lands have around the art box bevel, and inside the card face bevel.
-        let isLegendsSet = false; // face.edition === 4; 
+        let isLegendsSet = face.edition === 4;
         if (isLegendsSet) {
             const cardBorderX = faceBounds.x + cardBevelWidth;
             const cardBorderY = faceBounds.y + cardBevelWidth;

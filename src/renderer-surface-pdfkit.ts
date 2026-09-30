@@ -39,8 +39,9 @@ export type PdfKitDocument = {
         y: number,
         options?: { width?: number; height?: number }
     ): PdfKitDocument;
-    fillColor(color: string, opacity?: number): PdfKitDocument;
-    strokeColor(color: string, opacity?: number): PdfKitDocument;
+    fillColor(color: string | PdfKitGradient, opacity?: number): PdfKitDocument;
+    strokeColor(color: string | PdfKitGradient, opacity?: number): PdfKitDocument;
+    strokeOpacity(opacity: number): PdfKitDocument;
     fillOpacity(opacity: number): PdfKitDocument;
     lineWidth(width: number): PdfKitDocument;
     font(src: string): PdfKitDocument;
@@ -129,6 +130,7 @@ export function createPdfKitRenderSurface(
         }
 
         currentStroke.value.apply(true);
+        document.strokeOpacity(1)
     }
 
     return {

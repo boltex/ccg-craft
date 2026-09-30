@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool, generateOldSchoolCache } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool, generateOldSchoolCache, countSealedCardPool } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -1209,8 +1209,11 @@ function updatePoolSize(): void {
     const poolSizeElement = document.getElementById("pool-size");
     if (poolSizeElement) {
         console.log(`Updating pool size...`);
-        const text = 123; // test
-        poolSizeElement.textContent = `(Pool size: ${text})`;
+        const selectedEditions = Object.entries(editionSelection)
+            .filter(([, checked]) => checked)
+            .map(([code]) => code);
+        const text = countSealedCardPool(cardDatabase, selectedEditions);
+        poolSizeElement.textContent = `from a pool of ${text} cards`;
     }
 }
 

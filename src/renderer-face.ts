@@ -64,8 +64,8 @@ function createLegendsBorderGradient(
     y: number,
     width: number,
     height: number,
-    focusX = 0.2,
-    focusY = 0.6,
+    focusX = 0.5,
+    focusY = 0.5,
 ): FillStyle {
     const centerX = x + width * focusX;
     const centerY = y + height * focusY;
@@ -439,7 +439,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const cardBorderWidth = faceBounds.width - cardBevelWidth * 2;
             const cardBorderHeight = faceBounds.height - cardBevelWidth * 2;
 
-            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight));
+            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight, 0.2, 0.6));
             surface.setLineWidth(scene.scale * 0.75);
             surface.strokeRect(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight);
 
@@ -448,7 +448,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const artBorderWidth = artBoxRect.width + artBevelWidth * 2;
             const artBorderHeight = artBoxRect.height + artBevelWidth * 2;
 
-            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderY, artBorderWidth, artBorderHeight));
+            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderY, artBorderWidth, artBorderHeight, 0.6, 0.4));
             surface.setLineWidth(scene.scale * 1.0);
             surface.strokeRect(artBorderX, artBorderY, artBorderWidth, artBorderHeight);
         } else {
@@ -472,7 +472,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         if (fill.kind === "solid") {
 
             if (isLegendsSet) {
-                surface.setStrokeStyle(createLegendsBorderGradient(adjustedTextBoxRect.x, adjustedTextBoxRect.y, adjustedTextBoxRect.width, adjustedTextBoxRect.height));
+                surface.setStrokeStyle(createLegendsBorderGradient(adjustedTextBoxRect.x, adjustedTextBoxRect.y * 1.5, adjustedTextBoxRect.width * 1.6, adjustedTextBoxRect.height, 0.7, 0.5));
             } else {
                 surface.setStrokeStyle(utils.toCommaRgb(...color1));
             }

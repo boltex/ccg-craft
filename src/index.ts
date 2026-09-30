@@ -144,6 +144,7 @@ const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
 let activeDeckTab: "constructed" | "sealed" | "sheet" | "db" = "constructed";
 let editionSelection: Record<string, boolean> = {};
+let poolSizeUpdateTimeout: number | undefined;
 
 const cardDatabase = new CardDatabase();
 const previewController = new CardPreviewController(canvasElement);
@@ -1113,8 +1114,10 @@ function syncGeneratePdfButton(updateSealedPoolSize = false): void {
         addToDecklistButton.disabled = previewController.currentCard === null;
     }
     if (updateSealedPoolSize) {
-        // TODO: debounce this call to avoid excessive updates when multiple checkboxes change rapidly.
-        updatePoolSize();
+        if (poolSizeUpdateTimeout !== undefined) {
+            clearTimeout(poolSizeUpdateTimeout);
+        }
+        poolSizeUpdateTimeout = window.setTimeout(updatePoolSize, 1000);
     }
 }
 

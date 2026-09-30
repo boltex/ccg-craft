@@ -59,12 +59,22 @@ function getCardTextStyle(
     };
 }
 
-function createLegendsBorderGradient(x: number, y: number, width: number, height: number): FillStyle {
-    // Center the radial gradient on the rect and reach past its corners so the
-    // whole border (including corners) sits inside the gradient's rings.
-    const centerX = x + width / 2;
-    const centerY = y + height / 2;
-    const radius = Math.hypot(width / 2, height / 2);
+function createLegendsBorderGradient(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    focusX = 0.2,
+    focusY = 0.6,
+): FillStyle {
+    const centerX = x + width * focusX;
+    const centerY = y + height * focusY;
+    const radius = Math.max(
+        Math.hypot(centerX - x, centerY - y),
+        Math.hypot(centerX - (x + width), centerY - y),
+        Math.hypot(centerX - x, centerY - (y + height)),
+        Math.hypot(centerX - (x + width), centerY - (y + height)),
+    );
 
     const dark = "#6B481C";
     const mid = "#C4972D";

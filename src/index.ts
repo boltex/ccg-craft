@@ -117,6 +117,7 @@ const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#impor
 const cacheOldSchoolButton = document.querySelector<HTMLButtonElement>("#cache-old-school");
 const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
 const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
+const whiteBorderCheckbox = document.querySelector<HTMLInputElement>("#white-border");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
 const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size");
@@ -484,6 +485,12 @@ if (resetPacksCollationButton) {
     });
 }
 
+if (whiteBorderCheckbox) {
+    whiteBorderCheckbox.addEventListener("change", () => {
+        refreshCurrentPreview();
+    });
+}
+
 async function generateSealedPDF(): Promise<void> {
     const selectedEditions = Object.entries(editionSelection)
         .filter(([, checked]) => checked)
@@ -515,7 +522,8 @@ async function generateSealedPDF(): Promise<void> {
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
-            textBoxImportsStrings: textBoxImportsStrings
+            textBoxImportsStrings: textBoxImportsStrings,
+            whiteBorder: whiteBorderCheckbox?.checked ?? false
         });
 
         utils.trackEvent("generate_sealed_pdf", { selectedEditions });
@@ -552,7 +560,8 @@ async function generateConstructedPDF(): Promise<void> {
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
-            textBoxImportsStrings: textBoxImportsStrings
+            textBoxImportsStrings: textBoxImportsStrings,
+            whiteBorder: whiteBorderCheckbox?.checked ?? false
         });
 
         utils.trackEvent("generate_constructed_pdf");
@@ -591,6 +600,7 @@ async function generateSelectedSheetPdf(): Promise<void> {
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
             textBoxImportsStrings: textBoxImportsStrings,
+            whiteBorder: whiteBorderCheckbox?.checked ?? false
         }, sheetInfo.cards);
 
         utils.trackEvent("generate_sheet_pdf", { sheet: selectedSheetKey });
@@ -841,8 +851,8 @@ function restorePackSimState(): void {
             const sheetKey = generationEntry.sheet;
             const raw = window.localStorage.getItem(`packSimState_${pack.key}_${sheetKey}`);
             if (!raw) {
+                // default initialization for new pack sim state
                 generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
-                // console.log(`Initialized new PackSimController of pack ${pack.key} for sheet ${sheetKey} with default state.`);
             } else {
                 try {
                     const parsed = JSON.parse(raw);
@@ -865,6 +875,7 @@ function restorePackSimState(): void {
                     // console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
                 } catch (error) {
                     console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
+                    // If restoration fails, fall back to default initialization for this pack sim state.
                     generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
                 }
             }
@@ -966,7 +977,8 @@ async function showCardPreview(query: string): Promise<void> {
         cardDatabase.editionsScry,
         frameBackgroundsImageBitmap,
         textBoxImageBitmap,
-        getArtLoadingOptions()
+        getArtLoadingOptions(),
+        whiteBorderCheckbox?.checked ?? false
     );
 
     // We've found and shown the card preview, 

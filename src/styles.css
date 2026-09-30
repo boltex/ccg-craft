@@ -679,7 +679,7 @@ button:disabled {
 }
 
 .pack-image img {
-  filter: drop-shadow(-4px 8px 8px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(-2px 4px 4px rgba(0, 0, 0, 0.5));
 }
 
 .edition-checkboxes {

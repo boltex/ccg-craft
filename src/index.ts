@@ -118,6 +118,7 @@ const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#impor
 const cacheOldSchoolButton = document.querySelector<HTMLButtonElement>("#cache-old-school");
 const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
 const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
+const borderToggleButton = document.querySelector<HTMLButtonElement>("#border-toggle");
 const whiteBorderCheckbox = document.querySelector<HTMLInputElement>("#white-border");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
@@ -537,7 +538,27 @@ if (whiteBorderCheckbox) {
     whiteBorderCheckbox.checked = window.localStorage.getItem(WHITE_BORDER_STORAGE_KEY) === "true";
     whiteBorderCheckbox.addEventListener("change", () => {
         window.localStorage.setItem(WHITE_BORDER_STORAGE_KEY, String(whiteBorderCheckbox.checked));
+        if (borderToggleButton) {
+            borderToggleButton.textContent = whiteBorderCheckbox.checked ? "W.B." : "B.B.";
+        }
         refreshCurrentPreview();
+    });
+}
+// Toggle border button is a shortcut button to toggle the white/black border setting
+if (borderToggleButton) {
+    // Set its content to "B.B." or "W.B." based on the current white border setting
+
+    borderToggleButton.textContent = whiteBorderCheckbox && whiteBorderCheckbox.checked ? "W.B." : "B.B.";
+    borderToggleButton.addEventListener("click", () => {
+        if (whiteBorderCheckbox) {
+            whiteBorderCheckbox.checked = !whiteBorderCheckbox.checked;
+            window.localStorage.setItem(WHITE_BORDER_STORAGE_KEY, String(whiteBorderCheckbox.checked));
+
+            // Update its content from "B.B." to "W.B." or vice versa
+            borderToggleButton.textContent = whiteBorderCheckbox.checked ? "W.B." : "B.B.";
+
+            refreshCurrentPreview();
+        }
     });
 }
 

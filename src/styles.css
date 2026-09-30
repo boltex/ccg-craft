@@ -535,6 +535,13 @@ button:disabled {
   transform: none;
 }
 
+#border-toggle {
+  padding-left: 3px;
+  padding-right: 0px;
+  width: 52px;
+  text-align: center;
+}
+
 .deck-nav {
   display: flex;
   flex-direction: row-reverse;

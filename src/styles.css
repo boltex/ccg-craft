@@ -653,7 +653,7 @@ button:disabled {
 }
 .pack-image:active {
   box-shadow: none;
-  transform: translateY(3px) scale(1.75);
+  transform: translateY(3px) scale(2);
   z-index: 10;
 }
 

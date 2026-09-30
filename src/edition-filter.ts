@@ -6,7 +6,7 @@ export function buildEditionCheckboxes(
         name: string;
     }>>,
     container: HTMLElement,
-    onChange?: () => void
+    onChange?: (updateSealedPoolSize?: boolean) => void
 ): Record<string, boolean> {
     const selection: Record<string, boolean> = {};
     const checkboxes: HTMLInputElement[] = [];
@@ -24,7 +24,7 @@ export function buildEditionCheckboxes(
         input.dataset.edition = code;
         input.addEventListener("change", () => {
             selection[code] = input.checked;
-            onChange?.();
+            onChange?.(true);
         });
         checkboxes.push(input);
 
@@ -72,6 +72,14 @@ export function buildEditionCheckboxes(
         ], checkboxes, selection, onChange)
     );
 
+    // Also add a text element with id "pool-size" that will be used by a debounced function to display the current pool size.
+
+    const sealedInstructions = document.getElementById("sealed-instructions");
+
+    const poolSize = document.createElement("span");
+    poolSize.id = "pool-size";
+    sealedInstructions?.append(poolSize);
+
     return selection;
 }
 
@@ -80,7 +88,7 @@ function createSelectionToggleButton(
     checkedValue: boolean | string[],
     checkboxes: HTMLInputElement[],
     selection: Record<string, boolean>,
-    onChange?: () => void
+    onChange?: (updateSealedPoolSize?: boolean) => void
 ): HTMLButtonElement {
     const button = document.createElement("button");
     button.type = "button";
@@ -93,7 +101,7 @@ function createSelectionToggleButton(
                 checkbox.checked = checkedValue;
                 selection[checkbox.dataset.edition as string] = checkedValue;
             }
-            onChange?.();
+            onChange?.(true);
         });
 
     } else {
@@ -103,7 +111,7 @@ function createSelectionToggleButton(
                 checkbox.checked = checkedValue.includes(checkbox.dataset.edition as string);
                 selection[checkbox.dataset.edition as string] = checkbox.checked;
             }
-            onChange?.();
+            onChange?.(true);
         });
 
     }

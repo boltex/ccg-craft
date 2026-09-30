@@ -1092,7 +1092,7 @@ function resetPageBackgroundColor(): void {
     frameBgElements.forEach(element => element.classList.remove("active"));
 }
 
-function syncGeneratePdfButton(): void {
+function syncGeneratePdfButton(updateSealedPoolSize = false): void {
     if (decklistPaperSizeSelect) {
         decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db");
     }
@@ -1111,6 +1111,10 @@ function syncGeneratePdfButton(): void {
 
     if (addToDecklistButton) {
         addToDecklistButton.disabled = previewController.currentCard === null;
+    }
+    if (updateSealedPoolSize) {
+        // TODO: debounce this call to avoid excessive updates when multiple checkboxes change rapidly.
+        updatePoolSize();
     }
 }
 
@@ -1198,6 +1202,15 @@ function populatePackSelect(): void {
     }
 }
 
+function updatePoolSize(): void {
+    const poolSizeElement = document.getElementById("pool-size");
+    if (poolSizeElement) {
+        console.log(`Updating pool size...`);
+        const text = 123; // test
+        poolSizeElement.textContent = `(Pool size: ${text})`;
+    }
+}
+
 async function bootstrap(): Promise<void> {
 
     await initializeArtPreferences();
@@ -1223,6 +1236,8 @@ async function bootstrap(): Promise<void> {
         }
 
         await updateStatistics();
+
+        updatePoolSize();
 
         if (isDebug) {
             // test time to loop nextCardPosition for the PackSimController: start with a fresh controller and get a timestamp.

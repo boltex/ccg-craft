@@ -583,7 +583,7 @@ async function generateSealedPDF(): Promise<void> {
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
-    generatePdfButton.textContent = "Generating PDF...";
+    generatePdfButton.textContent = "Generating ...";
 
     try {
         disableDeckTabs();
@@ -621,7 +621,7 @@ async function generateConstructedPDF(): Promise<void> {
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
-    generatePdfButton.textContent = "Generating PDF...";
+    generatePdfButton.textContent = "Generating ...";
 
     try {
         disableDeckTabs();

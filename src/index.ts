@@ -151,6 +151,7 @@ let previewHistoryIndex = -1; // Tracks the current position in the preview hist
 const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
 const HIGH_RESOLUTION_ART_STORAGE_KEY = "ccg-craft:high-resolution-art";
 const USE_LOCAL_ART_DATABASE_STORAGE_KEY = "ccg-craft:use-local-art-database";
+const WHITE_BORDER_STORAGE_KEY = "ccg-craft:white-border";
 const PREVIEW_HISTORY_MAX = 99;
 let previewHistorySaveTimeout: number | undefined;
 
@@ -486,7 +487,9 @@ if (resetPacksCollationButton) {
 }
 
 if (whiteBorderCheckbox) {
+    whiteBorderCheckbox.checked = window.localStorage.getItem(WHITE_BORDER_STORAGE_KEY) === "true";
     whiteBorderCheckbox.addEventListener("change", () => {
+        window.localStorage.setItem(WHITE_BORDER_STORAGE_KEY, String(whiteBorderCheckbox.checked));
         refreshCurrentPreview();
     });
 }

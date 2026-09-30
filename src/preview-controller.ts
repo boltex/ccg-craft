@@ -27,7 +27,8 @@ export class CardPreviewController {
         editionsScry: Readonly<Record<string, { "scry": string[], "name": string }>>,
         frameBackgroundsImageBitmap: Record<number, ImageBitmap>,
         textBoxImageBitmap: Record<number, ImageBitmap>,
-        artLoadingOptions: ArtLoadingOptions
+        artLoadingOptions: ArtLoadingOptions,
+        whiteBorder: boolean,
     ): Promise<string> {
         const possibleCardEditions = editionsScry[card.edition].scry;
         if (!possibleCardEditions || possibleCardEditions.length === 0) {
@@ -47,11 +48,11 @@ export class CardPreviewController {
         if (context) {
             renderCardPreview(context, faces, {
                 padding: 20,
-                // background: "#f3ecdf", // Regular card background
-                background: "#131112", // Black bordered
+                background: whiteBorder ? "#f3ecdf" : "#131112",
                 artByFaceSerial: this.renderedFaceArt,
                 frameBackgroundsImageBitmap: frameBackgroundsImageBitmap,
-                textBoxImageBitmap: textBoxImageBitmap
+                textBoxImageBitmap: textBoxImageBitmap,
+                whiteBorder: whiteBorder
             });
         }
 

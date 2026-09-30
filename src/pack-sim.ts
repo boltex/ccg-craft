@@ -213,7 +213,7 @@ export const packData: {
             label: "Arabian Nights",
             deckEntry: "Booster Arabian Nights",
             image: "booster-arabian-nights.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+            stripSequence: [3, 4, 4, 3, 5], // No '2'. 
             generation: [
                 {
                     packSimController: undefined,
@@ -232,7 +232,8 @@ export const packData: {
             label: "Antiquities",
             deckEntry: "Booster Antiquities",
             image: "booster-antiquities.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+            stripSequence: [3, 4, 4, 3, 5], // Same as arabian nights - until proven otherwise.
+
             generation: [
                 {
                     packSimController: undefined,
@@ -251,7 +252,7 @@ export const packData: {
             label: "Legends",
             deckEntry: "Booster Legends",
             image: "booster-legends.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+            stripSequence: [2, 3, 4, 4, 3], // No '5'.
             generation: [
                 {
                     packSimController: undefined,
@@ -275,7 +276,7 @@ export const packData: {
             label: "The Dark",
             deckEntry: "Booster The Dark",
             image: "booster-the-dark.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+            stripSequence: [2, 3, 4, 4, 3], // No '5'.
             generation: [
                 {
                     packSimController: undefined,
@@ -294,7 +295,7 @@ export const packData: {
             label: "Fallen Empires",
             deckEntry: "Booster Fallen Empires",
             image: "booster-fallen-empires.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5], // Sets other than 'Limited' may have different strip sequences.
+            stripSequence: [2, 3, 4, 4, 3, 5], // Same as limited - until proven otherwise.
             generation: [
                 {
                     packSimController: undefined,

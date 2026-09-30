@@ -117,6 +117,7 @@ const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#impor
 const cacheOldSchoolButton = document.querySelector<HTMLButtonElement>("#cache-old-school");
 const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
 const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
+const whiteBorderCheckbox = document.querySelector<HTMLInputElement>("#white-border");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
 const decklistPaperSizeSelect = document.querySelector<HTMLSelectElement>("#decklist-paper-size");
@@ -150,6 +151,7 @@ let previewHistoryIndex = -1; // Tracks the current position in the preview hist
 const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
 const HIGH_RESOLUTION_ART_STORAGE_KEY = "ccg-craft:high-resolution-art";
 const USE_LOCAL_ART_DATABASE_STORAGE_KEY = "ccg-craft:use-local-art-database";
+const WHITE_BORDER_STORAGE_KEY = "ccg-craft:white-border";
 const PREVIEW_HISTORY_MAX = 99;
 let previewHistorySaveTimeout: number | undefined;
 
@@ -484,6 +486,14 @@ if (resetPacksCollationButton) {
     });
 }
 
+if (whiteBorderCheckbox) {
+    whiteBorderCheckbox.checked = window.localStorage.getItem(WHITE_BORDER_STORAGE_KEY) === "true";
+    whiteBorderCheckbox.addEventListener("change", () => {
+        window.localStorage.setItem(WHITE_BORDER_STORAGE_KEY, String(whiteBorderCheckbox.checked));
+        refreshCurrentPreview();
+    });
+}
+
 async function generateSealedPDF(): Promise<void> {
     const selectedEditions = Object.entries(editionSelection)
         .filter(([, checked]) => checked)
@@ -515,7 +525,8 @@ async function generateSealedPDF(): Promise<void> {
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
-            textBoxImportsStrings: textBoxImportsStrings
+            textBoxImportsStrings: textBoxImportsStrings,
+            whiteBorder: whiteBorderCheckbox?.checked ?? false
         });
 
         utils.trackEvent("generate_sealed_pdf", { selectedEditions });
@@ -552,7 +563,8 @@ async function generateConstructedPDF(): Promise<void> {
             paperSize: decklistPaperSizeSelect?.value,
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
-            textBoxImportsStrings: textBoxImportsStrings
+            textBoxImportsStrings: textBoxImportsStrings,
+            whiteBorder: whiteBorderCheckbox?.checked ?? false
         });
 
         utils.trackEvent("generate_constructed_pdf");
@@ -591,6 +603,7 @@ async function generateSelectedSheetPdf(): Promise<void> {
             onProgress: setStatus,
             frameBackgroundsImportsStrings: frameBackgroundsImportsStrings,
             textBoxImportsStrings: textBoxImportsStrings,
+            whiteBorder: whiteBorderCheckbox?.checked ?? false
         }, sheetInfo.cards);
 
         utils.trackEvent("generate_sheet_pdf", { sheet: selectedSheetKey });
@@ -647,8 +660,8 @@ function setPreview(message: string): void {
 // Adds a card to the preview history, capping the total size.
 function pushPreviewHistory(cardName: string): void {
 
-    // If same already at the current index, do nothing.
-    if (previewHistory[previewHistoryIndex] === cardName) {
+    // If same already at the current index, or 'touching' that index, do nothing.
+    if (previewHistory[previewHistoryIndex] === cardName || previewHistory[previewHistoryIndex + 1] === cardName || previewHistory[previewHistoryIndex - 1] === cardName) {
         return;
     }
 
@@ -841,8 +854,8 @@ function restorePackSimState(): void {
             const sheetKey = generationEntry.sheet;
             const raw = window.localStorage.getItem(`packSimState_${pack.key}_${sheetKey}`);
             if (!raw) {
+                // default initialization for new pack sim state
                 generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
-                // console.log(`Initialized new PackSimController of pack ${pack.key} for sheet ${sheetKey} with default state.`);
             } else {
                 try {
                     const parsed = JSON.parse(raw);
@@ -865,6 +878,7 @@ function restorePackSimState(): void {
                     // console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
                 } catch (error) {
                     console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
+                    // If restoration fails, fall back to default initialization for this pack sim state.
                     generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
                 }
             }
@@ -966,7 +980,8 @@ async function showCardPreview(query: string): Promise<void> {
         cardDatabase.editionsScry,
         frameBackgroundsImageBitmap,
         textBoxImageBitmap,
-        getArtLoadingOptions()
+        getArtLoadingOptions(),
+        whiteBorderCheckbox?.checked ?? false
     );
 
     // We've found and shown the card preview, 

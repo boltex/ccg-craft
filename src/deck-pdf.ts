@@ -51,6 +51,7 @@ export type GenerateSealedDeckPdfInput = {
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
     textBoxImportsStrings: Record<string, string>;
+    whiteBorder?: boolean;
 };
 
 export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): Promise<Blob> {
@@ -72,7 +73,7 @@ export async function generateSealedDeckPdf(input: GenerateSealedDeckPdfInput): 
             getFaceData: cardSerial => input.cardDatabase.getFaceData(cardSerial),
             renderOptions: {
                 padding: 5,
-                background: "#000000",
+                background: input.whiteBorder ? "#ffffff" : "#000000",
                 frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
                 textBoxImportsStrings: input.textBoxImportsStrings,
             },
@@ -89,6 +90,7 @@ export type GenerateConstructedDeckPdfInput = {
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
     textBoxImportsStrings: Record<string, string>;
+    whiteBorder?: boolean;
 };
 
 export async function generateConstructedDeckPdf(input: GenerateConstructedDeckPdfInput): Promise<Blob> {
@@ -163,7 +165,7 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
             paperSize: input.paperSize,
             renderOptions: {
                 padding: 5,
-                background: "#000000",
+                background: input.whiteBorder ? "#ffffff" : "#000000",
                 frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
                 textBoxImportsStrings: input.textBoxImportsStrings,
             },
@@ -179,6 +181,7 @@ export type UncutSheetDeckPdfInput = {
     onProgress?: (message: string) => void;
     frameBackgroundsImportsStrings: Record<string, string>;
     textBoxImportsStrings: Record<string, string>;
+    whiteBorder?: boolean;
 };
 
 // Unused - kept as reference or for potential future use
@@ -215,7 +218,7 @@ export async function generateSheetPdfFromStrings(input: UncutSheetDeckPdfInput,
             paperSize: input.paperSize,
             renderOptions: {
                 padding: 5,
-                background: "#000000",
+                background: input.whiteBorder ? "#ffffff" : "#000000",
                 frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
                 textBoxImportsStrings: input.textBoxImportsStrings,
             },
@@ -249,7 +252,7 @@ export async function generateSheetPdf(input: UncutSheetDeckPdfInput, cardSerial
             paperSize: input.paperSize,
             renderOptions: {
                 padding: 5,
-                background: "#000000",
+                background: input.whiteBorder ? "#ffffff" : "#000000",
                 frameBackgroundsImportsStrings: input.frameBackgroundsImportsStrings,
                 textBoxImportsStrings: input.textBoxImportsStrings,
             },

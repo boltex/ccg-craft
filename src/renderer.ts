@@ -23,6 +23,7 @@ export type RenderCardOptions = {
     textBoxImportsStrings?: Record<number, string> // from the imported image strings
     textBoxImageBitmap?: Record<number, ImageBitmap>; // For canvas, the image bitmaps
     preloadedTextBox?: Record<number, RenderImageSource>  // For PDF export
+    whiteBorder?: boolean;
 };
 
 // textBoxImagesImportsStrings

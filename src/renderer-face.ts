@@ -201,10 +201,13 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
     const { surface, face, layout, scene, options } = renderCtx;
     const bounds = getFaceBounds(layout, scene.offsetX, scene.offsetY);
 
+    surface.setStrokeStyle("rgba(0, 0, 0, 1.0)");
+    surface.setLineWidth(scene.scale * 1.0); // Underneath, so 0.5 will remain
+    surface.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+    // Then draw the background image or fill color inside the frame
     const rotated = isRotatedLayout(face);
-
     const useBackgroundImage = true;
-
     if (useBackgroundImage) {
         // if canvas, use frameBackgroundsImageBitmap; if for pdfkit, use preloadedFrameBackgrounds
         const faceFrame = face.faceFrame;
@@ -239,10 +242,10 @@ function drawFrameBackground(renderCtx: RenderFaceContext): void {
         0.4
     );
 
-    // ctx.strokeStyle = "black";
-    surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
-    surface.setLineWidth(Math.max(1, scene.scale));
+    surface.setStrokeStyle("rgba(0, 0, 0, 1.0)");
+    surface.setLineWidth(scene.scale * 0.0625); // Slight overlap bevel
     surface.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
 }
 
 function drawTextBox(renderCtx: RenderFaceContext): void {
@@ -360,8 +363,10 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
                 break;
             }
         }
+
+        // * Lands have a semi-transparent border for their text box. (non lands only have a bitmap as text-box)
         surface.setStrokeStyle("rgba(0, 0, 0, 0.25)");
-        surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        surface.setLineWidth(scene.scale * 0.5);
         surface.strokeRect(adjustedTextBoxRect.x, adjustedTextBoxRect.y, adjustedTextBoxRect.width, adjustedTextBoxRect.height);
 
         // Add border around text box, the art's bevel, and the card frame.
@@ -399,7 +404,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
         }
 
 
-        // Draw the two thin lines that lands have around the art box and the card face.
+        // * Draw the two thin lines that lands have around the art box bevel, and inside the card face bevel.
         let isLegendsSet = false; // face.edition === 4; 
         if (isLegendsSet) {
             const cardBorderX = faceBounds.x + cardBevelWidth;
@@ -417,7 +422,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const artBorderHeight = artBoxRect.height + artBevelWidth * 2;
 
             surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderWidth));
-            surface.setLineWidth(scene.scale);
+            surface.setLineWidth(scene.scale * 1.0);
             surface.strokeRect(artBorderX, artBorderY, artBorderWidth, artBorderHeight);
         } else {
             // regular case
@@ -432,7 +437,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             surface.setStrokeStyle(utils.toCommaRgb(...color1));
 
             // Draw the second border around the art box using color1
-            surface.setLineWidth(scene.scale * 1);
+            surface.setLineWidth(scene.scale * 1.0);
             surface.strokeRect(artBoxRect.x - artBevelWidth, artBoxRect.y - artBevelWidth, artBoxRect.width + artBevelWidth * 2, artBoxRect.height + artBevelWidth * 2);
         }
 
@@ -492,6 +497,13 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         }
 
+    } else {
+        // Is not a land, draw plain borders around the art bevel and inside the card frame's bevel
+        // Same style and thickness as around the art itself.
+        surface.setStrokeStyle("rgba(0, 0, 0, 0.5)");
+        surface.setLineWidth(scene.scale * 0.5);
+        surface.strokeRect(faceBounds.x + cardBevelWidth, faceBounds.y + cardBevelWidth, faceBounds.width - cardBevelWidth * 2, faceBounds.height - cardBevelWidth * 2);
+        surface.strokeRect(artBoxRect.x - artBevelWidth, artBoxRect.y - artBevelWidth, artBoxRect.width + artBevelWidth * 2, artBoxRect.height + artBevelWidth * 2);
     }
 
 }
@@ -532,8 +544,9 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
     if (artImage) {
         drawFittedImage(surface, artImage, rect, rotated);
 
-        surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
-        surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+        // * Border around the art image
+        surface.setStrokeStyle("rgba(0, 0, 0, 0.5)");
+        surface.setLineWidth(scene.scale * 0.5);
         surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
         return;
     }
@@ -543,8 +556,8 @@ function drawArtBitmap(renderCtx: RenderFaceContext): void {
     surface.setFillStyle("rgba(255, 255, 255, 0.18)");
     surface.fillRect(rect.x, rect.y, rect.width, rect.height);
 
-    surface.setStrokeStyle("rgba(0, 0, 0, 0.35)");
-    surface.setLineWidth(Math.max(1, scene.scale * 0.5));
+    surface.setStrokeStyle("rgba(0, 0, 0, 0.5)");
+    surface.setLineWidth(scene.scale * 0.5);
     surface.strokeRect(rect.x, rect.y, rect.width, rect.height);
 
     const label = ["ART", artPath].join("\n");

@@ -38,7 +38,7 @@ body {
   padding: 32px 20px;
 }
 
-.bg-deco-rectangle {
+#bg-deco-rectangle {
   position: relative;
   border-color: #ffeba369 #ffeba369 #00000065 #00000065;
   border-style: solid;
@@ -177,6 +177,7 @@ body {
 }
 
 .text-wrap {
+  user-select: none;
   position: relative;
   display: inline-block;
   font-size: 8rem;
@@ -186,6 +187,7 @@ body {
 
 /* textured top text */
 .text-wrap > span {
+  user-select: none;
   position: relative;
   z-index: 3;
   padding-left: 2px;
@@ -203,6 +205,7 @@ body {
 
 /* first outline */
 .text-wrap::before {
+  user-select: none;
   content: attr(data-text);
   position: absolute;
   inset: 0;
@@ -216,6 +219,7 @@ body {
 
 /* outer outline */
 .text-wrap::after {
+  user-select: none;
   content: attr(data-text);
   position: absolute;
   inset: 0;
@@ -228,6 +232,7 @@ body {
 }
 
 .eyebrow {
+  user-select: none;
   position: relative;
   text-align: left;
   padding-left: 25%;
@@ -244,6 +249,7 @@ body {
 
 .eyebrow::after {
   content: attr(data-text);
+  user-select: none;
   padding-left: 25%;
 
   /* 3. Top Layer: Perfectly aligned over the bottom layer */
@@ -265,6 +271,7 @@ body {
 }
 
 .tagline {
+  user-select: none;
   display: inline-block;
   border-color: #ffeba369 #ffeba369 #00000065 #00000065;
   border-style: solid;
@@ -287,6 +294,7 @@ body {
 }
 
 .tagline-inner {
+  user-select: none;
   padding: 0 5px 0 5px;
   border: 1px solid #000;
   line-height: 0.8;
@@ -367,6 +375,10 @@ h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
 }
 
+h2 {
+  margin-bottom: 14px;
+}
+
 .belwe {
   font-family: "BelweStd-Bold", "Plantin", Georgia, serif;
 }
@@ -418,6 +430,7 @@ h1 {
 }
 
 .app {
+  perspective: 1000px;
   width: min(900px, 100%);
   margin: 0 auto;
   display: grid;
@@ -520,6 +533,13 @@ button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+}
+
+#border-toggle {
+  padding-left: 3px;
+  padding-right: 0px;
+  width: 52px;
+  text-align: center;
 }
 
 .deck-nav {

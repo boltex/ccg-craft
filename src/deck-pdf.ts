@@ -43,6 +43,17 @@ export function selectSealedCardPool(cardDatabase: CardDatabase, selectedEdition
     return Object.values(availableCardsDict);
 }
 
+// Same as selectSealedCardPool but returns the count instead of the array.
+export function countSealedCardPool(cardDatabase: CardDatabase, selectedEditions: string[]): number {
+    let total = 0;
+    cardDatabase.singleCards.forEach(card => {
+        if (selectedEditions.includes(card.edition) && !constants.BasicLandNames.includes(card.name) && !constants.BasicLandNames.includes(card.name.slice(0, -1))) {
+            total++;
+        }
+    });
+    return total;
+}
+
 export type GenerateSealedDeckPdfInput = {
     cardPool: Card[];
     cardDatabase: CardDatabase;

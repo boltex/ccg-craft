@@ -12,7 +12,7 @@ import { buildEditionCheckboxes } from "./edition-filter";
 import { CardDatabase } from "./card-database";
 import { CardPreviewController } from "./preview-controller";
 import { downloadDecklist } from "./decklist";
-import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool, generateOldSchoolCache } from "./deck-pdf";
+import { generateConstructedDeckPdf, generateSealedDeckPdf, generateSheetPdf, selectSealedCardPool, generateOldSchoolCache, countSealedCardPool } from "./deck-pdf";
 import type { PrintableFace } from "./types";
 
 // Webpack can be configured to import images directly as inline Base64 data URIs
@@ -104,6 +104,7 @@ const textBoxImageBitmap: Record<number, ImageBitmap> = {
     [constants.frame.frameZ]: await createImageBitmap(await (await fetch(tbZBackground300dpiPng)).blob()),
 };
 
+const bgDecoRectangle = document.querySelector<HTMLDivElement>("#bg-deco-rectangle");
 const statusElement = document.querySelector<HTMLParagraphElement>("#status");
 const statisticsElement = document.querySelector<HTMLParagraphElement>("#statistics");
 const lookupElement = document.querySelector<HTMLInputElement>("#card-lookup");
@@ -117,6 +118,7 @@ const importArtCacheFileInput = document.querySelector<HTMLInputElement>("#impor
 const cacheOldSchoolButton = document.querySelector<HTMLButtonElement>("#cache-old-school");
 const highResolutionArtCheckbox = document.querySelector<HTMLInputElement>("#high-resolution-art");
 const useLocalArtDatabaseCheckbox = document.querySelector<HTMLInputElement>("#use-local-art-database");
+const borderToggleButton = document.querySelector<HTMLButtonElement>("#border-toggle");
 const whiteBorderCheckbox = document.querySelector<HTMLInputElement>("#white-border");
 const editionCheckboxesContainer = document.querySelector<HTMLElement>("#edition-checkboxes");
 const decklistTextArea = document.querySelector<HTMLTextAreaElement>("#decklist-text");
@@ -142,6 +144,7 @@ const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
 let activeDeckTab: "constructed" | "sealed" | "sheet" | "db" = "constructed";
 let editionSelection: Record<string, boolean> = {};
+let poolSizeUpdateTimeout: number | undefined;
 
 const cardDatabase = new CardDatabase();
 const previewController = new CardPreviewController(canvasElement);
@@ -239,6 +242,52 @@ if (lookupElement) {
             updateStatistics();
         }
     });
+}
+
+if (bgDecoRectangle) {
+
+    const clamp = (value: number, min: number, max: number) =>
+        Math.min(Math.max(value, min), max);
+
+    document.addEventListener("mousemove", (event) => {
+        const rect = bgDecoRectangle.getBoundingClientRect();
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const dx = event.clientX - centerX;
+        const dy = event.clientY - centerY;
+
+        const rotateY = clamp(dx * 0.01, -5, 5);
+        const rotateX = clamp(-dy * 0.01, -5, 5);
+
+        bgDecoRectangle.style.transform =
+            `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    // // You can now manipulate the bgDecoRectangle element as needed
+    // bgDecoRectangle.addEventListener("mousemove", (event) => {
+    //     const rect = bgDecoRectangle.getBoundingClientRect();
+
+    //     const x = (event.clientX - rect.left) / rect.width;
+    //     const y = (event.clientY - rect.top) / rect.height;
+
+    //     const rotateY = (x - 0.5) * 8;
+    //     const rotateX = (0.5 - y) * 8;
+
+    //     //     bgDecoRectangle.style.transform = `
+    //     //     perspective(800px)
+    //     //     translateY(-3px)
+    //     //     rotateX(${rotateX}deg)
+    //     //     rotateY(${rotateY}deg)
+    //     // `;
+    //     bgDecoRectangle.style.transform =
+    //         `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    // });
+
+    // bgDecoRectangle.addEventListener("mouseleave", () => {
+    //     bgDecoRectangle.style.transform = "";
+    // });
 }
 
 if (generatePdfButton) {
@@ -490,7 +539,27 @@ if (whiteBorderCheckbox) {
     whiteBorderCheckbox.checked = window.localStorage.getItem(WHITE_BORDER_STORAGE_KEY) === "true";
     whiteBorderCheckbox.addEventListener("change", () => {
         window.localStorage.setItem(WHITE_BORDER_STORAGE_KEY, String(whiteBorderCheckbox.checked));
+        if (borderToggleButton) {
+            borderToggleButton.textContent = whiteBorderCheckbox.checked ? "W.B." : "B.B.";
+        }
         refreshCurrentPreview();
+    });
+}
+// Toggle border button is a shortcut button to toggle the white/black border setting
+if (borderToggleButton) {
+    // Set its content to "B.B." or "W.B." based on the current white border setting
+
+    borderToggleButton.textContent = whiteBorderCheckbox && whiteBorderCheckbox.checked ? "W.B." : "B.B.";
+    borderToggleButton.addEventListener("click", () => {
+        if (whiteBorderCheckbox) {
+            whiteBorderCheckbox.checked = !whiteBorderCheckbox.checked;
+            window.localStorage.setItem(WHITE_BORDER_STORAGE_KEY, String(whiteBorderCheckbox.checked));
+
+            // Update its content from "B.B." to "W.B." or vice versa
+            borderToggleButton.textContent = whiteBorderCheckbox.checked ? "W.B." : "B.B.";
+
+            refreshCurrentPreview();
+        }
     });
 }
 
@@ -1024,7 +1093,7 @@ function resetPageBackgroundColor(): void {
     frameBgElements.forEach(element => element.classList.remove("active"));
 }
 
-function syncGeneratePdfButton(): void {
+function syncGeneratePdfButton(updateSealedPoolSize = false): void {
     if (decklistPaperSizeSelect) {
         decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db");
     }
@@ -1043,6 +1112,12 @@ function syncGeneratePdfButton(): void {
 
     if (addToDecklistButton) {
         addToDecklistButton.disabled = previewController.currentCard === null;
+    }
+    if (updateSealedPoolSize) {
+        if (poolSizeUpdateTimeout !== undefined) {
+            clearTimeout(poolSizeUpdateTimeout);
+        }
+        poolSizeUpdateTimeout = window.setTimeout(updatePoolSize, 1000);
     }
 }
 
@@ -1130,6 +1205,18 @@ function populatePackSelect(): void {
     }
 }
 
+function updatePoolSize(): void {
+    const poolSizeElement = document.getElementById("pool-size");
+    if (poolSizeElement) {
+        console.log(`Updating pool size...`);
+        const selectedEditions = Object.entries(editionSelection)
+            .filter(([, checked]) => checked)
+            .map(([code]) => code);
+        const text = countSealedCardPool(cardDatabase, selectedEditions);
+        poolSizeElement.textContent = `from a pool of ${text} cards`;
+    }
+}
+
 async function bootstrap(): Promise<void> {
 
     await initializeArtPreferences();
@@ -1155,6 +1242,8 @@ async function bootstrap(): Promise<void> {
         }
 
         await updateStatistics();
+
+        updatePoolSize();
 
         if (isDebug) {
             // test time to loop nextCardPosition for the PackSimController: start with a fresh controller and get a timestamp.

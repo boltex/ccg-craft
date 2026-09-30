@@ -59,21 +59,48 @@ function getCardTextStyle(
     };
 }
 
-function createLegendsBorderGradient(x: number, width: number): FillStyle {
+function createLegendsBorderGradient(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    focusX = 0.5,
+    focusY = 0.5,
+): FillStyle {
+    const centerX = x + width * focusX;
+    const centerY = y + height * focusY;
+    const radius = Math.max(
+        Math.hypot(centerX - x, centerY - y),
+        Math.hypot(centerX - (x + width), centerY - y),
+        Math.hypot(centerX - x, centerY - (y + height)),
+        Math.hypot(centerX - (x + width), centerY - (y + height)),
+    );
+
+    const dark = "#6B481C";
+    const mid = "#C4972D";
+    const light = "#FFE59A";
+
     return {
-        kind: "linear-gradient",
-        x0: x,
-        y0: 0,
-        x1: x + width,
-        y1: 0,
+        kind: "radial-gradient",
+        x0: centerX,
+        y0: centerY,
+        r0: 0,
+        x1: centerX,
+        y1: centerY,
+        r1: radius,
         stops: [
-            { offset: 0, color: "#6B481C" },
-            { offset: 0.25, color: "#C4972D" },
-            { offset: 0.5, color: "#FFE59A" },
-            { offset: 0.75, color: "#C4972D" },
-            { offset: 1, color: "#6B481C" },
+            { offset: 0, color: dark },
+            { offset: 0.125, color: mid },
+            { offset: 0.25, color: light },
+            { offset: 0.375, color: mid },
+            { offset: 0.5, color: dark },
+            { offset: 0.625, color: mid },
+            { offset: 0.75, color: light },
+            { offset: 0.875, color: mid },
+            { offset: 1, color: dark },
         ],
     };
+
 }
 
 function drawRectangleBevel(
@@ -412,7 +439,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const cardBorderWidth = faceBounds.width - cardBevelWidth * 2;
             const cardBorderHeight = faceBounds.height - cardBevelWidth * 2;
 
-            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderWidth));
+            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight, 0.2, 0.6));
             surface.setLineWidth(scene.scale * 0.75);
             surface.strokeRect(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight);
 
@@ -421,7 +448,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const artBorderWidth = artBoxRect.width + artBevelWidth * 2;
             const artBorderHeight = artBoxRect.height + artBevelWidth * 2;
 
-            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderWidth));
+            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderY, artBorderWidth, artBorderHeight, 0.6, 0.4));
             surface.setLineWidth(scene.scale * 1.0);
             surface.strokeRect(artBorderX, artBorderY, artBorderWidth, artBorderHeight);
         } else {
@@ -443,17 +470,15 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         // Draw the rectangle for the text box based on the fill kind
         if (fill.kind === "solid") {
-            drawRectangleBevel(
-                surface,
-                adjustedTextBoxRect.x,
-                adjustedTextBoxRect.y,
-                adjustedTextBoxRect.width,
-                adjustedTextBoxRect.height,
-                textBoxBevelWidth,
-                color1,
-                color2,
-                rotated
-            );
+
+            if (isLegendsSet) {
+                surface.setStrokeStyle(createLegendsBorderGradient(adjustedTextBoxRect.x, adjustedTextBoxRect.y * 1.5, adjustedTextBoxRect.width * 1.6, adjustedTextBoxRect.height, 0.7, 0.5));
+            } else {
+                surface.setStrokeStyle(utils.toCommaRgb(...color1));
+            }
+            surface.setLineWidth(textBoxBevelWidth);
+            surface.strokeRect(adjustedTextBoxRect.x + textBoxBevelWidth / 2, adjustedTextBoxRect.y + textBoxBevelWidth / 2, adjustedTextBoxRect.width - textBoxBevelWidth, adjustedTextBoxRect.height - textBoxBevelWidth);
+
         } else if (fill.kind === "striped") {
 
             // Finally, the two bevels in the textbox

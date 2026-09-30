@@ -18,6 +18,8 @@ export type GradientStop = {
     color: string;
 };
 
+
+// For createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
 export type LinearGradientFill = {
     kind: "linear-gradient";
     x0: number;
@@ -27,7 +29,20 @@ export type LinearGradientFill = {
     stops: GradientStop[];
 };
 
-export type FillStyle = string | LinearGradientFill;
+// For createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
+export type RadialGradientFill = {
+    kind: "radial-gradient";
+    x0: number;
+    y0: number;
+    r0: number;
+    x1: number;
+    y1: number;
+    r1: number;
+    stops: GradientStop[];
+};
+
+
+export type FillStyle = string | LinearGradientFill | RadialGradientFill;
 export type RenderImageSource = CanvasImageSource | ArrayBuffer | Uint8Array | string;
 
 export type RenderSurfaceSize = {
@@ -88,18 +103,35 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
             return fillStyle;
         }
 
-        const gradient = ctx.createLinearGradient(
-            fillStyle.x0,
-            fillStyle.y0,
-            fillStyle.x1,
-            fillStyle.y1
-        );
+        if (fillStyle.kind === "linear-gradient") {
+            const gradient = ctx.createLinearGradient(
+                fillStyle.x0,
+                fillStyle.y0,
+                fillStyle.x1,
+                fillStyle.y1
+            );
+            fillStyle.stops.forEach(stop => {
+                gradient.addColorStop(stop.offset, stop.color);
+            });
+            return gradient;
+        }
 
-        fillStyle.stops.forEach(stop => {
-            gradient.addColorStop(stop.offset, stop.color);
-        });
+        if (fillStyle.kind === "radial-gradient") {
+            const gradient = ctx.createRadialGradient(
+                fillStyle.x0,
+                fillStyle.y0,
+                fillStyle.r0,
+                fillStyle.x1,
+                fillStyle.y1,
+                fillStyle.r1
+            );
+            fillStyle.stops.forEach(stop => {
+                gradient.addColorStop(stop.offset, stop.color);
+            });
+            return gradient;
+        }
 
-        return gradient;
+        throw new Error("Unsupported fill style.");
     }
 
     return {

@@ -54,6 +54,7 @@ export type PdfKitDocument = {
     ): PdfKitDocument;
     widthOfString(text: string): number;
     linearGradient(x0: number, y0: number, x1: number, y1: number): PdfKitGradient;
+    radialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): PdfKitGradient;
     registerFont(alias: string, src: PdfKitImageSource): PdfKitDocument;
 };
 
@@ -270,22 +271,47 @@ function toPdfKitFill(document: PdfKitDocument, fillStyle: FillStyle): PdfKitFil
         return fillStyle;
     }
 
-    const gradient = document.linearGradient(
-        fillStyle.x0,
-        fillStyle.y0,
-        fillStyle.x1,
-        fillStyle.y1
-    );
+    if (fillStyle.kind === "linear-gradient") {
+        const gradient = document.linearGradient(
+            fillStyle.x0,
+            fillStyle.y0,
+            fillStyle.x1,
+            fillStyle.y1
+        );
 
-    fillStyle.stops.forEach(stop => {
-        const normalized = normalizePdfKitColor(stop.color);
-        gradient.stop(stop.offset, normalized.color, normalized.opacity);
-    });
+        fillStyle.stops.forEach(stop => {
+            const normalized = normalizePdfKitColor(stop.color);
+            gradient.stop(stop.offset, normalized.color, normalized.opacity);
+        });
 
-    return {
-        kind: "pdfkit-gradient",
-        value: gradient,
-    };
+        return {
+            kind: "pdfkit-gradient",
+            value: gradient,
+        };
+    }
+
+    if (fillStyle.kind === "radial-gradient") {
+        const gradient = document.radialGradient(
+            fillStyle.x0,
+            fillStyle.y0,
+            fillStyle.r0,
+            fillStyle.x1,
+            fillStyle.y1,
+            fillStyle.r1
+        );
+
+        fillStyle.stops.forEach(stop => {
+            const normalized = normalizePdfKitColor(stop.color);
+            gradient.stop(stop.offset, normalized.color, normalized.opacity);
+        });
+
+        return {
+            kind: "pdfkit-gradient",
+            value: gradient,
+        };
+    }
+
+    throw new Error("Unsupported fill style.");
 }
 
 function resolvePdfKitFontName(fontFamily: string, fonts: PdfKitFontRegistry): string {

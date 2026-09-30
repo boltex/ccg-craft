@@ -59,21 +59,38 @@ function getCardTextStyle(
     };
 }
 
-function createLegendsBorderGradient(x: number, width: number): FillStyle {
+function createLegendsBorderGradient(x: number, y: number, width: number, height: number): FillStyle {
+    // Center the radial gradient on the rect and reach past its corners so the
+    // whole border (including corners) sits inside the gradient's rings.
+    const centerX = x + width / 2;
+    const centerY = y + height / 2;
+    const radius = Math.hypot(width / 2, height / 2);
+
+    const dark = "#6B481C";
+    const mid = "#C4972D";
+    const light = "#FFE59A";
+
     return {
-        kind: "linear-gradient",
-        x0: x,
-        y0: 0,
-        x1: x + width,
-        y1: 0,
+        kind: "radial-gradient",
+        x0: centerX,
+        y0: centerY,
+        r0: 0,
+        x1: centerX,
+        y1: centerY,
+        r1: radius,
         stops: [
-            { offset: 0, color: "#6B481C" },
-            { offset: 0.25, color: "#C4972D" },
-            { offset: 0.5, color: "#FFE59A" },
-            { offset: 0.75, color: "#C4972D" },
-            { offset: 1, color: "#6B481C" },
+            { offset: 0, color: dark },
+            { offset: 0.125, color: mid },
+            { offset: 0.25, color: light },
+            { offset: 0.375, color: mid },
+            { offset: 0.5, color: dark },
+            { offset: 0.625, color: mid },
+            { offset: 0.75, color: light },
+            { offset: 0.875, color: mid },
+            { offset: 1, color: dark },
         ],
     };
+
 }
 
 function drawRectangleBevel(
@@ -412,7 +429,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const cardBorderWidth = faceBounds.width - cardBevelWidth * 2;
             const cardBorderHeight = faceBounds.height - cardBevelWidth * 2;
 
-            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderWidth));
+            surface.setStrokeStyle(createLegendsBorderGradient(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight));
             surface.setLineWidth(scene.scale * 0.75);
             surface.strokeRect(cardBorderX, cardBorderY, cardBorderWidth, cardBorderHeight);
 
@@ -421,7 +438,7 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
             const artBorderWidth = artBoxRect.width + artBevelWidth * 2;
             const artBorderHeight = artBoxRect.height + artBevelWidth * 2;
 
-            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderWidth));
+            surface.setStrokeStyle(createLegendsBorderGradient(artBorderX, artBorderY, artBorderWidth, artBorderHeight));
             surface.setLineWidth(scene.scale * 1.0);
             surface.strokeRect(artBorderX, artBorderY, artBorderWidth, artBorderHeight);
         } else {

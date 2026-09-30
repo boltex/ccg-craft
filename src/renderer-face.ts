@@ -460,17 +460,15 @@ function drawTextBox(renderCtx: RenderFaceContext): void {
 
         // Draw the rectangle for the text box based on the fill kind
         if (fill.kind === "solid") {
-            drawRectangleBevel(
-                surface,
-                adjustedTextBoxRect.x,
-                adjustedTextBoxRect.y,
-                adjustedTextBoxRect.width,
-                adjustedTextBoxRect.height,
-                textBoxBevelWidth,
-                color1,
-                color2,
-                rotated
-            );
+
+            if (isLegendsSet) {
+                surface.setStrokeStyle(createLegendsBorderGradient(adjustedTextBoxRect.x, adjustedTextBoxRect.y, adjustedTextBoxRect.width, adjustedTextBoxRect.height));
+            } else {
+                surface.setStrokeStyle(utils.toCommaRgb(...color1));
+            }
+            surface.setLineWidth(textBoxBevelWidth);
+            surface.strokeRect(adjustedTextBoxRect.x + textBoxBevelWidth / 2, adjustedTextBoxRect.y + textBoxBevelWidth / 2, adjustedTextBoxRect.width - textBoxBevelWidth, adjustedTextBoxRect.height - textBoxBevelWidth);
+
         } else if (fill.kind === "striped") {
 
             // Finally, the two bevels in the textbox

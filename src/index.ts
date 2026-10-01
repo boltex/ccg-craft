@@ -251,6 +251,8 @@ if (bgDecoRectangle) {
 
     // While true, a click-shove animation is in control of the transform; mousemove tracking pauses until it finishes.
     let isShoving = false;
+    let isTaglineRotating = false;
+    let totalClicks = 0;
 
     // Preloaded so the browser has already fetched/decoded them by the time of the first click.
     const shoveSounds = ["clink1.wav", "clink2.wav", "clink3.wav"].map(file => new Audio(file));
@@ -277,7 +279,7 @@ if (bgDecoRectangle) {
 
     // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
     bgDecoRectangle.addEventListener("click", (event) => {
-
+        totalClicks++;
 
         // Play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
         const sound = shoveSounds[Math.floor(Math.random() * shoveSounds.length)].cloneNode(true) as HTMLAudioElement;
@@ -315,6 +317,25 @@ if (bgDecoRectangle) {
             }, 90);
         }, 40);
 
+        if (totalClicks === 10) {
+            isTaglineRotating = !isTaglineRotating;
+        }
+        if (isTaglineRotating) {
+            // Rotate gradually up to 8 degrees and stop there
+            // its style is .tagline {
+            // transform: translateZ(25px);
+
+            // so it shoud become 
+            // `translateZ(25px) rotateY(8deg)`
+
+            const tagline = document.querySelector<HTMLElement>(".tagline");
+            if (tagline) {
+                tagline.style.transform = "translateZ(25px) rotateY(8deg)";
+            }
+
+
+
+        }
 
     });
 }

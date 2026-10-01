@@ -119,6 +119,7 @@ body {
 
 .tagline {
   transform: translateZ(25px);
+  transform-origin: top left;
 }
 
 .bg-orange-ball {

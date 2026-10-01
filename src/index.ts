@@ -164,6 +164,7 @@ let isDebug = false;
 const cardSound = new Audio("card.wav");
 const deckSound = new Audio("deck.wav");
 const packSound = new Audio("pack.wav");
+const generateSound = new Audio("generate.wav");
 
 
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
@@ -347,6 +348,7 @@ if (generatePdfButton) {
         } else if (activeDeckTab === "sheet") {
             await generateSelectedSheetPdf(); // Does not use pack simulation
         }
+        generateSound.play();
 
     });
 }

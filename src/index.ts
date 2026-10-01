@@ -1265,7 +1265,6 @@ function populatePackSelect(): void {
 function updatePoolSize(): void {
     const poolSizeElement = document.getElementById("pool-size");
     if (poolSizeElement) {
-        console.log(`Updating pool size...`);
         const selectedEditions = Object.entries(editionSelection)
             .filter(([, checked]) => checked)
             .map(([code]) => code);

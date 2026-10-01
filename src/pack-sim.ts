@@ -80,7 +80,7 @@ export class PackSimController {
             throw new Error("currentY is out of the range of the current strip.");
         }
 
-        console.log(`Set PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
+        // console.log(`Set PackSimController with stripHeight=${stripHeight}, stripy=${this._stripy}, currentX=${this._currentX}, currentY=${this._currentY}`);
 
     }
 

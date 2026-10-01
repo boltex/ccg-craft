@@ -26,9 +26,6 @@ export type RenderCardOptions = {
     whiteBorder?: boolean;
 };
 
-// textBoxImagesImportsStrings
-
-
 export type RenderCardScene = {
     scale: number;
     offsetX: number;

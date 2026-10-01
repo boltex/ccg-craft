@@ -249,45 +249,80 @@ if (bgDecoRectangle) {
     const clamp = (value: number, min: number, max: number) =>
         Math.min(Math.max(value, min), max);
 
-    document.addEventListener("mousemove", (event) => {
-        const rect = bgDecoRectangle.getBoundingClientRect();
+    let shovePhase: "idle" | "down" | "up" = "idle";
+    let shoveTimeout: number | undefined;
+    let totalClicks = 0;
 
+    // Preloaded so the browser has already fetched/decoded them by the time of the first click.
+    const shoveSounds = ["clink1.wav", "clink2.wav", "clink3.wav"].map(file => new Audio(file));
+
+    const getRotationFromEvent = (event: MouseEvent) => {
+        const rect = bgDecoRectangle.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-
         const dx = event.clientX - centerX;
         const dy = event.clientY - centerY;
-
         const rotateY = clamp(dx * 0.01, -5, 5);
         const rotateX = clamp(-dy * 0.01, -5, 5);
+        return { rotateX, rotateY };
+    };
 
-        bgDecoRectangle.style.transform =
-            `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    const applyBgTransform = (rotateX: number, rotateY: number) => {
+        if (shovePhase === "down") {
+            bgDecoRectangle.style.transform =
+                `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        } else {
+            bgDecoRectangle.style.transform =
+                `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+    };
+
+    document.addEventListener("mousemove", (event) => {
+        const { rotateX, rotateY } = getRotationFromEvent(event);
+        applyBgTransform(rotateX, rotateY);
     });
 
-    // // You can now manipulate the bgDecoRectangle element as needed
-    // bgDecoRectangle.addEventListener("mousemove", (event) => {
-    //     const rect = bgDecoRectangle.getBoundingClientRect();
+    // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
+    bgDecoRectangle.addEventListener("click", (event) => {
+        totalClicks++;
 
-    //     const x = (event.clientX - rect.left) / rect.width;
-    //     const y = (event.clientY - rect.top) / rect.height;
+        if (shoveTimeout !== undefined) {
+            window.clearTimeout(shoveTimeout);
+        }
 
-    //     const rotateY = (x - 0.5) * 8;
-    //     const rotateX = (0.5 - y) * 8;
+        // Play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
+        const sound = shoveSounds[Math.floor(Math.random() * shoveSounds.length)].cloneNode(true) as HTMLAudioElement;
 
-    //     //     bgDecoRectangle.style.transform = `
-    //     //     perspective(800px)
-    //     //     translateY(-3px)
-    //     //     rotateX(${rotateX}deg)
-    //     //     rotateY(${rotateY}deg)
-    //     // `;
-    //     bgDecoRectangle.style.transform =
-    //         `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    // });
+        // Set its volume between 0.3 and 0.6
+        sound.volume = 0.3 + Math.random() * 0.3;
 
-    // bgDecoRectangle.addEventListener("mouseleave", () => {
-    //     bgDecoRectangle.style.transform = "";
-    // });
+        void sound.play().catch(() => { /* Ignore playback failures, e.g. browser autoplay restrictions. */ });
+
+        const { rotateX, rotateY } = getRotationFromEvent(event);
+
+        shovePhase = "down";
+        bgDecoRectangle.style.transition = "transform 80ms ease-out";
+        applyBgTransform(rotateX, rotateY);
+
+        shoveTimeout = window.setTimeout(() => {
+            shovePhase = "up";
+            bgDecoRectangle.style.transition = "transform 140ms ease-out";
+            applyBgTransform(rotateX, rotateY);
+
+            shoveTimeout = window.setTimeout(() => {
+                shovePhase = "idle";
+                bgDecoRectangle.style.transition = "";
+            }, 140);
+        }, 80);
+
+        if (totalClicks === 10) {
+            const tagline = document.querySelector<HTMLElement>(".tagline");
+            if (tagline) {
+                tagline.style.transform = "translateZ(23px) rotatey(-6deg) rotateZ(8deg) rotateX(2deg)";
+            }
+        }
+
+    });
 }
 
 if (generatePdfButton) {
@@ -583,7 +618,7 @@ async function generateSealedPDF(): Promise<void> {
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
-    generatePdfButton.textContent = "Generating PDF...";
+    generatePdfButton.textContent = "Generating ...";
 
     try {
         disableDeckTabs();
@@ -621,7 +656,7 @@ async function generateConstructedPDF(): Promise<void> {
 
     const originalLabel = generatePdfButton.textContent;
     generatePdfButton.disabled = true;
-    generatePdfButton.textContent = "Generating PDF...";
+    generatePdfButton.textContent = "Generating ...";
 
     try {
         disableDeckTabs();
@@ -1227,12 +1262,6 @@ async function bootstrap(): Promise<void> {
     populateSheetRaritySelect();
     populatePackSelect();
 
-    if (lookupElement) {
-        requestAnimationFrame(() => {
-            lookupElement.focus();
-        });
-    }
-
     try {
         await cardDatabase.load();
 
@@ -1306,6 +1335,12 @@ async function bootstrap(): Promise<void> {
         if (isDebug) {
             console.log("Clearing PackSimState for all packs and sheets.");
             clearPackSimState();
+        }
+
+        if (lookupElement) {
+            requestAnimationFrame(() => {
+                lookupElement.focus({ preventScroll: true });
+            });
         }
 
         setStatus("Ready.");

@@ -287,20 +287,20 @@ if (bgDecoRectangle) {
 
         isShoving = true;
 
-        bgDecoRectangle.style.transition = "transform 90ms ease-out";
+        bgDecoRectangle.style.transition = "transform 50ms ease-out";
         bgDecoRectangle.style.transform =
             `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
         window.setTimeout(() => {
-            bgDecoRectangle.style.transition = "transform 220ms ease-out";
+            bgDecoRectangle.style.transition = "transform 120ms ease-out";
             bgDecoRectangle.style.transform =
                 `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
             window.setTimeout(() => {
                 bgDecoRectangle.style.transition = "";
                 isShoving = false;
-            }, 220);
-        }, 90);
+            }, 120);
+        }, 50);
     });
 }
 

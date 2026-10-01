@@ -32,6 +32,7 @@ body {
   min-height: 100%;
   font-family: "Plantin", Georgia, "Times New Roman", serif;
   color: var(--text);
+  user-select: none;
 }
 
 body {
@@ -39,6 +40,7 @@ body {
 }
 
 #bg-deco-rectangle {
+  user-select: none;
   position: relative;
   /* filter: drop-shadow(rgba(0, 0, 0, 0.5) -10px 10px 6px); */
   border-color: #ffeba369 #ffeba369 #00000065 #00000065;
@@ -69,7 +71,7 @@ body {
 
 .bg-inner-1 {
   position: relative;
-
+  user-select: none;
   display: block;
   height: 100%;
 
@@ -80,7 +82,7 @@ body {
 .bg-inner-2 {
   position: relative;
   text-align: center;
-
+  user-select: none;
   display: block;
   height: 100%;
 

@@ -160,6 +160,12 @@ let previewHistorySaveTimeout: number | undefined;
 
 let isDebug = false;
 
+// Create card.wav, deck.wav, pack.wav audio elements
+const cardSound = new Audio("card.wav");
+const deckSound = new Audio("deck.wav");
+const packSound = new Audio("pack.wav");
+
+
 // Add a listener to the lookup input field to handle card name lookups, debounced to avoid excessive processing.
 if (lookupElement) {
     let debounceTimeout: number | undefined;
@@ -239,7 +245,10 @@ if (lookupElement) {
 
             lookupElement.value = currentCard.name;
 
-            updateStatistics();
+            // Emit sound for adding a card (card.wav)
+            cardSound.play();
+
+            // No need to update statistics here as it will be handled by the input event debounce.
         }
     });
 }
@@ -429,6 +438,8 @@ if (addToDecklistButton) {
         const existingText = decklistTextArea.value;
         const separator = existingText.length > 0 && !existingText.endsWith("\n") ? "\n" : "";
         decklistTextArea.value = `${existingText}${separator}${currentCard.name}\n`;
+        // Emit sound for adding a card (card.wav)
+        cardSound.play();
         syncGeneratePdfButton();
     });
 }
@@ -455,7 +466,8 @@ if (addP9ToDecklistButton) {
         decklistTextArea.value = `${existingText}${separator}${power9Cards.join("\n")}\n`;
 
         utils.trackEvent("add_power_9_to_decklist");
-
+        // Emit sound for adding a card (card.wav)
+        cardSound.play();
         syncGeneratePdfButton();
     });
 }
@@ -1232,6 +1244,14 @@ function populatePackSelect(): void {
         button.addEventListener("click", () => {
             if (decklistTextArea) {
                 decklistTextArea.value += `${pack.deckEntry}\n`;
+
+                if (pack.deckEntry.includes('Starter')) {
+                    // emit sound for adding a starter pack (deck.wav)
+                    deckSound.play();
+                } else {
+                    // emit sound for adding a booster pack (pack.wav)
+                    packSound.play();
+                }
                 syncGeneratePdfButton();
             }
         });

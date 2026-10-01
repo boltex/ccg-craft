@@ -249,38 +249,46 @@ if (bgDecoRectangle) {
     const clamp = (value: number, min: number, max: number) =>
         Math.min(Math.max(value, min), max);
 
-    // While true, a click-shove animation is in control of the transform; mousemove tracking pauses until it finishes.
-    let isShoving = false;
+    let shovePhase: "idle" | "down" | "up" = "idle";
+    let shoveTimeout: number | undefined;
     let totalClicks = 0;
 
     // Preloaded so the browser has already fetched/decoded them by the time of the first click.
     const shoveSounds = ["clink1.wav", "clink2.wav", "clink3.wav"].map(file => new Audio(file));
 
-    document.addEventListener("mousemove", (event) => {
-        if (isShoving) {
-            return;
-        }
-
+    const getRotationFromEvent = (event: MouseEvent) => {
         const rect = bgDecoRectangle.getBoundingClientRect();
-
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-
         const dx = event.clientX - centerX;
         const dy = event.clientY - centerY;
-
         const rotateY = clamp(dx * 0.01, -5, 5);
         const rotateX = clamp(-dy * 0.01, -5, 5);
+        return { rotateX, rotateY };
+    };
 
-        bgDecoRectangle.style.transform =
-            `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    const applyBgTransform = (rotateX: number, rotateY: number) => {
+        if (shovePhase === "down") {
+            bgDecoRectangle.style.transform =
+                `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        } else {
+            bgDecoRectangle.style.transform =
+                `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+    };
+
+    document.addEventListener("mousemove", (event) => {
+        const { rotateX, rotateY } = getRotationFromEvent(event);
+        applyBgTransform(rotateX, rotateY);
     });
 
     // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
     bgDecoRectangle.addEventListener("click", (event) => {
-        isShoving = true;
-
         totalClicks++;
+
+        if (shoveTimeout !== undefined) {
+            window.clearTimeout(shoveTimeout);
+        }
 
         // Play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
         const sound = shoveSounds[Math.floor(Math.random() * shoveSounds.length)].cloneNode(true) as HTMLAudioElement;
@@ -290,32 +298,22 @@ if (bgDecoRectangle) {
 
         void sound.play().catch(() => { /* Ignore playback failures, e.g. browser autoplay restrictions. */ });
 
-        const rect = bgDecoRectangle.getBoundingClientRect();
+        const { rotateX, rotateY } = getRotationFromEvent(event);
 
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+        shovePhase = "down";
+        bgDecoRectangle.style.transition = "transform 80ms ease-out";
+        applyBgTransform(rotateX, rotateY);
 
-        const dx = event.clientX - centerX;
-        const dy = event.clientY - centerY;
+        shoveTimeout = window.setTimeout(() => {
+            shovePhase = "up";
+            bgDecoRectangle.style.transition = "transform 140ms ease-out";
+            applyBgTransform(rotateX, rotateY);
 
-        const rotateY = clamp(dx * 0.01, -5, 5);
-        const rotateX = clamp(-dy * 0.01, -5, 5);
-
-
-        bgDecoRectangle.style.transition = "transform 30ms ease-out";
-        bgDecoRectangle.style.transform =
-            `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-        window.setTimeout(() => {
-            bgDecoRectangle.style.transition = "transform 60ms ease-out";
-            bgDecoRectangle.style.transform =
-                `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-            window.setTimeout(() => {
+            shoveTimeout = window.setTimeout(() => {
+                shovePhase = "idle";
                 bgDecoRectangle.style.transition = "";
-                isShoving = false;
-            }, 60);
-        }, 30);
+            }, 140);
+        }, 80);
 
         if (totalClicks === 10) {
             const tagline = document.querySelector<HTMLElement>(".tagline");

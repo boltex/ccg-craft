@@ -251,7 +251,6 @@ if (bgDecoRectangle) {
 
     // While true, a click-shove animation is in control of the transform; mousemove tracking pauses until it finishes.
     let isShoving = false;
-    let isTaglineRotating = false;
     let totalClicks = 0;
 
     // Preloaded so the browser has already fetched/decoded them by the time of the first click.
@@ -279,6 +278,8 @@ if (bgDecoRectangle) {
 
     // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
     bgDecoRectangle.addEventListener("click", (event) => {
+        isShoving = true;
+
         totalClicks++;
 
         // Play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
@@ -300,41 +301,27 @@ if (bgDecoRectangle) {
         const rotateY = clamp(dx * 0.01, -5, 5);
         const rotateX = clamp(-dy * 0.01, -5, 5);
 
-        isShoving = true;
 
-        bgDecoRectangle.style.transition = "transform 40ms ease-out";
+        bgDecoRectangle.style.transition = "transform 30ms ease-out";
         bgDecoRectangle.style.transform =
             `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
         window.setTimeout(() => {
-            bgDecoRectangle.style.transition = "transform 90ms ease-out";
+            bgDecoRectangle.style.transition = "transform 60ms ease-out";
             bgDecoRectangle.style.transform =
                 `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
             window.setTimeout(() => {
                 bgDecoRectangle.style.transition = "";
                 isShoving = false;
-            }, 90);
-        }, 40);
+            }, 60);
+        }, 30);
 
         if (totalClicks === 10) {
-            isTaglineRotating = !isTaglineRotating;
-        }
-        if (isTaglineRotating) {
-            // Rotate gradually up to 8 degrees and stop there
-            // its style is .tagline {
-            // transform: translateZ(25px);
-
-            // so it shoud become 
-            // `translateZ(25px) rotateY(8deg)`
-
             const tagline = document.querySelector<HTMLElement>(".tagline");
             if (tagline) {
-                tagline.style.transform = "translateZ(25px) rotateY(8deg)";
+                tagline.style.transform = "translateZ(23px) rotatey(-6deg) rotateZ(8deg) rotateX(2deg)";
             }
-
-
-
         }
 
     });

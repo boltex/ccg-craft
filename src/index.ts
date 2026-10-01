@@ -274,6 +274,7 @@ if (bgDecoRectangle) {
 
     // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
     bgDecoRectangle.addEventListener("click", (event) => {
+
         const rect = bgDecoRectangle.getBoundingClientRect();
 
         const centerX = rect.left + rect.width / 2;
@@ -301,6 +302,10 @@ if (bgDecoRectangle) {
                 isShoving = false;
             }, 120);
         }, 50);
+
+        // Also play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
+
+
     });
 }
 

@@ -252,6 +252,9 @@ if (bgDecoRectangle) {
     // While true, a click-shove animation is in control of the transform; mousemove tracking pauses until it finishes.
     let isShoving = false;
 
+    // Preloaded so the browser has already fetched/decoded them by the time of the first click.
+    const shoveSounds = ["clink1.wav", "clink2.wav", "clink3.wav"].map(file => new Audio(file));
+
     document.addEventListener("mousemove", (event) => {
         if (isShoving) {
             return;
@@ -275,6 +278,15 @@ if (bgDecoRectangle) {
     // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
     bgDecoRectangle.addEventListener("click", (event) => {
 
+
+        // Play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
+        const sound = shoveSounds[Math.floor(Math.random() * shoveSounds.length)].cloneNode(true) as HTMLAudioElement;
+
+        // Set its volume between 0.3 and 0.6
+        sound.volume = 0.3 + Math.random() * 0.3;
+
+        void sound.play().catch(() => { /* Ignore playback failures, e.g. browser autoplay restrictions. */ });
+
         const rect = bgDecoRectangle.getBoundingClientRect();
 
         const centerX = rect.left + rect.width / 2;
@@ -288,22 +300,20 @@ if (bgDecoRectangle) {
 
         isShoving = true;
 
-        bgDecoRectangle.style.transition = "transform 50ms ease-out";
+        bgDecoRectangle.style.transition = "transform 40ms ease-out";
         bgDecoRectangle.style.transform =
             `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
         window.setTimeout(() => {
-            bgDecoRectangle.style.transition = "transform 120ms ease-out";
+            bgDecoRectangle.style.transition = "transform 90ms ease-out";
             bgDecoRectangle.style.transform =
                 `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
             window.setTimeout(() => {
                 bgDecoRectangle.style.transition = "";
                 isShoving = false;
-            }, 120);
-        }, 50);
-
-        // Also play one of the 3 sound effects associated with the shove action. (clink1.wav, click2.wav or click3.wav)
+            }, 90);
+        }, 40);
 
 
     });

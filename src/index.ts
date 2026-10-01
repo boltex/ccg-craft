@@ -249,7 +249,14 @@ if (bgDecoRectangle) {
     const clamp = (value: number, min: number, max: number) =>
         Math.min(Math.max(value, min), max);
 
+    // While true, a click-shove animation is in control of the transform; mousemove tracking pauses until it finishes.
+    let isShoving = false;
+
     document.addEventListener("mousemove", (event) => {
+        if (isShoving) {
+            return;
+        }
+
         const rect = bgDecoRectangle.getBoundingClientRect();
 
         const centerX = rect.left + rect.width / 2;
@@ -265,29 +272,36 @@ if (bgDecoRectangle) {
             `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
-    // // You can now manipulate the bgDecoRectangle element as needed
-    // bgDecoRectangle.addEventListener("mousemove", (event) => {
-    //     const rect = bgDecoRectangle.getBoundingClientRect();
+    // Temporary "shoved" effect when clicking directly on bgDecoRectangle, as if pushed down toward the click point.
+    bgDecoRectangle.addEventListener("click", (event) => {
+        const rect = bgDecoRectangle.getBoundingClientRect();
 
-    //     const x = (event.clientX - rect.left) / rect.width;
-    //     const y = (event.clientY - rect.top) / rect.height;
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
 
-    //     const rotateY = (x - 0.5) * 8;
-    //     const rotateX = (0.5 - y) * 8;
+        const dx = event.clientX - centerX;
+        const dy = event.clientY - centerY;
 
-    //     //     bgDecoRectangle.style.transform = `
-    //     //     perspective(800px)
-    //     //     translateY(-3px)
-    //     //     rotateX(${rotateX}deg)
-    //     //     rotateY(${rotateY}deg)
-    //     // `;
-    //     bgDecoRectangle.style.transform =
-    //         `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    // });
+        const rotateY = clamp(dx * 0.01, -5, 5);
+        const rotateX = clamp(-dy * 0.01, -5, 5);
 
-    // bgDecoRectangle.addEventListener("mouseleave", () => {
-    //     bgDecoRectangle.style.transform = "";
-    // });
+        isShoving = true;
+
+        bgDecoRectangle.style.transition = "transform 90ms ease-out";
+        bgDecoRectangle.style.transform =
+            `translateY(2px) translateZ(-8px) scale(0.97) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+        window.setTimeout(() => {
+            bgDecoRectangle.style.transition = "transform 220ms ease-out";
+            bgDecoRectangle.style.transform =
+                `translateY(-3px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            window.setTimeout(() => {
+                bgDecoRectangle.style.transition = "";
+                isShoving = false;
+            }, 220);
+        }, 90);
+    });
 }
 
 if (generatePdfButton) {
@@ -1227,12 +1241,6 @@ async function bootstrap(): Promise<void> {
     populateSheetRaritySelect();
     populatePackSelect();
 
-    if (lookupElement) {
-        requestAnimationFrame(() => {
-            lookupElement.focus();
-        });
-    }
-
     try {
         await cardDatabase.load();
 
@@ -1306,6 +1314,12 @@ async function bootstrap(): Promise<void> {
         if (isDebug) {
             console.log("Clearing PackSimState for all packs and sheets.");
             clearPackSimState();
+        }
+
+        if (lookupElement) {
+            requestAnimationFrame(() => {
+                lookupElement.focus({ preventScroll: true });
+            });
         }
 
         setStatus("Ready.");

@@ -73,6 +73,7 @@ export interface RenderSurface {
     fillText(text: string, x: number, y: number, maxWidth?: number): void;
     drawText(text: string, x: number, y: number, style: TextStyle): void;
     measureText(text: string, style: TextStyle): number;
+    withOverprint(draw: () => void, fill?: boolean, stroke?: boolean): void;
 }
 
 export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): RenderSurface {
@@ -218,5 +219,14 @@ export function createCanvasRenderSurface(ctx: CanvasRenderingContext2D): Render
             ctx.restore();
             return width;
         },
+        withOverprint(
+            draw: () => void,
+            fill = true,
+            stroke = true,
+        ): void {
+            // no special behavior when canvas (only used in PDF rendering)
+            draw();
+
+        }
     };
 }

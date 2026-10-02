@@ -71,15 +71,6 @@ export function buildEditionCheckboxes(
             "FE"
         ], checkboxes, selection, onChange)
     );
-
-    // Also add a text element with id "pool-size" that will be used by a debounced function to display the current pool size.
-
-    const sealedInstructions = document.getElementById("sealed-instructions");
-
-    const poolSize = document.createElement("span");
-    poolSize.id = "pool-size";
-    sealedInstructions?.append(poolSize);
-
     return selection;
 }
 

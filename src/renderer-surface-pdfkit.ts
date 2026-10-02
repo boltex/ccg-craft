@@ -22,6 +22,9 @@ export type PdfKitGradient = {
 };
 
 export type PdfKitDocument = {
+    addContent(data: any): PdfKitDocument;
+    ref(obj: any): { end(): void };
+    page: { ext_gstates: Record<string, any> };
     rect(x: number, y: number, width: number, height: number): PdfKitDocument;
     fill(): PdfKitDocument;
     stroke(): PdfKitDocument;
@@ -96,6 +99,7 @@ export function createPdfKitRenderSurface(
 
     let currentFill: PdfKitFill = "black";
     let currentStroke: PdfKitFill = "black";
+    let overprintId = 0;
 
     function applyTextStyle(style: TextStyle): void {
 
@@ -255,6 +259,31 @@ export function createPdfKitRenderSurface(
             applyTextStyle(style);
             return document.widthOfString(text);
         },
+        withOverprint(
+            draw: () => void,
+            fill = true,
+            stroke = true,
+        ): void {
+            document.save();
+
+            const name = `OP${++overprintId}`;
+
+            const state = document.ref({
+                Type: "ExtGState",
+                OP: stroke,
+                op: fill,
+                OPM: 1,
+            });
+
+            state.end();
+
+            document.page.ext_gstates[name] = state;
+            document.addContent(`/${name} gs`);
+
+            draw();
+
+            document.restore();
+        }
     };
 }
 

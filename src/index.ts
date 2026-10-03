@@ -619,10 +619,6 @@ async function generateSealedPDF(): Promise<void> {
 
     const cardPool = selectSealedCardPool(cardDatabase, selectedEditions);
 
-    // TODO : Move this information to the main screen UI instead of logging to the console.
-    // TODO: also show this when checking/unchecking editions instead of when generating the sealed deck itself!
-    // console.log(`Total unique available cards without basic lands: ${cardPool.length}`);
-
     if (cardPool.length === 0 || !generatePdfButton || !decklistPaperSizeSelect) {
         setStatus("No cards are available for the selected editions.");
         return;

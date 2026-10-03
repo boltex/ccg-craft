@@ -740,10 +740,16 @@ async function generateSelectedSheetPdf(): Promise<void> {
 }
 
 function disableDeckTabs(): void {
+    if (borderToggleButton) {
+        borderToggleButton.disabled = true;
+    }
     deckTabsContainer?.classList.add("disabled");
 }
 
 function enableDeckTabs(): void {
+    if (borderToggleButton) {
+        borderToggleButton.disabled = false;
+    }
     deckTabsContainer?.classList.remove("disabled");
 }
 

@@ -515,12 +515,25 @@ h2 {
   opacity: 1;
 }
 
-.user-instructions {
+.user-instructions,
+.acknowledgement {
   margin-bottom: 10px;
   color: var(--page-background-color, #8e785d);
   font-size: 0.95rem;
   text-align: center;
   font-style: italic;
+}
+
+.acknowledgement {
+  margin: -5px 0 -13px 0;
+}
+
+.acknowledgement a {
+  color: #8e735a;
+  text-decoration: none;
+}
+.acknowledgement a:hover {
+  text-decoration: underline;
 }
 
 #status {

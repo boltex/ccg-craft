@@ -34,6 +34,26 @@ export async function normalizeFaceArtBitmap(
     options: NormalizeFaceArtOptions = {}
 ): Promise<NormalizedFaceArt> {
 
+    const targetWidth = options.targetWidth ?? normalizedFaceArtWidth;
+    const targetHeight = options.targetHeight ?? normalizedFaceArtHeight;
+    const mimeType = options.mimeType ?? "image/webp";
+    const quality = options.quality ?? 1.0; // Full quality no loss by default
+
+    // Already perfectly sized: skip the blur and resize, only re-encode.
+    if (options.targetWidth !== undefined && options.targetHeight !== undefined &&
+        sourceBitmap.width === targetWidth && sourceBitmap.height === targetHeight) {
+        const exactCanvas = document.createElement("canvas");
+        exactCanvas.width = targetWidth;
+        exactCanvas.height = targetHeight;
+        const exactContext = exactCanvas.getContext('2d', { alpha: false });
+        if (!exactContext) {
+            throw new Error("Could not create a 2D context for art normalization.");
+        }
+        exactContext.drawImage(sourceBitmap, 0, 0);
+        const exactBlob = await canvasToBlob(exactCanvas, mimeType, quality);
+        return { blob: await stripWebPMetadata(exactBlob) };
+    }
+
     // --- STEP 1: DESTROY MOIRÉ AT ORIGINAL SIZE ---
     // Create an offscreen canvas matching the source dimensions
     const offCanvas = document.createElement('canvas');
@@ -57,12 +77,6 @@ export async function normalizeFaceArtBitmap(
 
     // Now use the offscreen canvas as the source for further processing
     sourceBitmap = await createSourceArtBitmap(await canvasToBlob(offCanvas, "image/webp", 1.0));
-
-    const targetWidth = options.targetWidth ?? normalizedFaceArtWidth;
-    const targetHeight = options.targetHeight ?? normalizedFaceArtHeight;
-
-    const mimeType = options.mimeType ?? "image/webp";
-    const quality = options.quality ?? 1.0; // Full quality no loss by default
 
     const cropRect = getFaceCropRect(sourceBitmap, face);
     const canvas = document.createElement("canvas");

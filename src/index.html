@@ -81,13 +81,15 @@
                 </div>
                 <div id="deck-tabs">
                     <button type="button" class="deck-tab active" id="tab-constructed"
-                        title="Switch to Constructed Deck Tab" data-deck-tab="constructed">Cards</button>
+                        title="Generate from cards & packs list" data-deck-tab="constructed">Cards</button>
                     <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed"
-                        title="Switch to Sealed Deck Tab">Sealed</button>
+                        title="Generate Sealed Decks">Sealed</button>
                     <button type="button" class="deck-tab" id="tab-sheet" data-deck-tab="sheet"
-                        title="Switch to Uncut-Sheet Tab">Sheet</button>
-                    <button type="button" class="deck-tab" id="tab-db" data-deck-tab="db"
-                        title="Switch to Database Tab">DB</button>
+                        title="Generate Uncut-Sheet">Sheet</button>
+                    <button type="button" class="deck-tab single-char-tab" id="tab-db" data-deck-tab="db"
+                        title="Configuration Settings">⚙</button>
+                    <button type="button" class="deck-tab single-char-tab belwe" id="tab-help" data-deck-tab="help"
+                        title="Help">?</button>
                 </div>
             </nav>
 
@@ -171,6 +173,14 @@
                     <button type="button" id="reset-packs-collation" title="Reset Packs Collation">Reset Packs</button>
                 </p>
             </div>
+
+            <div class="deck-panel" id="deck-panel-help" hidden>
+                <h2>Help</h2>
+                <p>
+                    This section provides help and guidance for using the application.
+                </p>
+            </div>
+
 
         </section>
 

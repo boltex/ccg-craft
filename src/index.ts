@@ -1150,13 +1150,17 @@ function syncGeneratePdfButton(updateSealedPoolSize = false): void {
         decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db" || activeDeckTab === "help");
     }
 
-    if (generatePdfButton) {
+    if (generatePdfButton && saveDecklistButton && clearDecklistButton) {
         if (activeDeckTab === "sheet") {
             generatePdfButton.disabled = false;
         } else if (activeDeckTab === "sealed") {
             generatePdfButton.disabled = !Object.values(editionSelection).some(Boolean);
         } else if (activeDeckTab === "constructed") {
-            generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
+            const decklistIsEmpty = (decklistTextArea?.value.trim() ?? "") === "";
+            generatePdfButton.disabled = decklistIsEmpty;
+            saveDecklistButton.disabled = decklistIsEmpty;
+            clearDecklistButton.disabled = decklistIsEmpty;
+
         } else if (activeDeckTab === "db") {
             generatePdfButton.disabled = true;
         } else if (activeDeckTab === "help") {

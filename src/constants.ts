@@ -92,6 +92,8 @@ export const normalizedFaceArtWidth = 200;
 export const normalizedFaceArtHeight = 160;
 export const normalizedHighResolutionFaceArtWidth = 346;
 export const normalizedHighResolutionFaceArtHeight = 277;
+export const normalized300DpiFaceArtWidth = 600;
+export const normalized300DpiFaceArtHeight = 488;
 
 export const maxCardsInDeck = 300;
 export const sealedDeckSize = 81;

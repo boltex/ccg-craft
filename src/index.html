@@ -80,12 +80,12 @@
                         PDF</button>
                 </div>
                 <div id="deck-tabs">
-                    <button type="button" class="deck-tab active" id="tab-constructed"
-                        title="Generate from cards & packs list" data-deck-tab="constructed">Cards</button>
+                    <button type="button" class="deck-tab active" id="tab-constructed" title="Cards & Packs"
+                        data-deck-tab="constructed">Cards</button>
                     <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed"
-                        title="Generate Sealed Decks">Sealed</button>
+                        title="Random Cards Sealed Decks">Sealed</button>
                     <button type="button" class="deck-tab" id="tab-sheet" data-deck-tab="sheet"
-                        title="Generate Uncut-Sheet">Sheet</button>
+                        title="Uncut-Sheet Posters">Sheet</button>
                     <button type="button" class="deck-tab single-char-tab" id="tab-db" data-deck-tab="db"
                         title="Configuration Settings">⚙</button>
                     <button type="button" class="deck-tab single-char-tab belwe" id="tab-help" data-deck-tab="help"
@@ -172,8 +172,13 @@
             </div>
 
             <div class="deck-panel" id="deck-panel-help" hidden>
-                <p>Some instructions for app usage</p>
-                <p>Another set of instructions for app usage</p>
+                <p>Ccg Craft, the old-school frame '300-dpi' proxy card generator.</p>
+                <p>The 'Cards' tab is for generating proxy cards from singles or booster pack set names.</p>
+                <p>The 'Sealed' tab is for generating a completely random selection of cards for sealed-deck play.</p>
+                <p>The 'Sheet' tab is for generating printable uncut sheets posters.</p>
+
+
+                <p>Choose black or white borders, select your paper size, and press 'Generate' to create your PDF.</p>
                 <p class="acknowledgement mb-0">
                     Pack collation simulation based on the research and
                     work of <a href="https://www.youtube.com/watch?v=mKmDClNGsNI" target="_blank">Tavis

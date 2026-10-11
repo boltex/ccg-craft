@@ -21,7 +21,7 @@
 21, 21, 0, UN, 9, f/d/fd082697-493f-48e3-a41f-123700435025.jpg?1783948551, 0, Berserk
 22, 22, 0, UN, 7, 4/e/4e50454c-3927-4e7e-b4f6-7f5d5fd9b913.jpg?1783948550, 0, Birds of Paradise
 23, 23, 0, UN, 12, 3/6/36b94d0d-fbe5-4f32-af02-bbe3ab2e234a.jpg?1783948570, 6, Black Knight
-24, 24, 0, UN, 13, 4/a/4a2e428c-dd25-484c-bbc8-2d6ce10ef42c.jpg?1783948539, 0, Black Lotus
+24, 24, 0, UN, 13, /black-lotus.png, 0, Black Lotus
 25, 25, 0, UN, 6, 5/1/5159a2cd-036c-482e-9b5a-b595391deef3.jpg?1783948540, 0, Black Vise
 26, 26, 0, UN, 9, f/0/f0cd79e9-1b61-4ad3-8f6d-cb5d3f60ef8e.jpg?1783948590, 0, Black Ward
 27, 27, 0, UN, 6, 2/d/2d636573-287d-4f6f-93b0-12ddd8f3e6d1.jpg?1783948590, 0, Blaze of Glory

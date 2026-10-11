@@ -138,11 +138,12 @@ const deckPanels: Record<string, HTMLElement | null> = {
     sealed: document.querySelector<HTMLElement>("#deck-panel-sealed"),
     sheet: document.querySelector<HTMLElement>("#deck-panel-sheet"),
     db: document.querySelector<HTMLElement>("#deck-panel-db"),
+    help: document.querySelector<HTMLElement>("#deck-panel-help"),
 };
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
-let activeDeckTab: "constructed" | "sealed" | "sheet" | "db" = "constructed";
+let activeDeckTab: "constructed" | "sealed" | "sheet" | "db" | "help" = "constructed";
 let editionSelection: Record<string, boolean> = {};
 let poolSizeUpdateTimeout: number | undefined;
 
@@ -357,12 +358,12 @@ if (deckTabButtons.length > 0) {
     deckTabButtons.forEach(tabButton => {
         tabButton.addEventListener("click", () => {
             const tab = tabButton.dataset.deckTab || '';
-            const possibleTabs = ["constructed", "sealed", "sheet", "db"];
+            const possibleTabs = ["constructed", "sealed", "sheet", "db", "help"];
 
             if (!possibleTabs.includes(tab)) {
                 return;
             }
-            activeDeckTab = tab as "constructed" | "sealed" | "sheet" | "db";
+            activeDeckTab = tab as "constructed" | "sealed" | "sheet" | "db" | "help";
 
             deckTabButtons.forEach(button => {
                 button.classList.toggle("active", button === tabButton);
@@ -1146,7 +1147,7 @@ function resetPageBackgroundColor(): void {
 
 function syncGeneratePdfButton(updateSealedPoolSize = false): void {
     if (decklistPaperSizeSelect) {
-        decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db");
+        decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db" || activeDeckTab === "help");
     }
 
     if (generatePdfButton) {
@@ -1157,6 +1158,8 @@ function syncGeneratePdfButton(updateSealedPoolSize = false): void {
         } else if (activeDeckTab === "constructed") {
             generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
         } else if (activeDeckTab === "db") {
+            generatePdfButton.disabled = true;
+        } else if (activeDeckTab === "help") {
             generatePdfButton.disabled = true;
         }
     }

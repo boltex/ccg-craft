@@ -515,17 +515,12 @@ h2 {
   opacity: 1;
 }
 
-.user-instructions,
-.acknowledgement {
+.user-instructions {
   margin-bottom: 10px;
   color: var(--page-background-color, #8e785d);
   font-size: 0.95rem;
   text-align: center;
   font-style: italic;
-}
-
-.acknowledgement {
-  margin: -5px 0 -13px 0;
 }
 
 .acknowledgement a {
@@ -534,6 +529,11 @@ h2 {
 }
 .acknowledgement a:hover {
   text-decoration: underline;
+}
+
+#deck-panel-help {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #status {
@@ -728,8 +728,7 @@ button:disabled {
 }
 
 .col button {
-  margin-bottom: 10px;
-  margin-right: 8px;
+  margin-bottom: 9px;
 }
 
 .pack-image {

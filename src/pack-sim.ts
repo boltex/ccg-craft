@@ -165,7 +165,7 @@ export const packData: {
             label: "Starter Pack",
             deckEntry: "Starter Limited",
             image: "starter-limited.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5],
+            stripSequence: [2, 3, 4, 4, 3, 5], // Beta Confirmed by Tavis King.
             generation: [
                 {
                     packSimController: undefined,
@@ -189,7 +189,7 @@ export const packData: {
             label: "Booster Pack",
             deckEntry: "Booster Limited",
             image: "booster-limited.webp",
-            stripSequence: [2, 3, 4, 4, 3, 5],
+            stripSequence: [2, 3, 4, 4, 3, 5], // Beta Confirmed by Tavis King.
             generation: [
                 {
                     packSimController: undefined,
@@ -213,7 +213,7 @@ export const packData: {
             label: "Arabian Nights",
             deckEntry: "Booster Arabian Nights",
             image: "booster-arabian-nights.webp",
-            stripSequence: [3, 4, 4, 3, 5], // No '2'. 
+            stripSequence: [3, 4, 4, 3, 5], // No '2'. (Otherwise consecutive duplicates would occur)
             generation: [
                 {
                     packSimController: undefined,
@@ -232,7 +232,7 @@ export const packData: {
             label: "Antiquities",
             deckEntry: "Booster Antiquities",
             image: "booster-antiquities.webp",
-            stripSequence: [3, 4, 4, 3, 5], // Same as arabian nights - until proven otherwise.
+            stripSequence: [3, 3, 4, 2, 5, 4], // Confirmed by Tavis King.
 
             generation: [
                 {

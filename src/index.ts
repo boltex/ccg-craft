@@ -989,14 +989,24 @@ function restorePackSimState(): void {
                     const currentX = Number.isInteger(parsed.currentX) ? parsed.currentX : undefined;
                     const currentY = Number.isInteger(parsed.currentY) ? parsed.currentY : undefined;
 
+                    // Extraneous safety check for the strip sequence in the parsed state.
                     const stripSequence =
                         Array.isArray(parsed.stripSequence) &&
                             parsed.stripSequence.every((height: unknown) => Number.isInteger(height) && (height as number) > 0)
                             ? parsed.stripSequence
                             : pack.stripSequence;
 
-                    generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
+                    // How detect if the parsed.stripSequence has changed from the original pack.stripSequence?
+                    const stripSequenceChanged = JSON.stringify(parsed.stripSequence) !== JSON.stringify(pack.stripSequence);
+                    if (stripSequenceChanged) {
+                        // New version of the software detected due to strip sequence change.
+                        generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+                    } else {
+                        generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
+                    }
+
                     // console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
+
                 } catch (error) {
                     console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
                     // If restoration fails, fall back to default initialization for this pack sim state.

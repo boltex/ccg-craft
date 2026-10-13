@@ -135,7 +135,7 @@
                     Uncut Sheets of Cards
                 </p>
                 <p class="text-center">
-                    <select id="sheet-rarity-select" title="Select uncut sheet rarity" class="mr-6"></select>
+                    <select id="sheet-rarity-select" title="Select uncut sheet set and rarity" class="mr-6"></select>
                 </p>
                 <p class="user-instructions mb-0">
                     An 11 x 11 grid of cards laid out on a 28.5 x 40-inch poster sheet.
@@ -145,15 +145,16 @@
             <div class="deck-panel" id="deck-panel-db" hidden>
                 <p id="statistics"></p>
                 <div class="app-preferences">
-                    <label class="app-preference">
+                    <label class="app-preference" title="Low DPI is 100, High DPI is 167 to 300.">
                         <input type="checkbox" id="high-resolution-art" />
                         High-resolution art
                     </label>
-                    <label class="app-preference">
+                    <label class="app-preference"
+                        title="Save art in localstorage instead of fetching from scryfall each time.">
                         <input type="checkbox" id="use-local-art-database" />
                         Use local art database
                     </label>
-                    <label class="app-preference">
+                    <label class="app-preference" title="Toggle cards' white/black borders.">
                         <input type="checkbox" id="white-border" />
                         White border
                     </label>

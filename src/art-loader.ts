@@ -109,7 +109,7 @@ export async function loadFaceArtForCard(
     let isArt300Dpi = false;
 
     if (cardUrl.startsWith("/")) {
-        artCropUrl = "/art300dpi" + cardUrl;
+        artCropUrl = "art300dpi" + cardUrl;
         isArt300Dpi = true;
     } else {
         artCropUrl = "https://cards.scryfall.io/art_crop/front/" + cardUrl;

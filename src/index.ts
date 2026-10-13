@@ -138,11 +138,12 @@ const deckPanels: Record<string, HTMLElement | null> = {
     sealed: document.querySelector<HTMLElement>("#deck-panel-sealed"),
     sheet: document.querySelector<HTMLElement>("#deck-panel-sheet"),
     db: document.querySelector<HTMLElement>("#deck-panel-db"),
+    help: document.querySelector<HTMLElement>("#deck-panel-help"),
 };
 const canvasElement = document.querySelector<HTMLCanvasElement>("#card-preview");
 const frameBgElements = document.querySelectorAll<HTMLDivElement>(".frame-bg");
 
-let activeDeckTab: "constructed" | "sealed" | "sheet" | "db" = "constructed";
+let activeDeckTab: "constructed" | "sealed" | "sheet" | "db" | "help" = "constructed";
 let editionSelection: Record<string, boolean> = {};
 let poolSizeUpdateTimeout: number | undefined;
 
@@ -357,12 +358,12 @@ if (deckTabButtons.length > 0) {
     deckTabButtons.forEach(tabButton => {
         tabButton.addEventListener("click", () => {
             const tab = tabButton.dataset.deckTab || '';
-            const possibleTabs = ["constructed", "sealed", "sheet", "db"];
+            const possibleTabs = ["constructed", "sealed", "sheet", "db", "help"];
 
             if (!possibleTabs.includes(tab)) {
                 return;
             }
-            activeDeckTab = tab as "constructed" | "sealed" | "sheet" | "db";
+            activeDeckTab = tab as "constructed" | "sealed" | "sheet" | "db" | "help";
 
             deckTabButtons.forEach(button => {
                 button.classList.toggle("active", button === tabButton);
@@ -988,14 +989,24 @@ function restorePackSimState(): void {
                     const currentX = Number.isInteger(parsed.currentX) ? parsed.currentX : undefined;
                     const currentY = Number.isInteger(parsed.currentY) ? parsed.currentY : undefined;
 
+                    // Extraneous safety check for the strip sequence in the parsed state.
                     const stripSequence =
                         Array.isArray(parsed.stripSequence) &&
                             parsed.stripSequence.every((height: unknown) => Number.isInteger(height) && (height as number) > 0)
                             ? parsed.stripSequence
                             : pack.stripSequence;
 
-                    generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
+                    // How detect if the parsed.stripSequence has changed from the original pack.stripSequence?
+                    const stripSequenceChanged = JSON.stringify(parsed.stripSequence) !== JSON.stringify(pack.stripSequence);
+                    if (stripSequenceChanged) {
+                        // New version of the software detected due to strip sequence change.
+                        generationEntry.packSimController = new PackSimController(pack.stripSequence, 0);
+                    } else {
+                        generationEntry.packSimController = new PackSimController(stripSequence, stripIndex, stripy, currentX, currentY);
+                    }
+
                     // console.log(`Restored PackSimController for sheet ${sheetKey} with state:`, parsed);
+
                 } catch (error) {
                     console.error(`Failed to restore pack sim state for sheet ${sheetKey}:`, error);
                     // If restoration fails, fall back to default initialization for this pack sim state.
@@ -1146,17 +1157,23 @@ function resetPageBackgroundColor(): void {
 
 function syncGeneratePdfButton(updateSealedPoolSize = false): void {
     if (decklistPaperSizeSelect) {
-        decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db");
+        decklistPaperSizeSelect.disabled = (activeDeckTab === "sheet" || activeDeckTab === "db" || activeDeckTab === "help");
     }
 
-    if (generatePdfButton) {
+    if (generatePdfButton && saveDecklistButton && clearDecklistButton) {
         if (activeDeckTab === "sheet") {
             generatePdfButton.disabled = false;
         } else if (activeDeckTab === "sealed") {
             generatePdfButton.disabled = !Object.values(editionSelection).some(Boolean);
         } else if (activeDeckTab === "constructed") {
-            generatePdfButton.disabled = (decklistTextArea?.value.trim() ?? "") === "";
+            const decklistIsEmpty = (decklistTextArea?.value.trim() ?? "") === "";
+            generatePdfButton.disabled = decklistIsEmpty;
+            saveDecklistButton.disabled = decklistIsEmpty;
+            clearDecklistButton.disabled = decklistIsEmpty;
+
         } else if (activeDeckTab === "db") {
+            generatePdfButton.disabled = true;
+        } else if (activeDeckTab === "help") {
             generatePdfButton.disabled = true;
         }
     }
@@ -1296,69 +1313,6 @@ async function bootstrap(): Promise<void> {
         await updateStatistics();
 
         updatePoolSize();
-
-        if (isDebug) {
-            // test time to loop nextCardPosition for the PackSimController: start with a fresh controller and get a timestamp.
-            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
-            // GEt precise timestamp for debugging purposes.
-            const startTime = performance.now();
-            for (let i = 0; i < 25000; i++) {
-                testController.nextCardPosition();
-            }
-            const endTime = performance.now();
-            console.log(`Pack sim test start time: ${startTime}`);
-            console.log(`Pack sim test end time: ${endTime}`);
-            console.log(`Pack sim test duration: ${endTime - startTime} ms`);
-            const stateAfter = testController.serialize();
-            console.log(`Pack sim test x: ${stateAfter.currentX}, y: ${stateAfter.currentY}`);
-
-
-        }
-
-        if (isDebug) {
-            // -----------------------------------------------------------------------------------
-            // Test the PackSimController by generating the next card positions for a couple iterations
-            // -----------------------------------------------------------------------------------
-            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
-
-            // The first strip is 2 rows of 11 cards, (22 cards)
-            // Then the next one is 3 rows of 11 cards, (33 cards)
-            // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
-            // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
-            // And looking at more than 242 cards, let's say 245, would wrap around top of some sheets.
-
-            console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
-
-            for (let i = 0; i < 245; i++) {
-                if (i && (i + 1) % 11 === 0) {
-                    console.log(`passed 11 cards at iteration ${i}`);
-                }
-                if (i && (i + 1) % 121 === 0) {
-                    console.log(`passed 121 cards at iteration ${i}`);
-                }
-                const position = testController.nextCardPosition();
-                console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);
-            }
-            // -----------------------------------------------------------------------------------
-            // End of PackSimController test.
-            // -----------------------------------------------------------------------------------
-        }
-
-        if (isDebug) {
-            // first change one of the pack sim states
-            packData[0].generation[0].packSimController?.nextCardPosition();
-
-            // second, save the current state
-            savePackSimState();
-
-            // Last, restore and compare
-            restorePackSimState();
-            console.log("Restored PackSimState for all packs and sheets.");
-        }
-        if (isDebug) {
-            console.log("Clearing PackSimState for all packs and sheets.");
-            clearPackSimState();
-        }
 
         if (lookupElement) {
             requestAnimationFrame(() => {

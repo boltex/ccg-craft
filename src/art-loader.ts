@@ -5,6 +5,8 @@ import {
 } from "./image-normalize";
 import { canUseLocalArtDatabase, type ArtLoadingOptions } from "./art-settings";
 import {
+    normalized300DpiFaceArtHeight,
+    normalized300DpiFaceArtWidth,
     normalizedFaceArtHeight,
     normalizedFaceArtWidth,
     normalizedHighResolutionFaceArtHeight,
@@ -102,7 +104,17 @@ export async function loadFaceArtForCard(
         return artByFaceSerial;
     }
 
-    const artCropUrl = "https://cards.scryfall.io/art_crop/front/" + input.card.url;
+    let artCropUrl = "";
+    let cardUrl = input.card.url;
+    let isArt300Dpi = false;
+
+    if (cardUrl.startsWith("/")) {
+        artCropUrl = "/art300dpi/" + cardUrl;
+        isArt300Dpi = true;
+    } else {
+        artCropUrl = "https://cards.scryfall.io/art_crop/front/" + cardUrl;
+    }
+
     if (!artCropUrl) {
         console.log(`Failed to construct art crop URL for card ${input.card.name}.`);
         return artByFaceSerial;
@@ -127,15 +139,21 @@ export async function loadFaceArtForCard(
                 }
 
             }
+            let targetWidth = input.artLoadingOptions.highResolution
+                ? normalizedHighResolutionFaceArtWidth
+                : normalizedFaceArtWidth;
+            let targetHeight = input.artLoadingOptions.highResolution
+                ? normalizedHighResolutionFaceArtHeight
+                : normalizedFaceArtHeight;
 
+            if (isArt300Dpi && input.artLoadingOptions.highResolution) {
+                targetWidth = normalized300DpiFaceArtWidth;
+                targetHeight = normalized300DpiFaceArtHeight;
+            }
 
             const normalizedArt = await normalizeFaceArtBitmap(sourceBitmap, face, {
-                targetWidth: input.artLoadingOptions.highResolution
-                    ? normalizedHighResolutionFaceArtWidth
-                    : normalizedFaceArtWidth,
-                targetHeight: input.artLoadingOptions.highResolution
-                    ? normalizedHighResolutionFaceArtHeight
-                    : normalizedFaceArtHeight,
+                targetWidth: targetWidth,
+                targetHeight: targetHeight,
             });
 
             if (canUseLocalArtDatabase(input.artLoadingOptions)) {

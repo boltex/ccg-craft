@@ -80,14 +80,16 @@
                         PDF</button>
                 </div>
                 <div id="deck-tabs">
-                    <button type="button" class="deck-tab active" id="tab-constructed"
-                        title="Switch to Constructed Deck Tab" data-deck-tab="constructed">Cards</button>
+                    <button type="button" class="deck-tab active" id="tab-constructed" title="Cards & Packs"
+                        data-deck-tab="constructed">Cards</button>
                     <button type="button" class="deck-tab" id="tab-sealed" data-deck-tab="sealed"
-                        title="Switch to Sealed Deck Tab">Sealed</button>
+                        title="Random Cards Sealed Decks">Sealed</button>
                     <button type="button" class="deck-tab" id="tab-sheet" data-deck-tab="sheet"
-                        title="Switch to Uncut-Sheet Tab">Sheet</button>
-                    <button type="button" class="deck-tab" id="tab-db" data-deck-tab="db"
-                        title="Switch to Database Tab">DB</button>
+                        title="Uncut-Sheet Posters">Sheet</button>
+                    <button type="button" class="deck-tab single-char-tab" id="tab-db" data-deck-tab="db"
+                        title="Configuration Settings">⚙</button>
+                    <button type="button" class="deck-tab single-char-tab belwe" id="tab-help" data-deck-tab="help"
+                        title="Help">?</button>
                 </div>
             </nav>
 
@@ -114,9 +116,6 @@
                             <input type="file" id="load-decklist-file" accept="text/plain" hidden />
                         </p>
                         <p class="mb-0 text-center" id="add-packs-buttons"></p>
-                        <p class="mb-0 text-center acknowledgement">Pack collation simulation based on the research and
-                            work of <a href="https://www.youtube.com/watch?v=mKmDClNGsNI" target="_blank">Tavis
-                                King</a>.</p>
                     </div>
                 </div>
             </div>
@@ -136,7 +135,7 @@
                     Uncut Sheets of Cards
                 </p>
                 <p class="text-center">
-                    <select id="sheet-rarity-select" title="Select uncut sheet rarity" class="mr-6"></select>
+                    <select id="sheet-rarity-select" title="Select uncut sheet set and rarity" class="mr-6"></select>
                 </p>
                 <p class="user-instructions mb-0">
                     An 11 x 11 grid of cards laid out on a 28.5 x 40-inch poster sheet.
@@ -146,15 +145,16 @@
             <div class="deck-panel" id="deck-panel-db" hidden>
                 <p id="statistics"></p>
                 <div class="app-preferences">
-                    <label class="app-preference">
+                    <label class="app-preference" title="Low DPI is 100, High DPI is 167 to 300.">
                         <input type="checkbox" id="high-resolution-art" />
                         High-resolution art
                     </label>
-                    <label class="app-preference">
+                    <label class="app-preference"
+                        title="Save art in localstorage instead of fetching from scryfall each time.">
                         <input type="checkbox" id="use-local-art-database" />
                         Use local art database
                     </label>
-                    <label class="app-preference">
+                    <label class="app-preference" title="Toggle cards' white/black borders.">
                         <input type="checkbox" id="white-border" />
                         White border
                     </label>
@@ -172,6 +172,29 @@
                 </p>
             </div>
 
+            <div class="deck-panel" id="deck-panel-help" hidden>
+                <p class="text-center"><strong>CCG Craft</strong> creates PDF files with
+                    <i>300-DPI</i> textures along with <i>vector</i> fonts and graphics instead of scanned cards.
+                </p>
+
+                <p class="text-center"><img src="scan-vs-300dpi-and-vector.png" alt="CCG-Craft vs Scanned Proxies"
+                        width="243" title="CCG-Craft vs Scanned Proxies" /></p>
+
+                <p>Select a tab, then choose a border color, your paper-size and press <strong>Generate PDF</strong> to
+                    create a printable file.</p>
+                <p><strong>Cards tab</strong> is for generating proxy cards from a list of card names
+                    booster pack set names. You can click the booster pack set buttons to quickly add packs to your
+                    decklist. You can also use the <strong>Card Lookup</strong> input to search for
+                    specific cards and add them to your decklist with Enter.</p>
+                </p>
+                <p><strong>Sealed tab</strong> is for generating a completely random selection of cards from specific
+                    sets, without basic lands, for sealed-deck
+                    play.</p>
+                <p><strong>Sheet tab</strong> is for generating printable uncut sheets posters.</p>
+                <p class="acknowledgement">Pack collation simulation based on the research and work of
+                    <a href="https://www.youtube.com/watch?v=mKmDClNGsNI" target="_blank">Tavis King</a>.
+                </p>
+            </div>
         </section>
 
         <section class="panel overflow-x-hidden">

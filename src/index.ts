@@ -1314,69 +1314,6 @@ async function bootstrap(): Promise<void> {
 
         updatePoolSize();
 
-        if (isDebug) {
-            // test time to loop nextCardPosition for the PackSimController: start with a fresh controller and get a timestamp.
-            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
-            // GEt precise timestamp for debugging purposes.
-            const startTime = performance.now();
-            for (let i = 0; i < 25000; i++) {
-                testController.nextCardPosition();
-            }
-            const endTime = performance.now();
-            console.log(`Pack sim test start time: ${startTime}`);
-            console.log(`Pack sim test end time: ${endTime}`);
-            console.log(`Pack sim test duration: ${endTime - startTime} ms`);
-            const stateAfter = testController.serialize();
-            console.log(`Pack sim test x: ${stateAfter.currentX}, y: ${stateAfter.currentY}`);
-
-
-        }
-
-        if (isDebug) {
-            // -----------------------------------------------------------------------------------
-            // Test the PackSimController by generating the next card positions for a couple iterations
-            // -----------------------------------------------------------------------------------
-            const testController = new PackSimController([2, 3, 4, 4, 3, 5], 0);
-
-            // The first strip is 2 rows of 11 cards, (22 cards)
-            // Then the next one is 3 rows of 11 cards, (33 cards)
-            // And so on, following the sequence of strip heights: 4, 4, 3, 5, and then it wraps around.
-            // So looking at 56 cards, we would have gone through the first two strips completely and be partway through the third strip.
-            // And looking at more than 242 cards, let's say 245, would wrap around top of some sheets.
-
-            console.log(`Pack sim test 0: x ${testController.serialize().currentX}, y ${testController.serialize().currentY}`);
-
-            for (let i = 0; i < 245; i++) {
-                if (i && (i + 1) % 11 === 0) {
-                    console.log(`passed 11 cards at iteration ${i}`);
-                }
-                if (i && (i + 1) % 121 === 0) {
-                    console.log(`passed 121 cards at iteration ${i}`);
-                }
-                const position = testController.nextCardPosition();
-                console.log(`Pack sim test ${i + 1}: x ${position.x}, y ${position.y}`);
-            }
-            // -----------------------------------------------------------------------------------
-            // End of PackSimController test.
-            // -----------------------------------------------------------------------------------
-        }
-
-        if (isDebug) {
-            // first change one of the pack sim states
-            packData[0].generation[0].packSimController?.nextCardPosition();
-
-            // second, save the current state
-            savePackSimState();
-
-            // Last, restore and compare
-            restorePackSimState();
-            console.log("Restored PackSimState for all packs and sheets.");
-        }
-        if (isDebug) {
-            console.log("Clearing PackSimState for all packs and sheets.");
-            clearPackSimState();
-        }
-
         if (lookupElement) {
             requestAnimationFrame(() => {
                 lookupElement.focus({ preventScroll: true });

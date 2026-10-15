@@ -5,7 +5,7 @@
 5, 5, 0, BK, 4, b/0/b0da11d4-3603-4f59-8f61-7204bf04e165.jpg?1783947876, 0, Sewers of Estark
 6, 6, 0, BK, 5, e/1/e105e6c0-2d75-4ebe-beca-e7b4101f87f6.jpg?1783947875, 3, Windseeker Centaur
 7, 7, 0, UN, 6, e/f/ef5b8140-a157-4c20-a428-fa7250ab34e1.jpg?1783948580, 4, Air Elemental
-8, 8, 0, UN, 7, 2/d/2dd41293-d7c8-4422-9f0c-b3e96350f5c9.jpg?1783948580, 0, Ancestral Recall
+8, 8, 0, UN, 7, /ancestral-recall.png, 0, Ancestral Recall
 9, 9, 0, UN, 8, c/a/caf1ee51-2852-44c0-a5d4-d0e415381738.jpg?1783948581, 0, Animate Artifact
 10, 10, 0, UN, 5, 0/f/0fc3ed63-96ee-420c-bde1-e0c904059931.jpg?1783948570, 0, Animate Dead
 11, 11, 0, UN, 9, 0/5/05d7bed4-950a-4a4e-b79a-50e4aa416fe9.jpg?1783948592, 0, Animate Wall
@@ -43,16 +43,16 @@
 43, 43, 0, UN, 2, 4/c/4cc60529-401b-481a-b65c-ad791153afd7.jpg?1783948589, 0, Circle of Protection: Red
 44, 44, 0, UN, 8, 9/8/98a1c689-cd8b-4a80-ad6d-e4ff5933f5e7.jpg?1783948588, 0, Circle of Protection: White
 45, 45, 0, UN, 17, c/7/c7741816-0bc1-4540-b4b2-006275ffe572.jpg?1783948539, 0, Clockwork Beast
-46, 46, 0, UN, 14, b/c/bcf09714-89cf-4feb-b941-74f791bbdf6e.jpg?1783948580, 0, Clone
+46, 46, 0, UN, 14, /clone.png, 0, Clone
 47, 47, 0, UN, 9, 8/3/8392d34d-d14a-43ca-997d-fe59e505034e.jpg?1783948549, 0, Cockatrice
 48, 48, 0, UN, 12, 9/e/9efb29d2-550f-4ede-b024-7b0e15c2e986.jpg?1783948588, 0, Consecrate Land
 49, 49, 0, UN, 10, 7/4/744e7821-8bfd-4816-a8af-4e6fe7b35505.jpg?1783948537, 0, Conservator
-50, 50, 0, UN, 8, 5/3/530be94d-7f6a-4c23-948f-22c5bdbceb4f.jpg?1783948570, 0, Contract from Below
+50, 50, 0, UN, 8, /contract-from-below.png, 0, Contract from Below
 51, 51, 0, UN, 15, 0/7/076d132a-fa3d-464b-b5f9-a12e46c9f2df.jpg?1783948580, 0, Control Magic
 52, 52, 0, UN, 11, 4/5/45bf4297-ccf4-4fa0-b7ce-5aaebca50813.jpg?1783948587, 0, Conversion
 53, 53, 0, UN, 10, c/1/c17cb591-916e-4176-aeb9-e2275d68d472.jpg?1783948538, 0, Copper Tablet
 54, 54, 0, UN, 10, d/d/dde40c1f-5ccc-435b-ac35-62eb58ffeea2.jpg?1783948580, 0, Copy Artifact
-55, 55, 0, UN, 7, 7/c/7c666b4b-c4ff-40ca-9d16-c76aafebaa83.jpg?1783948580, 0, Counterspell
+55, 55, 0, UN, 7, /counterspell.png, 0, Counterspell
 56, 56, 0, UN, 18, a/5/a5bbaf11-6bf1-42a1-a8be-66bc47485a6c.jpg?1783948549, 8, Craw Wurm
 57, 57, 0, UN, 5, 1/f/1f9e4aa8-4ca7-4893-81d7-98205246f357.jpg?1783948580, 0, Creature Bond
 58, 58, 0, UN, 7, 4/b/4b9933e3-2267-4534-a1c6-c463e767480a.jpg?1783948587, 0, Crusade
@@ -60,13 +60,13 @@
 60, 60, 0, UN, 11, 6/9/69f37a32-dc03-49fd-b28b-d091563d3690.jpg?1783948570, 0, Cursed Land
 61, 61, 0, UN, 5, a/1/a184cd2e-e27f-44b0-a8ae-9d861280e469.jpg?1783948537, 0, Cyclopean Tomb
 62, 62, 0, UN, 16, c/4/c4d24ff3-315d-44cd-8c27-d8ad6972e027.jpg?1783948569, 0, Dark Ritual
-63, 63, 0, UN, 19, 9/3/9350762e-cb5f-4cea-a880-6e731685bf67.jpg?1783948569, 0, Darkpact
+63, 63, 0, UN, 19, /darkpack.png, 0, Darkpact
 64, 64, 0, UN, 7, d/7/d7604388-752a-463d-95cd-486752a4bd04.jpg?1783948588, 0, Death Ward
 65, 65, 0, UN, 5, f/e/fe9210db-2ab3-42e6-be04-790917092317.jpg?1783948568, 0, Deathgrip
 66, 66, 0, UN, 16, c/3/c3e02432-b8bd-4091-a520-6895313ff141.jpg?1783948568, 0, Deathlace
 67, 67, 0, UN, 18, 4/f/4fbb25bc-7071-40eb-bea6-16387db164a7.jpg?1783948568, 0, Demonic Attorney
 68, 68, 0, UN, 11, 8/1/812a0a10-0765-499f-8581-c4d7e0e81299.jpg?1783948568, 9, Demonic Hordes
-69, 69, 0, UN, 8, c/8/c8d5d6a5-6807-4a80-9460-7633dc430ee9.jpg?1783948567, 0, Demonic Tutor
+69, 69, 0, UN, 8, /demonic-tutor.png, 0, Demonic Tutor
 70, 70, 0, UN, 9, a/8/a804f742-f7cf-427e-ad0a-742587328156.jpg?1783948537, 0, Dingus Egg
 71, 71, 0, UN, 10, 7/3/73636b95-103d-43c8-bc96-63fad0da34dd.jpg?1783948588, 0, Disenchant
 72, 72, 0, UN, 5, f/9/f94878cc-4c0f-42e4-a49f-02a2b269ef06.jpg?1783948560, 0, Disintegrate
@@ -85,7 +85,7 @@
 85, 85, 0, UN, 5, a/5/a59c24d9-804b-45d0-b60c-cfc7a6af7ef5.jpg?1783948558, 0, False Orders
 86, 86, 0, UN, 7, 3/d/3d79940b-9384-4009-8b74-3d56a2c5a8a5.jpg?1783948586, 0, Farmstead
 87, 87, 0, UN, 7, 6/4/64b52b42-e2af-4040-b7ba-34cc292af7ef.jpg?1783948548, 0, Fastbond
-88, 88, 0, UN, 7, e/4/e48c7fd2-860e-4266-b8c0-f6d48f52b851.jpg?1783948567, 0, Fear
+88, 88, 0, UN, 7, /fear.png, 0, Fear
 89, 89, 0, UN, 19, 5/0/5083317e-8536-41e3-a441-8e6be4d63d50.jpg?1783948579, 0, Feedback
 90, 90, 0, UN, 4, b/d/bddeac3f-f4ee-432b-9d69-8533a28e7f46.jpg?1783948558, 15, Fire Elemental
 91, 91, 0, UN, 2, 3/9/39e05c2d-b4a1-4f59-8743-f1694c803164.jpg?1783948558, 0, Fireball
@@ -135,7 +135,7 @@
 135, 135, 0, UN, 5, 7/6/76aaff1a-6796-4728-bdb5-bcdc79c9b98c.jpg?1783948536, 0, Ivory Cup
 136, 136, 0, UN, 5, 8/8/88c6101a-09af-423e-881f-09aa1e01d2a2.jpg?1783948534, 0, Jade Monolith
 137, 137, 0, UN, 9, a/5/a5354edc-03d7-4176-a211-174374a9d912.jpg?1783948535, 30, Jade Statue
-138, 138, 0, UN, 2, e/4/e470c00b-57ac-48d4-b1e6-74b74872e620.jpg?1783948534, 0, Jayemdae Tome
+138, 138, 0, UN, 2, /jayemdae-tome.png, 0, Jayemdae Tome
 139, 139, 0, UN, 9, 0/c/0cde95ea-ad1a-4acb-a8bd-5457f119aeb7.jpg?1783948534, 31, Juggernaut
 140, 140, 0, UN, 7, 2/4/24b4c4c9-84c1-484c-9f67-1f460585d45c.jpg?1783948577, 0, Jump
 141, 141, 0, UN, 6, c/9/c9aa32e2-aeb0-4104-8603-a56bd8fc0953.jpg?1783948586, 0, Karma
@@ -159,7 +159,7 @@
 159, 159, 0, UN, 5, f/7/f790990a-f47d-4fb0-a361-108037dd7464.jpg?1783948544, 0, Lure
 160, 160, 0, UN, 14, 7/a/7abc2b06-3613-4e42-bf51-d340d1e70a78.jpg?1783948577, 0, Magical Hack
 161, 161, 0, UN, 9, 6/6/66d5effc-dc31-485c-91c0-e9a8e2b098af.jpg?1783948577, 36, Mahamoti Djinn
-162, 162, 0, UN, 13, b/f/bf770633-612e-41db-a451-7da802c46e4d.jpg?1783948555, 0, Mana Flare
+162, 162, 0, UN, 13, /mana-flare.png, 0, Mana Flare
 163, 163, 0, UN, 15, 7/4/743e0f1e-55ab-429a-b9f1-769b008ad06a.jpg?1783948577, 0, Mana Short
 164, 164, 0, UN, 2, 7/7/778d10e6-251b-4ef3-b9b8-bc23a0d74aed.jpg?1783948533, 0, Mana Vault
 165, 165, 0, UN, 13, 3/c/3c424086-8122-404d-8c3a-f36d455271a7.jpg?1783948555, 0, Manabarbs
@@ -169,15 +169,15 @@
 169, 169, 0, UN, 14, f/3/f3d7381b-9075-4c9b-adf5-a0d1c26fab67.jpg?1783948565, 0, Mind Twist
 170, 170, 0, UN, 12, 0/d/0d3eff55-6a14-4c01-8b05-715094a319b3.jpg?1783948555, 39, Mons's Goblin Raiders
 171, 171, 0, UN, 8, 0/0/005a993c-5111-4364-9fba-75b3d94a8296.jpg?1783948526, 0, Mountain
-172, 172, 0, UN, 9, a/4/a4db5af2-9caf-4493-b340-6d64021139e2.jpg?1783948533, 0, Mox Emerald
-173, 173, 0, UN, 9, 7/0/70d6c02e-0f48-4fb0-94f3-1fc92ee1814f.jpg?1783948534, 0, Mox Jet
-174, 174, 0, UN, 9, c/8/c84e8a0e-49a7-46f6-8a37-910e32753528.jpg?1783948533, 0, Mox Pearl
-175, 175, 0, UN, 9, 2/1/21b7cbae-6647-4f36-b02d-5535ac88b1a6.jpg?1783948533, 0, Mox Ruby
-176, 176, 0, UN, 9, f/7/f7d82f1d-631e-4668-9d10-7bf0ee515267.jpg?1783948532, 0, Mox Sapphire
+172, 172, 0, UN, 9, /mox-emerald.png, 0, Mox Emerald
+173, 173, 0, UN, 9, /mox-jet.png, 0, Mox Jet
+174, 174, 0, UN, 9, /mox-pearl.png, 0, Mox Pearl
+175, 175, 0, UN, 9, /mox-ruby.png, 0, Mox Ruby
+176, 176, 0, UN, 9, /mox-sapphire.png, 0, Mox Sapphire
 177, 177, 0, UN, 7, 3/1/315a6bfb-5417-465f-97d9-e157f5c3cf79.jpg?1783948544, 0, Natural Selection
 178, 178, 0, UN, 13, 1/8/18e057ae-8e60-478c-b047-605dab356835.jpg?1783948566, 0, Nether Shadow
 179, 179, 0, UN, 19, 9/6/96706002-176d-41f7-9788-3d0f7962ea03.jpg?1783948565, 0, Nettling Imp
-180, 180, 0, UN, 2, 8/4/8436c720-ff96-4475-8320-d0d1e0c23f2a.jpg?1783948531, 0, Nevinyrral's Disk
+180, 180, 0, UN, 2, /nevinyrrals-disk.png, 0, Nevinyrral's Disk
 181, 181, 0, UN, 4, 7/4/747d4c99-0287-4138-af13-6244f33d2e57.jpg?1783948565, 40, Nightmare
 182, 182, 0, UN, 8, 3/0/309cd081-13bb-428b-b561-60b7a81c0f1d.jpg?1783948584, 41, Northern Paladin
 183, 183, 0, UN, 11, 9/6/9646da70-329f-41a2-9453-4ec6a9c9e7e4.jpg?1783948532, 42, Obsianus Golem
@@ -193,7 +193,7 @@
 193, 193, 0, UN, 23, d/6/d6119988-4797-4993-a75f-e7015c2c6354.jpg?1783948576, 0, Pirate Ship
 194, 194, 0, UN, 5, f/2/f2a5bd30-a11f-4218-aca6-3183d82d02b9.jpg?1783948564, 47, Plague Rats
 195, 195, 0, UN, 11, 0/3/034b047d-6363-45ca-9948-8184f822a2cb.jpg?1783948527, 0, Plains
-196, 196, 0, UN, 17, d/e/de38f96c-5d17-4cf2-9951-f0866eadd011.jpg?1783948529, 0, Plateau
+196, 196, 0, UN, 17, /plateau.png, 0, Plateau
 197, 197, 0, UN, 17, 4/3/436fd628-c545-4cbf-8100-4e6aa8475868.jpg?1783948576, 0, Power Leak
 198, 198, 0, UN, 6, f/0/f0313c44-d4ca-4021-866a-3d5cf58b0e76.jpg?1783948575, 0, Power Sink
 199, 199, 0, UN, 8, 9/8/98ac9e72-603b-43cf-b959-03552c44ae22.jpg?1783948554, 0, Power Surge
@@ -234,7 +234,7 @@
 234, 234, 0, UN, 5, 0/c/0c907ef4-a2cf-4e7a-acf6-f187308ff303.jpg?1783948574, 0, Siren's Call
 235, 235, 0, UN, 7, d/1/d1349af8-a709-4535-b532-eb769289906d.jpg?1783948573, 0, Sleight of Mind
 236, 236, 0, UN, 11, 4/d/4d2553c0-1105-4eed-baf2-e13f1005dfb7.jpg?1783948551, 0, Smoke
-237, 237, 0, UN, 2, e/0/e07f656c-97b5-4147-821a-edbb49f34e19.jpg?1783948530, 0, Sol Ring
+237, 237, 0, UN, 2, /sol-ring.png, 0, Sol Ring
 238, 238, 0, UN, 15, 0/f/0f586dd9-bb47-411d-9652-05de4651b146.jpg?1783948530, 0, Soul Net
 239, 239, 0, UN, 24, 9/e/9ec03950-80f7-4783-9b65-f2538436c9be.jpg?1783948573, 0, Spell Blast
 240, 240, 0, UN, 25, 5/9/5902c2aa-c77c-4c6a-9a1e-77cb9bb53aa1.jpg?1783948573, 0, Stasis
@@ -253,8 +253,8 @@
 253, 253, 0, UN, 5, 5/a/5a242eb1-8625-4063-9376-a1df32547b58.jpg?1783948530, 0, Throne of Bone
 254, 254, 0, UN, 4, 0/d/0d24fc87-7b30-4c99-a525-b1746821391c.jpg?1783948542, 62, Timber Wolves
 255, 255, 0, UN, 2, 0/b/0b64dd0f-2e99-41bd-87aa-f623582d64d0.jpg?1783948530, 0, Time Vault
-256, 256, 0, UN, 10, a/d/ade7d00d-4e7b-46e9-ace1-63f628a589fc.jpg?1783948572, 0, Time Walk
-257, 257, 0, UN, 2, 0/1/01bda3d7-122a-48a0-bab3-676c4a557b74.jpg?1783948574, 0, Timetwister
+256, 256, 0, UN, 10, /time-walk.png, 0, Time Walk
+257, 257, 0, UN, 2, /timetwister.png, 0, Timetwister
 258, 258, 0, UN, 8, f/c/fc24f763-4c7f-45e4-933b-573d1ace1ddc.jpg?1783948543, 0, Tranquility
 259, 259, 0, UN, 11, 8/5/856bf0ba-e5a5-47eb-9a6a-111935088c31.jpg?1783948527, 0, Tropical Island
 260, 260, 0, UN, 6, b/8/b8328ddc-d2d9-47d3-a98b-1a7c7b0c75a3.jpg?1783948541, 0, Tsunami
@@ -286,7 +286,7 @@
 286, 286, 0, UN, 12, c/4/c498c898-1671-4632-b69a-0e1e9b8d05b8.jpg?1783948570, 77, Water Elemental
 287, 287, 0, UN, 8, b/1/b1646d85-2396-445c-9bbb-65bf65b0a63c.jpg?1783948561, 0, Weakness
 288, 288, 0, UN, 0, 6/f/6fbbac49-9117-4e15-89e8-98387f7511ed.jpg?1783948540, 0, Web
-289, 289, 0, UN, 18, 4/4/4407fb95-0ed2-4c95-91b9-09eb52bf537e.jpg?1783948551, 0, Wheel of Fortune
+289, 289, 0, UN, 18, /wheel-of-fortune.png, 0, Wheel of Fortune
 290, 290, 0, UN, 18, 8/e/8e4c578c-1c36-4c29-86a5-7a664ffe34d0.jpg?1783948582, 78, White Knight
 291, 291, 0, UN, 9, 7/7/77cbc0fa-d5b8-412a-bdca-7f62d8d1ce1e.jpg?1783948583, 0, White Ward
 292, 292, 0, UN, 7, b/7/b7425741-5d7c-4016-8d42-ec8b7353116b.jpg?1783948540, 0, Wild Growth
@@ -389,7 +389,7 @@
 389, 389, 0, AQ, 11, 2/2/2249fc40-4412-48fd-800a-7ea3678aee3f.jpg?1783948369, 0, Atog
 390, 390, 0, AQ, 12, f/7/f7a69e35-d209-41c0-aa3c-c78414617075.jpg?1783948365, 109, Battering Ram
 391, 391, 0, AQ, 23, 6/f/6fb10552-dd47-4f8a-ac7c-8c2b61e56736.jpg?1783948364, 0, Bronze Tablet
-392, 392, 0, AQ, 8, 3/5/35a335bf-7358-460f-b7c9-1e8bc4300f64.jpg?1783948364, 110, Candelabra of Tawnos
+392, 392, 0, AQ, 8, /candelabra-of-tawnos.png, 110, Candelabra of Tawnos
 393, 393, 0, AQ, 33, 2/2/22ebd5a3-fef8-4097-b038-89a6cb38227d.jpg?1783948373, 0, Circle of Protection: Artifacts
 394, 394, 0, AQ, 12, f/8/f8a130dc-3b1f-4fae-8459-b26bb5647fec.jpg?1783948366, 111, Citanul Druid
 395, 395, 0, AQ, 11, 6/4/64975352-8d35-4d02-94ac-fa0c6ee12409.jpg?1783948364, 112, Clay Statue

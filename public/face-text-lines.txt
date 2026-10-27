@@ -6965,7 +6965,7 @@ Whenever a creature an opponent controls is put into a graveyard from play, you 
 <this>'s toughness is equal to the number of Forests in play.
 You and target opponent each gain control of all creatures the other controls until end of turn. Untap those creatures. Those creatures gain haste until end of turn.
 Whenever equipped creature deals combat damage, put two charge counters on <this>.
-Remove a charge counter from <this>: Choose one -  Equipped creature gets +2/+2 until end of turn; or target creature gets -1/-1 until end of turn; or you gain 2 life.
+Remove a charge counter from <this>: Choose one - Equipped creature gets +2/+2 until end of turn; or target creature gets -1/-1 until end of turn; or you gain 2 life.
 Target creature gets +4/+4 until end of turn. If it's a Spirit, it gains trample until end of turn.
 Target creature is unblockable and can't be the target of spells or abilities this turn.
 Splice onto Arcane-Return a blue creature you control to its owner's hand.

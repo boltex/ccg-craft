@@ -850,6 +850,11 @@ async function initializeArtPreferences(): Promise<void> {
     if (savedHighResolution === null) {
         // Had no saved preference, default to high resolution. also clear DB because low-resolution art might be incompatible.
         await clearCachedFaceArt();
+        try {
+            window.localStorage.setItem(HIGH_RESOLUTION_ART_STORAGE_KEY, "true");
+        } catch (error) {
+            console.error("Failed to save default art resolution preference:", error);
+        }
         await updateStatistics();
     }
 

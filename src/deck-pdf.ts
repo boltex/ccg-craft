@@ -164,6 +164,10 @@ export async function generateConstructedDeckPdf(input: GenerateConstructedDeckP
         throw new Error(`Decklist is too big: ${decklistCards.length} cards (max ${constants.maxCardsInDeck}).`);
     }
 
+    if (decklistCards.length === 0) {
+        throw new Error("No cards found with those names.");
+    }
+
     if (input.artLoadingOptions.useDatabase) {
         await preloadCardArtForCards(decklistCards, input.cardDatabase, input.artLoadingOptions, input.onProgress);
     }

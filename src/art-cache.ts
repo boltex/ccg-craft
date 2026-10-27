@@ -1,10 +1,11 @@
 import { Unzip, UnzipInflate, zipSync, type UnzipFile, type Zippable } from "fflate";
 import type { CachedFaceArt } from "./types";
+import { isWebPBlob } from "./image-normalize";
 
 const ART_CACHE_DB_NAME = "ccg-craft-art";
 const ART_CACHE_DB_VERSION = 2;
 const FACE_ART_STORE_NAME = "faceArt";
-const ART_CACHE_ZIP_ENTRY_PATTERN = /^(\d+)\.webp$/i;
+const ART_CACHE_ZIP_ENTRY_PATTERN = /^(\d+)\.(webp|png)$/i;
 const ART_CACHE_IMPORT_BATCH_SIZE = 200;
 
 let databasePromise: Promise<IDBDatabase> | undefined;
@@ -186,10 +187,11 @@ export async function exportCachedFaceArt(): Promise<Blob> {
     const files: Zippable = {};
 
     for (const record of records) {
-        files[`${record.faceSerial}.webp`] = new Uint8Array(await record.blob.arrayBuffer());
+        const extension = (await isWebPBlob(record.blob)) ? "webp" : "png";
+        files[`${record.faceSerial}.${extension}`] = new Uint8Array(await record.blob.arrayBuffer());
     }
 
-    // Images are already WebP-compressed, so DEFLATE (level > 0) would just burn CPU for no size benefit.
+    // Images are already compressed (WebP or PNG), so DEFLATE (level > 0) would just burn CPU for no size benefit.
     const zipped = zipSync(files, { level: 0 });
 
     return new Blob([zipped], { type: "application/zip" });
@@ -220,6 +222,7 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
         }
 
         const faceSerial = Number.parseInt(match[1], 10);
+        const mimeType = match[2].toLowerCase() === "png" ? "image/png" : "image/webp";
         const chunks: Uint8Array[] = [];
         entry.ondata = (error, chunk, final) => {
             if (error) {
@@ -233,7 +236,7 @@ export async function importCachedFaceArt(file: Blob): Promise<{ importedCount: 
 
             batch.push({
                 faceSerial,
-                blob: new Blob(chunks as BlobPart[], { type: "image/webp" }),
+                blob: new Blob(chunks as BlobPart[], { type: mimeType }),
             });
             importedCount += 1;
             if (batch.length >= ART_CACHE_IMPORT_BATCH_SIZE) {

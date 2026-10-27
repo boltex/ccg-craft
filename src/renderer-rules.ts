@@ -296,6 +296,8 @@ export function fitRulesText(
     let fallbackLayout!: FittedRulesLayout;
     let biggestPass = true;
 
+    const isTextOrphanException = constants.textOrphanExceptionCardNames.includes(face.name);
+
     for (const size of candidateSizes) {
         const scaledFontSize = size * scale;
         const symbolSize = scaledFontSize;
@@ -329,7 +331,7 @@ export function fitRulesText(
             // 2- that rule textline wraps to exactly a second line. lines.length === 2
             // 3- that second line only has one token. lines[1].tokens.length === 1
             // (also checking biggestPass because technically this can only happen on the first pass, but just in case)
-            if (biggestPass && face.textLines.length === 1 && lines.length === 2 && lines[1].tokens.length === 1) {
+            if (biggestPass && !isTextOrphanException && face.textLines.length === 1 && lines.length === 2 && lines[1].tokens.length === 1) {
                 continue; // skip this font size and try the next smaller one
             }
 

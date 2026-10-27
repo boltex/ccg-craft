@@ -765,6 +765,12 @@ function setStatistics(message: string): void {
 
 async function updateStatistics(note?: string): Promise<void> {
     const cachedArtCount = await getCachedFaceArtCount();
+    if (exportArtCacheButton) {
+        exportArtCacheButton.disabled = cachedArtCount === 0;
+    }
+    if (clearArtCacheButton) {
+        clearArtCacheButton.disabled = cachedArtCount === 0;
+    }
     const { totalCards, totalCardNames, totalFaces } = cardDatabase.stats;
     const summary = `Total cards: ${totalCards}, Card names: ${totalCardNames}, Total faces: ${totalFaces}, Cached art: ${cachedArtCount}`;
     if (note) {
@@ -850,6 +856,11 @@ async function initializeArtPreferences(): Promise<void> {
     if (savedHighResolution === null) {
         // Had no saved preference, default to high resolution. also clear DB because low-resolution art might be incompatible.
         await clearCachedFaceArt();
+        try {
+            window.localStorage.setItem(HIGH_RESOLUTION_ART_STORAGE_KEY, "true");
+        } catch (error) {
+            console.error("Failed to save default art resolution preference:", error);
+        }
         await updateStatistics();
     }
 

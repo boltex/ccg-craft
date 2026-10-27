@@ -337,3 +337,8 @@ export const BasicLandNames = [
     "Wastes",
     "Snow-Covered Wastes",
 ];
+
+export const textOrphanExceptionCardNames = [
+    "Tunnel",
+    "Burrowing"
+];

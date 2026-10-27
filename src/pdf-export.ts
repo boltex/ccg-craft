@@ -153,7 +153,7 @@ export async function generateDeckPdf(input: GenerateDeckPdfInput, logFunction?:
         // This is where the logic for arranging cards on the PDF page will go.
 
         if (logFunction) {
-            logFunction(`Starting page ${pageCount}`);
+            logFunction(`Generating page ${pageCount}... Please wait.`);
         }
 
         for (let row = 0; row < maxSheetRows; row++) {

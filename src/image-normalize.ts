@@ -20,6 +20,42 @@ type CropRect = {
     height: number;
 };
 
+export async function isWebPBlob(blob: Blob): Promise<boolean> {
+    if (blob.size < 12) {
+        return false;
+    }
+    const head = new Uint8Array(await blob.slice(0, 12).arrayBuffer());
+    const fourCC = (offset: number) => String.fromCharCode(head[offset], head[offset + 1], head[offset + 2], head[offset + 3]);
+    return fourCC(0) === "RIFF" && fourCC(8) === "WEBP";
+}
+
+let webPEncodeSupport: Promise<boolean> | undefined;
+
+// Browsers that cannot encode WebP silently return a PNG from canvas.toBlob(), so probe once with a real encode.
+export function canEncodeWebP(): Promise<boolean> {
+    webPEncodeSupport ??= new Promise<boolean>(resolve => {
+        try {
+            const canvas = document.createElement("canvas");
+            canvas.width = 1;
+            canvas.height = 1;
+            canvas.toBlob(blob => {
+                (blob ? isWebPBlob(blob) : Promise.resolve(false)).then(resolve, () => resolve(false));
+            }, "image/webp", 1.0);
+        } catch {
+            resolve(false);
+        }
+    });
+
+    return webPEncodeSupport;
+}
+
+export async function getArtMimeType(requested: string = "image/webp"): Promise<string> {
+    if (requested === "image/webp" && !(await canEncodeWebP())) {
+        return "image/png";
+    }
+    return requested;
+}
+
 export async function createSourceArtBitmap(sourceBlob: Blob): Promise<ImageBitmap> {
     if (typeof createImageBitmap !== "function") {
         throw new Error("This browser does not support createImageBitmap().");
@@ -36,7 +72,7 @@ export async function normalizeFaceArtBitmap(
 
     const targetWidth = options.targetWidth ?? normalizedFaceArtWidth;
     const targetHeight = options.targetHeight ?? normalizedFaceArtHeight;
-    const mimeType = options.mimeType ?? "image/webp";
+    const mimeType = await getArtMimeType(options.mimeType);
     const quality = options.quality ?? 1.0; // Full quality no loss by default
 
     // Already perfectly sized: skip the blur and resize, only re-encode.
@@ -51,7 +87,7 @@ export async function normalizeFaceArtBitmap(
         }
         exactContext.drawImage(sourceBitmap, 0, 0);
         const exactBlob = await canvasToBlob(exactCanvas, mimeType, quality);
-        return { blob: await stripWebPMetadata(exactBlob) };
+        return { blob: await stripIfWebP(exactBlob) };
     }
 
     // --- STEP 1: DESTROY MOIRÉ AT ORIGINAL SIZE ---
@@ -76,7 +112,7 @@ export async function normalizeFaceArtBitmap(
     offContext.filter = "none";
 
     // Now use the offscreen canvas as the source for further processing
-    sourceBitmap = await createSourceArtBitmap(await canvasToBlob(offCanvas, "image/webp", 1.0));
+    sourceBitmap = await createSourceArtBitmap(await canvasToBlob(offCanvas, await getArtMimeType(), 1.0));
 
     const cropRect = getFaceCropRect(sourceBitmap, face);
     const canvas = document.createElement("canvas");
@@ -104,7 +140,7 @@ export async function normalizeFaceArtBitmap(
 
     const blob = await canvasToBlob(canvas, mimeType, quality); // webp with quality 1 is lossless, with better compression than PNG.
 
-    const strippedBlob = await stripWebPMetadata(blob); // Make the imagedata even smaller by removing unnecessary metadata.
+    const strippedBlob = await stripIfWebP(blob); // Make the imagedata even smaller by removing unnecessary metadata.
 
     return {
         blob: strippedBlob,
@@ -137,6 +173,11 @@ function getFaceCropRect(sourceBitmap: ImageBitmap, face: PrintableFace): CropRe
         width: sourceBitmap.width,
         height: sourceBitmap.height,
     };
+}
+
+// Only WebP blobs can be stripped; anything else (e.g. a PNG fallback) is kept as is.
+async function stripIfWebP(blob: Blob): Promise<Blob> {
+    return (await isWebPBlob(blob)) ? stripWebPMetadata(blob) : blob;
 }
 
 function canvasToBlob(canvas: HTMLCanvasElement, mimeType: string, quality: number): Promise<Blob> {

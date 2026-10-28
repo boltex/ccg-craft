@@ -60,7 +60,7 @@
 60, 60, 0, UN, 11, 6/9/69f37a32-dc03-49fd-b28b-d091563d3690.jpg?1783948570, 0, Cursed Land
 61, 61, 0, UN, 5, a/1/a184cd2e-e27f-44b0-a8ae-9d861280e469.jpg?1783948537, 0, Cyclopean Tomb
 62, 62, 0, UN, 16, c/4/c4d24ff3-315d-44cd-8c27-d8ad6972e027.jpg?1783948569, 0, Dark Ritual
-63, 63, 0, UN, 19, /darkpack.png, 0, Darkpact
+63, 63, 0, UN, 19, /darkpact.png, 0, Darkpact
 64, 64, 0, UN, 7, d/7/d7604388-752a-463d-95cd-486752a4bd04.jpg?1783948588, 0, Death Ward
 65, 65, 0, UN, 5, f/e/fe9210db-2ab3-42e6-be04-790917092317.jpg?1783948568, 0, Deathgrip
 66, 66, 0, UN, 16, c/3/c3e02432-b8bd-4091-a520-6895313ff141.jpg?1783948568, 0, Deathlace

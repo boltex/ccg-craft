@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="frame-backdrop" aria-hidden="true">
+    <div class="frame-backdrop fouc" aria-hidden="true">
         <!-- data-frame-index matches the constants.frame enum (frameL=0 ... frameZ=7) -->
         <div class="frame-bg" data-frame-index="0"></div>
         <div class="frame-bg" data-frame-index="1"></div>
@@ -41,29 +41,31 @@
         <div id="bg-deco-rectangle">
             <div class="bg-inner-1">
                 <div class="bg-inner-2">
-                    <div class="bg-orange-ball top-left-corner"></div>
-                    <div class="bg-orange-ball top-right-corner"></div>
-                    <div class="bg-orange-ball bottom-left-corner"></div>
-                    <div class="bg-orange-ball bottom-right-corner"></div>
-                    <div class="bg-deco-oval"></div>
-                    <p class="eyebrow" data-text="Félix's">Félix's</p>
-                    <div class="text-wrap medieval" data-text="CCG Craft">
+                    <div class="bg-orange-ball top-left-corner fouc"></div>
+                    <div class="bg-orange-ball top-right-corner fouc"></div>
+                    <div class="bg-orange-ball bottom-left-corner fouc"></div>
+                    <div class="bg-orange-ball bottom-right-corner fouc"></div>
+                    <div class="bg-deco-oval fouc"></div>
+                    <p class="eyebrow fouc" data-text="Félix's">Félix's</p>
+                    <div class="text-wrap medieval fouc" data-text="CCG Craft">
                         <span>CCG Craft</span>
                     </div>
 
+                    <!-- status not fouc, always visible -->
                     <p id="status">Booting...</p>
 
-                    <div class="tagline carolingia">
+                    <div class="tagline carolingia fouc">
                         <div class="tagline-inner">PACKS, SEALED DECKS & SHEETS</div>
                     </div>
                     <!-- Assures fonts get preloaded for proper rendering. -->
-                    <span class="symbol"> </span><span class="exp-front"> </span><span class="exp-back"> </span>
+                    <span class="symbol fouc"> </span><span class="exp-front fouc"> </span><span class="exp-back fouc">
+                    </span>
                 </div>
             </div>
 
         </div>
 
-        <section class="panel">
+        <section class="panel fouc">
             <nav class="deck-nav">
                 <div class="deck-controls">
                     <button type="button" id="border-toggle" title="Toggle White/Black borders">B.B.</button>
@@ -197,7 +199,7 @@
             </div>
         </section>
 
-        <section class="panel overflow-x-hidden">
+        <section class="panel overflow-x-hidden fouc">
             <h2>Card Lookup</h2>
             <p class="text-center mb-0">
                 <input type="text" id="card-lookup" class="mb-20" autocomplete="off"
@@ -209,7 +211,7 @@
             <canvas id="card-preview" width="575" height="800"></canvas>
         </section>
 
-        <footer class="app-footer medieval">
+        <footer class="app-footer medieval fouc">
             <a href="https://boltex.github.io/" target="_blank" rel="noopener noreferrer">About me</a>
             <a href="https://github.com/boltex/ccg-craft" target="_blank" rel="noopener noreferrer">Source code</a>
         </footer>

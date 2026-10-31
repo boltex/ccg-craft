@@ -230,6 +230,8 @@ export class CardDatabase {
         const allEditionsScryDataKeys = Object.keys(this.editionsScryData);
         editionNumber = allEditionsScryDataKeys.findIndex(key => key === edition); // zero based
 
+        const powerToughness = face.powerToughness.map(value => value === 9999 ? "*" : value).join("/");
+
         return {
             serial: faceSerial,
             faceLayout: face.faceType,
@@ -239,7 +241,7 @@ export class CardDatabase {
             typeLine: this.typeData[face.typeLineIndex - 1],
             edition: editionNumber,
             isACreature: face.isACreature,
-            powerToughness: face.isACreature ? `${face.powerToughness[0]}/${face.powerToughness[1]}` : "",
+            powerToughness: face.isACreature ? powerToughness : "",
             textLines: face.textLines.map(index => this.textData[index - 1]?.replaceAll('<this>', this.nameData[face.nameIndex - 1]) || "").filter(line => line !== ""),
             colorState: colorState,
             faceFrame: faceFrame,

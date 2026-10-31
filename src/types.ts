@@ -17,7 +17,7 @@ export type CardFace = {
     manaCostIndex: number;
     typeLineIndex: number;
     isACreature: boolean;
-    powerToughness: number[]; // either empty or has two elements: [power, toughness]
+    powerToughness: number[]; // either empty or has two elements: [power, toughness] 9999 is a special marker for variable power/toughness (e.g., */*)
     textLines: number[]; // array of text lines indexes
 };
 
@@ -30,7 +30,7 @@ export type PrintableFace = {
     typeLine: string;
     edition: number; // Edition number, not abbreviation
     isACreature: boolean;
-    powerToughness: string; // either empty or has two elements: [power, toughness]
+    powerToughness: string; // either empty or has a string representing power/toughness (e.g., "3/3" or "*/*")
     textLines: string[]; // array of text lines indexes
     flavorLines: string[]; // The flavor text line associated with this card face
     artist: string; // Name of the artist

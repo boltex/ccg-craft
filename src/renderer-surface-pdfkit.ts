@@ -74,7 +74,7 @@ const FALLBACK_PDF_FONT_REGISTRY: PdfKitFontRegistry = {
     regularText: "Times-Roman",
     titleText: "Times-Bold",
     flavorText: "Times-Italic",
-    manaSymbols: "Symbol",
+    manaSymbols: "Mana",
     expansionFront: "Helvetica",
     expansionBack: "Helvetica-Bold",
 };

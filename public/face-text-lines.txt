@@ -794,7 +794,7 @@ At end of turn, if <this> dealt damage to an opponent this turn, put a +1/+1 cou
 {T}: Gain control of target Legend as long as you control <this> and <this> remains tapped.
 Each player shuffles his hand into his library, then draws a new hand of as many cards as he had before.
 Tap X target creatures. <this> deals 2 damage to each of those creatures with flying.
-As <this> comes into play, sacrifice any number of untapped Forests. <this> comes into play with a +1/+1 counter for each Forest sacrificed this way.
+As <this> comes into play, sacrifice any number of untapped Forests. <this>’s power and toughness are each equal to the number of Forests sacrificed as it entered.
 {B}{R}{G}, {T}: Target player draws a card.
 Target player reveals his hand and discards all nonland cards from it.
 During your turn, <this>'s power and toughness are each equal to 2 plus the number of Swamps all opponents control. During other players' turns, <this>'s power and toughness are each 2.

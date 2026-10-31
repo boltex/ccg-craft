@@ -52,7 +52,12 @@ export function parseManaCost(manaCost: string): ManaSymbol[] {
 }
 
 export function manaTokenToSymbol(token: string): ManaSymbol | null {
-    const normalized = token.replace(/[{}]/g, "").trim().toUpperCase();
+    let normalized = token.replace(/[{}]/g, "").trim().toUpperCase();
+
+    // 'Tap' symbol is 'C' in the font file. Also a totally white 'A' has to be overprinted on top of it.
+    if (normalized === 'T') {
+        normalized = "C";
+    }
 
     if (!normalized) {
         return null;
@@ -107,9 +112,25 @@ export function drawManaSymbol(
 
     if (!isCompactNumeric) {
         surface.fillText(symbol.code, 0, 0);
+
+        // If the symbol is a 'Tap' symbol, overprint the 'A' on top of it.
+
+        // Apply a white fill style for the 'A' overprint.
+        surface.applyTextStyle({
+            ...baseStyle,
+            fillStyle: utils.toCommaRgb(255, 255, 255),
+        });
+
+
+        if (symbol.code === "C") {
+            surface.fillText("A", 0, 0);
+        }
+
         surface.restore();
         return;
     }
+
+    // Past this point is compact numeric rendering for two-digit mana symbols.
 
     const compactStyle: TextStyle = {
         ...baseStyle,

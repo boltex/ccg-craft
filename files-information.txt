@@ -4,7 +4,7 @@ Fonts used and their possible locations being used.
 medieval.ttf 
  	Card Names
  
-symbols.ttf
+mana.ttf
  	Casting Cost
 	Text Box
 

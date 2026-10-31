@@ -1332,6 +1332,8 @@ async function bootstrap(): Promise<void> {
         }
 
         setStatus("Ready.");
+        // Set css variable "--fouc-opacity" to 1 to prevent flash of unstyled content
+        document.documentElement.style.setProperty("--fouc-opacity", "1");
 
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);

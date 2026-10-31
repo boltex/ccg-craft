@@ -2,7 +2,7 @@
   color-scheme: light;
   --bg: #f4efe7;
   --bg-accent: #e4d5c2;
-  --panel: #efd9cce2;
+  --panel: #efd9ccbd;
   --panel-highlight: #fffaf2;
   --text: #2a2118;
   --muted: #b49976;
@@ -13,6 +13,7 @@
   --button-shadow: rgba(70, 44, 20, 0.22);
   --shadow: 0 18px 40px rgba(76, 52, 28, 0.22);
   --radius: 18px;
+  --fouc-opacity: 0;
 }
 
 * {
@@ -39,6 +40,11 @@ body {
   padding: 32px 20px 20px 20px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.fouc {
+  opacity: var(--fouc-opacity);
+  transition: opacity 750ms ease;
 }
 
 #bg-deco-rectangle {
@@ -485,6 +491,21 @@ h2 {
   transition: background-color 800ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   padding: 20px;
   padding-right: 18px;
+  position: relative;
+}
+
+/* Sits behind the panel's semi-transparent background-color (the panel must not create its own stacking context) */
+.panel::before {
+  content: "";
+  border: 1px solid var(--page-background-color, var(--border));
+  position: absolute;
+  inset: 0px;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: url("./folio.jpg");
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
 }
 
 .app-footer {
@@ -740,6 +761,12 @@ button:disabled {
 
 .row > .col:last-child {
   flex: 1 1 0;
+}
+
+@media (max-width: 520px) {
+  #deck-panel-constructed .row > .col {
+    flex: 0 0 100%;
+  }
 }
 
 .col button {

@@ -757,6 +757,12 @@ button:disabled {
   flex: 1 1 0;
 }
 
+@media (max-width: 520px) {
+  #deck-panel-constructed .row > .col {
+    flex: 0 0 100%;
+  }
+}
+
 .col button {
   margin-bottom: 9px;
 }

@@ -53,7 +53,7 @@ const PDF_FONT_FILES: Array<{ alias: keyof PdfKitFontRegistry; path: string }> =
     { alias: "regularText", path: "plantin.ttf" },
     { alias: "titleText", path: "medieval.ttf" },
     { alias: "flavorText", path: "plantin-italic.ttf" },
-    { alias: "manaSymbols", path: "symbols.ttf" },
+    { alias: "manaSymbols", path: "mana.ttf" },
     { alias: "expansionFront", path: "expansions-f.ttf" },
     { alias: "expansionBack", path: "expansions-b.ttf" },
 ];

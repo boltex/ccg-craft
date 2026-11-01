@@ -156,6 +156,7 @@ const PREVIEW_HISTORY_STORAGE_KEY = "ccg-craft:preview-history";
 const HIGH_RESOLUTION_ART_STORAGE_KEY = "ccg-craft:high-resolution-art";
 const USE_LOCAL_ART_DATABASE_STORAGE_KEY = "ccg-craft:use-local-art-database";
 const WHITE_BORDER_STORAGE_KEY = "ccg-craft:white-border";
+const PACKS_RANDOMIZED_STORAGE_KEY = "ccg-craft:packs-randomized"; // Indicates if packs have been randomized at least once
 const PREVIEW_HISTORY_MAX = 99;
 let previewHistorySaveTimeout: number | undefined;
 
@@ -1055,7 +1056,7 @@ function clearPackSimState(): void {
 }
 
 function resetPacksCollationHandler(): void {
-    if (!window.confirm("Reset all packs collation?")) {
+    if (!window.confirm("Reset all packs collation? (Resets sheet positions and strip sequences to initial states)")) {
         return;
     }
     //Reset any in-memory state related to pack collation.
@@ -1067,10 +1068,12 @@ function resetPacksCollationHandler(): void {
     savePackSimState();
 }
 
-async function randomizePacks(): Promise<void> {
-    if (!generatePdfButton || !window.confirm("Randomize all packs collation?")) {
+async function randomizePacks(askConfirmation = true): Promise<void> {
+    if (!generatePdfButton || (askConfirmation && !window.confirm("Randomize all packs collation?"))) {
         return;
     }
+    setStatus("Randomizing packs...");
+
     generatePdfButton.disabled = true;
     disableDeckTabs();
 
@@ -1089,8 +1092,10 @@ async function randomizePacks(): Promise<void> {
         // console.log(`Randomized pack: ${pack.key} with burn count: ${randomBurnCount}`);
         await new Promise<void>(resolve => window.setTimeout(resolve, 0));
     }
+    setStatus("Packs randomized.");
 
     savePackSimState();
+    window.localStorage.setItem(PACKS_RANDOMIZED_STORAGE_KEY, JSON.stringify(true)); // Set flag indicating packs have been randomized at least once.
 
     enableDeckTabs();
     syncGeneratePdfButton();
@@ -1329,6 +1334,10 @@ async function bootstrap(): Promise<void> {
             requestAnimationFrame(() => {
                 lookupElement.focus({ preventScroll: true });
             });
+        }
+
+        if (window.localStorage.getItem(PACKS_RANDOMIZED_STORAGE_KEY) !== "true") {
+            await randomizePacks(false);
         }
 
         setStatus("Ready.");
